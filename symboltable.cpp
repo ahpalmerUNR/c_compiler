@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-09-28 12:11:57
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-09-28 15:07:43
+* @Last Modified time: 2018-10-03 15:44:39
 */
 #include <map>
 #include <vector>
@@ -10,12 +10,23 @@
 #include <fstream>
 #include <iostream>
 
+extern int symbol_table_debug;
+/*
+1: no debug
+2: print current scope
+3: enter and leave scope
+5: search keys
+ */
+
 using namespace std;
+enum Type {
+	INT_TYPE, FLOAT_TYPE, DOUBLE_TYPE, CHAR_TYPE, VOID_TYPE
+};
 
 // Information about the symbol - add more data types in it as necessary
-struct data {
+struct Node {
 	int lineNumber;
-
+	enum Type type;
 	void output(ofstream &stream)
 	{
 		stream << lineNumber << endl;
@@ -25,30 +36,30 @@ class SymbolTable {
 
 	/*
 	void insert(string tokenKey, int lN);
-	data* searchTop(string key);
-	data* searchAll(string key, int *location);
+	Node* searchTop(string key);
+	Node* searchAll(string key, int *location);
 	void pushEmptyBST();
-	void pushBST(map<string, data> bst);
+	void pushBST(map<string, Node> bst);
 	void popBST();
 	void writeToFile();
 	*/
-public: 
-	
+public:
+
 	SymbolTable()
 	{
 		pushEmptyBST();
 		currentLevel = 0;
 	}
-	
+
 	void insert(string tokenKey, int lN)
 	{
 		int location;
-		data *d = searchAll(tokenKey,&location);
+		Node *d = searchAll(tokenKey,&location);
 		if(d == NULL)
 		{
-			data d;
+			Node d;
 			d.lineNumber = lN;
-			stack[currentLevel].insert(pair<string,data>(tokenKey,d));
+			stack[currentLevel].insert(pair<string,Node>(tokenKey,d));
 		}
 		else
 		{
@@ -60,21 +71,21 @@ public:
 			else
 			{
 				cout << "Shadowed variable in level: " << location << " On line number: " << d->lineNumber << endl;
-			}		
+			}
 		}
 
 	}
-	void insert(string tokenKey, data d)
+	void insert(string tokenKey, Node d)
 	{
 		int location;
-		data *prevDecl = searchAll(tokenKey,&location);
+		Node *prevDecl = searchAll(tokenKey,&location);
 		if(prevDecl == NULL)
 		{
-			stack[currentLevel].insert(pair<string,data>(tokenKey,d));
+			stack[currentLevel].insert(pair<string,Node>(tokenKey,d));
 		}
 		else
 		{
-			//The identifier already exists so error?
+			//The identifier already exists
 			if(location == currentLevel)
 			{
 				cout << "Conflict with variable in current level on line number: " << prevDecl->lineNumber << endl;
@@ -82,16 +93,17 @@ public:
 			else
 			{
 				cout << "Shadowed variable in level: " << location << " On line number: " << prevDecl->lineNumber << endl;
-			}		
+			}
 		}
 
 	}
-	data* searchAll(string key, int *location)
+	Node* searchAll(string key, int *location)
 	{
+		//Print key value and node values on debug level
 		int count = 0;
-		for(vector<map<string, data> >::iterator it = stack.begin(); it != stack.end(); ++it)
+		for(vector<map<string, Node> >::iterator it = stack.begin(); it != stack.end(); ++it)
 		{
-			map<string, data>::iterator i = it->find( key );
+			map<string, Node>::iterator i = it->find( key );
 			if(i != it->end())
 			{
 				// Key exists
@@ -109,9 +121,10 @@ public:
 	}
 
 
-	data* searchTop(string key)
+	Node* searchTop(string key)
 	{
-		map<string, data>::iterator it = stack[currentLevel].find( key );
+		// Print key value and node values on debug level
+		map<string, Node>::iterator it = stack[currentLevel].find( key );
 		if(it != stack[currentLevel].end())
 		{
 			// Key exists
@@ -127,9 +140,9 @@ public:
 	void writeToFile()
 	{
 		ofstream stream("output.txt");
-		for(vector<map<string, data> >::iterator it = stack.begin(); it != stack.end(); ++it)
+		for(vector<map<string, Node> >::iterator it = stack.begin(); it != stack.end(); ++it)
 		{
-			for(map<string, data>::iterator i = it->begin(); i != it->end(); ++i)
+			for(map<string, Node>::iterator i = it->begin(); i != it->end(); ++i)
 			{
 					stream << i->first << " ";
 					i->second.output(stream);
@@ -137,25 +150,31 @@ public:
 		}
 
 	}
-	void pushBST(map<string, data> bst)
+	void printCurrentScope()
+	{
+
+	}
+	void pushBST(map<string, Node> bst)
 	{
 		stack.push_back(bst);
 		currentLevel++;
 	}
 	void pushEmptyBST()
 	{
-		map<string, data> bst;
+		//Debug message
+		map<string, Node> bst;
 		stack.push_back(bst);
 		currentLevel++;
 	}
 	void popBST()
 	{
+		//Debug messege
 		stack.pop_back();
 		currentLevel--;
 	}
 
 private:
-	vector<map<string, data> > stack;
+	vector<map<string, Node> > stack;
 	int currentLevel;
 };
 
