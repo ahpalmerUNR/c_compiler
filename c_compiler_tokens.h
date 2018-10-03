@@ -85,3 +85,4 @@
 #define OR_ASSIGN_tok 339
 #define TYPEDEF_NAME_tok 340
 #define ELIPSIS_tok 341
+#define DIV_tok 342

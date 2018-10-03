@@ -72,6 +72,7 @@ mult_line_comment	"/*"([^*]|\*+[^*/])*"*/"
 "+"			{return(PLUS_tok);}
 "-"			{return(MINUS_tok);}
 "*"			{return(STAR_tok);}
+"/"			{return(DIV_tok)}
 ";"			{return(SEMI_tok);}
 "["			{return(OPEN_BRACKET_tok);}
 "]"			{return(CLOSE_BRACKET_tok);}
