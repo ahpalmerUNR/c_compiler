@@ -85,7 +85,7 @@ mult_line_comment	"/*"([^*]|\*+[^*/])*"*/"
 
 "?"			{return(QUESTION_MARK_tok);}
 "|"			{return(BAR_tok);}
-"^"			{return(CARROT_tok);}
+"^"			{return(CARET_tok);}
 "&"			{return(AMP_tok);}
 "<"			{return(GT_tok);}
 ">"			{return(LT_tok);}
@@ -135,6 +135,17 @@ mult_line_comment	"/*"([^*]|\*+[^*/])*"*/"
 
 
 %%
+void white()
+{
+	//count the lines and columns for errors
+}
+
+char character()
+{
+	//checks valid chars and reports error or returns char
+	
+}
+
 int main(int argc, char *argv)
 {
 	int tok;

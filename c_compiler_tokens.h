@@ -48,7 +48,7 @@
 #define CLOSE_BRACE_tok 304
 #define QUESTION_MARK_tok 305
 #define BAR_tok 306
-#define CARROT_tok 307
+#define CARET_tok 307
 #define AMP_tok 308
 #define GT_tok 309
 #define LT_tok 310
