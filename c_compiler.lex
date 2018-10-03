@@ -9,6 +9,7 @@
 %{
 #include <stdio.h>
 #include "c_compiler_tokens.h"
+#include "symboltable.cpp"
 
 extern int lex_debug_level;
 extern int symbol_table_debug;
@@ -100,7 +101,7 @@ mult_line_comment	"/*"([^*]|\*+[^*/])*"*/"
 
 {int}		{return(INTEGER_CONSTANT_tok);}
 {float}		{return(FLOATING_CONSTANT_tok);}
-{character}	{printf("%ld\n",sizeof(yytext));return(CHARACTER_CONSTANT_tok);}
+{character}	{if(lex_debug_level >= 2){printf("%ld\n",sizeof(yytext));}return(CHARACTER_CONSTANT_tok);}
 {string}	{return(STRING_LITERAL_tok);}
 
 
@@ -151,6 +152,13 @@ char character()
 int main(int argc, char *argv)
 {
 	int tok;
+	SymbolTable s;
+	//s.insert("KEY",Data);
+	s.pushEmptyBST();
+	s.popBST();
+	//s.searchTop("KEY");//returns pointer to node
+	//s.searchAll("KEY");//returns pointer
+	//s.writeToFile();//dumps table to file
 	while(tok = yylex())
 	{
 	
