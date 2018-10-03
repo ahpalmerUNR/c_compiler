@@ -20,14 +20,14 @@ extern int yacc_debug_level;
 /************************************************************************/
 
 delim	[ \t\n]
-escapes	["\a"|"\b"|"\f"|"\n"|"\r"|"\t"|"\v"|"\\"|"\'"|"\""|"\?"]
 ws	{delim}+
 letter	[A-Za-z]
 digit	[0-9]
 int [-+]?{digit}+
 id	({letter}|_+({letter}|{digit}))+({letter}|{digit}|_)*
 float	[-+]?{digit}*\.?{digit}+([eE][+-]?[0-9]+)?
-character (\'(.|{escapes})\'|\"(.|{escapes})\")
+character 	\'([^\']|\\.*)\'
+string		\"[^\"]*\"
 line_comment	"//".*\n
 mult_line_comment	"/*"([^*]|\*+[^*/])*"*/"
 
@@ -98,8 +98,8 @@ mult_line_comment	"/*"([^*]|\*+[^*/])*"*/"
 
 {int}		{return(INTEGER_CONSTANT_tok);}
 {float}		{return(FLOATING_CONSTANT_tok);}
-{character}	{return(CHARACTER_CONSTANT_tok);}
-
+{character}	{printf("%ld\n",sizeof(yytext));return(CHARACTER_CONSTANT_tok);}
+{string}	{return(STRING_LITERAL_tok);}
 
 
 "<-"		{return(PTR_OP_tok);}
