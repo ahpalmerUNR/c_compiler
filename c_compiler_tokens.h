@@ -86,3 +86,4 @@
 #define TYPEDEF_NAME_tok 340
 #define ELIPSIS_tok 341
 #define DIV_tok 342
+#define PERIOD_tok 343
