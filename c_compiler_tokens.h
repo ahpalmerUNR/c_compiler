@@ -31,11 +31,8 @@
 #define VOID_tok 287
 #define VOLATILE_tok 288
 #define WHILE_tok 289
-
 #define ERROR_tok 290
-
 #define ID_tok 291
-
 #define PLUS_tok 292
 #define MINUS_tok 293
 #define STAR_tok 294
@@ -49,7 +46,6 @@
 #define CLOSE_PAREN_tok 302
 #define OPEN_BRACE_tok 303
 #define CLOSE_BRACE_tok 304
-
 #define QUESTION_MARK_tok 305
 #define BAR_tok 306
 #define CARROT_tok 307
@@ -57,7 +53,6 @@
 #define GT_tok 309
 #define LT_tok 310
 #define PERCENT_tok 311
-
 #define TILDA_tok 312
 #define NOT_tok 313
 #define INC_OP_tok 314
@@ -76,10 +71,8 @@
 #define GE_OP_tok 325
 #define EQ_OP_tok 326
 #define NE_OP_tok 327
-
 #define AND_OP_tok 328
 #define OR_OP_tok 329
-
 #define MULT_ASSIGN_tok 330
 #define DIV_ASSIGN_tok 331
 #define MOD_ASSIGN_tok 332
@@ -90,7 +83,5 @@
 #define AND_ASSIGN_tok 337
 #define XOR_ASSIGN_tok 338
 #define OR_ASSIGN_tok 339
-
 #define TYPEDEF_NAME_tok 340
 #define ELIPSIS_tok 341
-

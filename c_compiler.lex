@@ -9,6 +9,10 @@
 %{
 #include <stdio.h>
 #include "c_compiler_tokens.h"
+
+extern int lex_debug_level;
+extern int symbol_table_debug;
+extern int yacc_debug_level;
 %}
 
 /************************************************************************/
@@ -16,13 +20,18 @@
 /************************************************************************/
 
 delim	[ \t\n]
+escapes	["\a"|"\b"|"\f"|"\n"|"\r"|"\t"|"\v"|"\\"|"\'"|"\""|"\?"]
 ws	{delim}+
 letter	[A-Za-z]
 digit	[0-9]
 int [-+]?{digit}+
-id	{letter}|_({letter}|{digit}|_)*
+id	({letter}|_+({letter}|{digit}))+({letter}|{digit}|_)*
 float	[-+]?{digit}*\.?{digit}+([eE][+-]?[0-9]+)?
-char {letters}+
+character (\'(.|{escapes})\'|\"(.|{escapes})\")
+line_comment	"//".*\n
+mult_line_comment	"/*"([^*]|\*+[^*/])*"*/"
+
+
 %%
 {ws}		{}
 "auto"		{return(AUTO_tok);}
@@ -58,6 +67,8 @@ char {letters}+
 "volatile"	{return(VOLATILE_tok);}
 "while"		{return(WHILE_tok);}
 
+{id}		{return(ID_tok);}
+
 "+"			{return(PLUS_tok);}
 "-"			{return(MINUS_tok);}
 "*"			{return(STAR_tok);}
@@ -87,6 +98,8 @@ char {letters}+
 
 {int}		{return(INTEGER_CONSTANT_tok);}
 {float}		{return(FLOATING_CONSTANT_tok);}
+{character}	{return(CHARACTER_CONSTANT_tok);}
+
 
 
 "<-"		{return(PTR_OP_tok);}
@@ -113,6 +126,22 @@ char {letters}+
 
 "..."		{return(ELIPSIS_tok);}
 
+{mult_line_comment}		{printf("%s",yytext);}
+{line_comment}			{printf("%s",yytext);}
+
+
+.			{return(ERROR_tok);}
+
 
 
 %%
+int main(int argc, char *argv)
+{
+	int tok;
+	while(tok = yylex())
+	{
+	
+		printf("%d\n",tok);
+	}
+	return 0;	
+}
