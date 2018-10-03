@@ -33,6 +33,13 @@ class SymbolTable {
 	void writeToFile();
 	*/
 public: 
+	
+	SymbolTable()
+	{
+		pushEmptyBST();
+		currentLevel = 0;
+	}
+	
 	void insert(string tokenKey, int lN)
 	{
 		int location;
@@ -41,16 +48,44 @@ public:
 		{
 			data d;
 			d.lineNumber = lN;
-			stack[0].insert(pair<string,data>(tokenKey,d));
+			stack[currentLevel].insert(pair<string,data>(tokenKey,d));
 		}
 		else
 		{
 			//The identifier already exists so error?
-			cout << "Shadowed variable in level: " << location << " On line number: " << d->lineNumber << endl;
+			if(location == currentLevel)
+			{
+				cout << "Conflict with variable in current level on line number: " << d->lineNumber << endl;
+			}
+			else
+			{
+				cout << "Shadowed variable in level: " << location << " On line number: " << d->lineNumber << endl;
+			}		
 		}
 
 	}
+	void insert(string tokenKey, data d)
+	{
+		int location;
+		data *prevDecl = searchAll(tokenKey,&location);
+		if(prevDecl == NULL)
+		{
+			stack[currentLevel].insert(pair<string,data>(tokenKey,d));
+		}
+		else
+		{
+			//The identifier already exists so error?
+			if(location == currentLevel)
+			{
+				cout << "Conflict with variable in current level on line number: " << prevDecl->lineNumber << endl;
+			}
+			else
+			{
+				cout << "Shadowed variable in level: " << location << " On line number: " << prevDecl->lineNumber << endl;
+			}		
+		}
 
+	}
 	data* searchAll(string key, int *location)
 	{
 		int count = 0;
@@ -76,8 +111,8 @@ public:
 
 	data* searchTop(string key)
 	{
-		map<string, data>::iterator it = stack[0].find( key );
-		if(it != stack[0].end())
+		map<string, data>::iterator it = stack[currentLevel].find( key );
+		if(it != stack[currentLevel].end())
 		{
 			// Key exists
 			//cout << "Key exists" << endl;
@@ -105,34 +140,22 @@ public:
 	void pushBST(map<string, data> bst)
 	{
 		stack.push_back(bst);
+		currentLevel++;
 	}
 	void pushEmptyBST()
 	{
 		map<string, data> bst;
 		stack.push_back(bst);
+		currentLevel++;
 	}
 	void popBST()
 	{
 		stack.pop_back();
+		currentLevel--;
 	}
 
 private:
 	vector<map<string, data> > stack;
+	int currentLevel;
 };
-// Driver for now need to test other things still
-int main()
-{
-	SymbolTable s;
-	map<string, data> bst;
-	s.pushBST(bst);
-	s.insert("1",1);
-	s.insert("2",2);
-	s.insert("3",3);
-	s.insert("1",21);
-	s.pushEmptyBST();
-	s.insert("4",21);
 
-	s.writeToFile();
-
-
-	}
