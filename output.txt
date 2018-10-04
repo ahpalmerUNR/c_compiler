@@ -1,5 +1,5 @@
-1 1
-2 2
-3 3
-4 7
-5 8
+Level: 0 Key: 1 Line: 1 Type: 0
+Level: 0 Key: 2 Line: 2 Type: 0
+Level: 0 Key: 3 Line: 3 Type: 0
+Level: 1 Key: 4 Line: 7 Type: 0
+Level: 1 Key: 5 Line: 8 Type: 0

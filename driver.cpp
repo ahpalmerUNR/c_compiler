@@ -1,30 +1,32 @@
-#include"symboltable.cpp"
-
+#include"symboltable.h"
+// Will be in parser
+int symbol_table_debug;
 int main()
 {
 
 	SymbolTable s;
 	// Test insert
-	s.insert("1",1);
-	s.insert("2",2);
-	s.insert("3",3);
+	s.insert("1",1,INT_TYPE);
+	s.insert("2",2,FLOAT_TYPE);
+	s.insert("3",3,DOUBLE_TYPE);
 	// Should be a conflict
-	s.insert("1",4);
+	s.insert("1",4,CHAR_TYPE);
 	// Add a new level
 	s.pushEmptyBST();
 
 	// Insert into second level BST
-	s.insert("4",5);
+	s.insert("4",5,VOID_TYPE);
 	//Should be shadowed
-	s.insert("2",6);
+	s.insert("2",6,INT_TYPE);
 	// Pop a level
 	s.popBST();
 	// Push a new level
 	s.pushEmptyBST();
 	// Shouldnt produce a problem
-	s.insert("4",7);
+	s.insert("4",7,INT_TYPE);
 	Node dat;
 	dat.lineNumber = 8;
+	dat.type = VOID_TYPE;
 	s.insert("5",dat);
 	// Should return pointer to node on line 7
 	Node *d = s.searchTop("4");
@@ -37,6 +39,7 @@ int main()
 	if(d != NULL)
  		cout << "This line number should be 2 for level 0. Line: " << d->lineNumber << ". Level: " << loc << endl ;
 
+	//s.printCurrentScope();
 	// Write the stack of BST to the file
 	s.writeToFile();
 
