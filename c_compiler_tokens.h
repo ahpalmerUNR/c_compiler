@@ -87,3 +87,9 @@
 #define ELIPSIS_tok 341
 #define DIV_tok 342
 #define PERIOD_tok 343
+
+
+int lex_debug_level;
+int symbol_table_debug;
+int yacc_debug_level;
+int insert_lookup;
