@@ -7,9 +7,11 @@ Website:
 
 Debug:
 !!S ==> dump symbol table to file
+
 !!T(#between 2 and 210) ==> symbol table
 !!L(#between 2 and 210) ==> lex
 !!Y(#between 2 and 210) ==> yacc 
+
 
 
 Debug Levels:
