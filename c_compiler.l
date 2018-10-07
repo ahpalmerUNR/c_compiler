@@ -19,6 +19,7 @@ extern int insert_lookup;
 int line = 1;
 int column = 0;
 FILE *errorText;
+char *file_name;
 char tmp[80];
 
 void white();
@@ -27,6 +28,8 @@ void mult_line();
 void single_line();
 void print_error();
 void set_debug_level();
+void check_int();
+void check_float();
 %}
 
 /************************************************************************/
@@ -282,12 +285,12 @@ mult_line_comment	"/*"([^*]|\*+[^*/])*"*/"
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("DEC_OP_tok\n");}return(DEC_OP_tok);}
 
-{int}		{column+=yyleng;return(INTEGER_CONSTANT_tok);}
+{int}		{column+=yyleng;check_int();return(INTEGER_CONSTANT_tok);}
 
-{float}		{column+=yyleng;return(FLOATING_CONSTANT_tok);}
+{float}		{column+=yyleng;check_float();return(FLOATING_CONSTANT_tok);}
 
 {character}	{column+=yyleng;if(lex_debug_level >= 2){
-				printf("%ld\n",sizeof(yytext));}return(CHARACTER_CONSTANT_tok);}
+				printf("%ld\n",sizeof(yytext));}character();return(CHARACTER_CONSTANT_tok);}
 				
 {string}	{column+=yyleng;return(STRING_LITERAL_tok);}
 
@@ -380,7 +383,7 @@ mult_line_comment	"/*"([^*]|\*+[^*/])*"*/"
 
 "!!S"			{column+=yyleng; }
 
-.			{column+=yyleng;print_error();
+.			{column+=yyleng;printf("%s",yytext);print_error("Syntax Error: Not Legal Character.");
 				return(ERROR_tok);}
 
 
@@ -449,17 +452,18 @@ void single_line()
 	column = 0;
 }
 
-void print_error()
+void print_error(char *error_msg)
 {	long int offset = ftell(errorText);
 	fgets(tmp,sizeof tmp, errorText);
 	fseek(errorText,offset,SEEK_SET);
+	printf("%s:Line: %d Column: %d %s\n",file_name,line,column,error_msg);
 	printf("%s",tmp);
 	for(int i = column; i>0;i--)
 	{
 		printf("-");
 	}
-	printf("^ Syntax Error\n");
-	printf("columns %d, lines %d\n",column,line);
+	printf("^ \n\n");
+	//printf("columns %d, lines %d\n",column,line);
 }
 
 void set_debug_level()
@@ -490,6 +494,30 @@ void set_debug_level()
 	}
 }
 
+void check_int()
+{
+	long int test_int_down = -2147483648;
+	long int test_int_up = 2147483647;
+	long int test = atol(yytext);
+	
+	//printf("Up %ld, Down %ld, Given %ld\n",test_int_up,test_int_down,test);
+	
+	if(test<test_int_down || test > test_int_up)
+	{
+		print_error("Syntax Error: Int Value Out Of Range.");
+	}
+	
+	//printf("%d",yylval);
+	//return INTEGER_CONSTANT_tok;
+	
+}
+
+void check_float()
+{
+	
+	print_error("Float Value Too Large.");
+}
+
 int main(int argc, char **argv)
 {
 	if(argc==1)
@@ -503,6 +531,7 @@ int main(int argc, char **argv)
 			perror(argv[argc-1]);
 			return(1);
 		}
+		file_name=argv[argc-1];
 		errorText = fopen(argv[argc-1],"r");
 		for(int i=argc-1; i>=1; i--)
 		{
@@ -521,7 +550,7 @@ int main(int argc, char **argv)
 	lex_debug_level = 1;
 	symbol_table_debug = 1;
 	yacc_debug_level = 1;
-	while(tok = yylex())
+	while((tok = yylex()))
 	{
 	
 		//printf("%d\n",tok);
