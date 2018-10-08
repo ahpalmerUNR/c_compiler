@@ -28,6 +28,11 @@ int main()
 	dat.lineNumber = 8;
 	dat.type = VOID_TYPE;
 	s.insert("5",dat);
+
+	s.pushEmptyBST();
+	//Should be shadowed from level 0 line 2
+	s.insert("2",10,FLOAT_TYPE);
+
 	// Should return pointer to node on line 7
 	Node *d = s.searchTop("4");
 	if(d != NULL)
@@ -37,7 +42,7 @@ int main()
 	// Search all should return location 0 for bottom of stack and line 2
 	d = s.searchAll("2",&loc);
 	if(d != NULL)
- 		cout << "This line number should be 2 for level 0. Line: " << d->lineNumber << ". Level: " << loc << endl ;
+ 		cout << "This line number should be 10 for level 2. Line: " << d->lineNumber << ". Level: " << loc << endl ;
 
 	//s.printCurrentScope();
 	// Write the stack of BST to the file

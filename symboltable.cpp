@@ -15,8 +15,8 @@ SymbolTable::SymbolTable()
 void SymbolTable::insert(string tokenKey, int lN, DataType t)
 {
 	int location;
-	Node *d = searchAll(tokenKey,&location);
-	if(d == NULL)
+	Node *prevDecl = searchAll(tokenKey,&location);
+	if(prevDecl == NULL)
 	{
 		Node d;
 		d.lineNumber = lN;
@@ -28,11 +28,15 @@ void SymbolTable::insert(string tokenKey, int lN, DataType t)
 		//The identifier already exists
 		if(location == currentLevel)
 		{
-			cout << "Conflict with variable in current level on line number: " << d->lineNumber << endl;
+			cout << "Conflict with variable in current level on line number: " << prevDecl->lineNumber << endl;
 		}
 		else
 		{
-			cout << "Shadowed variable in level: " << location << " On line number: " << d->lineNumber << endl;
+			cout << "Shadowed variable in level: " << location << " On line number: " << prevDecl->lineNumber << endl;
+			Node d;
+			d.lineNumber = lN;
+			d.type = t;
+			stack[currentLevel].insert(pair<string,Node>(tokenKey,d));
 		}
 	}
 
@@ -55,6 +59,7 @@ void SymbolTable::insert(string tokenKey, Node d)
 		else
 		{
 			cout << "Shadowed variable in level: " << location << " On line number: " << prevDecl->lineNumber << endl;
+			stack[currentLevel].insert(pair<string,Node>(tokenKey,d));
 		}
 	}
 
@@ -62,26 +67,24 @@ void SymbolTable::insert(string tokenKey, Node d)
 Node* SymbolTable::searchAll(string key, int *location)
 {
 	//Print key value and node values on debug level
-	int count = 0;
-	for(vector<map<string, Node> >::iterator it = stack.begin(); it != stack.end(); ++it)
+	for(int i = currentLevel; i >= 0; i--)
 	{
-		map<string, Node>::iterator i = it->find( key );
-		if(i != it->end())
+		map<string, Node>::iterator it = stack[i].find( key );
+		if(it != stack[i].end())
 		{
 			// Key exists
 			if(symbol_table_debug % 5  == 0)
 			{
-				cout << "Level 5 debug: Level: " << count << " Key: " << i->first << " ";
-				i->second.print();
+				cout << "Level 5 debug: Level: " << i << " Key: " << it->first << " ";
+				it->second.print();
 			}
-			*location = count;
-			return &i->second;
+			*location = i;
+			return &it->second;
 		}
 		else
 		{
 			// Key doesnt exist
 		}
-		count++;
 	}
 	if(symbol_table_debug % 5  == 0)
 	{
