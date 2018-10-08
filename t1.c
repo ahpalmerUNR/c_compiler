@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-03 22:57:09
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-10-08 16:07:04
+* @Last Modified time: 2018-10-08 16:11:22
 */
 int main()
 {
@@ -10,8 +10,8 @@ int main()
 	/*
 	Multi Line Comment
 	 */
-	int i = 2147483650;
-	int j = -2147483650;
+	int i_error = 2147483650;
+	int j_error = -2147483650;
 	int i = 2147483620;
 	int j = -2147483620;
 	
