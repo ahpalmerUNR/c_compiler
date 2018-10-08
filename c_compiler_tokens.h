@@ -93,3 +93,4 @@ int lex_debug_level;
 int symbol_table_debug;
 int yacc_debug_level;
 int insert_lookup;
+int yylval;

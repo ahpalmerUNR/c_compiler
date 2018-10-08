@@ -12,6 +12,7 @@
 #include "c_compiler_tokens.h"
 //#include "symboltable.cpp"
 
+extern int yylval;
 extern int lex_debug_level;
 extern int symbol_table_debug;
 extern int yacc_debug_level;
@@ -23,7 +24,7 @@ char *file_name;
 char tmp[80];
 
 void white();
-char character();
+void character();
 void mult_line();
 void single_line();
 void print_error();
@@ -289,10 +290,11 @@ mult_line_comment	"/*"([^*]|\*+[^*/])*"*/"
 
 {float}		{column+=yyleng;check_float();return(FLOATING_CONSTANT_tok);}
 
-{character}	{column+=yyleng;if(lex_debug_level >= 2){
-				printf("%ld\n",sizeof(yytext));}character();return(CHARACTER_CONSTANT_tok);}
+{character}	{column+=yyleng;character();return(CHARACTER_CONSTANT_tok);}
 				
-{string}	{column+=yyleng;return(STRING_LITERAL_tok);}
+{string}	{column+=yyleng;if(lex_debug_level%5==0){
+			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
+			printf("STRING_LITERAL_tok\n");}return(STRING_LITERAL_tok);}
 
 
 "<-"		{column+=yyleng;if(lex_debug_level%5==0){
@@ -383,7 +385,7 @@ mult_line_comment	"/*"([^*]|\*+[^*/])*"*/"
 
 "!!S"			{column+=yyleng; }
 
-.			{column+=yyleng;printf("%s",yytext);print_error("Syntax Error: Not Legal Character.");
+.			{column+=yyleng;print_error("Syntax Error: Not Legal Character.");
 				return(ERROR_tok);}
 
 
@@ -419,10 +421,64 @@ void white()
 	
 }
 
-char character()
+void character()
 {
+	if(lex_debug_level%5==0)
+	{
+		printf("%s ==>",yytext);
+	}
+		
+	if(lex_debug_level%2==0)
+	{
+		printf("CHARACTER_CONSTANT_tok\n");
+	}
+	
+	if(yytext[1]!='\\' && yytext[1]!='\'')
+	{
+		yylval = yytext[1];
+	}
+	else if(yytext[1]=='\\')
+	{
+		switch(yytext[2])
+		{
+			case 'n':
+				yylval = 10;
+				break;
+			case 't':
+				yylval = 9;
+				break;
+			case 'v':
+				yylval = 11;
+				break;
+			case 'b':
+				yylval = 8;
+				break;
+			case 'r':
+				yylval = 13;
+				break;
+			case 'f':
+				yylval = 12;
+				break;
+			case 'a':
+				yylval = 7;
+				break;
+			case '\\':
+				yylval = 92;
+				break;
+			case '\?':
+				yylval = 63;
+				break;
+			case '\'':
+				yylval = 39;
+				break;
+			case '\"':
+				yylval = 34;
+				break;
+			//hex 7F octal 177 max limit
+		}
+	}
+	//printf("%c\n",yylval);
 	//checks valid chars and reports error or returns char
-	return 'a';
 	
 }
 
@@ -456,7 +512,7 @@ void print_error(char *error_msg)
 {	long int offset = ftell(errorText);
 	fgets(tmp,sizeof tmp, errorText);
 	fseek(errorText,offset,SEEK_SET);
-	printf("%s:Line: %d Column: %d %s\n",file_name,line,column,error_msg);
+	printf("ERROR: %s:Line: %d Column: %d %s\n",file_name,line,column,error_msg);
 	printf("%s",tmp);
 	for(int i = column; i>0;i--)
 	{
@@ -496,6 +552,16 @@ void set_debug_level()
 
 void check_int()
 {
+	if(lex_debug_level%5==0)
+	{
+		printf("%s ==>",yytext);
+	}
+		
+	if(lex_debug_level%2==0)
+	{
+		printf("INTEGER_CONSTANT_tok\n");
+	}
+	
 	long int test_int_down = -2147483648;
 	long int test_int_up = 2147483647;
 	long int test = atol(yytext);
@@ -508,14 +574,23 @@ void check_int()
 	}
 	
 	//printf("%d",yylval);
+	yylval = test;
 	//return INTEGER_CONSTANT_tok;
 	
 }
 
 void check_float()
 {
-	
-	print_error("Float Value Too Large.");
+	if(lex_debug_level%5==0)
+	{
+		printf("%s ==>",yytext);
+	}
+		
+	if(lex_debug_level%2==0)
+	{
+		printf("FLOATING_CONSTANT_tok\n");
+	}
+	//print_error("Float Value Too Large.");
 }
 
 int main(int argc, char **argv)
