@@ -7,8 +7,8 @@
 
 #define FLEX_SCANNER
 #define YY_FLEX_MAJOR_VERSION 2
-#define YY_FLEX_MINOR_VERSION 6
-#define YY_FLEX_SUBMINOR_VERSION 0
+#define YY_FLEX_MINOR_VERSION 5
+#define YY_FLEX_SUBMINOR_VERSION 35
 #if YY_FLEX_SUBMINOR_VERSION > 0
 #define FLEX_BETA
 #endif
@@ -161,12 +161,7 @@ typedef unsigned int flex_uint32_t;
 typedef struct yy_buffer_state *YY_BUFFER_STATE;
 #endif
 
-#ifndef YY_TYPEDEF_YY_SIZE_T
-#define YY_TYPEDEF_YY_SIZE_T
-typedef size_t yy_size_t;
-#endif
-
-extern yy_size_t yyleng;
+extern int yyleng;
 
 extern FILE *yyin, *yyout;
 
@@ -175,7 +170,6 @@ extern FILE *yyin, *yyout;
 #define EOB_ACT_LAST_MATCH 2
 
     #define YY_LESS_LINENO(n)
-    #define YY_LINENO_REWIND_TO(ptr)
     
 /* Return all but the first "n" matched characters back to the input stream. */
 #define yyless(n) \
@@ -192,6 +186,11 @@ extern FILE *yyin, *yyout;
 	while ( 0 )
 
 #define unput(c) yyunput( c, (yytext_ptr)  )
+
+#ifndef YY_TYPEDEF_YY_SIZE_T
+#define YY_TYPEDEF_YY_SIZE_T
+typedef size_t yy_size_t;
+#endif
 
 #ifndef YY_STRUCT_YY_BUFFER_STATE
 #define YY_STRUCT_YY_BUFFER_STATE
@@ -281,7 +280,7 @@ static YY_BUFFER_STATE * yy_buffer_stack = 0; /**< Stack as an array. */
 /* yy_hold_char holds the character lost when yytext is formed. */
 static char yy_hold_char;
 static int yy_n_chars;		/* number of characters read into yy_ch_buf */
-yy_size_t yyleng;
+int yyleng;
 
 /* Points to current character in buffer. */
 static char *yy_c_buf_p = (char *) 0;
@@ -309,7 +308,7 @@ static void yy_init_buffer (YY_BUFFER_STATE b,FILE *file  );
 
 YY_BUFFER_STATE yy_scan_buffer (char *base,yy_size_t size  );
 YY_BUFFER_STATE yy_scan_string (yyconst char *yy_str  );
-YY_BUFFER_STATE yy_scan_bytes (yyconst char *bytes,yy_size_t len  );
+YY_BUFFER_STATE yy_scan_bytes (yyconst char *bytes,int len  );
 
 void *yyalloc (yy_size_t  );
 void *yyrealloc (void *,yy_size_t  );
@@ -352,17 +351,11 @@ extern int yylineno;
 int yylineno = 1;
 
 extern char *yytext;
-#ifdef yytext_ptr
-#undef yytext_ptr
-#endif
 #define yytext_ptr yytext
 
 static yy_state_type yy_get_previous_state (void );
 static yy_state_type yy_try_NUL_trans (yy_state_type current_state  );
 static int yy_get_next_buffer (void );
-#if defined(__GNUC__) && __GNUC__ >= 3
-__attribute__((__noreturn__))
-#endif
 static void yy_fatal_error (yyconst char msg[]  );
 
 /* Done after the current pattern has been matched and before the
@@ -414,7 +407,7 @@ static yyconst flex_int16_t yy_accept[233] =
        32,    0
     } ;
 
-static yyconst YY_CHAR yy_ec[256] =
+static yyconst flex_int32_t yy_ec[256] =
     {   0,
         1,    1,    1,    1,    1,    1,    1,    1,    2,    3,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
@@ -446,7 +439,7 @@ static yyconst YY_CHAR yy_ec[256] =
         1,    1,    1,    1,    1
     } ;
 
-static yyconst YY_CHAR yy_meta[63] =
+static yyconst flex_int32_t yy_meta[63] =
     {   0,
         1,    1,    2,    1,    1,    1,    1,    1,    3,    1,
         1,    1,    1,    1,    1,    1,    1,    4,    1,    1,
@@ -457,7 +450,7 @@ static yyconst YY_CHAR yy_meta[63] =
         1,    1
     } ;
 
-static yyconst flex_uint16_t yy_base[241] =
+static yyconst flex_int16_t yy_base[241] =
     {   0,
         0,    0,  447,  592,   61,   64,   64,  412,  395,   62,
       378,  592,  592,  384,   58,  592,   57,   65,   65,   72,
@@ -517,7 +510,7 @@ static yyconst flex_int16_t yy_def[241] =
       235,    0,  232,  232,  232,  232,  232,  232,  232,  232
     } ;
 
-static yyconst flex_uint16_t yy_nxt[655] =
+static yyconst flex_int16_t yy_nxt[655] =
     {   0,
         4,    5,    6,    5,    7,    8,    9,   10,   11,   12,
        13,   14,   15,   16,   17,   18,   19,   20,   21,   22,
@@ -683,14 +676,14 @@ int yy_flex_debug = 0;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "c_compiler.l"
+#line 1 "c_compiler.lex"
 /************************************************************************/
 /*                                                                      */
 /* FILE    : c_compiler.lex                                             */
 /* PURPOSE : to cause pain and suffering                                */
 /*                                                                      */
 /************************************************************************/
-#line 10 "c_compiler.l"
+#line 10 "c_compiler.lex"
 #include <stdio.h>
 #include <stdlib.h>
 #include "c_compiler_tokens.h"
@@ -714,11 +707,12 @@ void single_line();
 void print_error();
 void set_debug_level();
 void check_int();
+int id_token();
 void check_float();
 /************************************************************************/
 /* Regular Definitions                                                  */
 /************************************************************************/
-#line 722 "lex.yy.c"
+#line 716 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -751,19 +745,19 @@ void yyset_extra (YY_EXTRA_TYPE user_defined  );
 
 FILE *yyget_in (void );
 
-void yyset_in  (FILE * _in_str  );
+void yyset_in  (FILE * in_str  );
 
 FILE *yyget_out (void );
 
-void yyset_out  (FILE * _out_str  );
+void yyset_out  (FILE * out_str  );
 
-yy_size_t yyget_leng (void );
+int yyget_leng (void );
 
 char *yyget_text (void );
 
 int yyget_lineno (void );
 
-void yyset_lineno (int _line_number  );
+void yyset_lineno (int line_number  );
 
 /* Macros after this point can all be overridden by user definitions in
  * section 1.
@@ -777,12 +771,8 @@ extern int yywrap (void );
 #endif
 #endif
 
-#ifndef YY_NO_UNPUT
-    
     static void yyunput (int c,char *buf_ptr  );
     
-#endif
-
 #ifndef yytext_ptr
 static void yy_flex_strncpy (char *,yyconst char *,int );
 #endif
@@ -895,7 +885,7 @@ extern int yylex (void);
 
 /* Code executed at the end of each rule. */
 #ifndef YY_BREAK
-#define YY_BREAK /*LINTED*/break;
+#define YY_BREAK break;
 #endif
 
 #define YY_RULE_SETUP \
@@ -905,10 +895,14 @@ extern int yylex (void);
  */
 YY_DECL
 {
-	yy_state_type yy_current_state;
-	char *yy_cp, *yy_bp;
-	int yy_act;
+	register yy_state_type yy_current_state;
+	register char *yy_cp, *yy_bp;
+	register int yy_act;
     
+#line 54 "c_compiler.lex"
+
+#line 905 "lex.yy.c"
+
 	if ( !(yy_init) )
 		{
 		(yy_init) = 1;
@@ -935,12 +929,7 @@ YY_DECL
 		yy_load_buffer_state( );
 		}
 
-	{
-#line 53 "c_compiler.l"
-
-#line 942 "lex.yy.c"
-
-	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
+	while ( 1 )		/* loops until end-of-file is reached */
 		{
 		yy_cp = (yy_c_buf_p);
 
@@ -956,7 +945,7 @@ YY_DECL
 yy_match:
 		do
 			{
-			YY_CHAR yy_c = yy_ec[YY_SC_TO_UI(*yy_cp)] ;
+			register YY_CHAR yy_c = yy_ec[YY_SC_TO_UI(*yy_cp)];
 			if ( yy_accept[yy_current_state] )
 				{
 				(yy_last_accepting_state) = yy_current_state;
@@ -998,580 +987,580 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 54 "c_compiler.l"
+#line 55 "c_compiler.lex"
 {white();}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 55 "c_compiler.l"
+#line 58 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("AUTO_tok\n");}return(AUTO_tok);}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 59 "c_compiler.l"
+#line 62 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("BREAK_tok\n");}return(BREAK_tok);}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 63 "c_compiler.l"
+#line 66 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("CASE_tok\n");}return(CASE_tok);}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 67 "c_compiler.l"
+#line 70 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("CHAR_tok\n");}return(CHAR_tok);}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 71 "c_compiler.l"
+#line 74 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("CONST_tok\n");}return(CONST_tok);}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 75 "c_compiler.l"
+#line 78 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("CONTINUE_tok\n");}return(CONTINUE_tok);}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 79 "c_compiler.l"
+#line 82 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("DEFAULT_tok\n");}return(DEFAULT_tok);}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 83 "c_compiler.l"
+#line 86 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("DO_tok\n");}return(DO_tok);}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 87 "c_compiler.l"
+#line 90 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("DOUBLE_tok\n");}return(DOUBLE_tok);}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 91 "c_compiler.l"
+#line 94 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("ELSE_tok\n");}return(ELSE_tok);}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 95 "c_compiler.l"
+#line 98 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("ENUM_tok\n");}return(ENUM_tok);}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 99 "c_compiler.l"
+#line 102 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("EXTERN_tok\n");}return(EXTERN_tok);}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 103 "c_compiler.l"
+#line 106 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("FLOAT_tok\n");}return(FLOAT_tok);}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 107 "c_compiler.l"
+#line 110 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("FOR_tok\n");}return(FOR_tok);}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 111 "c_compiler.l"
+#line 114 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("GOTO_tok\n");}return(GOTO_tok);}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 115 "c_compiler.l"
+#line 118 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("IF_tok\n");}return(IF_tok);}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 119 "c_compiler.l"
+#line 122 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("INT_tok\n");}return(INT_tok);}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 123 "c_compiler.l"
+#line 126 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("LONG_tok\n");}return(LONG_tok);}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 127 "c_compiler.l"
+#line 130 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("REGISTER_tok\n");}return(REGISTER_tok);}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 131 "c_compiler.l"
+#line 134 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("RETURN_tok\n");}return(RETURN_tok);}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 135 "c_compiler.l"
+#line 138 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("SHORT_tok\n");}return(SHORT_tok);}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 139 "c_compiler.l"
+#line 142 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("SIGNED_tok\n");}return(SIGNED_tok);}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 143 "c_compiler.l"
+#line 146 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("SIZEOF_tok\n");}return(SIZEOF_tok);}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 147 "c_compiler.l"
+#line 150 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("STATIC_tok\n");}return(STATIC_tok);}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 151 "c_compiler.l"
+#line 154 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("STRUCT_tok\n");}return(STRUCT_tok);}
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 155 "c_compiler.l"
+#line 158 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("SWITCH_tok\n");}return(SWITCH_tok);}
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 159 "c_compiler.l"
+#line 162 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("TYPEDEF_tok\n");}return(TYPEDEF_tok);}
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 163 "c_compiler.l"
+#line 166 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("UNION_tok\n");}return(UNION_tok);}
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 167 "c_compiler.l"
+#line 170 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("UNSIGNED_tok\n");}return(UNSIGNED_tok);}
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 171 "c_compiler.l"
+#line 174 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("VOID_tok\n");}return(VOID_tok);}
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 175 "c_compiler.l"
+#line 178 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("VOLATILE_tok\n");}return(VOLATILE_tok);}
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 179 "c_compiler.l"
+#line 182 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("WHILE_tok\n");}return(WHILE_tok);}
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 183 "c_compiler.l"
-{column+=yyleng;return(ID_tok);}
+#line 186 "c_compiler.lex"
+{column+=yyleng;return(id_token());}
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 185 "c_compiler.l"
+#line 188 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("PLUS_tok\n");}return(PLUS_tok);}
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 189 "c_compiler.l"
+#line 192 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("MINUS_tok\n");}return(MINUS_tok);}
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 193 "c_compiler.l"
+#line 196 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("STAR_tok\n");}return(STAR_tok);}
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 197 "c_compiler.l"
+#line 200 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("DIV_tok\n");}return(DIV_tok);}
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 201 "c_compiler.l"
+#line 204 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("SEMI_tok\n");}return(SEMI_tok);}
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 205 "c_compiler.l"
+#line 208 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("OPEN_BRACKET_tok\n");}return(OPEN_BRACKET_tok);}
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 209 "c_compiler.l"
+#line 212 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("CLOSE_BRACKET_tok\n");}return(CLOSE_BRACKET_tok);}
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 213 "c_compiler.l"
+#line 216 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("EQUAL_tok\n");}return(EQUAL_tok);}
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 217 "c_compiler.l"
+#line 220 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("COLON_tok\n");}return(COLON_tok);}
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 221 "c_compiler.l"
+#line 224 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("COMMA_tok\n");}return(COMMA_tok);}
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 225 "c_compiler.l"
+#line 228 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("PERIOD_tok\n");}return(PERIOD_tok);}
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 229 "c_compiler.l"
+#line 232 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("OPEN_PAREN_tok\n");}return(OPEN_PAREN_tok);}
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 233 "c_compiler.l"
+#line 236 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("CLOSE_PAREN_tok\n");}return(CLOSE_PAREN_tok);}
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 237 "c_compiler.l"
+#line 240 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("OPEN_BRACE_tok\n");}return(OPEN_BRACE_tok);}
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 241 "c_compiler.l"
+#line 244 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("CLOSE_BRACE_tok\n");}return(CLOSE_BRACE_tok);}
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 245 "c_compiler.l"
+#line 248 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("QUESTION_MARK_tok\n");}return(QUESTION_MARK_tok);}
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
-#line 249 "c_compiler.l"
+#line 252 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("BAR_tok\n");}return(BAR_tok);}
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
-#line 253 "c_compiler.l"
+#line 256 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("CARET_tok\n");}return(CARET_tok);}
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
-#line 257 "c_compiler.l"
+#line 260 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("AMP_tok\n");}return(AMP_tok);}
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
-#line 261 "c_compiler.l"
+#line 264 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("GT_tok\n");}return(GT_tok);}
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
-#line 265 "c_compiler.l"
+#line 268 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("LT_tok\n");}return(LT_tok);}
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
-#line 269 "c_compiler.l"
+#line 272 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("PERCENT_tok\n");}return(PERCENT_tok);}
 	YY_BREAK
 case 57:
 YY_RULE_SETUP
-#line 273 "c_compiler.l"
+#line 276 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("TILDA_tok\n");}return(TILDA_tok);}
 	YY_BREAK
 case 58:
 YY_RULE_SETUP
-#line 277 "c_compiler.l"
+#line 280 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("NOT_tok\n");}return(NOT_tok);}
 	YY_BREAK
 case 59:
 YY_RULE_SETUP
-#line 281 "c_compiler.l"
+#line 284 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("INC_OP_tok\n");}return(INC_OP_tok);}
 	YY_BREAK
 case 60:
 YY_RULE_SETUP
-#line 285 "c_compiler.l"
+#line 288 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("DEC_OP_tok\n");}return(DEC_OP_tok);}
 	YY_BREAK
 case 61:
 YY_RULE_SETUP
-#line 289 "c_compiler.l"
+#line 292 "c_compiler.lex"
 {column+=yyleng;check_int();return(INTEGER_CONSTANT_tok);}
 	YY_BREAK
 case 62:
 YY_RULE_SETUP
-#line 291 "c_compiler.l"
+#line 294 "c_compiler.lex"
 {column+=yyleng;check_float();return(FLOATING_CONSTANT_tok);}
 	YY_BREAK
 case 63:
 /* rule 63 can match eol */
 YY_RULE_SETUP
-#line 293 "c_compiler.l"
+#line 296 "c_compiler.lex"
 {column+=yyleng;character();return(CHARACTER_CONSTANT_tok);}
 	YY_BREAK
 case 64:
 /* rule 64 can match eol */
 YY_RULE_SETUP
-#line 295 "c_compiler.l"
+#line 298 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("STRING_LITERAL_tok\n");}return(STRING_LITERAL_tok);}
 	YY_BREAK
 case 65:
 YY_RULE_SETUP
-#line 300 "c_compiler.l"
+#line 303 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("PTR_OP_tok\n");}return(PTR_OP_tok);}
 	YY_BREAK
 case 66:
 YY_RULE_SETUP
-#line 304 "c_compiler.l"
+#line 307 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("LEFT_OP_tok\n");}return(LEFT_OP_tok);}
 	YY_BREAK
 case 67:
 YY_RULE_SETUP
-#line 308 "c_compiler.l"
+#line 311 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("RIGHT_OP_tok\n");}return(RIGHT_OP_tok);}
 	YY_BREAK
 case 68:
 YY_RULE_SETUP
-#line 312 "c_compiler.l"
+#line 315 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("LE_OP_tok\n");}return(LE_OP_tok);}
 	YY_BREAK
 case 69:
 YY_RULE_SETUP
-#line 316 "c_compiler.l"
+#line 319 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("GE_OP_tok\n");}return(GE_OP_tok);}
 	YY_BREAK
 case 70:
 YY_RULE_SETUP
-#line 320 "c_compiler.l"
+#line 323 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("EQ_OP_tok\n");}return(EQ_OP_tok);}
 	YY_BREAK
 case 71:
 YY_RULE_SETUP
-#line 324 "c_compiler.l"
+#line 327 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("NE_OP_tok\n");}return(NE_OP_tok);}
 	YY_BREAK
 case 72:
 YY_RULE_SETUP
-#line 328 "c_compiler.l"
+#line 331 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("AND_OP_tok\n");}return(AND_OP_tok);}
 	YY_BREAK
 case 73:
 YY_RULE_SETUP
-#line 332 "c_compiler.l"
+#line 335 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("OR_OP_tok\n");}return(OR_OP_tok);}
 	YY_BREAK
 case 74:
 YY_RULE_SETUP
-#line 336 "c_compiler.l"
+#line 339 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("MULT_ASSIGN_tok\n");}return(MULT_ASSIGN_tok);}
 	YY_BREAK
 case 75:
 YY_RULE_SETUP
-#line 340 "c_compiler.l"
+#line 343 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("DIV_ASSIGN_tok\n");}return(DIV_ASSIGN_tok);}
 	YY_BREAK
 case 76:
 YY_RULE_SETUP
-#line 344 "c_compiler.l"
+#line 347 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("MOD_ASSIGN_tok\n");}return(MOD_ASSIGN_tok);}
 	YY_BREAK
 case 77:
 YY_RULE_SETUP
-#line 348 "c_compiler.l"
+#line 351 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("ADD_ASSIGN_tok\n");}return(ADD_ASSIGN_tok);}
 	YY_BREAK
 case 78:
 YY_RULE_SETUP
-#line 352 "c_compiler.l"
+#line 355 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("SUB_ASSIGN_tok\n");}return(SUB_ASSIGN_tok);}
 	YY_BREAK
 case 79:
 YY_RULE_SETUP
-#line 356 "c_compiler.l"
+#line 359 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("LEFT_ASSIGN_tok\n");}return(LEFT_ASSIGN_tok);}
 	YY_BREAK
 case 80:
 YY_RULE_SETUP
-#line 360 "c_compiler.l"
+#line 363 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("RIGHT_ASSIGN_tok\n");}return(RIGHT_ASSIGN_tok);}
 	YY_BREAK
 case 81:
 YY_RULE_SETUP
-#line 364 "c_compiler.l"
+#line 367 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("AND_ASSIGN_tok\n");}return(AND_ASSIGN_tok);}
 	YY_BREAK
 case 82:
 YY_RULE_SETUP
-#line 368 "c_compiler.l"
+#line 371 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("XOR_ASSIGN_tok\n");}return(XOR_ASSIGN_tok);}
 	YY_BREAK
 case 83:
 YY_RULE_SETUP
-#line 372 "c_compiler.l"
+#line 375 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("OR_ASSIGN_tok\n");}return(OR_ASSIGN_tok);}
 	YY_BREAK
 case 84:
 YY_RULE_SETUP
-#line 376 "c_compiler.l"
+#line 379 "c_compiler.lex"
 {column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("ELIPSIS_tok\n");}return(ELIPSIS_tok);}
@@ -1579,37 +1568,37 @@ YY_RULE_SETUP
 case 85:
 /* rule 85 can match eol */
 YY_RULE_SETUP
-#line 380 "c_compiler.l"
+#line 383 "c_compiler.lex"
 {mult_line();}
 	YY_BREAK
 case 86:
 /* rule 86 can match eol */
 YY_RULE_SETUP
-#line 382 "c_compiler.l"
+#line 385 "c_compiler.lex"
 {single_line();}
 	YY_BREAK
 case 87:
 YY_RULE_SETUP
-#line 384 "c_compiler.l"
+#line 387 "c_compiler.lex"
 {set_debug_level();}
 	YY_BREAK
 case 88:
 YY_RULE_SETUP
-#line 386 "c_compiler.l"
+#line 389 "c_compiler.lex"
 {column+=yyleng; }
 	YY_BREAK
 case 89:
 YY_RULE_SETUP
-#line 388 "c_compiler.l"
+#line 391 "c_compiler.lex"
 {column+=yyleng;print_error("Syntax Error: Not Legal Character.");
 				return(ERROR_tok);}
 	YY_BREAK
 case 90:
 YY_RULE_SETUP
-#line 393 "c_compiler.l"
+#line 396 "c_compiler.lex"
 ECHO;
 	YY_BREAK
-#line 1613 "lex.yy.c"
+#line 1602 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1740,7 +1729,6 @@ case YY_STATE_EOF(INITIAL):
 			"fatal flex scanner internal error--no action found" );
 	} /* end of action switch */
 		} /* end of scanning one token */
-	} /* end of user's declarations */
 } /* end of yylex */
 
 /* yy_get_next_buffer - try to read in a new buffer
@@ -1752,9 +1740,9 @@ case YY_STATE_EOF(INITIAL):
  */
 static int yy_get_next_buffer (void)
 {
-    	char *dest = YY_CURRENT_BUFFER_LVALUE->yy_ch_buf;
-	char *source = (yytext_ptr);
-	yy_size_t number_to_move, i;
+    	register char *dest = YY_CURRENT_BUFFER_LVALUE->yy_ch_buf;
+	register char *source = (yytext_ptr);
+	register int number_to_move, i;
 	int ret_val;
 
 	if ( (yy_c_buf_p) > &YY_CURRENT_BUFFER_LVALUE->yy_ch_buf[(yy_n_chars) + 1] )
@@ -1783,7 +1771,7 @@ static int yy_get_next_buffer (void)
 	/* Try to read more data. */
 
 	/* First move last chars to start of buffer. */
-	number_to_move = (yy_size_t) ((yy_c_buf_p) - (yytext_ptr)) - 1;
+	number_to_move = (int) ((yy_c_buf_p) - (yytext_ptr)) - 1;
 
 	for ( i = 0; i < number_to_move; ++i )
 		*(dest++) = *(source++);
@@ -1796,21 +1784,21 @@ static int yy_get_next_buffer (void)
 
 	else
 		{
-			yy_size_t num_to_read =
+			int num_to_read =
 			YY_CURRENT_BUFFER_LVALUE->yy_buf_size - number_to_move - 1;
 
 		while ( num_to_read <= 0 )
 			{ /* Not enough room in the buffer - grow it. */
 
 			/* just a shorter name for the current buffer */
-			YY_BUFFER_STATE b = YY_CURRENT_BUFFER_LVALUE;
+			YY_BUFFER_STATE b = YY_CURRENT_BUFFER;
 
 			int yy_c_buf_p_offset =
 				(int) ((yy_c_buf_p) - b->yy_ch_buf);
 
 			if ( b->yy_is_our_buffer )
 				{
-				yy_size_t new_size = b->yy_buf_size * 2;
+				int new_size = b->yy_buf_size * 2;
 
 				if ( new_size <= 0 )
 					b->yy_buf_size += b->yy_buf_size / 8;
@@ -1841,7 +1829,7 @@ static int yy_get_next_buffer (void)
 
 		/* Read in more data. */
 		YY_INPUT( (&YY_CURRENT_BUFFER_LVALUE->yy_ch_buf[number_to_move]),
-			(yy_n_chars), num_to_read );
+			(yy_n_chars), (size_t) num_to_read );
 
 		YY_CURRENT_BUFFER_LVALUE->yy_n_chars = (yy_n_chars);
 		}
@@ -1865,9 +1853,9 @@ static int yy_get_next_buffer (void)
 	else
 		ret_val = EOB_ACT_CONTINUE_SCAN;
 
-	if ((int) ((yy_n_chars) + number_to_move) > YY_CURRENT_BUFFER_LVALUE->yy_buf_size) {
+	if ((yy_size_t) ((yy_n_chars) + number_to_move) > YY_CURRENT_BUFFER_LVALUE->yy_buf_size) {
 		/* Extend the array by 50%, plus the number we really need. */
-		int new_size = (yy_n_chars) + number_to_move + ((yy_n_chars) >> 1);
+		yy_size_t new_size = (yy_n_chars) + number_to_move + ((yy_n_chars) >> 1);
 		YY_CURRENT_BUFFER_LVALUE->yy_ch_buf = (char *) yyrealloc((void *) YY_CURRENT_BUFFER_LVALUE->yy_ch_buf,new_size  );
 		if ( ! YY_CURRENT_BUFFER_LVALUE->yy_ch_buf )
 			YY_FATAL_ERROR( "out of dynamic memory in yy_get_next_buffer()" );
@@ -1886,14 +1874,14 @@ static int yy_get_next_buffer (void)
 
     static yy_state_type yy_get_previous_state (void)
 {
-	yy_state_type yy_current_state;
-	char *yy_cp;
+	register yy_state_type yy_current_state;
+	register char *yy_cp;
     
 	yy_current_state = (yy_start);
 
 	for ( yy_cp = (yytext_ptr) + YY_MORE_ADJ; yy_cp < (yy_c_buf_p); ++yy_cp )
 		{
-		YY_CHAR yy_c = (*yy_cp ? yy_ec[YY_SC_TO_UI(*yy_cp)] : 1);
+		register YY_CHAR yy_c = (*yy_cp ? yy_ec[YY_SC_TO_UI(*yy_cp)] : 1);
 		if ( yy_accept[yy_current_state] )
 			{
 			(yy_last_accepting_state) = yy_current_state;
@@ -1918,10 +1906,10 @@ static int yy_get_next_buffer (void)
  */
     static yy_state_type yy_try_NUL_trans  (yy_state_type yy_current_state )
 {
-	int yy_is_jam;
-    	char *yy_cp = (yy_c_buf_p);
+	register int yy_is_jam;
+    	register char *yy_cp = (yy_c_buf_p);
 
-	YY_CHAR yy_c = 1;
+	register YY_CHAR yy_c = 1;
 	if ( yy_accept[yy_current_state] )
 		{
 		(yy_last_accepting_state) = yy_current_state;
@@ -1936,14 +1924,12 @@ static int yy_get_next_buffer (void)
 	yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
 	yy_is_jam = (yy_current_state == 232);
 
-		return yy_is_jam ? 0 : yy_current_state;
+	return yy_is_jam ? 0 : yy_current_state;
 }
 
-#ifndef YY_NO_UNPUT
-
-    static void yyunput (int c, char * yy_bp )
+    static void yyunput (int c, register char * yy_bp )
 {
-	char *yy_cp;
+	register char *yy_cp;
     
     yy_cp = (yy_c_buf_p);
 
@@ -1953,10 +1939,10 @@ static int yy_get_next_buffer (void)
 	if ( yy_cp < YY_CURRENT_BUFFER_LVALUE->yy_ch_buf + 2 )
 		{ /* need to shift things up to make room */
 		/* +2 for EOB chars. */
-		yy_size_t number_to_move = (yy_n_chars) + 2;
-		char *dest = &YY_CURRENT_BUFFER_LVALUE->yy_ch_buf[
+		register int number_to_move = (yy_n_chars) + 2;
+		register char *dest = &YY_CURRENT_BUFFER_LVALUE->yy_ch_buf[
 					YY_CURRENT_BUFFER_LVALUE->yy_buf_size + 2];
-		char *source =
+		register char *source =
 				&YY_CURRENT_BUFFER_LVALUE->yy_ch_buf[number_to_move];
 
 		while ( source > YY_CURRENT_BUFFER_LVALUE->yy_ch_buf )
@@ -1977,8 +1963,6 @@ static int yy_get_next_buffer (void)
 	(yy_hold_char) = *yy_cp;
 	(yy_c_buf_p) = yy_cp;
 }
-
-#endif
 
 #ifndef YY_NO_INPUT
 #ifdef __cplusplus
@@ -2004,7 +1988,7 @@ static int yy_get_next_buffer (void)
 
 		else
 			{ /* need more input */
-			yy_size_t offset = (yy_c_buf_p) - (yytext_ptr);
+			int offset = (yy_c_buf_p) - (yytext_ptr);
 			++(yy_c_buf_p);
 
 			switch ( yy_get_next_buffer(  ) )
@@ -2129,7 +2113,7 @@ static void yy_load_buffer_state  (void)
 	if ( ! b )
 		YY_FATAL_ERROR( "out of dynamic memory in yy_create_buffer()" );
 
-	b->yy_buf_size = (yy_size_t)size;
+	b->yy_buf_size = size;
 
 	/* yy_ch_buf has to be 2 characters longer than the size given because
 	 * we need to put in 2 end-of-buffer characters.
@@ -2164,6 +2148,10 @@ static void yy_load_buffer_state  (void)
 	yyfree((void *) b  );
 }
 
+#ifndef __cplusplus
+extern int isatty (int );
+#endif /* __cplusplus */
+    
 /* Initializes or reinitializes a buffer.
  * This function is sometimes called more than once on the same buffer,
  * such as during a yyrestart() or at EOF.
@@ -2276,7 +2264,7 @@ void yypop_buffer_state (void)
  */
 static void yyensure_buffer_stack (void)
 {
-	yy_size_t num_to_alloc;
+	int num_to_alloc;
     
 	if (!(yy_buffer_stack)) {
 
@@ -2284,7 +2272,7 @@ static void yyensure_buffer_stack (void)
 		 * scanner will even need a stack. We use 2 instead of 1 to avoid an
 		 * immediate realloc on the next call.
          */
-		num_to_alloc = 1; /* After all that talk, this was set to 1 anyways... */
+		num_to_alloc = 1;
 		(yy_buffer_stack) = (struct yy_buffer_state**)yyalloc
 								(num_to_alloc * sizeof(struct yy_buffer_state*)
 								);
@@ -2301,7 +2289,7 @@ static void yyensure_buffer_stack (void)
 	if ((yy_buffer_stack_top) >= ((yy_buffer_stack_max)) - 1){
 
 		/* Increase the buffer to prepare for a possible push. */
-		yy_size_t grow_size = 8 /* arbitrary grow size */;
+		int grow_size = 8 /* arbitrary grow size */;
 
 		num_to_alloc = (yy_buffer_stack_max) + grow_size;
 		(yy_buffer_stack) = (struct yy_buffer_state**)yyrealloc
@@ -2373,12 +2361,12 @@ YY_BUFFER_STATE yy_scan_string (yyconst char * yystr )
  * 
  * @return the newly allocated buffer state object.
  */
-YY_BUFFER_STATE yy_scan_bytes  (yyconst char * yybytes, yy_size_t  _yybytes_len )
+YY_BUFFER_STATE yy_scan_bytes  (yyconst char * yybytes, int  _yybytes_len )
 {
 	YY_BUFFER_STATE b;
 	char *buf;
 	yy_size_t n;
-	yy_size_t i;
+	int i;
     
 	/* Get memory for full buffer, including space for trailing EOB's. */
 	n = _yybytes_len + 2;
@@ -2409,7 +2397,7 @@ YY_BUFFER_STATE yy_scan_bytes  (yyconst char * yybytes, yy_size_t  _yybytes_len 
 
 static void yy_fatal_error (yyconst char* msg )
 {
-			(void) fprintf( stderr, "%s\n", msg );
+    	(void) fprintf( stderr, "%s\n", msg );
 	exit( YY_EXIT_FAILURE );
 }
 
@@ -2460,7 +2448,7 @@ FILE *yyget_out  (void)
 /** Get the length of the current token.
  * 
  */
-yy_size_t yyget_leng  (void)
+int yyget_leng  (void)
 {
         return yyleng;
 }
@@ -2475,29 +2463,29 @@ char *yyget_text  (void)
 }
 
 /** Set the current line number.
- * @param _line_number line number
+ * @param line_number
  * 
  */
-void yyset_lineno (int  _line_number )
+void yyset_lineno (int  line_number )
 {
     
-    yylineno = _line_number;
+    yylineno = line_number;
 }
 
 /** Set the input stream. This does not discard the current
  * input buffer.
- * @param _in_str A readable stream.
+ * @param in_str A readable stream.
  * 
  * @see yy_switch_to_buffer
  */
-void yyset_in (FILE *  _in_str )
+void yyset_in (FILE *  in_str )
 {
-        yyin = _in_str ;
+        yyin = in_str ;
 }
 
-void yyset_out (FILE *  _out_str )
+void yyset_out (FILE *  out_str )
 {
-        yyout = _out_str ;
+        yyout = out_str ;
 }
 
 int yyget_debug  (void)
@@ -2505,9 +2493,9 @@ int yyget_debug  (void)
         return yy_flex_debug;
 }
 
-void yyset_debug (int  _bdebug )
+void yyset_debug (int  bdebug )
 {
-        yy_flex_debug = _bdebug ;
+        yy_flex_debug = bdebug ;
 }
 
 static int yy_init_globals (void)
@@ -2567,8 +2555,7 @@ int yylex_destroy  (void)
 #ifndef yytext_ptr
 static void yy_flex_strncpy (char* s1, yyconst char * s2, int n )
 {
-		
-	int i;
+	register int i;
 	for ( i = 0; i < n; ++i )
 		s1[i] = s2[i];
 }
@@ -2577,7 +2564,7 @@ static void yy_flex_strncpy (char* s1, yyconst char * s2, int n )
 #ifdef YY_NEED_STRLEN
 static int yy_flex_strlen (yyconst char * s )
 {
-	int n;
+	register int n;
 	for ( n = 0; s[n]; ++n )
 		;
 
@@ -2587,12 +2574,11 @@ static int yy_flex_strlen (yyconst char * s )
 
 void *yyalloc (yy_size_t  size )
 {
-			return (void *) malloc( size );
+	return (void *) malloc( size );
 }
 
 void *yyrealloc  (void * ptr, yy_size_t  size )
 {
-		
 	/* The cast to (char *) in the following accommodates both
 	 * implementations that use char* generic pointers, and those
 	 * that use void* generic pointers.  It works with the latter
@@ -2605,12 +2591,12 @@ void *yyrealloc  (void * ptr, yy_size_t  size )
 
 void yyfree (void * ptr )
 {
-			free( (char *) ptr );	/* see yyrealloc() for (char *) cast */
+	free( (char *) ptr );	/* see yyrealloc() for (char *) cast */
 }
 
 #define YYTABLES_NAME "yytables"
 
-#line 393 "c_compiler.l"
+#line 396 "c_compiler.lex"
 
 
 void white()
@@ -2645,6 +2631,7 @@ void white()
 
 void character()
 {
+	int code = 0;
 	if(lex_debug_level%5==0)
 	{
 		printf("%s ==>",yytext);
@@ -2696,11 +2683,62 @@ void character()
 			case '\"':
 				yylval = 34;
 				break;
+			case '0':
+			case '1':
+			case '2':
+			case '3':
+			case '4':
+			case '5':
+			case '6':
+			case '7':
+				for(int j = 2; j<5 ;j++)
+				{
+					//printf("%d\t%d\n",yytext[j],j);
+					if(!(yytext[j]>=48 && yytext[j]<56))
+					{
+						print_error("Octal character error.");
+					}
+					else
+					{
+						code = (code * 8) + (yytext[j] - 48);
+					}
+				}
+				if(code>127)
+				{
+					print_error("Octal character out of range.");
+				}
+				//printf("%d",code);
+				yylval = code;
+				break;
+			case 'x':
+				for(int j = 3; j<5 ;j++)
+				{
+					if((yytext[j]>=48 && yytext[j]<58))
+					{
+						code = (code * 16) + (yytext[j] - 48);
+					}
+					else if((yytext[j]>=65 && yytext[j]<71))
+					{
+						code = (code * 16) + (yytext[j] - 55);
+					}
+					else
+					{
+						print_error("Hex character error.");
+					}
+				}
+				if(code>127)
+				{
+					print_error("Hex character out of range.");
+				}
+				//printf("%d",code);
+				yylval = code;
+				break;
+
 			//hex 7F octal 177 max limit
 		}
 	}
-	//printf("%c\n",yylval);
-	//checks valid chars and reports error or returns char
+	printf("%c\t%d\n",yylval,yylval);
+	//checks valid chars and reports error 
 	
 }
 
@@ -2813,6 +2851,41 @@ void check_float()
 		printf("FLOATING_CONSTANT_tok\n");
 	}
 	//print_error("Float Value Too Large.");
+}
+
+int id_token()
+{
+	// pointsTo = NULL;
+	// pointsTo = s.searchAll(yytext);
+	// if(pointsTo.ntype == 1)
+	// {
+	// 	yylval = pointsTo;
+	// 	return(ID_tok);
+	// }
+	// else if(pointsTo.ntype==2)
+	// {
+	// 	yylval = pointsTo;
+	// 	return(ENUMERATION_CONSTANT_tok);
+	// }
+	// else if(pointsTo.ntype == 3)
+	// {
+	// 	yylval = pointsTo;
+	// 	return(TYPEDEF_NAME_tok);
+	// }
+	// else
+	// {
+	// 	yylval = s.insert(yytext);
+	// 	return(ID_tok);
+	// }
+	if(lex_debug_level%5==0)
+	{
+		printf("%s ==>",yytext);
+	}
+	if(lex_debug_level%2==0)
+	{
+		printf("ID_tok\n");
+	}
+	return(ID_tok);
 }
 
 int main(int argc, char **argv)

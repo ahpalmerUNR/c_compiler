@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-03 22:57:09
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-10-07 17:28:01
+* @Last Modified time: 2018-10-08 16:07:04
 */
 int main()
 {
@@ -37,8 +37,16 @@ int main()
 	char question = '\?';
 	char singlQuote = '\'';
 	char doubleQuote = '\"';
-	
+
 	!!L 210
+	char hex = '\x21';
+	char oct = '\041';
+	char hex_error = '\x8F';
+	char oct_error = '\200';
+	char hex_error2 = '\xkF';
+	char oct_error2 = '\128';
+	
+
 	int o = 44;
 	i = 2;
 	i +=2;

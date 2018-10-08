@@ -30,6 +30,7 @@ void single_line();
 void print_error();
 void set_debug_level();
 void check_int();
+int id_token();
 void check_float();
 %}
 
@@ -52,6 +53,8 @@ mult_line_comment	"/*"([^*]|\*+[^*/])*"*/"
 
 %%
 {ws}		{white();}
+
+
 "auto"		{column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("AUTO_tok\n");}return(AUTO_tok);}
@@ -180,7 +183,7 @@ mult_line_comment	"/*"([^*]|\*+[^*/])*"*/"
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
 			printf("WHILE_tok\n");}return(WHILE_tok);}
 
-{id}		{column+=yyleng;return(ID_tok);}
+{id}		{column+=yyleng;return(id_token());}
 
 "+"			{column+=yyleng;if(lex_debug_level%5==0){
 			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
@@ -423,6 +426,7 @@ void white()
 
 void character()
 {
+	int code = 0;
 	if(lex_debug_level%5==0)
 	{
 		printf("%s ==>",yytext);
@@ -474,11 +478,62 @@ void character()
 			case '\"':
 				yylval = 34;
 				break;
+			case '0':
+			case '1':
+			case '2':
+			case '3':
+			case '4':
+			case '5':
+			case '6':
+			case '7':
+				for(int j = 2; j<5 ;j++)
+				{
+					//printf("%d\t%d\n",yytext[j],j);
+					if(!(yytext[j]>=48 && yytext[j]<56))
+					{
+						print_error("Octal character error.");
+					}
+					else
+					{
+						code = (code * 8) + (yytext[j] - 48);
+					}
+				}
+				if(code>127)
+				{
+					print_error("Octal character out of range.");
+				}
+				//printf("%d",code);
+				yylval = code;
+				break;
+			case 'x':
+				for(int j = 3; j<5 ;j++)
+				{
+					if((yytext[j]>=48 && yytext[j]<58))
+					{
+						code = (code * 16) + (yytext[j] - 48);
+					}
+					else if((yytext[j]>=65 && yytext[j]<71))
+					{
+						code = (code * 16) + (yytext[j] - 55);
+					}
+					else
+					{
+						print_error("Hex character error.");
+					}
+				}
+				if(code>127)
+				{
+					print_error("Hex character out of range.");
+				}
+				//printf("%d",code);
+				yylval = code;
+				break;
+
 			//hex 7F octal 177 max limit
 		}
 	}
-	//printf("%c\n",yylval);
-	//checks valid chars and reports error or returns char
+	printf("%c\t%d\n",yylval,yylval);
+	//checks valid chars and reports error 
 	
 }
 
@@ -591,6 +646,41 @@ void check_float()
 		printf("FLOATING_CONSTANT_tok\n");
 	}
 	//print_error("Float Value Too Large.");
+}
+
+int id_token()
+{
+	// pointsTo = NULL;
+	// pointsTo = s.searchAll(yytext);
+	// if(pointsTo.ntype == 1)
+	// {
+	// 	yylval = pointsTo;
+	// 	return(ID_tok);
+	// }
+	// else if(pointsTo.ntype==2)
+	// {
+	// 	yylval = pointsTo;
+	// 	return(ENUMERATION_CONSTANT_tok);
+	// }
+	// else if(pointsTo.ntype == 3)
+	// {
+	// 	yylval = pointsTo;
+	// 	return(TYPEDEF_NAME_tok);
+	// }
+	// else
+	// {
+	// 	yylval = s.insert(yytext);
+	// 	return(ID_tok);
+	// }
+	if(lex_debug_level%5==0)
+	{
+		printf("%s ==>",yytext);
+	}
+	if(lex_debug_level%2==0)
+	{
+		printf("ID_tok\n");
+	}
+	return(ID_tok);
 }
 
 int main(int argc, char **argv)
