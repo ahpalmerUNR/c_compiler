@@ -9,6 +9,7 @@
 %{
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "c_compiler_tokens.h"
 //#include "symboltable.cpp"
 
@@ -19,9 +20,13 @@ extern int yacc_debug_level;
 extern int insert_lookup;
 int line = 1;
 int column = 0;
+FILE *outfile = fopen("out.s","w");
+FILE *out_log = fopen("compilerLog.txt","a");
 FILE *errorText;
 char *file_name;
 char tmp[80];
+
+int levels = [2,3,5,7];
 
 void white();
 void character();
@@ -595,6 +600,9 @@ void check_float()
 
 int main(int argc, char **argv)
 {
+	int scan_count = 0;
+	int lex_count = 0;
+	
 	if(argc==1)
 	{
 		printf("No File Provided. Pass file in command line.");
@@ -610,7 +618,32 @@ int main(int argc, char **argv)
 		errorText = fopen(argv[argc-1],"r");
 		for(int i=argc-1; i>=1; i--)
 		{
-			//add to debug levels
+			if(argv[i]=="-o")
+			{
+				fclose(outfile);
+				outfile = fopen(argv[i+1],"w");
+			}
+			
+			if(argv[i]=="-l")
+			{
+				fclose(out_log);
+				out_log = fopen(argv[i+1],"a");
+			}
+			if(argv[i][0]=='-' && argv[i][1]=='d')
+			{
+				for(int p = 2;argv[i][p]!='\0';p++)
+				{
+					switch(argv[i][p])
+					{
+						case 'l':
+							lex_count+=1;
+							break;
+						case 's':
+							scan_count+=1;
+							break;
+					}
+				}
+			}
 			
 		}
 	}
@@ -630,5 +663,8 @@ int main(int argc, char **argv)
 	
 		//printf("%d\n",tok);
 	}
+	fclose(out_log);
+	fclose(outfile);
+	fclose(errorText);
 	return 0;	
 }
