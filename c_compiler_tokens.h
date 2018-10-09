@@ -32,7 +32,9 @@
 #define VOLATILE_tok 288
 #define WHILE_tok 289
 #define ERROR_tok 290
+// need to do ID token
 #define ID_tok 291
+
 #define PLUS_tok 292
 #define MINUS_tok 293
 #define STAR_tok 294
@@ -58,12 +60,14 @@
 #define INC_OP_tok 314
 #define DEC_OP_tok 315
 #define INTEGER_CONSTANT_tok 316
+// need to check float ranges
 #define FLOATING_CONSTANT_tok 317
-
+// character const done
 #define CHARACTER_CONSTANT_tok 318
+// need to do enum const
 #define ENUMERATION_CONSTANT_tok 319
-#define STRING_LITERAL_tok 320
 
+#define STRING_LITERAL_tok 320
 #define PTR_OP_tok 321
 #define LEFT_OP_tok 322
 #define RIGHT_OP_tok 323
@@ -83,7 +87,9 @@
 #define AND_ASSIGN_tok 337
 #define XOR_ASSIGN_tok 338
 #define OR_ASSIGN_tok 339
+
 #define TYPEDEF_NAME_tok 340
+
 #define ELIPSIS_tok 341
 #define DIV_tok 342
 #define PERIOD_tok 343
