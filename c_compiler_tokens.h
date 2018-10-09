@@ -98,5 +98,8 @@
 int lex_debug_level;
 int symbol_table_debug;
 int yacc_debug_level;
+int c_line_lex_debug_level;
+int c_line_symbol_table_debug;
+int c_line_yacc_debug_level;
 int insert_lookup;
 int yylval;

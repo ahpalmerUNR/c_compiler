@@ -17,16 +17,20 @@ extern int yylval;
 extern int lex_debug_level;
 extern int symbol_table_debug;
 extern int yacc_debug_level;
+extern int c_line_lex_debug_level;
+extern int c_line_symbol_table_debug;
+extern int c_line_yacc_debug_level;
 extern int insert_lookup;
 int line = 1;
 int column = 0;
-FILE *outfile = fopen("out.s","w");
-FILE *out_log = fopen("compilerLog.txt","a");
+FILE *outfile;
+FILE *out_log;
 FILE *errorText;
 char *file_name;
 char tmp[80];
 
-int levels = [2,3,5,7];
+int levels[4];
+
 
 void white();
 void character();
@@ -389,9 +393,9 @@ mult_line_comment	"/*"([^*]|\*+[^*/])*"*/"
 
 {line_comment}			{single_line();}
 
-"!!"(L|Y)\ {digit}+		{set_debug_level();}
+"!!"(L|Y|S)\ {digit}+		{set_debug_level();}
 
-"!!S"			{column+=yyleng; }
+"!!D"			{column+=yyleng; }
 
 .			{column+=yyleng;print_error("Syntax Error: Not Legal Character.");
 				return(ERROR_tok);}
@@ -602,11 +606,36 @@ void set_debug_level()
 	//printf("Debug %c set to %d\n",typebug,level);
 	if(typebug == 'Y')
 	{
-		yacc_debug_level = level;
+		if(level < c_line_yacc_debug_level)
+		{
+			yacc_debug_level = c_line_yacc_debug_level;
+		}
+		else
+		{
+			yacc_debug_level = level;
+		}
+	}
+	else if(typebug == 'L')
+	{
+		if(level < c_line_lex_debug_level)
+		{
+			lex_debug_level = c_line_lex_debug_level;
+		}
+		else
+		{
+			lex_debug_level = level;
+		}
 	}
 	else
 	{
-		lex_debug_level = level;
+		if(level < c_line_symbol_table_debug)
+		{
+			symbol_table_debug = c_line_symbol_table_debug;
+		}
+		else
+		{
+			symbol_table_debug = level;
+		}
 	}
 }
 
@@ -692,6 +721,21 @@ int main(int argc, char **argv)
 {
 	int scan_count = 0;
 	int lex_count = 0;
+	int yacc_count = 0;
+	
+	c_line_symbol_table_debug =1;
+	c_line_lex_debug_level=1;
+	c_line_yacc_debug_level=1;
+	
+	
+	levels[0] = 2;
+	levels[1] = 3;
+	levels[2] = 5;
+	levels[3] = 7;
+	
+	outfile = fopen("out.s","w");
+	out_log = fopen("compilerLog.txt","a");
+	
 	
 	if(argc==1)
 	{
@@ -708,13 +752,14 @@ int main(int argc, char **argv)
 		errorText = fopen(argv[argc-1],"r");
 		for(int i=argc-1; i>=1; i--)
 		{
-			if(argv[i]=="-o")
+			if(argv[i][0]=='-' && argv[i][1]=='o')
 			{
 				fclose(outfile);
+				printf("%s\n",argv[i+1]);
 				outfile = fopen(argv[i+1],"w");
 			}
 			
-			if(argv[i]=="-l")
+			if(argv[i][0]=='-' && argv[i][1]=='l')
 			{
 				fclose(out_log);
 				out_log = fopen(argv[i+1],"a");
@@ -727,12 +772,32 @@ int main(int argc, char **argv)
 					{
 						case 'l':
 							lex_count+=1;
+							if(lex_count <= 4)
+							{
+								c_line_lex_debug_level *= levels[lex_count-1];
+							}
 							break;
 						case 's':
 							scan_count+=1;
+							if(scan_count <= 4)
+							{
+								c_line_symbol_table_debug *= levels[scan_count-1];
+							}
+							break;
+						case 'y':
+							yacc_count+=1;
+							if(yacc_count <= 4)
+							{
+								c_line_yacc_debug_level*=levels[yacc_count-1];
+							}
 							break;
 					}
 				}
+				//printf("Lex Count: %d, Scan Count: %d\n",lex_count,scan_count);
+				//printf("Lex Debug level: %d\nYacc Debug level: %d\nScanner Debug level: %d\n",c_line_lex_debug_level,c_line_yacc_debug_level,c_line_symbol_table_debug);
+				lex_debug_level = c_line_lex_debug_level;
+				symbol_table_debug = c_line_symbol_table_debug;
+				yacc_debug_level = c_line_yacc_debug_level;
 			}
 			
 		}
