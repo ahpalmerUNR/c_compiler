@@ -32,12 +32,12 @@ char tmp[80];
 
 int levels[4];
 
-int send_token(char* token_name,int token);
+int send_token(char const* token_name,int token);
 void white();
 void character();
 void mult_line();
 void single_line();
-void print_error(char* error_msg);
+void print_error(char const* error_msg);
 void set_debug_level();
 void check_int();
 int id_token();
@@ -246,7 +246,7 @@ mult_line_comment	"/*"([^*]|\*+[^*/])*"*/"
 
 
 %%
-int send_token(char* token_name,int token)
+int send_token(char const* token_name,int token)
 {
 	column+=yyleng;
 	//printf("%d\n",lex_debug_level);
@@ -431,7 +431,7 @@ void single_line()
 	column = 0;
 }
 
-void print_error(char *error_msg)
+void print_error(char const *error_msg)
 {	long int offset = ftell(errorText);
 	fgets(tmp,sizeof tmp, errorText);
 	fseek(errorText,offset,SEEK_SET);
