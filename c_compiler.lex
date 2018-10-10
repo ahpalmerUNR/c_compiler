@@ -5,7 +5,7 @@
 /* PURPOSE : to cause pain and suffering                                */
 /*                                                                      */
 /************************************************************************/
-%option c++
+
 %{
 #include <stdio.h>
 #include <stdlib.h>
@@ -543,26 +543,27 @@ void check_float()
 
 int id_token()
 {
-	pointsTo = NULL;
-	pointsTo = s.searchAll(yytext);
-	if(pointsTo.ntype == 1)
+	Node * pointsTo = NULL;
+	int scope;
+	pointsTo = s.searchAll(yytext,&scope);
+	if(pointsTo->ntype == 1)
 	{
 		yylval = pointsTo;
 		return(ID_tok);
 	}
-	else if(pointsTo.ntype==2)
+	else if(pointsTo->ntype==2)
 	{
 		yylval = pointsTo;
 		return(ENUMERATION_CONSTANT_tok);
 	}
-	else if(pointsTo.ntype == 3)
+	else if(pointsTo->ntype == 3)
 	{
 		yylval = pointsTo;
 		return(TYPEDEF_NAME_tok);
 	}
 	else
 	{
-		yylval = s.insert(yytext);
+		yylval = s.insert(yytext,line,INT_TYPE);
 		return(ID_tok);
 	}
 	if(lex_debug_level%5==0)

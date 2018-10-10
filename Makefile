@@ -14,7 +14,7 @@ bison_out: c_compiler.ypp symbol_table.o
 	$(YACC) $(YFLAGS) c_compiler.ypp
 	
 scanner.o: flex_out symboltable.o
-	$(CPP) $(CPPFLAGS) -c lex.yy.cc -lfl
+	$(CPP) $(CPPFLAGS) -c lex.yy.c -lfl
 	
 flex_out: c_compiler.lex
 	$(LEX) c_compiler.lex
