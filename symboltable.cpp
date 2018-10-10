@@ -2,9 +2,10 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-09-28 12:11:57
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-10-10 14:31:47
+* @Last Modified time: 2018-10-10 15:08:46
 */
 #include "symboltable.h"
+
 
 SymbolTable::SymbolTable()
 {
@@ -127,9 +128,9 @@ Node* SymbolTable::searchTop(string key)
 		return NULL;
 	}
 }
-void SymbolTable::writeToFile()
+void SymbolTable::writeToFile(char const *fileName)
 {
-	ofstream stream("output.txt");
+	ofstream stream(fileName);
 	int count = 0;
 	for(vector<map<string, Node> >::iterator it = stack.begin(); it != stack.end(); ++it)
 	{

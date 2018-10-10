@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-03 22:57:09
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-10-09 22:38:04
+* @Last Modified time: 2018-10-10 15:09:24
 */
 int main()
 {
@@ -15,6 +15,8 @@ int main()
 	int i = 2147483620;
 	int j = -2147483620;
 	
+	!!D
+
 	float p = 1.44;
 	float k = -2.43;
 	float m = 12.4232223323222;
@@ -47,6 +49,7 @@ int main()
 	char hex_error2 = '\xkF';
 	char oct_error2 = '\128';
 	
+	!!D
 
 	int o = 44;
 	i = 2;

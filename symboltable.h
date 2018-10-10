@@ -52,7 +52,7 @@ public:
 
 
 	Node* searchTop(string key);
-	void writeToFile();
+	void writeToFile(char const *);
 	void printCurrentScope();
 	void pushBST(map<string, Node> bst);
 	void pushEmptyBST();

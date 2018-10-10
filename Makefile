@@ -3,17 +3,17 @@ CPP=g++
 CFLAGS=-Wall -std=c99
 CPPFLAGS = -Wall -std=c++11
 LEX=flex
-OBJ=scanner.o bison_out.o symbol_table.o c_compiler.tabl.c -lfl
+OBJ= lex.yy.o c_compiler.tab.hpp symboltable.o -lfl
 YACC=bison
 YFLAGS=-d
 
 c_compiler: $(OBJ)
-	$(CC) $(CFLAGS) c_compiler $(OBJ)
+	$(CPP) $(CPPFLAGS) -o c_compiler  c_compiler.tab.cpp $(OBJ)
 	
-bison_out: c_compiler.ypp symboltable.o
+c_compiler.tab.hpp: c_compiler.ypp symboltable.o
 	$(YACC) $(YFLAGS) c_compiler.ypp
 	
-scanner.o: flex_out symboltable.o
+lex.yy.o: flex_out symboltable.o
 	$(CPP) $(CPPFLAGS) -c lex.yy.c -lfl
 	
 flex_out: c_compiler.lex
