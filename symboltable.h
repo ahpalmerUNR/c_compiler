@@ -23,13 +23,16 @@ using namespace std;
 enum DataType {
 	INT_TYPE, FLOAT_TYPE, DOUBLE_TYPE, CHAR_TYPE, VOID_TYPE
 };
-
+enum NType{
+	ID, ENUMERATION_CONSTANT, TYPEDEF_NAME
+};
 // Information about the symbol - add more data types in it as necessary
 struct Node {
 	int lineNumber;
 	enum DataType type;
+	int ntype = 1;
 	void output(ofstream &stream)
-	{		
+	{
 		stream << "Line: " << lineNumber << " Type: " << type << endl;
 	};
 	void print()
@@ -43,8 +46,8 @@ public:
 
 	SymbolTable();
 
-	void insert(string tokenKey, int lN, DataType t);
-	void insert(string tokenKey, Node d);
+	Node* insert(string tokenKey, int lN, DataType t);
+	Node* insert(string tokenKey, Node d);
 	Node* searchAll(string key, int *location);
 
 
