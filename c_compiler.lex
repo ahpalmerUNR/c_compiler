@@ -5,13 +5,12 @@
 /* PURPOSE : to cause pain and suffering                                */
 /*                                                                      */
 /************************************************************************/
-
+%option c++
 %{
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include "c_compiler_tokens.h"
-//#include "symboltable.cpp"
 
 extern int yylval;
 extern int lex_debug_level;
@@ -21,6 +20,7 @@ extern int c_line_lex_debug_level;
 extern int c_line_symbol_table_debug;
 extern int c_line_yacc_debug_level;
 extern int insert_lookup;
+extern SymbolTable s;
 int line = 1;
 int column = 0;
 FILE *outfile;
@@ -237,7 +237,7 @@ mult_line_comment	"/*"([^*]|\*+[^*/])*"*/"
 
 "!!"(L|Y|S)\ {digit}+		{set_debug_level();}
 
-"!!D"			{column+=yyleng; }
+"!!D"			{column+=yyleng;s.writeToFile(); }
 
 .			{column+=yyleng;print_error("Syntax Error: Not Legal Character.");
 				return(ERROR_tok);}
@@ -542,28 +542,28 @@ void check_float()
 
 int id_token()
 {
-	// pointsTo = NULL;
-	// pointsTo = s.searchAll(yytext);
-	// if(pointsTo.ntype == 1)
-	// {
-	// 	yylval = pointsTo;
-	// 	return(ID_tok);
-	// }
-	// else if(pointsTo.ntype==2)
-	// {
-	// 	yylval = pointsTo;
-	// 	return(ENUMERATION_CONSTANT_tok);
-	// }
-	// else if(pointsTo.ntype == 3)
-	// {
-	// 	yylval = pointsTo;
-	// 	return(TYPEDEF_NAME_tok);
-	// }
-	// else
-	// {
-	// 	yylval = s.insert(yytext);
-	// 	return(ID_tok);
-	// }
+	pointsTo = NULL;
+	pointsTo = s.searchAll(yytext);
+	if(pointsTo.ntype == 1)
+	{
+		yylval = pointsTo;
+		return(ID_tok);
+	}
+	else if(pointsTo.ntype==2)
+	{
+		yylval = pointsTo;
+		return(ENUMERATION_CONSTANT_tok);
+	}
+	else if(pointsTo.ntype == 3)
+	{
+		yylval = pointsTo;
+		return(TYPEDEF_NAME_tok);
+	}
+	else
+	{
+		yylval = s.insert(yytext);
+		return(ID_tok);
+	}
 	if(lex_debug_level%5==0)
 	{
 		printf("%s ==>",yytext);
@@ -667,7 +667,7 @@ int main(int argc, char **argv)
 	
 	printf("%d\n",lex_debug_level);
 	
-	//SymbolTable s;
+
 	//s.insert("KEY",Data);
 	//s.pushEmptyBST();
 	//s.popBST();

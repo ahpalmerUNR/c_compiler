@@ -1,4 +1,5 @@
 /* Tokens.  */
+#include "symboltable.h"
 #define AUTO_tok 258
 #define BREAK_tok 259
 #define CASE_tok 260
@@ -103,3 +104,4 @@ int c_line_symbol_table_debug;
 int c_line_yacc_debug_level;
 int insert_lookup;
 int yylval;
+SymbolTable s;
