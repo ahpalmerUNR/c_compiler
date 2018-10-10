@@ -647,6 +647,7 @@ static yyconst flex_int16_t yy_chk[673] =
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
 #include "c_compiler_tokens.h"
 
 extern int yylval;
@@ -681,7 +682,7 @@ void check_float();
 /************************************************************************/
 /* Regular Definitions                                                  */
 /************************************************************************/
-#line 685 "lex.yy.cc"
+#line 686 "lex.yy.cc"
 
 #define INITIAL 0
 
@@ -813,9 +814,9 @@ YY_DECL
 		}
 
 	{
-#line 63 "c_compiler.lex"
+#line 64 "c_compiler.lex"
 
-#line 819 "lex.yy.cc"
+#line 820 "lex.yy.cc"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -875,460 +876,460 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 64 "c_compiler.lex"
+#line 65 "c_compiler.lex"
 {white();}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 67 "c_compiler.lex"
+#line 68 "c_compiler.lex"
 {return(send_token("AUTO_tok",AUTO_tok));}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 69 "c_compiler.lex"
+#line 70 "c_compiler.lex"
 {return(send_token("BREAK_tok",BREAK_tok));}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 71 "c_compiler.lex"
+#line 72 "c_compiler.lex"
 {return(send_token("CASE_tok",CASE_tok));}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 73 "c_compiler.lex"
+#line 74 "c_compiler.lex"
 {return(send_token("CHAR_tok",CHAR_tok));}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 75 "c_compiler.lex"
+#line 76 "c_compiler.lex"
 {return(send_token("CONST_tok",CONST_tok));}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 77 "c_compiler.lex"
+#line 78 "c_compiler.lex"
 {return(send_token("CONTINUE_tok",CONTINUE_tok));}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 79 "c_compiler.lex"
+#line 80 "c_compiler.lex"
 {return(send_token("DEFAULT_tok",DEFAULT_tok));}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 81 "c_compiler.lex"
+#line 82 "c_compiler.lex"
 {return(send_token("DO_tok",DO_tok));}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 83 "c_compiler.lex"
+#line 84 "c_compiler.lex"
 {return(send_token("DOUBLE_tok",DOUBLE_tok));}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 85 "c_compiler.lex"
+#line 86 "c_compiler.lex"
 {return(send_token("ELSE_tok",ELSE_tok));}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 87 "c_compiler.lex"
+#line 88 "c_compiler.lex"
 {return(send_token("ENUM_tok",ENUM_tok));}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 89 "c_compiler.lex"
+#line 90 "c_compiler.lex"
 {return(send_token("EXTERN_tok",EXTERN_tok));}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 91 "c_compiler.lex"
+#line 92 "c_compiler.lex"
 {return(send_token("FLOAT_tok",FLOAT_tok));}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 93 "c_compiler.lex"
+#line 94 "c_compiler.lex"
 {return(send_token("FOR_tok",FOR_tok));}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 95 "c_compiler.lex"
+#line 96 "c_compiler.lex"
 {return(send_token("GOTO_tok",GOTO_tok));}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 97 "c_compiler.lex"
+#line 98 "c_compiler.lex"
 {return(send_token("IF_tok",IF_tok));}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 99 "c_compiler.lex"
+#line 100 "c_compiler.lex"
 {return(send_token("INT_tok",INT_tok));}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 101 "c_compiler.lex"
+#line 102 "c_compiler.lex"
 {return(send_token("LONG_tok",LONG_tok));}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 103 "c_compiler.lex"
+#line 104 "c_compiler.lex"
 {return(send_token("REGISTER_tok",REGISTER_tok));}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 105 "c_compiler.lex"
+#line 106 "c_compiler.lex"
 {return(send_token("RETURN_tok",RETURN_tok));}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 107 "c_compiler.lex"
+#line 108 "c_compiler.lex"
 {return(send_token("SHORT_tok",SHORT_tok));}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 109 "c_compiler.lex"
+#line 110 "c_compiler.lex"
 {return(send_token("SIGNED_tok",SIGNED_tok));}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 111 "c_compiler.lex"
+#line 112 "c_compiler.lex"
 {return(send_token("SIZEOF_tok",SIZEOF_tok));}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 113 "c_compiler.lex"
+#line 114 "c_compiler.lex"
 {return(send_token("STATIC_tok",STATIC_tok));}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 115 "c_compiler.lex"
+#line 116 "c_compiler.lex"
 {return(send_token("STRUCT_tok",STRUCT_tok));}
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 117 "c_compiler.lex"
+#line 118 "c_compiler.lex"
 {return(send_token("SWITCH_tok",SWITCH_tok));}
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 119 "c_compiler.lex"
+#line 120 "c_compiler.lex"
 {return(send_token("TYPEDEF_tok",TYPEDEF_tok));}
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 121 "c_compiler.lex"
+#line 122 "c_compiler.lex"
 {return(send_token("UNION_tok",UNION_tok));}
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 123 "c_compiler.lex"
+#line 124 "c_compiler.lex"
 {return(send_token("UNSIGNED_tok",UNSIGNED_tok));}
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 125 "c_compiler.lex"
+#line 126 "c_compiler.lex"
 {return(send_token("VOID_tok",VOID_tok));}
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 127 "c_compiler.lex"
+#line 128 "c_compiler.lex"
 {return(send_token("VOLATILE_tok",VOLATILE_tok));}
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 129 "c_compiler.lex"
+#line 130 "c_compiler.lex"
 {return(send_token("WHILE_tok",WHILE_tok));}
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 131 "c_compiler.lex"
+#line 132 "c_compiler.lex"
 {column+=yyleng;return(id_token());}
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 133 "c_compiler.lex"
+#line 134 "c_compiler.lex"
 {return(send_token("PLUS_tok",PLUS_tok));}
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 135 "c_compiler.lex"
+#line 136 "c_compiler.lex"
 {return(send_token("MINUS_tok",MINUS_tok));}
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 137 "c_compiler.lex"
+#line 138 "c_compiler.lex"
 {return(send_token("STAR_tok",STAR_tok));}
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 139 "c_compiler.lex"
+#line 140 "c_compiler.lex"
 {return(send_token("DIV_tok",DIV_tok));}
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 141 "c_compiler.lex"
+#line 142 "c_compiler.lex"
 {return(send_token("SEMI_tok",SEMI_tok));}
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 143 "c_compiler.lex"
+#line 144 "c_compiler.lex"
 {return(send_token("OPEN_BRACKET_tok",OPEN_BRACKET_tok));}
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 145 "c_compiler.lex"
+#line 146 "c_compiler.lex"
 {return(send_token("CLOSE_BRACKET_tok",CLOSE_BRACKET_tok));}
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 147 "c_compiler.lex"
+#line 148 "c_compiler.lex"
 {return(send_token("EQUAL_tok",EQUAL_tok));}
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 149 "c_compiler.lex"
+#line 150 "c_compiler.lex"
 {return(send_token("COLON_tok",COLON_tok));}
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 151 "c_compiler.lex"
+#line 152 "c_compiler.lex"
 {return(send_token("COMMA_tok",COMMA_tok));}
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 153 "c_compiler.lex"
+#line 154 "c_compiler.lex"
 {return(send_token("PERIOD_tok",PERIOD_tok));}
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 155 "c_compiler.lex"
+#line 156 "c_compiler.lex"
 {return(send_token("OPEN_PAREN_tok",OPEN_PAREN_tok));}
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 157 "c_compiler.lex"
+#line 158 "c_compiler.lex"
 {return(send_token("CLOSE_PAREN_tok",CLOSE_PAREN_tok));}
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 159 "c_compiler.lex"
+#line 160 "c_compiler.lex"
 {return(send_token("OPEN_BRACE_tok",OPEN_BRACE_tok));}
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 161 "c_compiler.lex"
+#line 162 "c_compiler.lex"
 {return(send_token("CLOSE_BRACE_tok",CLOSE_BRACE_tok));}
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 163 "c_compiler.lex"
+#line 164 "c_compiler.lex"
 {return(send_token("QUESTION_MARK_tok",QUESTION_MARK_tok));}
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
-#line 165 "c_compiler.lex"
+#line 166 "c_compiler.lex"
 {return(send_token("BAR_tok",BAR_tok));}
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
-#line 167 "c_compiler.lex"
+#line 168 "c_compiler.lex"
 {return(send_token("CARET_tok",CARET_tok));}
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
-#line 169 "c_compiler.lex"
+#line 170 "c_compiler.lex"
 {return(send_token("AMP_tok",AMP_tok));}
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
-#line 171 "c_compiler.lex"
+#line 172 "c_compiler.lex"
 {return(send_token("GT_tok",GT_tok));}
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
-#line 173 "c_compiler.lex"
+#line 174 "c_compiler.lex"
 {return(send_token("LT_tok",LT_tok));}
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
-#line 175 "c_compiler.lex"
+#line 176 "c_compiler.lex"
 {return(send_token("PERCENT_tok",PERCENT_tok));}
 	YY_BREAK
 case 57:
 YY_RULE_SETUP
-#line 177 "c_compiler.lex"
+#line 178 "c_compiler.lex"
 {return(send_token("TILDA_tok",TILDA_tok));}
 	YY_BREAK
 case 58:
 YY_RULE_SETUP
-#line 179 "c_compiler.lex"
+#line 180 "c_compiler.lex"
 {return(send_token("NOT_tok",NOT_tok));}
 	YY_BREAK
 case 59:
 YY_RULE_SETUP
-#line 181 "c_compiler.lex"
+#line 182 "c_compiler.lex"
 {return(send_token("INC_OP_tok",INC_OP_tok));}
 	YY_BREAK
 case 60:
 YY_RULE_SETUP
-#line 183 "c_compiler.lex"
+#line 184 "c_compiler.lex"
 {return(send_token("DEC_OP_tok",DEC_OP_tok));}
 	YY_BREAK
 case 61:
 YY_RULE_SETUP
-#line 185 "c_compiler.lex"
+#line 186 "c_compiler.lex"
 {column+=yyleng;check_int();return(INTEGER_CONSTANT_tok);}
 	YY_BREAK
 case 62:
 YY_RULE_SETUP
-#line 187 "c_compiler.lex"
+#line 188 "c_compiler.lex"
 {column+=yyleng;check_float();return(FLOATING_CONSTANT_tok);}
 	YY_BREAK
 case 63:
 /* rule 63 can match eol */
 YY_RULE_SETUP
-#line 189 "c_compiler.lex"
+#line 190 "c_compiler.lex"
 {column+=yyleng;character();return(CHARACTER_CONSTANT_tok);}
 	YY_BREAK
 case 64:
 /* rule 64 can match eol */
 YY_RULE_SETUP
-#line 191 "c_compiler.lex"
+#line 192 "c_compiler.lex"
 {return(send_token("STRING_LITERAL_tok",STRING_LITERAL_tok));}
 	YY_BREAK
 case 65:
 YY_RULE_SETUP
-#line 194 "c_compiler.lex"
+#line 195 "c_compiler.lex"
 {return(send_token("PTR_OP_tok",PTR_OP_tok));}
 	YY_BREAK
 case 66:
 YY_RULE_SETUP
-#line 196 "c_compiler.lex"
+#line 197 "c_compiler.lex"
 {return(send_token("LEFT_OP_tok",LEFT_OP_tok));}
 	YY_BREAK
 case 67:
 YY_RULE_SETUP
-#line 198 "c_compiler.lex"
+#line 199 "c_compiler.lex"
 {return(send_token("RIGHT_OP_tok",RIGHT_OP_tok));}
 	YY_BREAK
 case 68:
 YY_RULE_SETUP
-#line 200 "c_compiler.lex"
+#line 201 "c_compiler.lex"
 {return(send_token("LE_OP_tok",LE_OP_tok));}
 	YY_BREAK
 case 69:
 YY_RULE_SETUP
-#line 202 "c_compiler.lex"
+#line 203 "c_compiler.lex"
 {return(send_token("GE_OP_tok",GE_OP_tok));}
 	YY_BREAK
 case 70:
 YY_RULE_SETUP
-#line 204 "c_compiler.lex"
+#line 205 "c_compiler.lex"
 {return(send_token("EQ_OP_tok",EQ_OP_tok));}
 	YY_BREAK
 case 71:
 YY_RULE_SETUP
-#line 206 "c_compiler.lex"
+#line 207 "c_compiler.lex"
 {return(send_token("NE_OP_tok",NE_OP_tok));}
 	YY_BREAK
 case 72:
 YY_RULE_SETUP
-#line 208 "c_compiler.lex"
+#line 209 "c_compiler.lex"
 {return(send_token("AND_OP_tok",AND_OP_tok));}
 	YY_BREAK
 case 73:
 YY_RULE_SETUP
-#line 210 "c_compiler.lex"
+#line 211 "c_compiler.lex"
 {return(send_token("OR_OP_tok",OR_OP_tok));}
 	YY_BREAK
 case 74:
 YY_RULE_SETUP
-#line 212 "c_compiler.lex"
+#line 213 "c_compiler.lex"
 {return(send_token("MULT_ASSIGN_tok",MULT_ASSIGN_tok));}
 	YY_BREAK
 case 75:
 YY_RULE_SETUP
-#line 214 "c_compiler.lex"
+#line 215 "c_compiler.lex"
 {return(send_token("DIV_ASSIGN_tok",DIV_ASSIGN_tok));}
 	YY_BREAK
 case 76:
 YY_RULE_SETUP
-#line 216 "c_compiler.lex"
+#line 217 "c_compiler.lex"
 {return(send_token("MOD_ASSIGN_tok",MOD_ASSIGN_tok));}
 	YY_BREAK
 case 77:
 YY_RULE_SETUP
-#line 218 "c_compiler.lex"
+#line 219 "c_compiler.lex"
 {return(send_token("ADD_ASSIGN_tok",ADD_ASSIGN_tok));}
 	YY_BREAK
 case 78:
 YY_RULE_SETUP
-#line 220 "c_compiler.lex"
+#line 221 "c_compiler.lex"
 {return(send_token("SUB_ASSIGN_tok",SUB_ASSIGN_tok));}
 	YY_BREAK
 case 79:
 YY_RULE_SETUP
-#line 222 "c_compiler.lex"
+#line 223 "c_compiler.lex"
 {return(send_token("LEFT_ASSIGN_tok",LEFT_ASSIGN_tok));}
 	YY_BREAK
 case 80:
 YY_RULE_SETUP
-#line 224 "c_compiler.lex"
+#line 225 "c_compiler.lex"
 {return(send_token("RIGHT_ASSIGN_tok",RIGHT_ASSIGN_tok));}
 	YY_BREAK
 case 81:
 YY_RULE_SETUP
-#line 226 "c_compiler.lex"
+#line 227 "c_compiler.lex"
 {return(send_token("AND_ASSIGN_tok",AND_ASSIGN_tok));}
 	YY_BREAK
 case 82:
 YY_RULE_SETUP
-#line 228 "c_compiler.lex"
+#line 229 "c_compiler.lex"
 {return(send_token("XOR_ASSIGN_tok",XOR_ASSIGN_tok));}
 	YY_BREAK
 case 83:
 YY_RULE_SETUP
-#line 230 "c_compiler.lex"
+#line 231 "c_compiler.lex"
 {return(send_token("OR_ASSIGN_tok",OR_ASSIGN_tok));}
 	YY_BREAK
 case 84:
 YY_RULE_SETUP
-#line 232 "c_compiler.lex"
+#line 233 "c_compiler.lex"
 {return(send_token("ELIPSIS_tok",ELIPSIS_tok));}
 	YY_BREAK
 case 85:
 /* rule 85 can match eol */
 YY_RULE_SETUP
-#line 234 "c_compiler.lex"
+#line 235 "c_compiler.lex"
 {mult_line();}
 	YY_BREAK
 case 86:
 /* rule 86 can match eol */
 YY_RULE_SETUP
-#line 236 "c_compiler.lex"
+#line 237 "c_compiler.lex"
 {single_line();}
 	YY_BREAK
 case 87:
 YY_RULE_SETUP
-#line 238 "c_compiler.lex"
+#line 239 "c_compiler.lex"
 {set_debug_level();}
 	YY_BREAK
 case 88:
 YY_RULE_SETUP
-#line 240 "c_compiler.lex"
+#line 241 "c_compiler.lex"
 {column+=yyleng;s.writeToFile(); }
 	YY_BREAK
 case 89:
 YY_RULE_SETUP
-#line 242 "c_compiler.lex"
+#line 243 "c_compiler.lex"
 {column+=yyleng;print_error("Syntax Error: Not Legal Character.");
 				return(ERROR_tok);}
 	YY_BREAK
 case 90:
 YY_RULE_SETUP
-#line 247 "c_compiler.lex"
+#line 248 "c_compiler.lex"
 ECHO;
 	YY_BREAK
-#line 1332 "lex.yy.cc"
+#line 1333 "lex.yy.cc"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2283,7 +2284,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 247 "c_compiler.lex"
+#line 248 "c_compiler.lex"
 
 
 int send_token(char* token_name,int token)
