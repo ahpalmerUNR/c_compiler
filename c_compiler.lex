@@ -31,12 +31,12 @@ char tmp[80];
 
 int levels[4];
 
-
+int send_token(char* token_name,int token);
 void white();
 void character();
 void mult_line();
 void single_line();
-void print_error();
+void print_error(char* error_msg);
 void set_debug_level();
 void check_int();
 int id_token();
@@ -64,239 +64,123 @@ mult_line_comment	"/*"([^*]|\*+[^*/])*"*/"
 {ws}		{white();}
 
 
-"auto"		{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("AUTO_tok\n");}return(AUTO_tok);}
+"auto"		{return(send_token("AUTO_tok",AUTO_tok));}
 			
-"break"		{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("BREAK_tok\n");}return(BREAK_tok);}
+"break"		{return(send_token("BREAK_tok",BREAK_tok));}
 			
-"case"		{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("CASE_tok\n");}return(CASE_tok);}
+"case"		{return(send_token("CASE_tok",CASE_tok));}
 			
-"char"		{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("CHAR_tok\n");}return(CHAR_tok);}
+"char"		{return(send_token("CHAR_tok",CHAR_tok));}
 			
-"const"		{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("CONST_tok\n");}return(CONST_tok);}
+"const"		{return(send_token("CONST_tok",CONST_tok));}
 			
-"continue"	{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("CONTINUE_tok\n");}return(CONTINUE_tok);}
+"continue"	{return(send_token("CONTINUE_tok",CONTINUE_tok));}
 			
-"default" 	{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("DEFAULT_tok\n");}return(DEFAULT_tok);}
+"default" 	{return(send_token("DEFAULT_tok",DEFAULT_tok));}
 			
-"do"		{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("DO_tok\n");}return(DO_tok);}
+"do"		{return(send_token("DO_tok",DO_tok));}
 			
-"double"	{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("DOUBLE_tok\n");}return(DOUBLE_tok);}
+"double"	{return(send_token("DOUBLE_tok",DOUBLE_tok));}
 			
-"else"		{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("ELSE_tok\n");}return(ELSE_tok);}
+"else"		{return(send_token("ELSE_tok",ELSE_tok));}
 			
-"enum"		{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("ENUM_tok\n");}return(ENUM_tok);}
+"enum"		{return(send_token("ENUM_tok",ENUM_tok));}
 			
-"extern"	{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("EXTERN_tok\n");}return(EXTERN_tok);}
+"extern"	{return(send_token("EXTERN_tok",EXTERN_tok));}
 			
-"float"		{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("FLOAT_tok\n");}return(FLOAT_tok);}
+"float"		{return(send_token("FLOAT_tok",FLOAT_tok));}
 			
-"for"		{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("FOR_tok\n");}return(FOR_tok);}
+"for"		{return(send_token("FOR_tok",FOR_tok));}
 			
-"goto"		{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("GOTO_tok\n");}return(GOTO_tok);}
+"goto"		{return(send_token("GOTO_tok",GOTO_tok));}
 			
-"if"		{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("IF_tok\n");}return(IF_tok);}
+"if"		{return(send_token("IF_tok",IF_tok));}
 			
-"int"		{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("INT_tok\n");}return(INT_tok);}
+"int"		{return(send_token("INT_tok",INT_tok));}
 			
-"long"		{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("LONG_tok\n");}return(LONG_tok);}
+"long"		{return(send_token("LONG_tok",LONG_tok));}
 			
-"register"	{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("REGISTER_tok\n");}return(REGISTER_tok);}
+"register"	{return(send_token("REGISTER_tok",REGISTER_tok));}
 			
-"return"	{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("RETURN_tok\n");}return(RETURN_tok);}
+"return"	{return(send_token("RETURN_tok",RETURN_tok));}
 			
-"short"		{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("SHORT_tok\n");}return(SHORT_tok);}
+"short"		{return(send_token("SHORT_tok",SHORT_tok));}
 			
-"signed"	{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("SIGNED_tok\n");}return(SIGNED_tok);}
+"signed"	{return(send_token("SIGNED_tok",SIGNED_tok));}
 			
-"sizeof"	{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("SIZEOF_tok\n");}return(SIZEOF_tok);}
+"sizeof"	{return(send_token("SIZEOF_tok",SIZEOF_tok));}
 			
-"static"	{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("STATIC_tok\n");}return(STATIC_tok);}
+"static"	{return(send_token("STATIC_tok",STATIC_tok));}
 			
-"struct"	{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("STRUCT_tok\n");}return(STRUCT_tok);}
+"struct"	{return(send_token("STRUCT_tok",STRUCT_tok));}
 			
-"switch"	{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("SWITCH_tok\n");}return(SWITCH_tok);}
+"switch"	{return(send_token("SWITCH_tok",SWITCH_tok));}
 			
-"typedef"	{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("TYPEDEF_tok\n");}return(TYPEDEF_tok);}
+"typedef"	{return(send_token("TYPEDEF_tok",TYPEDEF_tok));}
 			
-"union"		{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("UNION_tok\n");}return(UNION_tok);}
+"union"		{return(send_token("UNION_tok",UNION_tok));}
 			
-"unsigned"	{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("UNSIGNED_tok\n");}return(UNSIGNED_tok);}
+"unsigned"	{return(send_token("UNSIGNED_tok",UNSIGNED_tok));}
 			
-"void"		{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("VOID_tok\n");}return(VOID_tok);}
+"void"		{return(send_token("VOID_tok",VOID_tok));}
 			
-"volatile"	{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("VOLATILE_tok\n");}return(VOLATILE_tok);}
+"volatile"	{return(send_token("VOLATILE_tok",VOLATILE_tok));}
 			
-"while"		{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("WHILE_tok\n");}return(WHILE_tok);}
+"while"		{return(send_token("WHILE_tok",WHILE_tok));}
 
 {id}		{column+=yyleng;return(id_token());}
 
-"+"			{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("PLUS_tok\n");}return(PLUS_tok);}
+"+"			{return(send_token("PLUS_tok",PLUS_tok));}
 			
-"-"			{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("MINUS_tok\n");}return(MINUS_tok);}
+"-"			{return(send_token("MINUS_tok",MINUS_tok));}
 			
-"*"			{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("STAR_tok\n");}return(STAR_tok);}
+"*"			{return(send_token("STAR_tok",STAR_tok));}
 			
-"/"			{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("DIV_tok\n");}return(DIV_tok);}
+"/"			{return(send_token("DIV_tok",DIV_tok));}
 			
-";"			{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("SEMI_tok\n");}return(SEMI_tok);}
+";"			{return(send_token("SEMI_tok",SEMI_tok));}
 			
-"["			{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("OPEN_BRACKET_tok\n");}return(OPEN_BRACKET_tok);}
+"["			{return(send_token("OPEN_BRACKET_tok",OPEN_BRACKET_tok));}
 			
-"]"			{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("CLOSE_BRACKET_tok\n");}return(CLOSE_BRACKET_tok);}
+"]"			{return(send_token("CLOSE_BRACKET_tok",CLOSE_BRACKET_tok));}
 			
-"="			{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("EQUAL_tok\n");}return(EQUAL_tok);}
+"="			{return(send_token("EQUAL_tok",EQUAL_tok));}
 			
-":"			{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("COLON_tok\n");}return(COLON_tok);}
+":"			{return(send_token("COLON_tok",COLON_tok));}
 			
-","			{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("COMMA_tok\n");}return(COMMA_tok);}
+","			{return(send_token("COMMA_tok",COMMA_tok));}
 			
-"."			{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("PERIOD_tok\n");}return(PERIOD_tok);}
+"."			{return(send_token("PERIOD_tok",PERIOD_tok));}
 			
-"("			{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("OPEN_PAREN_tok\n");}return(OPEN_PAREN_tok);}
+"("			{return(send_token("OPEN_PAREN_tok",OPEN_PAREN_tok));}
 			
-")"			{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("CLOSE_PAREN_tok\n");}return(CLOSE_PAREN_tok);}
+")"			{return(send_token("CLOSE_PAREN_tok",CLOSE_PAREN_tok));}
 			
-"{"			{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("OPEN_BRACE_tok\n");}return(OPEN_BRACE_tok);}
+"{"			{return(send_token("OPEN_BRACE_tok",OPEN_BRACE_tok));}
 			
-"}"			{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("CLOSE_BRACE_tok\n");}return(CLOSE_BRACE_tok);}
+"}"			{return(send_token("CLOSE_BRACE_tok",CLOSE_BRACE_tok));}
 
-"?"			{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("QUESTION_MARK_tok\n");}return(QUESTION_MARK_tok);}
+"?"			{return(send_token("QUESTION_MARK_tok",QUESTION_MARK_tok));}
 			
-"|"			{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("BAR_tok\n");}return(BAR_tok);}
+"|"			{return(send_token("BAR_tok",BAR_tok));}
 			
-"^"			{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("CARET_tok\n");}return(CARET_tok);}
+"^"			{return(send_token("CARET_tok",CARET_tok));}
 			
-"&"			{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("AMP_tok\n");}return(AMP_tok);}
+"&"			{return(send_token("AMP_tok",AMP_tok));}
 			
-"<"			{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("GT_tok\n");}return(GT_tok);}
+"<"			{return(send_token("GT_tok",GT_tok));}
 			
-">"			{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("LT_tok\n");}return(LT_tok);}
+">"			{return(send_token("LT_tok",LT_tok));}
 			
-"%"			{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("PERCENT_tok\n");}return(PERCENT_tok);}
+"%"			{return(send_token("PERCENT_tok",PERCENT_tok));}
 
-"~"			{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("TILDA_tok\n");}return(TILDA_tok);}
+"~"			{return(send_token("TILDA_tok",TILDA_tok));}
 			
-"!"			{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("NOT_tok\n");}return(NOT_tok);}
+"!"			{return(send_token("NOT_tok",NOT_tok));}
 			
-"++"		{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("INC_OP_tok\n");}return(INC_OP_tok);}
+"++"		{return(send_token("INC_OP_tok",INC_OP_tok));}
 			
-"--"		{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("DEC_OP_tok\n");}return(DEC_OP_tok);}
+"--"		{return(send_token("DEC_OP_tok",DEC_OP_tok));}
 
 {int}		{column+=yyleng;check_int();return(INTEGER_CONSTANT_tok);}
 
@@ -304,90 +188,48 @@ mult_line_comment	"/*"([^*]|\*+[^*/])*"*/"
 
 {character}	{column+=yyleng;character();return(CHARACTER_CONSTANT_tok);}
 				
-{string}	{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("STRING_LITERAL_tok\n");}return(STRING_LITERAL_tok);}
+{string}	{return(send_token("STRING_LITERAL_tok",STRING_LITERAL_tok));}
 
 
-"<-"		{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("PTR_OP_tok\n");}return(PTR_OP_tok);}
+"<-"		{return(send_token("PTR_OP_tok",PTR_OP_tok));}
 			
-"<<"		{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("LEFT_OP_tok\n");}return(LEFT_OP_tok);}
+"<<"		{return(send_token("LEFT_OP_tok",LEFT_OP_tok));}
 			
-">>"		{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("RIGHT_OP_tok\n");}return(RIGHT_OP_tok);}
+">>"		{return(send_token("RIGHT_OP_tok",RIGHT_OP_tok));}
 			
-"<="		{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("LE_OP_tok\n");}return(LE_OP_tok);}
+"<="		{return(send_token("LE_OP_tok",LE_OP_tok));}
 			
-">="		{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("GE_OP_tok\n");}return(GE_OP_tok);}
+">="		{return(send_token("GE_OP_tok",GE_OP_tok));}
 			
-"=="		{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("EQ_OP_tok\n");}return(EQ_OP_tok);}
+"=="		{return(send_token("EQ_OP_tok",EQ_OP_tok));}
 			
-"!="		{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("NE_OP_tok\n");}return(NE_OP_tok);}
+"!="		{return(send_token("NE_OP_tok",NE_OP_tok));}
 
-"&&"		{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("AND_OP_tok\n");}return(AND_OP_tok);}
+"&&"		{return(send_token("AND_OP_tok",AND_OP_tok));}
 			
-"||"		{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("OR_OP_tok\n");}return(OR_OP_tok);}
+"||"		{return(send_token("OR_OP_tok",OR_OP_tok));}
 
-"*="		{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("MULT_ASSIGN_tok\n");}return(MULT_ASSIGN_tok);}
+"*="		{return(send_token("MULT_ASSIGN_tok",MULT_ASSIGN_tok));}
 			
-"/="		{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("DIV_ASSIGN_tok\n");}return(DIV_ASSIGN_tok);}
+"/="		{return(send_token("DIV_ASSIGN_tok",DIV_ASSIGN_tok));}
 			
-"%="		{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("MOD_ASSIGN_tok\n");}return(MOD_ASSIGN_tok);}
+"%="		{return(send_token("MOD_ASSIGN_tok",MOD_ASSIGN_tok));}
 			
-"+="		{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("ADD_ASSIGN_tok\n");}return(ADD_ASSIGN_tok);}
+"+="		{return(send_token("ADD_ASSIGN_tok",ADD_ASSIGN_tok));}
 			
-"-="		{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("SUB_ASSIGN_tok\n");}return(SUB_ASSIGN_tok);}
+"-="		{return(send_token("SUB_ASSIGN_tok",SUB_ASSIGN_tok));}
 			
-"<<="		{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("LEFT_ASSIGN_tok\n");}return(LEFT_ASSIGN_tok);}
+"<<="		{return(send_token("LEFT_ASSIGN_tok",LEFT_ASSIGN_tok));}
 			
-">>="		{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("RIGHT_ASSIGN_tok\n");}return(RIGHT_ASSIGN_tok);}
+">>="		{return(send_token("RIGHT_ASSIGN_tok",RIGHT_ASSIGN_tok));}
 			
-"&="		{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("AND_ASSIGN_tok\n");}return(AND_ASSIGN_tok);}
+"&="		{return(send_token("AND_ASSIGN_tok",AND_ASSIGN_tok));}
 			
-"^="		{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("XOR_ASSIGN_tok\n");}return(XOR_ASSIGN_tok);}
+"^="		{return(send_token("XOR_ASSIGN_tok",XOR_ASSIGN_tok));}
 			
-"|="		{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("OR_ASSIGN_tok\n");}return(OR_ASSIGN_tok);}
+"|="		{return(send_token("OR_ASSIGN_tok",OR_ASSIGN_tok));}
 
-"..."		{column+=yyleng;if(lex_debug_level%5==0){
-			printf("%s ==>",yytext);}if(lex_debug_level%2==0){
-			printf("ELIPSIS_tok\n");}return(ELIPSIS_tok);}
+"..."		{return(send_token("ELIPSIS_tok",ELIPSIS_tok));}
 
 {mult_line_comment}		{mult_line();}
 
@@ -403,6 +245,22 @@ mult_line_comment	"/*"([^*]|\*+[^*/])*"*/"
 
 
 %%
+int send_token(char* token_name,int token)
+{
+	column+=yyleng;
+	//printf("%d\n",lex_debug_level);
+	if(lex_debug_level%5==0)
+	{
+		printf("%s ==>",yytext);
+	}
+	if(lex_debug_level%2==0)
+	{
+		printf("%s\n",token_name);
+	}
+	return token;
+}
+
+
 void white()
 {
 	//printf("S%sN",yytext);
@@ -541,7 +399,7 @@ void character()
 			//hex 7F octal 177 max limit
 		}
 	}
-	printf("%c\t%d\n",yylval,yylval);
+	//printf("%c\t%d\n",yylval,yylval);
 	//checks valid chars and reports error 
 	
 }
@@ -794,15 +652,21 @@ int main(int argc, char **argv)
 					}
 				}
 				//printf("Lex Count: %d, Scan Count: %d\n",lex_count,scan_count);
-				//printf("Lex Debug level: %d\nYacc Debug level: %d\nScanner Debug level: %d\n",c_line_lex_debug_level,c_line_yacc_debug_level,c_line_symbol_table_debug);
-				lex_debug_level = c_line_lex_debug_level;
-				symbol_table_debug = c_line_symbol_table_debug;
-				yacc_debug_level = c_line_yacc_debug_level;
+				printf("Lex Debug level: %d\nYacc Debug level: %d\nScanner Debug level: %d\n",c_line_lex_debug_level,c_line_yacc_debug_level,c_line_symbol_table_debug);
+				
 			}
+			
 			
 		}
 	}
 	int tok;
+	
+	lex_debug_level = c_line_lex_debug_level;
+	symbol_table_debug = c_line_symbol_table_debug;
+	yacc_debug_level = c_line_yacc_debug_level;
+	
+	printf("%d\n",lex_debug_level);
+	
 	//SymbolTable s;
 	//s.insert("KEY",Data);
 	//s.pushEmptyBST();
@@ -810,9 +674,9 @@ int main(int argc, char **argv)
 	//s.searchTop("KEY");//returns pointer to node
 	//s.searchAll("KEY");//returns pointer
 	//s.writeToFile();//dumps table to file
-	lex_debug_level = 1;
-	symbol_table_debug = 1;
-	yacc_debug_level = 1;
+	//lex_debug_level = 1;
+	//symbol_table_debug = 1;
+	//yacc_debug_level = 1;
 	while((tok = yylex()))
 	{
 	
