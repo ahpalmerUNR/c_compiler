@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-09-28 12:11:57
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-10-03 15:44:39
+* @Last Modified time: 2018-10-10 14:31:47
 */
 #include "symboltable.h"
 
@@ -12,7 +12,7 @@ SymbolTable::SymbolTable()
 	pushEmptyBST();
 }
 
-void SymbolTable::insert(string tokenKey, int lN, DataType t)
+Node* SymbolTable::insert(string tokenKey, int lN, DataType t)
 {
 	int location;
 	Node *prevDecl = searchAll(tokenKey,&location);
@@ -22,6 +22,8 @@ void SymbolTable::insert(string tokenKey, int lN, DataType t)
 		d.lineNumber = lN;
 		d.type = t;
 		stack[currentLevel].insert(pair<string,Node>(tokenKey,d));
+		return searchTop(tokenKey);
+
 	}
 	else
 	{
@@ -37,17 +39,22 @@ void SymbolTable::insert(string tokenKey, int lN, DataType t)
 			d.lineNumber = lN;
 			d.type = t;
 			stack[currentLevel].insert(pair<string,Node>(tokenKey,d));
+			return searchTop(tokenKey);
+
 		}
+		return prevDecl;
 	}
 
 }
-void SymbolTable::insert(string tokenKey, Node d)
+Node* SymbolTable::insert(string tokenKey, Node d)
 {
 	int location;
 	Node *prevDecl = searchAll(tokenKey,&location);
 	if(prevDecl == NULL)
 	{
 		stack[currentLevel].insert(pair<string,Node>(tokenKey,d));
+		return searchTop(tokenKey);
+
 	}
 	else
 	{
@@ -60,7 +67,9 @@ void SymbolTable::insert(string tokenKey, Node d)
 		{
 			cout << "Shadowed variable in level: " << location << " On line number: " << prevDecl->lineNumber << endl;
 			stack[currentLevel].insert(pair<string,Node>(tokenKey,d));
+			return searchTop(tokenKey);
 		}
+		return prevDecl;
 	}
 
 }
@@ -153,7 +162,7 @@ void SymbolTable::pushEmptyBST()
 	currentLevel++;
 	//Debug message
 	if(symbol_table_debug % 2  == 0)
-		cout << "Level 3 debug: Entering new scope of level: " << currentLevel << endl;	
+		cout << "Level 3 debug: Entering new scope of level: " << currentLevel << endl;
 }
 void SymbolTable::popBST()
 {
