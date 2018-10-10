@@ -10,7 +10,7 @@ YFLAGS=-d
 c_compiler: $(OBJ)
 	$(CC) $(CFLAGS) c_compiler $(OBJ)
 	
-bison_out: c_compiler.ypp symbol_table.o
+bison_out: c_compiler.ypp symboltable.o
 	$(YACC) $(YFLAGS) c_compiler.ypp
 	
 scanner.o: flex_out symboltable.o
@@ -19,7 +19,7 @@ scanner.o: flex_out symboltable.o
 flex_out: c_compiler.lex
 	$(LEX) c_compiler.lex
 	
-symbol_table: symboltable.cpp 
+symboltable.o: symboltable.cpp 
 	$(CPP) $(CPPFLAGS) -c symboltable.cpp 
 
 clean:

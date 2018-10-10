@@ -103,5 +103,15 @@ int c_line_lex_debug_level;
 int c_line_symbol_table_debug;
 int c_line_yacc_debug_level;
 int insert_lookup;
-int yylval;
+
+
+
+union yylval
+{
+	int lint;
+	char lchar;
+	char* lstr;
+	double ldoub;
+	Node* lnode;
+};
 SymbolTable s;

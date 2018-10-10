@@ -1,4 +1,6 @@
-
+%{
+	#include "symboltable.h"	
+%}
 %token AUTO_tok
 %token BREAK_tok
 %token CASE_tok
@@ -87,6 +89,15 @@
 %token ELIPSIS_tok
 %token DIV_tok
 %token PERIOD_tok
+
+%union
+{
+	int lint;
+	char lchar;
+	char* lstr;
+	double ldoub;
+	class Node* lnode;
+}
 
 %start translation_unit
 %%
@@ -513,9 +524,18 @@ identifier
 %%
 
 #include <stdio.h>
-
+//#include "symboltable.h"
+int lex_debug_level;
+int symbol_table_debug;
+int yacc_debug_level;
+int c_line_lex_debug_level;
+int c_line_symbol_table_debug;
+int c_line_yacc_debug_level;
+int insert_lookup;
+SymbolTable s;
 extern char yytext[];
 extern int column;
+extern int line;
 
 yyerror(s)
 char *s;

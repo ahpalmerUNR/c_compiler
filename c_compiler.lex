@@ -11,9 +11,10 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
-#include "c_compiler_tokens.h"
+#include "c_compiler.tab.hpp"
+#include "symboltable.h"
 
-extern int yylval;
+extern YYSTYPE yylval;
 extern int lex_debug_level;
 extern int symbol_table_debug;
 extern int yacc_debug_level;
@@ -307,44 +308,44 @@ void character()
 	
 	if(yytext[1]!='\\' && yytext[1]!='\'')
 	{
-		yylval = yytext[1];
+		yylval.lchar = yytext[1];
 	}
 	else if(yytext[1]=='\\')
 	{
 		switch(yytext[2])
 		{
 			case 'n':
-				yylval = 10;
+				yylval.lchar = 10;
 				break;
 			case 't':
-				yylval = 9;
+				yylval.lchar = 9;
 				break;
 			case 'v':
-				yylval = 11;
+				yylval.lchar = 11;
 				break;
 			case 'b':
-				yylval = 8;
+				yylval.lchar = 8;
 				break;
 			case 'r':
-				yylval = 13;
+				yylval.lchar = 13;
 				break;
 			case 'f':
-				yylval = 12;
+				yylval.lchar = 12;
 				break;
 			case 'a':
-				yylval = 7;
+				yylval.lchar = 7;
 				break;
 			case '\\':
-				yylval = 92;
+				yylval.lchar = 92;
 				break;
 			case '\?':
-				yylval = 63;
+				yylval.lchar = 63;
 				break;
 			case '\'':
-				yylval = 39;
+				yylval.lchar= 39;
 				break;
 			case '\"':
-				yylval = 34;
+				yylval.lchar = 34;
 				break;
 			case '0':
 			case '1':
@@ -371,7 +372,7 @@ void character()
 					print_error("Octal character out of range.");
 				}
 				//printf("%d",code);
-				yylval = code;
+				yylval.lchar = code;
 				break;
 			case 'x':
 				for(int j = 3; j<5 ;j++)
@@ -394,7 +395,7 @@ void character()
 					print_error("Hex character out of range.");
 				}
 				//printf("%d",code);
-				yylval = code;
+				yylval.lchar = code;
 				break;
 
 			//hex 7F octal 177 max limit
@@ -522,7 +523,7 @@ void check_int()
 	}
 	
 	//printf("%d",yylval);
-	yylval = test;
+	yylval.lint = test;
 	//return INTEGER_CONSTANT_tok;
 	
 }
@@ -548,22 +549,22 @@ int id_token()
 	pointsTo = s.searchAll(yytext,&scope);
 	if(pointsTo->ntype == 1)
 	{
-		yylval = pointsTo;
+		yylval.lnode = pointsTo;
 		return(ID_tok);
 	}
 	else if(pointsTo->ntype==2)
 	{
-		yylval = pointsTo;
+		yylval.lnode = pointsTo;
 		return(ENUMERATION_CONSTANT_tok);
 	}
 	else if(pointsTo->ntype == 3)
 	{
-		yylval = pointsTo;
+		yylval.lnode = pointsTo;
 		return(TYPEDEF_NAME_tok);
 	}
 	else
 	{
-		yylval = s.insert(yytext,line,INT_TYPE);
+		yylval.lnode = s.insert(yytext,line,INT_TYPE);
 		return(ID_tok);
 	}
 	if(lex_debug_level%5==0)
