@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-03 22:57:09
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-10-10 15:09:24
+* @Last Modified time: 2018-10-10 16:52:24
 */
 int main()
 {
@@ -52,16 +52,17 @@ int main()
 	!!D
 
 	int o = 44;
+
 	i = 2;
 	i +=2;
 	if(i==4)
 	{
+		int j =2;
 		i = 10;
 	}
-	printf(KKD'DK311!!@3);
 	printf("KKD'DK311!!@3");
 	
-	$;
+	
 	!!L 1
 	return 0;
 }

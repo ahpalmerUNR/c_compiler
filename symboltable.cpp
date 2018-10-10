@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-09-28 12:11:57
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-10-10 15:08:46
+* @Last Modified time: 2018-10-10 16:46:02
 */
 #include "symboltable.h"
 
@@ -76,6 +76,7 @@ Node* SymbolTable::insert(string tokenKey, Node d)
 }
 Node* SymbolTable::searchAll(string key, int *location)
 {
+	//cout<<"entered search all"<<endl;
 	//Print key value and node values on debug level
 	for(int i = currentLevel; i >= 0; i--)
 	{
@@ -88,7 +89,9 @@ Node* SymbolTable::searchAll(string key, int *location)
 				cout << "Level 5 debug: Level: " << i << " Key: " << it->first << " ";
 				it->second.print();
 			}
+			cout<<"location found"<<endl;
 			*location = i;
+			cout<<"location set"<<endl;
 			return &it->second;
 		}
 		else
@@ -100,6 +103,7 @@ Node* SymbolTable::searchAll(string key, int *location)
 	{
 		cout << "Level 5 debug: Level: NA" << " Key: " << key << " " << "NA" << endl;
 	}
+	//cout<<"leaving searchAll"<<endl;
 	return NULL;
 }
 
@@ -130,8 +134,10 @@ Node* SymbolTable::searchTop(string key)
 }
 void SymbolTable::writeToFile(char const *fileName)
 {
-	ofstream stream(fileName);
+	ofstream stream;
+	stream.open(fileName,fstream::app);
 	int count = 0;
+	stream<<"SYMBOL TABLE DUMP\n"<<endl;
 	for(vector<map<string, Node> >::iterator it = stack.begin(); it != stack.end(); ++it)
 	{
 		for(map<string, Node>::iterator i = it->begin(); i != it->end(); ++i)
@@ -141,6 +147,7 @@ void SymbolTable::writeToFile(char const *fileName)
 		}
 		count++;
 	}
+	stream<<"\n\nSYMBOL TABLE ABOVE"<<endl<<endl;
 	stream.close();
 }
 void SymbolTable::printCurrentScope()

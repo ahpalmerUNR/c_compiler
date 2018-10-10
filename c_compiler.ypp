@@ -4,7 +4,7 @@
 	FILE *out_log;
 	FILE *outfile;
 	FILE *errorText;
-	char *logName;
+	char *logName = "compilerLog.txt";
 	char *file_name;
 
 	int levels[4];
@@ -545,6 +545,8 @@ int c_line_symbol_table_debug;
 int c_line_yacc_debug_level;
 int insert_lookup;
 SymbolTable s;
+//logName = "compilerLog.txt";
+
 extern char yytext[];
 extern int column;
 extern int line;
@@ -553,10 +555,14 @@ extern FILE* yyin;
 
 int main(int argc, char **argv)
 {
+	printf("Entered Main\n");
 	int scan_count = 0;
 	int lex_count = 0;
 	int yacc_count = 0;
 	
+	lex_debug_level=1;
+	symbol_table_debug=1;
+	yacc_debug_level=1;
 	c_line_symbol_table_debug =1;
 	c_line_lex_debug_level=1;
 	c_line_yacc_debug_level=1;
@@ -570,7 +576,7 @@ int main(int argc, char **argv)
 	outfile = fopen("out.s","w");
 	out_log = fopen(logName,"a");
 	
-	
+	printf("Created Log file\n");
 	if(argc==1)
 	{
 		printf("No File Provided. Pass file in command line.");
@@ -631,6 +637,12 @@ int main(int argc, char **argv)
 				//printf("Lex Count: %d, Scan Count: %d\n",lex_count,scan_count);
 				printf("Lex Debug level: %d\nYacc Debug level: %d\nScanner Debug level: %d\n",c_line_lex_debug_level,c_line_yacc_debug_level,c_line_symbol_table_debug);
 				
+				lex_debug_level = c_line_lex_debug_level;
+				printf("Debug lex level %d\n",lex_debug_level);
+				symbol_table_debug = c_line_symbol_table_debug;
+				printf("Debug symbol_table level %d\n",symbol_table_debug);
+				yacc_debug_level = c_line_yacc_debug_level;
+				printf("Debug yacc level %d\n",yacc_debug_level);
 			}
 			
 			
@@ -638,12 +650,11 @@ int main(int argc, char **argv)
 	}
 	//int tok;
 	
-	lex_debug_level = c_line_lex_debug_level;
-	symbol_table_debug = c_line_symbol_table_debug;
-	yacc_debug_level = c_line_yacc_debug_level;
+	printf("Set commandline args\n");
+
 	
-	printf("%d\n",lex_debug_level);
-	//logName = "compilerLog.txt";
+	//printf("%d\n",lex_debug_level);
+	
 
 	//s.insert("KEY",Data);
 	//s.pushEmptyBST();

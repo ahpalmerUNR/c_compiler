@@ -252,7 +252,7 @@ int send_token(char const* token_name,int token)
 {
 	column+=yyleng;
 	//printf("%d\n",lex_debug_level);
-	if(lex_debug_level%5==0)
+	if(lex_debug_level%3==0)
 	{
 		printf("%s ==>",yytext);
 	}
@@ -297,7 +297,7 @@ void white()
 void character()
 {
 	int code = 0;
-	if(lex_debug_level%5==0)
+	if(lex_debug_level%3==0)
 	{
 		printf("%s ==>",yytext);
 	}
@@ -502,7 +502,7 @@ void set_debug_level()
 
 void check_int()
 {
-	if(lex_debug_level%5==0)
+	if(lex_debug_level%3==0)
 	{
 		printf("%s ==>",yytext);
 	}
@@ -531,7 +531,7 @@ void check_int()
 
 void check_float()
 {
-	if(lex_debug_level%5==0)
+	if(lex_debug_level%3==0)
 	{
 		printf("%s ==>",yytext);
 	}
@@ -545,30 +545,88 @@ void check_float()
 
 int id_token()
 {
+	//printf("Entered ID function\n");
 	Node * pointsTo = NULL;
+	//printf("pointsto made\n");
 	int scope;
+	//printf("Before Search of symboltable");
 	pointsTo = s.searchAll(yytext,&scope);
-	if(pointsTo->ntype == 1)
+	//printf("After Search of symboltable");
+	
+	if(pointsTo==NULL)
 	{
-		yylval.lnode = pointsTo;
+		printf("\n\nID NOT FOUND AND NOW ADDING\n");
+		yylval.lnode = s.insert(yytext,line,INT_TYPE);
+		if(lex_debug_level%3==0)
+		{
+			printf("%s ==>",yytext);
+		}
+		if(lex_debug_level%2==0)
+		{
+			printf("ID_tok\n");
+		}
 		return(ID_tok);
-	}
-	else if(pointsTo->ntype==2)
-	{
-		yylval.lnode = pointsTo;
-		return(ENUMERATION_CONSTANT_tok);
-	}
-	else if(pointsTo->ntype == 3)
-	{
-		yylval.lnode = pointsTo;
-		return(TYPEDEF_NAME_tok);
 	}
 	else
 	{
-		yylval.lnode = s.insert(yytext,line,INT_TYPE);
-		return(ID_tok);
+		pointsTo->print();
+		printf("\n\nID FOUND AND NOW ASSIGNING TYPE\n");
+		if(pointsTo->ntype == 1)
+		{
+			yylval.lnode = pointsTo;
+			if(lex_debug_level%3==0)
+			{
+				printf("%s ==>",yytext);
+			}
+			if(lex_debug_level%2==0)
+			{
+				printf("ID_tok\n");
+			}
+			return(ID_tok);
+		}
+		else if(pointsTo->ntype==2)
+		{
+			yylval.lnode = pointsTo;
+			if(lex_debug_level%3==0)
+			{
+				printf("%s ==>",yytext);
+			}
+			if(lex_debug_level%2==0)
+			{
+				printf("ENUMERATION_CONSTANT_tok\n");
+			}
+			return(ENUMERATION_CONSTANT_tok);
+		}
+		else if(pointsTo->ntype == 3)
+		{
+			yylval.lnode = pointsTo;
+			if(lex_debug_level%3==0)
+			{
+				printf("%s ==>",yytext);
+			}
+			if(lex_debug_level%2==0)
+			{
+				printf("TYPEDEF_NAME_tok\n");
+			}
+			return(TYPEDEF_NAME_tok);
+		}
+		else
+		{
+			yylval.lnode = s.insert(yytext,line,INT_TYPE);
+			if(lex_debug_level%3==0)
+			{
+				printf("%s ==>",yytext);
+			}
+			if(lex_debug_level%2==0)
+			{
+				printf("ID_tok\n");
+			}
+			return(ID_tok);
+		}
+		
 	}
-	if(lex_debug_level%5==0)
+	//printf("Lex debug level %d\n",lex_debug_level);
+	if(lex_debug_level%3==0)
 	{
 		printf("%s ==>",yytext);
 	}
