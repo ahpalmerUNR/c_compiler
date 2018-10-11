@@ -555,7 +555,7 @@ extern FILE* yyin;
 
 int main(int argc, char **argv)
 {
-	printf("Entered Main\n");
+	//printf("Entered Main\n");
 	int scan_count = 0;
 	int lex_count = 0;
 	int yacc_count = 0;
@@ -576,7 +576,7 @@ int main(int argc, char **argv)
 	outfile = fopen("out.s","w");
 	out_log = fopen(logName,"a");
 	
-	printf("Created Log file\n");
+	//printf("Created Log file\n");
 	if(argc==1)
 	{
 		printf("No File Provided. Pass file in command line.");
@@ -635,14 +635,14 @@ int main(int argc, char **argv)
 					}
 				}
 				//printf("Lex Count: %d, Scan Count: %d\n",lex_count,scan_count);
-				printf("Lex Debug level: %d\nYacc Debug level: %d\nScanner Debug level: %d\n",c_line_lex_debug_level,c_line_yacc_debug_level,c_line_symbol_table_debug);
+				//printf("Lex Debug level: %d\nYacc Debug level: %d\nScanner Debug level: %d\n",c_line_lex_debug_level,c_line_yacc_debug_level,c_line_symbol_table_debug);
 				
 				lex_debug_level = c_line_lex_debug_level;
-				printf("Debug lex level %d\n",lex_debug_level);
+				//printf("Debug lex level %d\n",lex_debug_level);
 				symbol_table_debug = c_line_symbol_table_debug;
-				printf("Debug symbol_table level %d\n",symbol_table_debug);
+				//printf("Debug symbol_table level %d\n",symbol_table_debug);
 				yacc_debug_level = c_line_yacc_debug_level;
-				printf("Debug yacc level %d\n",yacc_debug_level);
+				//printf("Debug yacc level %d\n",yacc_debug_level);
 			}
 			
 			
@@ -650,7 +650,7 @@ int main(int argc, char **argv)
 	}
 	//int tok;
 	
-	printf("Set commandline args\n");
+	//printf("Set commandline args\n");
 
 	
 	//printf("%d\n",lex_debug_level);
@@ -693,5 +693,16 @@ int main(int argc, char **argv)
 
 void yyerror(char const *msg)
 {
+	char tmp[80];
+	long int offset = ftell(errorText);
+	fgets(tmp,sizeof tmp, errorText);
+	fseek(errorText,offset,SEEK_SET);
+	printf("ERROR: %s:Line: %d Column: %d %s\n",file_name,line,column,msg);
+	printf("%s",tmp);
+	for(int i = column; i>0;i--)
+	{
+		printf("-");
+	}
+	printf("^ \n\n");
 	fprintf(stderr,"%s\n",msg);
 }

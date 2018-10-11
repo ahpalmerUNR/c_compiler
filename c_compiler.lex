@@ -134,7 +134,7 @@ mult_line_comment	"/*"([^*]|\*+[^*/])*"*/"
 			
 "while"		{return(send_token("WHILE_tok",WHILE_tok));}
 
-{id}		{column+=yyleng;return(id_token());}
+{id}		{return(id_token());}
 
 "+"			{return(send_token("PLUS_tok",PLUS_tok));}
 			
@@ -188,11 +188,11 @@ mult_line_comment	"/*"([^*]|\*+[^*/])*"*/"
 			
 "--"		{return(send_token("DEC_OP_tok",DEC_OP_tok));}
 
-{int}		{column+=yyleng;check_int();return(INTEGER_CONSTANT_tok);}
+{int}		{check_int();return(send_token("INTEGER_CONSTANT_tok",INTEGER_CONSTANT_tok));}
 
-{float}		{column+=yyleng;check_float();return(FLOATING_CONSTANT_tok);}
+{float}		{check_float();return(send_token("FLOATING_CONSTANT_tok",FLOATING_CONSTANT_tok));}
 
-{character}	{column+=yyleng;character();return(CHARACTER_CONSTANT_tok);}
+{character}	{character();return(send_token("CHARACTER_CONSTANT_tok",CHARACTER_CONSTANT_tok));}
 				
 {string}	{return(send_token("STRING_LITERAL_tok",STRING_LITERAL_tok));}
 
@@ -257,11 +257,14 @@ int send_token(char const* token_name,int token)
 	//printf("%d\n",lex_debug_level);
 	time_time = time(NULL);
 	clock_time = clock();
-	
-	printf("%ld:%ld ",time_time,clock_time);
+	if(lex_debug_level%2==0 || lex_debug_level%3==0 || lex_debug_level%5==0 || lex_debug_level%7==0 )
+	{
+		printf("%s SCANNER Time::%ld:%ld\t",file_name, time_time,clock_time);
+	}
+	//printf("%ld:%ld ",time_time,clock_time);
 	if(lex_debug_level%3==0)
 	{
-		printf("%s ==>",yytext);
+		printf("%s ==> ",yytext);
 	}
 	if(lex_debug_level%2==0)
 	{
@@ -304,15 +307,7 @@ void white()
 void character()
 {
 	int code = 0;
-	if(lex_debug_level%3==0)
-	{
-		printf("%s ==>",yytext);
-	}
-		
-	if(lex_debug_level%2==0)
-	{
-		printf("CHARACTER_CONSTANT_tok\n");
-	}
+	
 	
 	if(yytext[1]!='\\' && yytext[1]!='\'')
 	{
@@ -509,15 +504,6 @@ void set_debug_level()
 
 void check_int()
 {
-	if(lex_debug_level%3==0)
-	{
-		printf("%s ==>",yytext);
-	}
-		
-	if(lex_debug_level%2==0)
-	{
-		printf("INTEGER_CONSTANT_tok\n");
-	}
 	
 	long int test_int_down = -2147483648;
 	long int test_int_up = 2147483647;
@@ -538,15 +524,7 @@ void check_int()
 
 void check_float()
 {
-	if(lex_debug_level%3==0)
-	{
-		printf("%s ==>",yytext);
-	}
-		
-	if(lex_debug_level%2==0)
-	{
-		printf("FLOATING_CONSTANT_tok\n");
-	}
+	
 	//print_error("Float Value Too Large.");
 }
 
@@ -562,85 +540,43 @@ int id_token()
 	
 	if(pointsTo==NULL)
 	{
-		printf("\n\nID NOT FOUND AND NOW ADDING\n");
+		//printf("\n\nID NOT FOUND AND NOW ADDING\n");
 		yylval.lnode = s.insert(yytext,line,INT_TYPE);
-		if(lex_debug_level%3==0)
-		{
-			printf("%s ==>",yytext);
-		}
-		if(lex_debug_level%2==0)
-		{
-			printf("ID_tok\n");
-		}
-		return(ID_tok);
+		
+		return(send_token("ID_tok",ID_tok));
 	}
 	else
 	{
 		pointsTo->print();
-		printf("\n\nID FOUND AND NOW ASSIGNING TYPE\n");
+		//printf("\n\nID FOUND AND NOW ASSIGNING TYPE\n");
 		if(pointsTo->ntype == 1)
 		{
 			yylval.lnode = pointsTo;
-			if(lex_debug_level%3==0)
-			{
-				printf("%s ==>",yytext);
-			}
-			if(lex_debug_level%2==0)
-			{
-				printf("ID_tok\n");
-			}
-			return(ID_tok);
+			
+			return(send_token("ID_tok",ID_tok));
 		}
 		else if(pointsTo->ntype==2)
 		{
 			yylval.lnode = pointsTo;
-			if(lex_debug_level%3==0)
-			{
-				printf("%s ==>",yytext);
-			}
-			if(lex_debug_level%2==0)
-			{
-				printf("ENUMERATION_CONSTANT_tok\n");
-			}
-			return(ENUMERATION_CONSTANT_tok);
+			
+			return(send_token("ENUMERATION_CONSTANT_tok",ENUMERATION_CONSTANT_tok));
 		}
 		else if(pointsTo->ntype == 3)
 		{
 			yylval.lnode = pointsTo;
-			if(lex_debug_level%3==0)
-			{
-				printf("%s ==>",yytext);
-			}
-			if(lex_debug_level%2==0)
-			{
-				printf("TYPEDEF_NAME_tok\n");
-			}
-			return(TYPEDEF_NAME_tok);
+			
+			return(send_token("TYPEDEF_NAME_tok",TYPEDEF_NAME_tok));
 		}
 		else
 		{
 			yylval.lnode = s.insert(yytext,line,INT_TYPE);
-			if(lex_debug_level%3==0)
-			{
-				printf("%s ==>",yytext);
-			}
-			if(lex_debug_level%2==0)
-			{
-				printf("ID_tok\n");
-			}
-			return(ID_tok);
+			
+			return(send_token("ID_tok",ID_tok));
 		}
 		
 	}
 	//printf("Lex debug level %d\n",lex_debug_level);
-	if(lex_debug_level%3==0)
-	{
-		printf("%s ==>",yytext);
-	}
-	if(lex_debug_level%2==0)
-	{
-		printf("ID_tok\n");
-	}
-	return(ID_tok);
+	
+	return(send_token("ID_tok",ID_tok));
 }
 

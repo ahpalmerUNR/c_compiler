@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-09-28 12:11:57
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-10-10 16:46:02
+* @Last Modified time: 2018-10-11 15:33:06
 */
 #include "symboltable.h"
 
@@ -89,9 +89,9 @@ Node* SymbolTable::searchAll(string key, int *location)
 				cout << "Level 5 debug: Level: " << i << " Key: " << it->first << " ";
 				it->second.print();
 			}
-			cout<<"location found"<<endl;
+			//cout<<"location found"<<endl;
 			*location = i;
-			cout<<"location set"<<endl;
+			//cout<<"location set"<<endl;
 			return &it->second;
 		}
 		else
