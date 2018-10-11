@@ -10,7 +10,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <string.h>
+//#include <string.h>
 #include "c_compiler.tab.hpp"
 #include "symboltable.h"
 
@@ -31,6 +31,9 @@ extern char *logName;
 extern FILE *errorText;
 extern char *file_name;
 char tmp[80];
+time_t time_time;
+clock_t clock_time;
+//struct tm * timeinfo;
 
 extern int* levels;
 
@@ -252,6 +255,10 @@ int send_token(char const* token_name,int token)
 {
 	column+=yyleng;
 	//printf("%d\n",lex_debug_level);
+	time_time = time(NULL);
+	clock_time = clock();
+	
+	printf("%ld:%ld ",time_time,clock_time);
 	if(lex_debug_level%3==0)
 	{
 		printf("%s ==>",yytext);
