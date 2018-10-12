@@ -26,7 +26,7 @@ extern int c_line_yacc_debug_level;
 extern int insert_lookup;
 extern SymbolTable s;
 int line = 1;
-int column = 0;
+int column = 1;
 extern FILE *outfile;
 extern FILE *out_log;
 extern char *logName;
@@ -44,6 +44,7 @@ void white();
 void character();
 void mult_line();
 void single_line();
+void read_line();
 void print_error(char const* error_msg);
 void set_debug_level();
 void check_int();
@@ -164,9 +165,9 @@ mult_line_comment	"/*"([^*]|\*+[^*/])*"*/"
 			
 ")"			{return(send_token("CLOSE_PAREN_tok",CLOSE_PAREN_tok));}
 			
-"{"			{return(send_token("OPEN_BRACE_tok",OPEN_BRACE_tok));}
+"{"			{s.pushEmptyBST();return(send_token("OPEN_BRACE_tok",OPEN_BRACE_tok));}
 			
-"}"			{return(send_token("CLOSE_BRACE_tok",CLOSE_BRACE_tok));}
+"}"			{s.popBST();return(send_token("CLOSE_BRACE_tok",CLOSE_BRACE_tok));}
 
 "?"			{return(send_token("QUESTION_MARK_tok",QUESTION_MARK_tok));}
 			
@@ -247,7 +248,7 @@ mult_line_comment	"/*"([^*]|\*+[^*/])*"*/"
 
 "!!D"			{column+=yyleng;s.writeToFile(logName); }
 
-.			{column+=yyleng;print_error("Syntax Error: Not Legal Character.");
+.			{print_error("Syntax Error: Not Legal Character.");column+=yyleng;
 				return(ERROR_tok);}
 
 
@@ -337,7 +338,7 @@ void white()
 			//printf("%s",tmp);
 			line ++;
 			//printf("columns %d\n",column);
-			column = 0;
+			column = 1;
 			//printf("Lines = %d, Column = %d\n",line,column);
 		}
 		else if(yytext[i]==' ')
@@ -466,7 +467,7 @@ void mult_line()
 			read_line();
 			line ++;
 			//printf("columns %d\n",column);
-			column = 0;
+			column = 1;
 		}
 	}
 }
@@ -477,7 +478,7 @@ void single_line()
 	read_line();
 	line++;
 	//printf("columns %d\n",column);
-	column = 0;
+	column = 1;
 }
 
 void print_error(char const *error_msg)
@@ -581,9 +582,9 @@ int id_token()
 	int scope;
 	if(yyleng >=32)
 	{
-		column += yyleng;
+		
 		print_error("Identifier length too large. Max character length 31.");
-		column -= yyleng;
+		
 	}
 	//printf("Before Search of symboltable");
 	pointsTo = s.searchAll(yytext,&scope);

@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-03 22:57:09
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-10-11 16:55:32
+* @Last Modified time: 2018-10-11 18:37:10
 */
 int main()
 {
@@ -11,9 +11,11 @@ int main()
 	Multi Line Comment
 	 */
 	/*fkfkfkfkfkfkffkfkfkfkfkkfkfkffewieieieieieieieieieieei3939393939393939393eoeoeoeoeoeieieieoeoie939393939eoieeiei39e9fmfkrk3939foivkfme9e9f9ivkek39e9f9kvkdkekekekekekekjekjekjekj3i3i93928282827377eyyddbdnndndnmddjjfjvivibibigkrmrmemjejjewuwuw8us8s8dderthyjlnbfdsert5678ikjgfr5678ikjngfdrer45678uikjnbvfdrtyujnbvfdertyu	juy6t5r4e5678ikiuyuikmkiuytrertyuikuytresxswertyuytrertyuioihygtfrdfghjkl,mnbvcdxsewsdfcdfewerdfrtyuikm cder4wsdfv bmkoijm cxswasxc vbnm,lki87654ewsxc ,loi9ko98u9okmko9879ikko98765678ikjmki87678ijki8765432qaasw234ed*/
+	//fkfkfkfkfkfkffkfkfkfkfkkfkfkffewieieieieieieieieieieei3939393939393939393eoeoeoeoeoeieieieoeoie939393939eoieeiei39e9fmfkrk3939foivkfme9e9f9ivkek39e9f9kvkdkekekekekekekjekjekjekj3i3i93928282827377eyyddbdnndndnmddjjfjvivibibigkrmrmemjejjewuwuw8us8s8dderthyjlnbfdsert5678ikjgfr5678ikjngfdrer45678uikjnbvfdrtyujnbvfdertyu	juy6t5r4e5678ikiuyuikmkiuytrertyuikuytresxswertyuytrertyuioihygtfrdfghjkl,mnbvcdxsewsdfcdfewerdfrtyuikm cder4wsdfv bmkoijm cxswasxc vbnm,lki87654ewsxc ,loi9ko98u9okmko9879ikko98765678ikjmki87678ijki8765432qaasw234ed
+	char* d = "fkfkfkfkfkfkffkfkfkfkfkkfkfkffewieieieieieieieieieieei3939393939393939393eoeoeoeoeoeieieieoeoie939393939eoieeiei39e9fmfkrk3939foivkfme9e9f9ivkek39e9f9kvkdkekekekekekekjekjekjekj3i3i93928282827377eyyddbdnndndnmddjjfjvivibibigkrmrmemjejjewuwuw8us8s8dderthyjlnbfdsert5678ikjgfr5678ikjngfdrer45678uikjnbvfdrtyujnbvfdertyu	juy6t5r4e5678ikiuyuikmkiuytrertyuikuytresxswertyuytrertyuioihygtfrdfghjkl,mnbvcdxsewsdfcdfewerdfrtyuikm cder4wsdfv bmkoijm cxswasxc vbnm,lki87654ewsxc ,loi9ko98u9okmko9879ikko98765678ikjmki87678ijki8765432qaasw234ed";
 	int i_error = 2147483650;
 	int j_error = -2147483650;
-	int Charcter_lenght_too_large_for_language_and_should_casuse_error = 1;
+	int Charcter_length_too_large_for_language_and_should_casuse_error = 1;
 	int i = 2147483620;
 	int j = -2147483620;
 	
@@ -51,7 +53,7 @@ int main()
 	char hex_error2 = '\xkF';
 	char oct_error2 = '\128';
 	
-	!!D
+	
 
 	int o = 44;
 
@@ -61,6 +63,7 @@ int main()
 	{
 		int j =2;
 		i = 10;
+		!!D
 	}
 	printf("KKD'DK311!!@3");
 	
