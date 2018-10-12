@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-03 22:57:09
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-10-10 16:52:24
+* @Last Modified time: 2018-10-11 16:55:32
 */
 int main()
 {
@@ -10,8 +10,10 @@ int main()
 	/*
 	Multi Line Comment
 	 */
+	/*fkfkfkfkfkfkffkfkfkfkfkkfkfkffewieieieieieieieieieieei3939393939393939393eoeoeoeoeoeieieieoeoie939393939eoieeiei39e9fmfkrk3939foivkfme9e9f9ivkek39e9f9kvkdkekekekekekekjekjekjekj3i3i93928282827377eyyddbdnndndnmddjjfjvivibibigkrmrmemjejjewuwuw8us8s8dderthyjlnbfdsert5678ikjgfr5678ikjngfdrer45678uikjnbvfdrtyujnbvfdertyu	juy6t5r4e5678ikiuyuikmkiuytrertyuikuytresxswertyuytrertyuioihygtfrdfghjkl,mnbvcdxsewsdfcdfewerdfrtyuikm cder4wsdfv bmkoijm cxswasxc vbnm,lki87654ewsxc ,loi9ko98u9okmko9879ikko98765678ikjmki87678ijki8765432qaasw234ed*/
 	int i_error = 2147483650;
 	int j_error = -2147483650;
+	int Charcter_lenght_too_large_for_language_and_should_casuse_error = 1;
 	int i = 2147483620;
 	int j = -2147483620;
 	

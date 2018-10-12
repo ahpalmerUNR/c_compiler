@@ -14,6 +14,8 @@
 #include "c_compiler.tab.hpp"
 #include "symboltable.h"
 
+#define MAX_LINE_LENGTH 500
+
 extern YYSTYPE yylval;
 extern int lex_debug_level;
 extern int symbol_table_debug;
@@ -30,7 +32,7 @@ extern FILE *out_log;
 extern char *logName;
 extern FILE *errorText;
 extern char *file_name;
-char tmp[80];
+char tmp[MAX_LINE_LENGTH];
 time_t time_time;
 clock_t clock_time;
 //struct tm * timeinfo;
@@ -273,6 +275,49 @@ int send_token(char const* token_name,int token)
 	return token;
 }
 
+void read_line()
+{
+	char first_80[80];
+	int null_ind = -1;
+	//int num_buffs = 0;
+	fgets(tmp,sizeof tmp, errorText);
+	for(int i =0;i<MAX_LINE_LENGTH-1;i++)
+	{
+		if(i<80)
+		{
+			first_80[i]=tmp[i];
+		}
+		if(tmp[i]=='\0')
+		{
+			null_ind = i;
+			break;
+		}
+	}
+	if(null_ind == -1)
+	{
+		printf("Warning: Large Line! Line %d\n",line);
+		
+		while(null_ind == -1)
+		{
+			//num_buffs +=1;
+			fgets(tmp,sizeof tmp, errorText);
+			for(int i =0;i<MAX_LINE_LENGTH-1;i++)
+			{
+				if(tmp[i]=='\0')
+				{
+					null_ind = i;
+					break;
+				}
+			}
+		}
+	}
+	for(int i = 0; i<79;i++)
+	{
+		tmp[i]=first_80[i];
+	}
+	tmp[79]='\0';
+	
+}
 
 void white()
 {
@@ -288,7 +333,7 @@ void white()
 		else if(yytext[i]=='\n')
 		{
 			//printf("char == new line\n");
-			fgets(tmp,sizeof tmp, errorText);
+			read_line();
 			//printf("%s",tmp);
 			line ++;
 			//printf("columns %d\n",column);
@@ -418,7 +463,7 @@ void mult_line()
 		//printf("%c",yytext[i]);
 		if(yytext[i]=='\n')
 		{
-			fgets(tmp,sizeof tmp, errorText);
+			read_line();
 			line ++;
 			//printf("columns %d\n",column);
 			column = 0;
@@ -429,7 +474,7 @@ void mult_line()
 void single_line()
 {
 	
-	fgets(tmp,sizeof tmp, errorText);
+	read_line();
 	line++;
 	//printf("columns %d\n",column);
 	column = 0;
@@ -437,7 +482,7 @@ void single_line()
 
 void print_error(char const *error_msg)
 {	long int offset = ftell(errorText);
-	fgets(tmp,sizeof tmp, errorText);
+	read_line();
 	fseek(errorText,offset,SEEK_SET);
 	printf("ERROR: %s:Line: %d Column: %d %s\n",file_name,line,column,error_msg);
 	printf("%s",tmp);
@@ -534,6 +579,12 @@ int id_token()
 	Node * pointsTo = NULL;
 	//printf("pointsto made\n");
 	int scope;
+	if(yyleng >=32)
+	{
+		column += yyleng;
+		print_error("Identifier length too large. Max character length 31.");
+		column -= yyleng;
+	}
 	//printf("Before Search of symboltable");
 	pointsTo = s.searchAll(yytext,&scope);
 	//printf("After Search of symboltable");

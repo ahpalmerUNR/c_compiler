@@ -1,6 +1,7 @@
 %{
 	#include "symboltable.h"	
 
+	#define MAX_LINE_LENGTH 500
 	FILE *out_log;
 	FILE *outfile;
 	FILE *errorText;
@@ -693,7 +694,7 @@ int main(int argc, char **argv)
 
 void yyerror(char const *msg)
 {
-	char tmp[80];
+	char tmp[MAX_LINE_LENGTH];
 	long int offset = ftell(errorText);
 	fgets(tmp,sizeof tmp, errorText);
 	fseek(errorText,offset,SEEK_SET);
