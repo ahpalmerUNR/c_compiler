@@ -612,6 +612,7 @@ int id_token()
 		}
 		else
 		{
+			printf("Inserting when found\n");
 			yylval.lnode = s.insert(yytext,line,INT_TYPE);
 			if(lex_debug_level%3==0)
 			{
