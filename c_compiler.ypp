@@ -5,6 +5,7 @@
 	FILE *out_log;
 	FILE *outfile;
 	FILE *errorText;
+	FILE * tokenFile;
 	char *logName = "compilerLog.txt";
 	char *file_name;
 
@@ -576,6 +577,7 @@ int main(int argc, char **argv)
 	
 	outfile = fopen("out.s","w");
 	out_log = fopen(logName,"a");
+	tokenFile = fopen("tokenFile.txt","w");
 	
 	//printf("Created Log file\n");
 	if(argc==1)

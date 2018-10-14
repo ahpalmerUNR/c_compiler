@@ -31,6 +31,7 @@ extern FILE *outfile;
 extern FILE *out_log;
 extern char *logName;
 extern FILE *errorText;
+extern FILE * tokenFile;
 extern char *file_name;
 char tmp[MAX_LINE_LENGTH];
 time_t time_time;
@@ -262,15 +263,18 @@ int send_token(char const* token_name,int token)
 	clock_time = clock();
 	if(lex_debug_level%2==0 || lex_debug_level%3==0 || lex_debug_level%5==0 || lex_debug_level%7==0 )
 	{
+		fprintf(tokenFile,"%s SCANNER Time::%ld:%ld\t Line: %d\t",file_name, time_time,clock_time,line);
 		printf("%s SCANNER Time::%ld:%ld\t",file_name, time_time,clock_time);
 	}
 	//printf("%ld:%ld ",time_time,clock_time);
 	if(lex_debug_level%3==0)
 	{
+		fprintf(tokenFile,"%s ==> ",yytext);
 		printf("%s ==> ",yytext);
 	}
 	if(lex_debug_level%2==0)
 	{
+		fprintf(tokenFile,"%s\n",token_name);
 		printf("%s\n",token_name);
 	}
 	return token;
