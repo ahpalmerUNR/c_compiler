@@ -1,13 +1,20 @@
 %{
 	#include "symboltable.h"	
+	#include <time.h>
+	#include <stdio.h>
+	#include <stdlib.h>
 
 	#define MAX_LINE_LENGTH 500
 	FILE *out_log;
 	FILE *outfile;
 	FILE *errorText;
 	FILE * tokenFile;
+	//FILE * productionFile;
+	int insert_lookup;//1 lookup 0 insert
 	char *logName = "compilerLog.txt";
 	char *file_name;
+	time_t time_time;
+	clock_t clock_time;
 
 	int levels[4];
 
@@ -163,18 +170,18 @@ storage_class_specifier
 	;
 
 type_specifier
-	: VOID_tok {outputReduction("type_specifier : VOID_tok");}
-	| CHAR_tok {outputReduction("type_specifier : CHAR_tok");}
-	| SHORT_tok {outputReduction("type_specifier : SHORT_tok");}
-	| INT_tok {outputReduction("type_specifier : INT_tok");}
-	| LONG_tok {outputReduction("type_specifier : LONG_tok");}
-	| FLOAT_tok {outputReduction("type_specifier : FLOAT_tok");}
-	| DOUBLE_tok {outputReduction("type_specifier : DOUBLE_tok");}
-	| SIGNED_tok {outputReduction("type_specifier : SIGNED_tok");}
-	| UNSIGNED_tok {outputReduction("type_specifier : UNSIGNED_tok");}
-	| struct_or_union_specifier {outputReduction("type_specifier : struct_or_union_specifier");}
-	| ENUM_tok {outputReduction("type_specifier : ENUM_tok");}
-	| TYPEDEF_NAME_tok {outputReduction("type_specifier : TYPEDEF_NAME_tok");}
+	: VOID_tok {insert_lookup = 0; outputReduction("type_specifier : VOID_tok");}
+	| CHAR_tok {insert_lookup = 0; outputReduction("type_specifier : CHAR_tok");}
+	| SHORT_tok {insert_lookup = 0; outputReduction("type_specifier : SHORT_tok");}
+	| INT_tok {insert_lookup = 0; outputReduction("type_specifier : INT_tok");}
+	| LONG_tok {insert_lookup = 0; outputReduction("type_specifier : LONG_tok");}
+	| FLOAT_tok {insert_lookup = 0; outputReduction("type_specifier : FLOAT_tok");}
+	| DOUBLE_tok {insert_lookup = 0; outputReduction("type_specifier : DOUBLE_tok");}
+	| SIGNED_tok {insert_lookup = 0; outputReduction("type_specifier : SIGNED_tok");}
+	| UNSIGNED_tok {insert_lookup = 0; outputReduction("type_specifier : UNSIGNED_tok");}
+	| struct_or_union_specifier {insert_lookup = 0; outputReduction("type_specifier : struct_or_union_specifier");}
+	| ENUM_tok {insert_lookup = 0; outputReduction("type_specifier : ENUM_tok");}
+	| TYPEDEF_NAME_tok {insert_lookup = 0; outputReduction("type_specifier : TYPEDEF_NAME_tok");}
 	;
 
 type_qualifier
@@ -479,8 +486,8 @@ multiplicative_expression
 	;
 
 cast_expression
-	: unary_expression {outputReduction("");}
-	| OPEN_PAREN_tok type_name CLOSE_PAREN_tok cast_expression {outputReduction("");}
+	: unary_expression {outputReduction("cast_expression : unary_expression");}
+	| OPEN_PAREN_tok type_name CLOSE_PAREN_tok cast_expression {outputReduction("cast_expression : OPEN_PAREN_tok type_name CLOSE_PAREN_tok cast_expression");}
 	;
 
 unary_expression
@@ -502,7 +509,7 @@ unary_operator
 	;
 
 postfix_expression
-	: primary_expression {outputReduction("postfix_expression : ");}
+	: primary_expression {outputReduction("postfix_expression : primary_expression");}
 	| postfix_expression OPEN_BRACKET_tok expression CLOSE_BRACKET_tok {outputReduction("postfix_expression : postfix_expression OPEN_BRACKET_tok expression CLOSE_BRACKET_tok");}
 	| postfix_expression OPEN_PAREN_tok CLOSE_PAREN_tok {outputReduction("postfix_expression : postfix_expression OPEN_PAREN_tok CLOSE_PAREN_tok");}
 	| postfix_expression OPEN_PAREN_tok argument_expression_list CLOSE_PAREN_tok {outputReduction("postfix_expression : postfix_expression OPEN_PAREN_tok argument_expression_list CLOSE_PAREN_tok");}
@@ -536,7 +543,7 @@ string
 	;
 
 identifier
-	: ID_tok {outputReduction("identifier : ID_tok");}
+	: ID_tok {insert_lookup = 1; outputReduction("identifier : ID_tok");}
 	;
 %%
 
@@ -548,7 +555,7 @@ int yacc_debug_level;
 int c_line_lex_debug_level;
 int c_line_symbol_table_debug;
 int c_line_yacc_debug_level;
-int insert_lookup;
+
 SymbolTable s;
 //logName = "compilerLog.txt";
 
@@ -582,6 +589,7 @@ int main(int argc, char **argv)
 	outfile = fopen("out.s","w");
 	out_log = fopen(logName,"a");
 	tokenFile = fopen("tokenFile.txt","w");
+	//productionFile = fopen("productionFile.txt","w");
 	
 	//printf("Created Log file\n");
 	if(argc==1)
@@ -714,7 +722,21 @@ void yyerror(char const *msg)
 	fprintf(stderr,"%s\n",msg);
 }
 
-void outputReduction(const char *s)
+void outputReduction(const char *production)
 {	
 	//fprintf(out_log, "%s", s);
+	time_time = time(NULL);
+	clock_time = clock();
+	if(yacc_debug_level%2==0 || yacc_debug_level%3==0 || yacc_debug_level%5==0 || yacc_debug_level%7==0 )
+	{
+		fprintf(tokenFile,"%s PARSER Time::%ld:%ld\t Line: %d\t",file_name, time_time,clock_time,line);
+		printf("%s PARSER Time::%ld:%ld\t",file_name, time_time,clock_time);
+	}
+	//printf("%ld:%ld ",time_time,clock_time);
+
+	if(yacc_debug_level%2==0)
+	{
+		fprintf(tokenFile,"%s\n",production);
+		printf("%s\n",production);
+	}
 }

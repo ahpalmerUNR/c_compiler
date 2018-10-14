@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-03 22:57:09
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-10-11 18:37:10
+* @Last Modified time: 2018-10-14 13:40:48
 */
 int main()
 {
@@ -30,7 +30,6 @@ int main()
 	float f = 1.3e-12;
 	float h = -2.5E+10;
 	
-	auto
 	
 	char taco = 't';
 	char newl = '\n';

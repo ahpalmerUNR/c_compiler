@@ -1,3 +1,4 @@
+productionFile.txt
 lex.yy.c
 *.o
 *.tab.hpp

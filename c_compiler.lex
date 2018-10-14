@@ -34,8 +34,8 @@ extern FILE *errorText;
 extern FILE * tokenFile;
 extern char *file_name;
 char tmp[MAX_LINE_LENGTH];
-time_t time_time;
-clock_t clock_time;
+extern time_t time_time;
+extern clock_t clock_time;
 //struct tm * timeinfo;
 
 extern int* levels;
@@ -258,7 +258,7 @@ mult_line_comment	"/*"([^*]|\*+[^*/])*"*/"
 int send_token(char const* token_name,int token)
 {
 	column+=yyleng;
-	//printf("%d\n",lex_debug_level);
+	printf("%s\n",tmp);
 	time_time = time(NULL);
 	clock_time = clock();
 	if(lex_debug_level%2==0 || lex_debug_level%3==0 || lex_debug_level%5==0 || lex_debug_level%7==0 )
@@ -592,9 +592,10 @@ int id_token()
 		
 	}
 	//printf("Before Search of symboltable");
-	//pointsTo = s.searchAll(yytext,&scope);
+	pointsTo = s.searchAll(yytext,&scope);
 	//printf("After Search of symboltable");
 	if(insert_lookup == 1)
+	//if(pointsTo != NULL)
 	{
 		pointsTo = s.searchAll(yytext,&scope);
 		//pointsTo->print();
