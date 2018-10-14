@@ -624,6 +624,7 @@ int id_token()
 		}
 		else
 		{
+			printf("Inserting when found\n");
 			yylval.lnode = s.insert(yytext,line,INT_TYPE);
 			
 			return(send_token("ID_tok",ID_tok));
