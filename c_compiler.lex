@@ -489,6 +489,7 @@ void print_error(char const *error_msg)
 {	long int offset = ftell(errorText);
 	read_line();
 	fseek(errorText,offset,SEEK_SET);
+	fprintf(stderr,"ERROR: %s:Line: %d Column: %d %s\n",file_name,line,column,error_msg);
 	printf("ERROR: %s:Line: %d Column: %d %s\n",file_name,line,column,error_msg);
 	printf("%s",tmp);
 	for(int i = column; i>0;i--)
@@ -601,7 +602,7 @@ int id_token()
 		if(pointsTo == NULL)
 		{
 			print_error("ID Not found in Symbol Table.");
-			return(send_token("ERROR_tok",ERROR_tok))
+			return(send_token("ERROR_tok",ERROR_tok));
 		}
 		else if(pointsTo->ntype == 1)
 		{
