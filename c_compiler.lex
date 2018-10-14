@@ -249,8 +249,8 @@ mult_line_comment	"/*"([^*]|\*+[^*/])*"*/"
 
 "!!D"			{column+=yyleng;s.writeToFile(logName); }
 
-.			{print_error("Syntax Error: Not Legal Character.");column+=yyleng;
-				return(ERROR_tok);}
+.			{print_error("Syntax Error: Not Legal Character.");
+				return(send_token("ERROR_tok",ERROR_tok));}
 
 
 
@@ -591,21 +591,19 @@ int id_token()
 		
 	}
 	//printf("Before Search of symboltable");
-	pointsTo = s.searchAll(yytext,&scope);
+	//pointsTo = s.searchAll(yytext,&scope);
 	//printf("After Search of symboltable");
-	
-	if(pointsTo==NULL)
+	if(insert_lookup == 1)
 	{
-		//printf("\n\nID NOT FOUND AND NOW ADDING\n");
-		yylval.lnode = s.insert(yytext,line,INT_TYPE);
-		
-		return(send_token("ID_tok",ID_tok));
-	}
-	else
-	{
-		pointsTo->print();
+		pointsTo = s.searchAll(yytext,&scope);
+		//pointsTo->print();
 		//printf("\n\nID FOUND AND NOW ASSIGNING TYPE\n");
-		if(pointsTo->ntype == 1)
+		if(pointsTo == NULL)
+		{
+			print_error("ID Not found in Symbol Table.");
+			return(send_token("ERROR_tok",ERROR_tok))
+		}
+		else if(pointsTo->ntype == 1)
 		{
 			yylval.lnode = pointsTo;
 			
@@ -631,6 +629,15 @@ int id_token()
 		}
 		
 	}
+	
+	else
+	{
+		//printf("\n\nID NOT FOUND AND NOW ADDING\n");
+		yylval.lnode = s.insert(yytext,line,INT_TYPE);
+		
+		return(send_token("ID_tok",ID_tok));
+	}
+	
 	//printf("Lex debug level %d\n",lex_debug_level);
 	
 	return(send_token("ID_tok",ID_tok));

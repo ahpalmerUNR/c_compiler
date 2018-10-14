@@ -561,6 +561,7 @@ int main(int argc, char **argv)
 	int scan_count = 0;
 	int lex_count = 0;
 	int yacc_count = 0;
+	insert_lookup = 1;
 	
 	lex_debug_level=1;
 	symbol_table_debug=1;
