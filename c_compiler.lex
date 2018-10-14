@@ -10,9 +10,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <string.h>
+//#include <string.h>
 #include "c_compiler.tab.hpp"
 #include "symboltable.h"
+
+#define MAX_LINE_LENGTH 500
 
 extern YYSTYPE yylval;
 extern int lex_debug_level;
@@ -24,13 +26,17 @@ extern int c_line_yacc_debug_level;
 extern int insert_lookup;
 extern SymbolTable s;
 int line = 1;
-int column = 0;
+int column = 1;
 extern FILE *outfile;
 extern FILE *out_log;
 extern char *logName;
 extern FILE *errorText;
+extern FILE * tokenFile;
 extern char *file_name;
-char tmp[80];
+char tmp[MAX_LINE_LENGTH];
+extern time_t time_time;
+extern clock_t clock_time;
+//struct tm * timeinfo;
 
 extern int* levels;
 
@@ -39,6 +45,7 @@ void white();
 void character();
 void mult_line();
 void single_line();
+void read_line();
 void print_error(char const* error_msg);
 void set_debug_level();
 void check_int();
@@ -131,7 +138,7 @@ mult_line_comment	"/*"([^*]|\*+[^*/])*"*/"
 			
 "while"		{return(send_token("WHILE_tok",WHILE_tok));}
 
-{id}		{column+=yyleng;return(id_token());}
+{id}		{return(id_token());}
 
 "+"			{return(send_token("PLUS_tok",PLUS_tok));}
 			
@@ -159,9 +166,9 @@ mult_line_comment	"/*"([^*]|\*+[^*/])*"*/"
 			
 ")"			{return(send_token("CLOSE_PAREN_tok",CLOSE_PAREN_tok));}
 			
-"{"			{return(send_token("OPEN_BRACE_tok",OPEN_BRACE_tok));}
+"{"			{s.pushEmptyBST();return(send_token("OPEN_BRACE_tok",OPEN_BRACE_tok));}
 			
-"}"			{return(send_token("CLOSE_BRACE_tok",CLOSE_BRACE_tok));}
+"}"			{s.popBST();return(send_token("CLOSE_BRACE_tok",CLOSE_BRACE_tok));}
 
 "?"			{return(send_token("QUESTION_MARK_tok",QUESTION_MARK_tok));}
 			
@@ -185,11 +192,11 @@ mult_line_comment	"/*"([^*]|\*+[^*/])*"*/"
 			
 "--"		{return(send_token("DEC_OP_tok",DEC_OP_tok));}
 
-{int}		{column+=yyleng;check_int();return(INTEGER_CONSTANT_tok);}
+{int}		{check_int();return(send_token("INTEGER_CONSTANT_tok",INTEGER_CONSTANT_tok));}
 
-{float}		{column+=yyleng;check_float();return(FLOATING_CONSTANT_tok);}
+{float}		{check_float();return(send_token("FLOATING_CONSTANT_tok",FLOATING_CONSTANT_tok));}
 
-{character}	{column+=yyleng;character();return(CHARACTER_CONSTANT_tok);}
+{character}	{character();return(send_token("CHARACTER_CONSTANT_tok",CHARACTER_CONSTANT_tok));}
 				
 {string}	{return(send_token("STRING_LITERAL_tok",STRING_LITERAL_tok));}
 
@@ -242,8 +249,8 @@ mult_line_comment	"/*"([^*]|\*+[^*/])*"*/"
 
 "!!D"			{column+=yyleng;s.writeToFile(logName); }
 
-.			{column+=yyleng;print_error("Syntax Error: Not Legal Character.");
-				return(ERROR_tok);}
+.			{print_error("Syntax Error: Not Legal Character.");
+				return(send_token("ERROR_tok",ERROR_tok));}
 
 
 
@@ -251,18 +258,71 @@ mult_line_comment	"/*"([^*]|\*+[^*/])*"*/"
 int send_token(char const* token_name,int token)
 {
 	column+=yyleng;
-	//printf("%d\n",lex_debug_level);
+	printf("%s\n",tmp);
+	time_time = time(NULL);
+	clock_time = clock();
+	if(lex_debug_level%2==0 || lex_debug_level%3==0 || lex_debug_level%5==0 || lex_debug_level%7==0 )
+	{
+		fprintf(tokenFile,"%s SCANNER Time::%ld:%ld\t Line: %d\t",file_name, time_time,clock_time,line);
+		printf("%s SCANNER Time::%ld:%ld\t",file_name, time_time,clock_time);
+	}
+	//printf("%ld:%ld ",time_time,clock_time);
 	if(lex_debug_level%3==0)
 	{
-		printf("%s ==>",yytext);
+		fprintf(tokenFile,"%s ==> ",yytext);
+		printf("%s ==> ",yytext);
 	}
 	if(lex_debug_level%2==0)
 	{
+		fprintf(tokenFile,"%s\n",token_name);
 		printf("%s\n",token_name);
 	}
 	return token;
 }
 
+void read_line()
+{
+	char first_80[80];
+	int null_ind = -1;
+	//int num_buffs = 0;
+	fgets(tmp,sizeof tmp, errorText);
+	for(int i =0;i<MAX_LINE_LENGTH-1;i++)
+	{
+		if(i<80)
+		{
+			first_80[i]=tmp[i];
+		}
+		if(tmp[i]=='\0')
+		{
+			null_ind = i;
+			break;
+		}
+	}
+	if(null_ind == -1)
+	{
+		printf("Warning: Large Line! Line %d\n",line);
+		
+		while(null_ind == -1)
+		{
+			//num_buffs +=1;
+			fgets(tmp,sizeof tmp, errorText);
+			for(int i =0;i<MAX_LINE_LENGTH-1;i++)
+			{
+				if(tmp[i]=='\0')
+				{
+					null_ind = i;
+					break;
+				}
+			}
+		}
+	}
+	for(int i = 0; i<79;i++)
+	{
+		tmp[i]=first_80[i];
+	}
+	tmp[79]='\0';
+	
+}
 
 void white()
 {
@@ -278,11 +338,11 @@ void white()
 		else if(yytext[i]=='\n')
 		{
 			//printf("char == new line\n");
-			fgets(tmp,sizeof tmp, errorText);
+			read_line();
 			//printf("%s",tmp);
 			line ++;
 			//printf("columns %d\n",column);
-			column = 0;
+			column = 1;
 			//printf("Lines = %d, Column = %d\n",line,column);
 		}
 		else if(yytext[i]==' ')
@@ -297,15 +357,7 @@ void white()
 void character()
 {
 	int code = 0;
-	if(lex_debug_level%3==0)
-	{
-		printf("%s ==>",yytext);
-	}
-		
-	if(lex_debug_level%2==0)
-	{
-		printf("CHARACTER_CONSTANT_tok\n");
-	}
+	
 	
 	if(yytext[1]!='\\' && yytext[1]!='\'')
 	{
@@ -416,10 +468,10 @@ void mult_line()
 		//printf("%c",yytext[i]);
 		if(yytext[i]=='\n')
 		{
-			fgets(tmp,sizeof tmp, errorText);
+			read_line();
 			line ++;
 			//printf("columns %d\n",column);
-			column = 0;
+			column = 1;
 		}
 	}
 }
@@ -427,16 +479,17 @@ void mult_line()
 void single_line()
 {
 	
-	fgets(tmp,sizeof tmp, errorText);
+	read_line();
 	line++;
 	//printf("columns %d\n",column);
-	column = 0;
+	column = 1;
 }
 
 void print_error(char const *error_msg)
 {	long int offset = ftell(errorText);
-	fgets(tmp,sizeof tmp, errorText);
+	read_line();
 	fseek(errorText,offset,SEEK_SET);
+	fprintf(stderr,"ERROR: %s:Line: %d Column: %d %s\n",file_name,line,column,error_msg);
 	printf("ERROR: %s:Line: %d Column: %d %s\n",file_name,line,column,error_msg);
 	printf("%s",tmp);
 	for(int i = column; i>0;i--)
@@ -502,15 +555,6 @@ void set_debug_level()
 
 void check_int()
 {
-	if(lex_debug_level%3==0)
-	{
-		printf("%s ==>",yytext);
-	}
-		
-	if(lex_debug_level%2==0)
-	{
-		printf("INTEGER_CONSTANT_tok\n");
-	}
 	
 	long int test_int_down = -2147483648;
 	long int test_int_up = 2147483647;
@@ -531,15 +575,7 @@ void check_int()
 
 void check_float()
 {
-	if(lex_debug_level%3==0)
-	{
-		printf("%s ==>",yytext);
-	}
-		
-	if(lex_debug_level%2==0)
-	{
-		printf("FLOATING_CONSTANT_tok\n");
-	}
+	
 	//print_error("Float Value Too Large.");
 }
 
@@ -549,91 +585,64 @@ int id_token()
 	Node * pointsTo = NULL;
 	//printf("pointsto made\n");
 	int scope;
+	if(yyleng >=32)
+	{
+		
+		print_error("Identifier length too large. Max character length 31.");
+		
+	}
 	//printf("Before Search of symboltable");
 	pointsTo = s.searchAll(yytext,&scope);
 	//printf("After Search of symboltable");
-	
-	if(pointsTo==NULL)
+	if(insert_lookup == 1)
+	//if(pointsTo != NULL)
 	{
-		printf("\n\nID NOT FOUND AND NOW ADDING\n");
-		yylval.lnode = s.insert(yytext,line,INT_TYPE);
-		if(lex_debug_level%3==0)
+		pointsTo = s.searchAll(yytext,&scope);
+		//pointsTo->print();
+		//printf("\n\nID FOUND AND NOW ASSIGNING TYPE\n");
+		if(pointsTo == NULL)
 		{
-			printf("%s ==>",yytext);
+			print_error("ID Not found in Symbol Table.");
+			return(send_token("ERROR_tok",ERROR_tok));
 		}
-		if(lex_debug_level%2==0)
-		{
-			printf("ID_tok\n");
-		}
-		return(ID_tok);
-	}
-	else
-	{
-		pointsTo->print();
-		printf("\n\nID FOUND AND NOW ASSIGNING TYPE\n");
-		if(pointsTo->ntype == 1)
+		else if(pointsTo->ntype == 1)
 		{
 			yylval.lnode = pointsTo;
-			if(lex_debug_level%3==0)
-			{
-				printf("%s ==>",yytext);
-			}
-			if(lex_debug_level%2==0)
-			{
-				printf("ID_tok\n");
-			}
-			return(ID_tok);
+			
+			return(send_token("ID_tok",ID_tok));
 		}
 		else if(pointsTo->ntype==2)
 		{
 			yylval.lnode = pointsTo;
-			if(lex_debug_level%3==0)
-			{
-				printf("%s ==>",yytext);
-			}
-			if(lex_debug_level%2==0)
-			{
-				printf("ENUMERATION_CONSTANT_tok\n");
-			}
-			return(ENUMERATION_CONSTANT_tok);
+			
+			return(send_token("ENUMERATION_CONSTANT_tok",ENUMERATION_CONSTANT_tok));
 		}
 		else if(pointsTo->ntype == 3)
 		{
 			yylval.lnode = pointsTo;
-			if(lex_debug_level%3==0)
-			{
-				printf("%s ==>",yytext);
-			}
-			if(lex_debug_level%2==0)
-			{
-				printf("TYPEDEF_NAME_tok\n");
-			}
-			return(TYPEDEF_NAME_tok);
+			
+			return(send_token("TYPEDEF_NAME_tok",TYPEDEF_NAME_tok));
 		}
 		else
 		{
+			printf("Inserting when found\n");
 			yylval.lnode = s.insert(yytext,line,INT_TYPE);
-			if(lex_debug_level%3==0)
-			{
-				printf("%s ==>",yytext);
-			}
-			if(lex_debug_level%2==0)
-			{
-				printf("ID_tok\n");
-			}
-			return(ID_tok);
+			
+			return(send_token("ID_tok",ID_tok));
 		}
 		
 	}
+	
+	else
+	{
+		//printf("\n\nID NOT FOUND AND NOW ADDING\n");
+		yylval.lnode = s.insert(yytext,line,INT_TYPE);
+		
+		return(send_token("ID_tok",ID_tok));
+	}
+	
 	//printf("Lex debug level %d\n",lex_debug_level);
-	if(lex_debug_level%3==0)
-	{
-		printf("%s ==>",yytext);
-	}
-	if(lex_debug_level%2==0)
-	{
-		printf("ID_tok\n");
-	}
-	return(ID_tok);
+	
+	return(send_token("ID_tok",ID_tok));
 }
 

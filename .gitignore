@@ -1,4 +1,8 @@
+productionFile.txt
 lex.yy.c
 *.o
 *.tab.hpp
 *.tab.cpp
+c_compiler
+*.s
+tokenFile.txt
