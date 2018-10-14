@@ -1,13 +1,11 @@
 Zach
 -------
-
+Wiki
 
 Andrew
 -------
+ReadMe.txt
 
 
-To Do
--------
-insert/lookup mode bison
 
 
