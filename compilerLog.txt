@@ -51,3 +51,39 @@ Level: 2 Key: j Line: 63 Type: 0
 
 SYMBOL TABLE ABOVE
 
+SYMBOL TABLE DUMP
+
+Level: 0 Key: main Line: 7 Type: 0
+Level: 1 Key: a Line: 12 Type: 0
+Level: 1 Key: one Line: 9 Type: 0
+Level: 1 Key: three Line: 14 Type: 0
+Level: 1 Key: two Line: 10 Type: 0
+Level: 2 Key: four Line: 17 Type: 0
+
+
+SYMBOL TABLE ABOVE
+
+SYMBOL TABLE DUMP
+
+Level: 0 Key: main Line: 7 Type: 0
+Level: 1 Key: a Line: 12 Type: 0
+Level: 1 Key: one Line: 9 Type: 0
+Level: 1 Key: three Line: 14 Type: 0
+Level: 1 Key: two Line: 10 Type: 0
+Level: 2 Key: four Line: 17 Type: 0
+
+
+SYMBOL TABLE ABOVE
+
+SYMBOL TABLE DUMP
+
+Level: 0 Key: main Line: 7 Type: 0
+Level: 1 Key: a Line: 12 Type: 0
+Level: 1 Key: one Line: 9 Type: 0
+Level: 1 Key: three Line: 14 Type: 0
+Level: 1 Key: two Line: 10 Type: 0
+Level: 2 Key: four Line: 17 Type: 0
+
+
+SYMBOL TABLE ABOVE
+
