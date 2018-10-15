@@ -602,7 +602,7 @@ int id_token()
 		//printf("\n\nID FOUND AND NOW ASSIGNING TYPE\n");
 		if(pointsTo == NULL)
 		{
-			print_error("ID Not found in Symbol Table.");
+			print_error("Variable not declared in this scope.");
 			return(send_token("ERROR_tok",ERROR_tok));
 		}
 		else if(pointsTo->ntype == 1)
