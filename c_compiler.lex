@@ -258,7 +258,7 @@ mult_line_comment	"/*"([^*]|\*+[^*/])*"*/"
 int send_token(char const* token_name,int token)
 {
 	column+=yyleng;
-	printf("%s\n",tmp);
+	//printf("%s\n",tmp);
 	time_time = time(NULL);
 	clock_time = clock();
 	if(lex_debug_level%2==0 || lex_debug_level%3==0 || lex_debug_level%5==0 || lex_debug_level%7==0 )
@@ -602,7 +602,7 @@ int id_token()
 		//printf("\n\nID FOUND AND NOW ASSIGNING TYPE\n");
 		if(pointsTo == NULL)
 		{
-			print_error("ID Not found in Symbol Table.");
+			print_error("Variable not declared in this scope.");
 			return(send_token("ERROR_tok",ERROR_tok));
 		}
 		else if(pointsTo->ntype == 1)

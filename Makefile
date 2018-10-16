@@ -5,7 +5,7 @@ CPPFLAGS = -Wall -std=c++11
 LEX=flex
 OBJ= c_compiler.tab.hpp lex.yy.o symboltable.o -lfl
 YACC=bison
-YFLAGS=-d
+YFLAGS=-d -v -t
 
 all: c_compiler
 
