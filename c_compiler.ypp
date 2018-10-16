@@ -4,6 +4,7 @@
 	#include <stdio.h>
 	#include <stdlib.h>
 
+
 	#define MAX_LINE_LENGTH 500
 	FILE *out_log;
 	FILE *outfile;
@@ -133,14 +134,14 @@ translation_unit
 
 external_declaration
 	: function_definition {outputReduction("external_declaration : function_definition");}
-	| declaration {outputReduction("external_declaration : declaration");}
+	| {insert_lookup = 0;} declaration {insert_lookup = 1;} {outputReduction("external_declaration : declaration");}
 	;
 
 function_definition
 	: declarator compound_statement {outputReduction("function_definition : declarator compound_statement");}
-	| declarator declaration_list compound_statement {outputReduction("function_definition : declarator declaration_list compound_statement");}
+	| declarator {insert_lookup = 0;}  declaration_list {insert_lookup = 1;}  compound_statement {outputReduction("function_definition : declarator declaration_list compound_statement");}
 	| declaration_specifiers declarator compound_statement {outputReduction("function_definition : declaration_specifiers declarator compound_statement");}
-	| declaration_specifiers declarator declaration_list compound_statement {outputReduction("function_definition : declaration_specifiers declarator declaration_list compound_statement");}
+	| declaration_specifiers declarator {insert_lookup = 0;}  declaration_list {insert_lookup = 1;} compound_statement {outputReduction("function_definition : declaration_specifiers declarator declaration_list compound_statement");}
 	;
 
 declaration
@@ -170,18 +171,18 @@ storage_class_specifier
 	;
 
 type_specifier
-	: VOID_tok {insert_lookup = 0; outputReduction("type_specifier : VOID_tok");}
-	| CHAR_tok {insert_lookup = 0; outputReduction("type_specifier : CHAR_tok");}
-	| SHORT_tok {insert_lookup = 0; outputReduction("type_specifier : SHORT_tok");}
-	| INT_tok {insert_lookup = 0; outputReduction("type_specifier : INT_tok");}
-	| LONG_tok {insert_lookup = 0; outputReduction("type_specifier : LONG_tok");}
-	| FLOAT_tok {insert_lookup = 0; outputReduction("type_specifier : FLOAT_tok");}
-	| DOUBLE_tok {insert_lookup = 0; outputReduction("type_specifier : DOUBLE_tok");}
-	| SIGNED_tok {insert_lookup = 0; outputReduction("type_specifier : SIGNED_tok");}
-	| UNSIGNED_tok {insert_lookup = 0; outputReduction("type_specifier : UNSIGNED_tok");}
-	| struct_or_union_specifier {insert_lookup = 0; outputReduction("type_specifier : struct_or_union_specifier");}
-	| ENUM_tok {insert_lookup = 0; outputReduction("type_specifier : ENUM_tok");}
-	| TYPEDEF_NAME_tok {insert_lookup = 0; outputReduction("type_specifier : TYPEDEF_NAME_tok");}
+	: VOID_tok { outputReduction("type_specifier : VOID_tok");}
+	| CHAR_tok {outputReduction("type_specifier : CHAR_tok");}
+	| SHORT_tok { outputReduction("type_specifier : SHORT_tok");}
+	| INT_tok { outputReduction("type_specifier : INT_tok");}
+	| LONG_tok { outputReduction("type_specifier : LONG_tok");}
+	| FLOAT_tok { outputReduction("type_specifier : FLOAT_tok");}
+	| DOUBLE_tok { outputReduction("type_specifier : DOUBLE_tok");}
+	| SIGNED_tok { outputReduction("type_specifier : SIGNED_tok");}
+	| UNSIGNED_tok { outputReduction("type_specifier : UNSIGNED_tok");}
+	| struct_or_union_specifier { outputReduction("type_specifier : struct_or_union_specifier");}
+	| ENUM_tok { outputReduction("type_specifier : ENUM_tok");}
+	| TYPEDEF_NAME_tok { outputReduction("type_specifier : TYPEDEF_NAME_tok");}
 	;
 
 type_qualifier
@@ -190,8 +191,8 @@ type_qualifier
 	;
 
 struct_or_union_specifier
-	: struct_or_union identifier OPEN_BRACE_tok struct_declaration_list CLOSE_BRACE_tok {outputReduction("struct_or_union_specifier : struct_or_union identifier OPEN_BRACE_tok struct_declaration_list CLOSE_BRACE_tok");}
-	| struct_or_union OPEN_BRACE_tok struct_declaration_list CLOSE_BRACE_tok {outputReduction("struct_or_union_specifier : struct_or_union OPEN_BRACE_tok struct_declaration_list CLOSE_BRACE_tok");}
+	: struct_or_union identifier OPEN_BRACE_tok {insert_lookup = 0;}  struct_declaration_list {insert_lookup = 1;}  CLOSE_BRACE_tok {outputReduction("struct_or_union_specifier : struct_or_union identifier OPEN_BRACE_tok struct_declaration_list CLOSE_BRACE_tok");}
+	| struct_or_union OPEN_BRACE_tok {insert_lookup = 0;}  struct_declaration_list {insert_lookup = 1;}  CLOSE_BRACE_tok {outputReduction("struct_or_union_specifier : struct_or_union OPEN_BRACE_tok struct_declaration_list CLOSE_BRACE_tok");}
 	| struct_or_union identifier {outputReduction("struct_or_union_specifier : struct_or_union identifier");}
 	;
 
@@ -358,8 +359,8 @@ expression_statement
 compound_statement
 	: OPEN_BRACE_tok CLOSE_BRACE_tok {outputReduction("compound_statement : OPEN_BRACE_tok CLOSE_BRACE_tok");}
 	| OPEN_BRACE_tok statement_list CLOSE_BRACE_tok {outputReduction("compound_statement : OPEN_BRACE_tok statement_list CLOSE_BRACE_tok");}
-	| OPEN_BRACE_tok declaration_list CLOSE_BRACE_tok {outputReduction("compound_statement : OPEN_BRACE_tok declaration_list CLOSE_BRACE_tok");}
-	| OPEN_BRACE_tok declaration_list statement_list CLOSE_BRACE_tok {outputReduction("compound_statement : OPEN_BRACE_tok declaration_list statement_list CLOSE_BRACE_tok");}
+	| OPEN_BRACE_tok {insert_lookup = 0;} declaration_list{insert_lookup = 1;}  CLOSE_BRACE_tok {outputReduction("compound_statement : OPEN_BRACE_tok declaration_list CLOSE_BRACE_tok");}
+	| OPEN_BRACE_tok {insert_lookup = 0;} declaration_list {insert_lookup = 1;}  statement_list CLOSE_BRACE_tok {outputReduction("compound_statement : OPEN_BRACE_tok declaration_list statement_list CLOSE_BRACE_tok");}
 	;
 
 statement_list
@@ -543,7 +544,7 @@ string
 	;
 
 identifier
-	: ID_tok {insert_lookup = 1; outputReduction("identifier : ID_tok");}
+	: ID_tok { outputReduction("identifier : ID_tok");}
 	;
 %%
 
@@ -571,7 +572,9 @@ int main(int argc, char **argv)
 	int scan_count = 0;
 	int lex_count = 0;
 	int yacc_count = 0;
-	insert_lookup = 1;
+	insert_lookup = 0;
+
+	yy::set_debug_level(2);
 	
 	lex_debug_level=1;
 	symbol_table_debug=1;
