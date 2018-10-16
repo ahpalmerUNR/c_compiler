@@ -18,6 +18,9 @@
 	clock_t clock_time;
 
 	int levels[4];
+	
+	
+
 
 	void outputReduction(const char *s);
 
@@ -129,19 +132,19 @@
 
 translation_unit
 	: external_declaration {outputReduction("translation_unit : external_declaration");}
-	| translation_unit external_declaration {outputReduction("translation_unit : translation_unit external_declaration");}
+	| translation_unit {insert_lookup = 0;} external_declaration {insert_lookup = 1; outputReduction("translation_unit : translation_unit external_declaration");}
 	;
 
 external_declaration
 	: function_definition {outputReduction("external_declaration : function_definition");}
-	| {insert_lookup = 0;} declaration {insert_lookup = 1;} {outputReduction("external_declaration : declaration");}
+	|  declaration {outputReduction("external_declaration : declaration");}
 	;
 
 function_definition
 	: declarator compound_statement {outputReduction("function_definition : declarator compound_statement");}
-	| declarator {insert_lookup = 0;}  declaration_list {insert_lookup = 1;}  compound_statement {outputReduction("function_definition : declarator declaration_list compound_statement");}
+	| declarator  {insert_lookup = 0;} declaration_list   compound_statement {insert_lookup = 1; outputReduction("function_definition : declarator declaration_list compound_statement");}
 	| declaration_specifiers declarator compound_statement {outputReduction("function_definition : declaration_specifiers declarator compound_statement");}
-	| declaration_specifiers declarator {insert_lookup = 0;}  declaration_list {insert_lookup = 1;} compound_statement {outputReduction("function_definition : declaration_specifiers declarator declaration_list compound_statement");}
+	| declaration_specifiers declarator {insert_lookup = 0;}  declaration_list  compound_statement {insert_lookup=1; outputReduction("function_definition : declaration_specifiers declarator declaration_list compound_statement");}
 	;
 
 declaration
@@ -191,8 +194,8 @@ type_qualifier
 	;
 
 struct_or_union_specifier
-	: struct_or_union identifier OPEN_BRACE_tok {insert_lookup = 0;}  struct_declaration_list {insert_lookup = 1;}  CLOSE_BRACE_tok {outputReduction("struct_or_union_specifier : struct_or_union identifier OPEN_BRACE_tok struct_declaration_list CLOSE_BRACE_tok");}
-	| struct_or_union OPEN_BRACE_tok {insert_lookup = 0;}  struct_declaration_list {insert_lookup = 1;}  CLOSE_BRACE_tok {outputReduction("struct_or_union_specifier : struct_or_union OPEN_BRACE_tok struct_declaration_list CLOSE_BRACE_tok");}
+	: struct_or_union identifier OPEN_BRACE_tok   {insert_lookup = 0;} struct_declaration_list   CLOSE_BRACE_tok {insert_lookup = 1;outputReduction("struct_or_union_specifier : struct_or_union identifier OPEN_BRACE_tok struct_declaration_list CLOSE_BRACE_tok");}
+	| struct_or_union OPEN_BRACE_tok {insert_lookup= 0;}  struct_declaration_list   CLOSE_BRACE_tok {insert_lookup = 1;outputReduction("struct_or_union_specifier : struct_or_union OPEN_BRACE_tok struct_declaration_list CLOSE_BRACE_tok");}
 	| struct_or_union identifier {outputReduction("struct_or_union_specifier : struct_or_union identifier");}
 	;
 
@@ -359,8 +362,8 @@ expression_statement
 compound_statement
 	: OPEN_BRACE_tok CLOSE_BRACE_tok {outputReduction("compound_statement : OPEN_BRACE_tok CLOSE_BRACE_tok");}
 	| OPEN_BRACE_tok statement_list CLOSE_BRACE_tok {outputReduction("compound_statement : OPEN_BRACE_tok statement_list CLOSE_BRACE_tok");}
-	| OPEN_BRACE_tok {insert_lookup = 0;} declaration_list{insert_lookup = 1;}  CLOSE_BRACE_tok {outputReduction("compound_statement : OPEN_BRACE_tok declaration_list CLOSE_BRACE_tok");}
-	| OPEN_BRACE_tok {insert_lookup = 0;} declaration_list {insert_lookup = 1;}  statement_list CLOSE_BRACE_tok {outputReduction("compound_statement : OPEN_BRACE_tok declaration_list statement_list CLOSE_BRACE_tok");}
+	| OPEN_BRACE_tok {insert_lookup=0;} declaration_list  CLOSE_BRACE_tok {insert_lookup =1; outputReduction("compound_statement : OPEN_BRACE_tok declaration_list CLOSE_BRACE_tok");}
+	| OPEN_BRACE_tok {insert_lookup=0;} declaration_list  {insert_lookup=1;} statement_list CLOSE_BRACE_tok {outputReduction("compound_statement : OPEN_BRACE_tok declaration_list statement_list CLOSE_BRACE_tok");}
 	;
 
 statement_list
@@ -574,7 +577,7 @@ int main(int argc, char **argv)
 	int yacc_count = 0;
 	insert_lookup = 0;
 
-	yy::set_debug_level(2);
+	
 	
 	lex_debug_level=1;
 	symbol_table_debug=1;
@@ -648,6 +651,10 @@ int main(int argc, char **argv)
 							if(yacc_count <= 4)
 							{
 								c_line_yacc_debug_level*=levels[yacc_count-1];
+							}
+							if(yacc_count == 3)
+							{
+								yydebug=1;
 							}
 							break;
 					}
