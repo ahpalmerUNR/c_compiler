@@ -38,7 +38,7 @@ struct Node {
 	void print()
 	{
 		cout << "Line: " << lineNumber << " Type: " << type << endl;
-	}
+	};
 };
 class SymbolTable {
 

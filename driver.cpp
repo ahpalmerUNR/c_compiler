@@ -46,6 +46,6 @@ int main()
 
 	//s.printCurrentScope();
 	// Write the stack of BST to the file
-	s.writeToFile();
+	s.writeToFile("output.txt");
 
 }
