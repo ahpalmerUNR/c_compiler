@@ -131,7 +131,7 @@
 %%
 
 translation_unit
-	: external_declaration {outputReduction("translation_unit : external_declaration");}
+	: {insert_lookup = 0;} external_declaration {insert_lookup = 1; outputReduction("translation_unit : external_declaration");}
 	| translation_unit {insert_lookup = 0;} external_declaration {insert_lookup = 1; outputReduction("translation_unit : translation_unit external_declaration");}
 	;
 

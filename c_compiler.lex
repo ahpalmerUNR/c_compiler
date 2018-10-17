@@ -10,7 +10,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-//#include <string.h>
+#include <string.h>
 #include "c_compiler.tab.hpp"
 #include "symboltable.h"
 
@@ -642,7 +642,7 @@ int id_token()
 		if(errorcode!=0)
 		{
 			char buff[100];
-			char*errormes = "Conflict with variable in current scope on line: " + itoa(yylval.lnode->lineNumber,buff);
+			char*errormes = "Conflict with variable in current scope on line: " + itoa(yylval.lnode->lineNumber,buff,10);
 		print_error(errormes);
 		}
 		
