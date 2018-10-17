@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-14 14:05:57
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-10-16 15:28:24
+* @Last Modified time: 2018-10-16 15:48:36
 */
 char i;
 
@@ -23,6 +23,6 @@ int main()
 		int four = 4;
 		!!D
 	}
-	char alpha;
+	char beta;
 	return 0;
 }

@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-09-28 12:11:57
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-10-11 15:33:06
+* @Last Modified time: 2018-10-16 16:26:10
 */
 #include "symboltable.h"
 
@@ -13,7 +13,7 @@ SymbolTable::SymbolTable()
 	pushEmptyBST();
 }
 
-Node* SymbolTable::insert(string tokenKey, int lN, DataType t)
+Node* SymbolTable::insert(string tokenKey, int lN, DataType t,int*errorcode)
 {
 	int location;
 	Node *prevDecl = searchAll(tokenKey,&location);
@@ -31,7 +31,8 @@ Node* SymbolTable::insert(string tokenKey, int lN, DataType t)
 		cout << "The identifier already exists" << endl;
 		if(location == currentLevel)
 		{
-			cout << "Conflict with variable in current level on line number: " << prevDecl->lineNumber << endl;
+			// cout << "Conflict with variable in current level on line number: " << prevDecl->lineNumber << endl;
+			*errorcode = 1;
 		}
 		else
 		{

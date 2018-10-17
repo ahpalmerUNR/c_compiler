@@ -46,7 +46,7 @@ public:
 
 	SymbolTable();
 
-	Node* insert(string tokenKey, int lN, DataType t);
+	Node* insert(string tokenKey, int lN, DataType t,int*errorcode);
 	Node* insert(string tokenKey, Node d);
 	Node* searchAll(string key, int *location);
 

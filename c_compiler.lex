@@ -585,6 +585,7 @@ int id_token()
 	Node * pointsTo = NULL;
 	//printf("pointsto made\n");
 	int scope;
+	int errorcode=0;
 	if(yyleng >=32)
 	{
 		
@@ -592,7 +593,7 @@ int id_token()
 		
 	}
 	//printf("Before Search of symboltable");
-	pointsTo = s.searchAll(yytext,&scope);
+	//pointsTo = s.searchAll(yytext,&scope);
 	//printf("After Search of symboltable");
 	if(insert_lookup == 1)
 	//if(pointsTo != NULL)
@@ -626,7 +627,7 @@ int id_token()
 		else
 		{
 			printf("Inserting when found\n");
-			yylval.lnode = s.insert(yytext,line,INT_TYPE);
+			yylval.lnode = s.insert(yytext,line,INT_TYPE,&errorcode);
 			
 			return(send_token("ID_tok",ID_tok));
 		}
@@ -636,7 +637,14 @@ int id_token()
 	else
 	{
 		//printf("\n\nID NOT FOUND AND NOW ADDING\n");
-		yylval.lnode = s.insert(yytext,line,INT_TYPE);
+		yylval.lnode = s.insert(yytext,line,INT_TYPE,&errorcode);
+		
+		if(errorcode!=0)
+		{
+			char buff[100];
+			char*errormes = "Conflict with variable in current scope on line: " + itoa(yylval.lnode->lineNumber,buff);
+		print_error(errormes);
+		}
 		
 		return(send_token("ID_tok",ID_tok));
 	}
