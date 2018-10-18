@@ -10,9 +10,10 @@
 	FILE *outfile;
 	FILE *errorText;
 	FILE * tokenFile;
+	FILE * parseFile;
 	//FILE * productionFile;
 	int insert_lookup;//1 lookup 0 insert
-	char *logName = (char*)"compilerLog.txt";
+	char *logName = (char*)"testCases/compilerLog.txt";
 	char *file_name;
 	time_t time_time;
 	clock_t clock_time;
@@ -592,9 +593,10 @@ int main(int argc, char **argv)
 	levels[2] = 5;
 	levels[3] = 7;
 	
-	outfile = fopen("out.s","w");
+	outfile = fopen("testCases/out.s","w");
 	out_log = fopen(logName,"a");
-	tokenFile = fopen("tokenFile.txt","w");
+	tokenFile = fopen("testCases/tokenFile.txt","w");
+	parseFile = fopen("testCases/parseFile.txt","w");
 	//productionFile = fopen("productionFile.txt","w");
 	
 	//printf("Created Log file\n");
@@ -615,10 +617,20 @@ int main(int argc, char **argv)
 		{
 			if(argv[i][0]=='-' && argv[i][1]=='o')
 			{
-				fclose(outfile);
+				fclose(parseFile);
 				printf("%s\n",argv[i+1]);
-				outfile = fopen(argv[i+1],"w");
+				//outfile = fopen(argv[i+1],"w");
+				parseFile = fopen(argv[i+1],"w");
+
 			}
+			if(argv[i][0]=='-' && argv[i][1]=='t')
+			{
+				fclose(tokenFile);
+				printf("%s\n",argv[i+1]);
+				tokenFile = fopen(argv[i+1],"w");
+
+			}
+			
 			
 			if(argv[i][0]=='-' && argv[i][1]=='l')
 			{
@@ -691,6 +703,7 @@ int main(int argc, char **argv)
 	//symbol_table_debug = 1;
 	//yacc_debug_level = 1;
 	yyparse();
+
 	//while((tok = yylex()))
 	//{
 	
@@ -739,14 +752,14 @@ void outputReduction(const char *production)
 	clock_time = clock();
 	if(yacc_debug_level%2==0 || yacc_debug_level%3==0 || yacc_debug_level%5==0 || yacc_debug_level%7==0 )
 	{
-		fprintf(tokenFile,"%s PARSER Time::%ld:%ld\t Line: %d\t",file_name, time_time,clock_time,line);
+		fprintf(parseFile,"%s PARSER Time::%ld:%ld\t Line: %d\t",file_name, time_time,clock_time,line);
 		printf("%s PARSER Time::%ld:%ld\t",file_name, time_time,clock_time);
 	}
 	//printf("%ld:%ld ",time_time,clock_time);
 
 	if(yacc_debug_level%2==0)
 	{
-		fprintf(tokenFile,"%s\n",production);
+		fprintf(parseFile,"%s\n",production);
 		printf("%s\n",production);
 	}
 }

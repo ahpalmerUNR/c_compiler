@@ -23,7 +23,7 @@ flex_out: src/symboltable.h
 	$(LEX) --outfile=build/lex.yy.c src/c_compiler.lex src/symboltable.h
 	
 symboltable.o: src/symboltable.h
-	$(CPP) $(CPPFLAGS) -c src/symboltable.cpp 
+	$(CPP) $(CPPFLAGS) -c src/symboltable.cpp
 
 clean:
 	-rm -f build/lex.yy.* build/c_compiler.tab.* build/*.o build/*.s build/c_compiler build/c_compiler.output

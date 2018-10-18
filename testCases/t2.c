@@ -2,8 +2,11 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-11 15:53:15
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-10-11 16:22:50
+* @Last Modified time: 2018-10-18 14:31:04
 */
+!!L 6
+void printf();
+
 int main()
 {
 	

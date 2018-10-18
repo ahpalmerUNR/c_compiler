@@ -32,6 +32,7 @@ extern FILE *out_log;
 extern char *logName;
 extern FILE *errorText;
 extern FILE * tokenFile;
+extern FILE * parseFile;
 extern char *file_name;
 char tmp[MAX_LINE_LENGTH];
 extern time_t time_time;
@@ -80,7 +81,7 @@ mult_line_comment	"/*"([^*]|\*+[^*/])*"*/"
 			
 "case"		{return(send_token("CASE_tok",CASE_tok));}
 			
-"char"		{return(send_token("CHAR_tok",CHAR_tok));}
+"char"		{ return(send_token("CHAR_tok",CHAR_tok));}
 			
 "const"		{return(send_token("CONST_tok",CONST_tok));}
 			
@@ -277,6 +278,7 @@ int send_token(char const* token_name,int token)
 		fprintf(tokenFile,"%s\n",token_name);
 		printf("%s\n",token_name);
 	}
+
 	return token;
 }
 
@@ -321,7 +323,8 @@ void read_line()
 		tmp[i]=first_80[i];
 	}
 	tmp[79]='\0';
-	
+	fprintf(tokenFile,"\n%s\n",tmp);
+	fprintf(parseFile,"\n%s\n",tmp);
 }
 
 void white()
@@ -339,6 +342,7 @@ void white()
 		{
 			//printf("char == new line\n");
 			read_line();
+			//fprintf()
 			//printf("%s",tmp);
 			line ++;
 			//printf("columns %d\n",column);
