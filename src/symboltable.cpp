@@ -13,7 +13,7 @@ SymbolTable::SymbolTable()
 	pushEmptyBST();
 }
 
-Node* SymbolTable::insert(string tokenKey, int lN, DataType t,int*errorcode)
+Node* SymbolTable::insert(string tokenKey, int lN, int cN, DataType t,int*errorcode)
 {
 	int location;
 	Node *prevDecl = searchAll(tokenKey,&location);
@@ -21,6 +21,7 @@ Node* SymbolTable::insert(string tokenKey, int lN, DataType t,int*errorcode)
 	{
 		Node d;
 		d.lineNumber = lN;
+		d.colNumber = cN;
 		d.type = t;
 		stack[currentLevel].insert(pair<string,Node>(tokenKey,d));
 		return searchTop(tokenKey);

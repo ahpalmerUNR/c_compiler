@@ -31,6 +31,7 @@ enum NType{
 // Information about the symbol - add more data types in it as necessary
 struct Node {
 	int lineNumber;
+	int colNumber;
 	enum DataType type;
 	int ntype = 1;
 	void output(ofstream &stream)
@@ -48,7 +49,7 @@ public:
 
 	SymbolTable();
 
-	Node* insert(string tokenKey, int lN, DataType t,int*errorcode);
+	Node* insert(string tokenKey, int lN, int cN, DataType t,int*errorcode);
 	Node* insert(string tokenKey, Node d);
 	Node* searchAll(string key, int *location);
 

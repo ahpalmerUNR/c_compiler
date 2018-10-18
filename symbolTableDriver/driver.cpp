@@ -6,40 +6,45 @@ int symbol_table_debug = 1;
 
 int main()
 {
+	// Used by scanner to deal with conflicts/redeclarations
+	int errorCode;
+	// Level a declaration was found in
+	int level;
+	// Node pointer to set when searching and inserting
+	Node *n;
 
 	SymbolTable s;
 	//1 int j;
-	s.insert("j",1, INT_TYPE);
+	n = s.insert("j",1, INT_TYPE,&errorCode);
 	//2 void func();
-	s.insert("func",2,VOID_TYPE);
+	n = s.insert("func",2,VOID_TYPE,&errorCode);
 	//3 int main()
-	s.insert("main",3,INT_TYPE);
+	n = s.insert("main",3,INT_TYPE,&errorCode);
 	//4 {
 	s.pushEmptyBST();
 	//5 float p = 1.44;
-	s.insert("p",5,FLOAT_TYPE);
+	n = s.insert("p",5,FLOAT_TYPE,&errorCode);
 	//6 float k = -2.43;
-	s.insert("k",6,FLOAT_TYPE);
-	//7 int i = 0;
-	s.insert("i",7,INT_TYPE);
+	n = s.insert("k",6,FLOAT_TYPE,&errorCode);
+	//7 int j = 0;
+	n = s.insert("j",7,INT_TYPE,&errorCode);
 	//8 int q = 1;
-	s.insert("q",8,INT_TYPE);
+	n = s.insert("q",8,INT_TYPE,&errorCode);
 	
 	
 	//9 char burrito = 'b';	
-	s.insert("burrito",9,CHAR_TYPE);
+	n = s.insert("burrito",9,CHAR_TYPE,&errorCode);
 	//10 char taco = 't';
-	s.insert("taco",10,CHAR_TYPE);
+	n = s.insert("taco",10,CHAR_TYPE,&errorCode);
 	//11 char taco;
-	s.insert("taco",11,CHAR_TYPE);
+	n = s.insert("taco",11,CHAR_TYPE,&errorCode);
+	if(errorCode = 1) std::cout << "Error: conflict
 	//12 !!D	
 	s.writeToFile("driverOut.txt");
 	//13 int o = 44;
-	s.insert("o",13,INT_TYPE);
+	n = s.insert("o",13,INT_TYPE,&errorCode);
 	//14 if(i==4)
-	int level;
-	Node *n;
-	n = s.searchAll("i",&level);
+	n = s.searchAll("j",&level);
 	if(n != NULL)
 		std::cout << "Node found in level: " << level << ", on line: " << n->lineNumber << std::endl;
 	else
@@ -47,19 +52,19 @@ int main()
 	//15 {
 	s.pushEmptyBST();
 	//16 		int j =2;
-	s.insert("j",16,INT_TYPE);
+	n = s.insert("j",16,INT_TYPE,&errorCode);
 	//17		!!D
 	s.writeToFile("driverOut.txt");
 	//18 		if(j == 2)
 	n = s.searchAll("j",&level);
-		if(n != NULL)
+	if(n != NULL)
 		std::cout << "Node found in level: " << level << ", on line: " << n->lineNumber << std::endl;
 	else
 		std::cout << "Node not found." << std::endl;
 	//19 		{
 	s.pushEmptyBST();
 	//20			int k;
-	s.insert("k",20,INT_TYPE);
+	n = s.insert("k",20,INT_TYPE,&errorCode);
 	//21	  	!!D;
 	s.writeToFile("driverOut.txt");
 	//22 		}
