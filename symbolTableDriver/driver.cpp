@@ -1,4 +1,4 @@
-#include"symboltable.h"
+#include "../src/symboltable.h"
 // Will be in parser
 int symbol_table_debug;
 int main()

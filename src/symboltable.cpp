@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-09-28 12:11:57
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-10-16 16:26:10
+* @Last Modified time: 2018-10-17 22:21:13
 */
 #include "symboltable.h"
 
@@ -32,6 +32,7 @@ Node* SymbolTable::insert(string tokenKey, int lN, DataType t,int*errorcode)
 		if(location == currentLevel)
 		{
 			// cout << "Conflict with variable in current level on line number: " << prevDecl->lineNumber << endl;
+			// 
 			*errorcode = 1;
 		}
 		else

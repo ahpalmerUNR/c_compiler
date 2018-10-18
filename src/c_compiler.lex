@@ -11,8 +11,8 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
-#include "c_compiler.tab.hpp"
-#include "symboltable.h"
+#include "../build/c_compiler.tab.hpp"
+#include "../src/symboltable.h"
 
 #define MAX_LINE_LENGTH 500
 
@@ -327,7 +327,7 @@ void read_line()
 void white()
 {
 	//printf("S%sN",yytext);
-	for(int i =0;i<yyleng;i++)
+	for(unsigned int i =0;i<yyleng;i++)
 	{
 		//count the lines and columns for errors
 		if(yytext[i]=='\t')
@@ -463,7 +463,7 @@ void mult_line()
 {
 	
 	//printf("%u\n",yyleng);
-	for(int i=0;i<yyleng;i++)
+	for(unsigned int i=0;i<yyleng;i++)
 	{
 		//printf("%c",yytext[i]);
 		if(yytext[i]=='\n')
@@ -490,7 +490,7 @@ void print_error(char const *error_msg)
 	read_line();
 	fseek(errorText,offset,SEEK_SET);
 	fprintf(stderr,"ERROR: %s:Line: %d Column: %d %s\n",file_name,line,column,error_msg);
-	printf("ERROR: %s:Line: %d Column: %d %s\n",file_name,line,column,error_msg);
+	//printf("ERROR: %s:Line: %d Column: %d %s\n",file_name,line,column,error_msg);
 	printf("%s",tmp);
 	for(int i = column; i>0;i--)
 	{
@@ -624,13 +624,13 @@ int id_token()
 			
 			return(send_token("TYPEDEF_NAME_tok",TYPEDEF_NAME_tok));
 		}
-		else
-		{
-			printf("Inserting when found\n");
-			yylval.lnode = s.insert(yytext,line,INT_TYPE,&errorcode);
-			
-			return(send_token("ID_tok",ID_tok));
-		}
+		//else
+		//{
+		//	printf("Inserting when found\n");
+		//	yylval.lnode = s.insert(yytext,line,INT_TYPE,&errorcode);
+		//	
+		//	return(send_token("ID_tok",ID_tok));
+		//}
 		
 	}
 	
@@ -641,9 +641,11 @@ int id_token()
 		
 		if(errorcode!=0)
 		{
-			char buff[100];
-			char*errormes = "Conflict with variable in current scope on line: " + itoa(yylval.lnode->lineNumber,buff,10);
-		print_error(errormes);
+			char buff[200];
+			//printf("%s",buff);
+			snprintf(buff,200, "Conflicts with variable in current scope on line : %d",yylval.lnode->lineNumber);
+			//char*errormes = err+ buff;
+			print_error(buff);
 		}
 		
 		return(send_token("ID_tok",ID_tok));

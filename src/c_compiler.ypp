@@ -1,5 +1,5 @@
 %{
-	#include "symboltable.h"	
+	#include "../src/symboltable.h"	
 	#include <time.h>
 	#include <stdio.h>
 	#include <stdlib.h>
@@ -12,7 +12,7 @@
 	FILE * tokenFile;
 	//FILE * productionFile;
 	int insert_lookup;//1 lookup 0 insert
-	char *logName = "compilerLog.txt";
+	char *logName = (char*)"compilerLog.txt";
 	char *file_name;
 	time_t time_time;
 	clock_t clock_time;

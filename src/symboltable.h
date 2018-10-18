@@ -4,6 +4,8 @@
 * @Last Modified by:   ahpalmerUNR
 * @Last Modified time: 2018-10-03 15:44:39
 */
+#ifndef SYMBOTABLE
+#define SYMBOTABLE
 
 #include <map>
 #include <vector>
@@ -62,3 +64,4 @@ private:
 	int currentLevel;
 };
 
+#endif
