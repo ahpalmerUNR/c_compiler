@@ -1,11 +1,15 @@
 Zach
 -------
 Wiki
+column num added to symbol table
+
 
 Andrew
 -------
 ReadMe.txt
-source code in reductions file
+float check
+make test cases and outputs
+
 
 
 
