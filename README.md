@@ -44,6 +44,17 @@ To compile a c program, run the program with the last argument the source file.
 The above code would compile the t1.c test case. All resulting files are saved alongside the testcases.
 
 The c_compiler excepts commandline arguments.
+```
+	-o [filename] sets the output file name. Defaults to out.s 
+	Note: currently -o creates the parse file and defaults to parseFile.txt
+	
+	-t [filename] sets the token file name. Defaults to tokenFile.txt
+	-l [filename] sets the log file name. Defaults to compilerLog.txt
+	Note: currently log file only holds symbol table dumps.
+	
+	-d[lsy]* sets the debug levels for scanner, symbol table, and parser.
+	
+```
 
 ## Contributions
 
