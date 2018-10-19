@@ -1,5 +1,5 @@
 # c_compiler
-c_compiler for UNR Compilers CS 660. This program takes in a .c file and returns a MIPS program. The MIPS program is intended to be passed into the SPIM program for execution. This repository was created to compile and run on a Linux machine with SPIM, g++, flex, and bison.
+c_compiler for UNR Compilers CS 660. This program takes in a .c file and returns a MIPS program. The MIPS program is intended to be passed into the SPIM program for execution. This repository was created to compile and run on a Linux machine with SPIM, g++, flex, and bison. The repository Wiki is [here](https://github.com/ahpalmerUNR/c_compiler/wiki)
 
 ## Table Of Contents
 
