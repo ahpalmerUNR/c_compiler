@@ -62,7 +62,9 @@ delim	[ \t\n]
 ws	{delim}+
 letter	[A-Za-z]
 digit	[0-9]
-int [-+]?{digit}+
+hexdig	[a-fA-F]
+hex		[-+]?(0[xX])?({digit}|{hexdig})+[ulUL]?
+int [-+]?{digit}+[ulUL]?
 id	({letter}|_+({letter}|{digit}))+({letter}|{digit}|_)*
 float	[-+]?{digit}*\.?{digit}+([eE][+-]?[0-9]+)?
 character 	\'([^\']|\\.*)\'
@@ -194,6 +196,8 @@ mult_line_comment	"/*"([^*]|\*+[^*/])*"*/"
 "--"		{return(send_token("DEC_OP_tok",DEC_OP_tok));}
 
 {int}		{check_int();return(send_token("INTEGER_CONSTANT_tok",INTEGER_CONSTANT_tok));}
+
+{hex}		{check_int();return(send_token("INTEGER_CONSTANT_tok",INTEGER_CONSTANT_tok));}
 
 {float}		{check_float();return(send_token("FLOATING_CONSTANT_tok",FLOATING_CONSTANT_tok));}
 
@@ -562,7 +566,20 @@ void check_int()
 	
 	long int test_int_down = -2147483648;
 	long int test_int_up = 2147483647;
-	long int test = atol(yytext);
+	long int test;
+	
+	if(yytext[1]=='x' || yytext[1]=='X')
+	{
+		test = strtol(yytext,NULL,16);
+	}
+	else if(yytext[0]=='0')
+	{
+		test = strtol(yytext,NULL,8);
+	}
+	else
+	{
+		test = atol(yytext);
+	}
 	
 	//printf("Up %ld, Down %ld, Given %ld\n",test_int_up,test_int_down,test);
 	
@@ -579,7 +596,18 @@ void check_int()
 
 void check_float()
 {
+	double posmax = 3.4E+38;
+	double posmin = 1.2E-38;
+	double negmin = -3.4E+38;
+	double negmax = -1.2E-38;
 	
+	double result;
+	result = atof(yytext);
+	
+	if(!(result==0.0 ||(result<=posmax && result>=posmin) || (result <=negmax && result >=negmin)))
+	{
+		print_error("Syntax Error: Float Value Out Of Range.");
+	}
 	//print_error("Float Value Too Large.");
 }
 
