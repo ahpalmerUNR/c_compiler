@@ -19,154 +19,154 @@
 
 !!L 6
 
-testCases/t2.c SCANNER Time::1539935895:2372	 Line: 8	void ==> VOID_tok
-testCases/t2.c SCANNER Time::1539935895:2525	 Line: 8	printf ==> ID_tok
-testCases/t2.c SCANNER Time::1539935895:2781	 Line: 8	( ==> OPEN_PAREN_tok
-testCases/t2.c SCANNER Time::1539935895:2822	 Line: 8	) ==> CLOSE_PAREN_tok
-testCases/t2.c SCANNER Time::1539935895:2948	 Line: 8	; ==> SEMI_tok
+testCases/t2.c SCANNER Time::1539936498:2446	 Line: 8	void ==> VOID_tok
+testCases/t2.c SCANNER Time::1539936498:2568	 Line: 8	printf ==> ID_tok
+testCases/t2.c SCANNER Time::1539936498:2795	 Line: 8	( ==> OPEN_PAREN_tok
+testCases/t2.c SCANNER Time::1539936498:2838	 Line: 8	) ==> CLOSE_PAREN_tok
+testCases/t2.c SCANNER Time::1539936498:2951	 Line: 8	; ==> SEMI_tok
 
 void printf();
 
 
 
 
-testCases/t2.c SCANNER Time::1539935895:3431	 Line: 10	int ==> INT_tok
-testCases/t2.c SCANNER Time::1539935895:3618	 Line: 10	main ==> ID_tok
-testCases/t2.c SCANNER Time::1539935895:3882	 Line: 10	( ==> OPEN_PAREN_tok
-testCases/t2.c SCANNER Time::1539935895:3927	 Line: 10	) ==> CLOSE_PAREN_tok
+testCases/t2.c SCANNER Time::1539936498:3374	 Line: 10	int ==> INT_tok
+testCases/t2.c SCANNER Time::1539936498:3529	 Line: 10	main ==> ID_tok
+testCases/t2.c SCANNER Time::1539936498:3738	 Line: 10	( ==> OPEN_PAREN_tok
+testCases/t2.c SCANNER Time::1539936498:3787	 Line: 10	) ==> CLOSE_PAREN_tok
 
 int main()
 
-testCases/t2.c SCANNER Time::1539935895:4109	 Line: 11	{ ==> OPEN_BRACE_tok
+testCases/t2.c SCANNER Time::1539936498:3925	 Line: 11	{ ==> OPEN_BRACE_tok
 
 {
 
-testCases/t2.c SCANNER Time::1539935895:4244	 Line: 12	struct ==> STRUCT_tok
-testCases/t2.c SCANNER Time::1539935895:4449	 Line: 12	a ==> ID_tok
-testCases/t2.c SCANNER Time::1539935895:4628	 Line: 12	{ ==> OPEN_BRACE_tok
+testCases/t2.c SCANNER Time::1539936498:4057	 Line: 12	struct ==> STRUCT_tok
+testCases/t2.c SCANNER Time::1539936498:4227	 Line: 12	a ==> ID_tok
+testCases/t2.c SCANNER Time::1539936498:4365	 Line: 12	{ ==> OPEN_BRACE_tok
 
 	struct a {
 
-testCases/t2.c SCANNER Time::1539935895:4677	 Line: 13	int ==> INT_tok
-testCases/t2.c SCANNER Time::1539935895:4849	 Line: 13	j ==> ID_tok
-testCases/t2.c SCANNER Time::1539935895:5211	 Line: 13	; ==> SEMI_tok
+testCases/t2.c SCANNER Time::1539936498:4436	 Line: 13	int ==> INT_tok
+testCases/t2.c SCANNER Time::1539936498:4569	 Line: 13	j ==> ID_tok
+testCases/t2.c SCANNER Time::1539936498:4868	 Line: 13	; ==> SEMI_tok
 
 			int j;
 
-testCases/t2.c SCANNER Time::1539935895:5802	 Line: 14	char ==> CHAR_tok
-testCases/t2.c SCANNER Time::1539935895:5976	 Line: 14	y ==> ID_tok
-testCases/t2.c SCANNER Time::1539935895:6355	 Line: 14	; ==> SEMI_tok
+testCases/t2.c SCANNER Time::1539936498:5386	 Line: 14	char ==> CHAR_tok
+testCases/t2.c SCANNER Time::1539936498:5532	 Line: 14	y ==> ID_tok
+testCases/t2.c SCANNER Time::1539936498:5833	 Line: 14	; ==> SEMI_tok
 
 			char y;
 
 
 			!!D
 
-testCases/t2.c SCANNER Time::1539935895:7153	 Line: 16	} ==> CLOSE_BRACE_tok
-testCases/t2.c SCANNER Time::1539935895:7432	 Line: 16	; ==> SEMI_tok
+testCases/t2.c SCANNER Time::1539936498:6621	 Line: 16	} ==> CLOSE_BRACE_tok
+testCases/t2.c SCANNER Time::1539936498:6894	 Line: 16	; ==> SEMI_tok
 
 	};	
 
-testCases/t2.c SCANNER Time::1539935895:7796	 Line: 17	enum ==> ENUM_tok
-testCases/t2.c SCANNER Time::1539935895:8036	 Line: 17	j ==> ID_tok
-testCases/t2.c SCANNER Time::1539935895:8383	 Line: 17	= ==> EQUAL_tok
-testCases/t2.c SCANNER Time::1539935895:8562	 Line: 17	{ ==> OPEN_BRACE_tok
-testCases/t2.c SCANNER Time::1539935895:8627	 Line: 17	ALPHA ==> ID_tok
-testCases/t2.c SCANNER Time::1539935895:9006	 Line: 17	, ==> COMMA_tok
-testCases/t2.c SCANNER Time::1539935895:10928	 Line: 17	BETA ==> ID_tok
-testCases/t2.c SCANNER Time::1539935895:11411	 Line: 17	} ==> CLOSE_BRACE_tok
-testCases/t2.c SCANNER Time::1539935895:13661	 Line: 17	; ==> SEMI_tok
+testCases/t2.c SCANNER Time::1539936498:7183	 Line: 17	enum ==> ENUM_tok
+testCases/t2.c SCANNER Time::1539936498:7363	 Line: 17	j ==> ID_tok
+testCases/t2.c SCANNER Time::1539936498:7593	 Line: 17	= ==> EQUAL_tok
+testCases/t2.c SCANNER Time::1539936498:7708	 Line: 17	{ ==> OPEN_BRACE_tok
+testCases/t2.c SCANNER Time::1539936498:7755	 Line: 17	ALPHA ==> ID_tok
+testCases/t2.c SCANNER Time::1539936498:8027	 Line: 17	, ==> COMMA_tok
+testCases/t2.c SCANNER Time::1539936498:9624	 Line: 17	BETA ==> ID_tok
+testCases/t2.c SCANNER Time::1539936498:10083	 Line: 17	} ==> CLOSE_BRACE_tok
+testCases/t2.c SCANNER Time::1539936498:11997	 Line: 17	; ==> SEMI_tok
 
 	enum j = {ALPHA,BETA !!D };
 
-testCases/t2.c SCANNER Time::1539935895:13935	 Line: 18	int ==> INT_tok
-testCases/t2.c SCANNER Time::1539935895:14213	 Line: 18	i ==> ID_tok
-testCases/t2.c SCANNER Time::1539935895:14512	 Line: 18	= ==> EQUAL_tok
-testCases/t2.c SCANNER Time::1539935895:14650	 Line: 18	1 ==> INTEGER_CONSTANT_tok
-testCases/t2.c SCANNER Time::1539935895:14888	 Line: 18	; ==> SEMI_tok
+testCases/t2.c SCANNER Time::1539936498:12186	 Line: 18	int ==> INT_tok
+testCases/t2.c SCANNER Time::1539936498:12403	 Line: 18	i ==> ID_tok
+testCases/t2.c SCANNER Time::1539936498:12629	 Line: 18	= ==> EQUAL_tok
+testCases/t2.c SCANNER Time::1539936498:12741	 Line: 18	1 ==> INTEGER_CONSTANT_tok
+testCases/t2.c SCANNER Time::1539936498:13038	 Line: 18	; ==> SEMI_tok
 
 	int i = 1;
 
-testCases/t2.c SCANNER Time::1539935895:17105	 Line: 19	float ==> FLOAT_tok
+testCases/t2.c SCANNER Time::1539936498:14578	 Line: 19	float ==> FLOAT_tok
 
 	float j = 2.3;
 
-testCases/t2.c SCANNER Time::1539935895:17388	 Line: 19	j ==> ID_tok
-testCases/t2.c SCANNER Time::1539935895:17733	 Line: 19	= ==> EQUAL_tok
-testCases/t2.c SCANNER Time::1539935895:17910	 Line: 19	2.3 ==> FLOATING_CONSTANT_tok
-testCases/t2.c SCANNER Time::1539935895:18276	 Line: 19	; ==> SEMI_tok
+testCases/t2.c SCANNER Time::1539936498:15387	 Line: 19	j ==> ID_tok
+testCases/t2.c SCANNER Time::1539936498:15679	 Line: 19	= ==> EQUAL_tok
+testCases/t2.c SCANNER Time::1539936498:15908	 Line: 19	2.3 ==> FLOATING_CONSTANT_tok
+testCases/t2.c SCANNER Time::1539936498:16354	 Line: 19	; ==> SEMI_tok
 
 	float j = 2.3;
 
-testCases/t2.c SCANNER Time::1539935895:20489	 Line: 20	char ==> CHAR_tok
-testCases/t2.c SCANNER Time::1539935895:20720	 Line: 20	testChar ==> ID_tok
-testCases/t2.c SCANNER Time::1539935895:21044	 Line: 20	= ==> EQUAL_tok
-testCases/t2.c SCANNER Time::1539935895:21180	 Line: 20	'a' ==> CHARACTER_CONSTANT_tok
-testCases/t2.c SCANNER Time::1539935895:21660	 Line: 20	; ==> SEMI_tok
+testCases/t2.c SCANNER Time::1539936498:19010	 Line: 20	char ==> CHAR_tok
+testCases/t2.c SCANNER Time::1539936498:19336	 Line: 20	testChar ==> ID_tok
+testCases/t2.c SCANNER Time::1539936498:19746	 Line: 20	= ==> EQUAL_tok
+testCases/t2.c SCANNER Time::1539936498:19914	 Line: 20	'a' ==> CHARACTER_CONSTANT_tok
+testCases/t2.c SCANNER Time::1539936498:20312	 Line: 20	; ==> SEMI_tok
 
 	char testChar = 'a';
 
-testCases/t2.c SCANNER Time::1539935895:23917	 Line: 21	char ==> CHAR_tok
-testCases/t2.c SCANNER Time::1539935895:24126	 Line: 21	* ==> STAR_tok
-testCases/t2.c SCANNER Time::1539935895:24292	 Line: 21	teststring ==> ID_tok
-testCases/t2.c SCANNER Time::1539935895:24631	 Line: 21	= ==> EQUAL_tok
-testCases/t2.c SCANNER Time::1539935895:24798	 Line: 21	"Test String" ==> STRING_LITERAL_tok
-testCases/t2.c SCANNER Time::1539935895:25142	 Line: 21	; ==> SEMI_tok
+testCases/t2.c SCANNER Time::1539936498:22916	 Line: 21	char ==> CHAR_tok
+testCases/t2.c SCANNER Time::1539936498:23496	 Line: 21	* ==> STAR_tok
+testCases/t2.c SCANNER Time::1539936498:23895	 Line: 21	teststring ==> ID_tok
+testCases/t2.c SCANNER Time::1539936498:24675	 Line: 21	= ==> EQUAL_tok
+testCases/t2.c SCANNER Time::1539936498:25022	 Line: 21	"Test String" ==> STRING_LITERAL_tok
+testCases/t2.c SCANNER Time::1539936498:25954	 Line: 21	; ==> SEMI_tok
 
 	char* teststring = "Test String";
 
 
 	
 
-testCases/t2.c SCANNER Time::1539935895:27232	 Line: 23	printf ==> ID_tok
-testCases/t2.c SCANNER Time::1539935895:27391	 Line: 23	( ==> OPEN_PAREN_tok
-testCases/t2.c SCANNER Time::1539935895:27604	 Line: 23	"Hello World!\n" ==> STRING_LITERAL_tok
-testCases/t2.c SCANNER Time::1539935895:27922	 Line: 23	) ==> CLOSE_PAREN_tok
-testCases/t2.c SCANNER Time::1539935895:29421	 Line: 23	; ==> SEMI_tok
+testCases/t2.c SCANNER Time::1539936498:29051	 Line: 23	printf ==> ID_tok
+testCases/t2.c SCANNER Time::1539936498:29163	 Line: 23	( ==> OPEN_PAREN_tok
+testCases/t2.c SCANNER Time::1539936498:29360	 Line: 23	"Hello World!\n" ==> STRING_LITERAL_tok
+testCases/t2.c SCANNER Time::1539936498:29670	 Line: 23	) ==> CLOSE_PAREN_tok
+testCases/t2.c SCANNER Time::1539936498:31347	 Line: 23	; ==> SEMI_tok
 
 	printf("Hello World!\n");
 
-testCases/t2.c SCANNER Time::1539935895:31111	 Line: 24	i ==> ID_tok
-testCases/t2.c SCANNER Time::1539935895:31223	 Line: 24	= ==> EQUAL_tok
-testCases/t2.c SCANNER Time::1539935895:31628	 Line: 24	10 ==> INTEGER_CONSTANT_tok
-testCases/t2.c SCANNER Time::1539935895:31918	 Line: 24	; ==> SEMI_tok
+testCases/t2.c SCANNER Time::1539936498:33090	 Line: 24	i ==> ID_tok
+testCases/t2.c SCANNER Time::1539936498:33227	 Line: 24	= ==> EQUAL_tok
+testCases/t2.c SCANNER Time::1539936498:33841	 Line: 24	10 ==> INTEGER_CONSTANT_tok
+testCases/t2.c SCANNER Time::1539936498:34311	 Line: 24	; ==> SEMI_tok
 
 	i = 10;
 
-testCases/t2.c SCANNER Time::1539935895:33613	 Line: 25	if ==> IF_tok
-testCases/t2.c SCANNER Time::1539935895:33650	 Line: 25	( ==> OPEN_PAREN_tok
-testCases/t2.c SCANNER Time::1539935895:33709	 Line: 25	i ==> ID_tok
-testCases/t2.c SCANNER Time::1539935895:34000	 Line: 25	== ==> EQ_OP_tok
-testCases/t2.c SCANNER Time::1539935895:34727	 Line: 25	10 ==> INTEGER_CONSTANT_tok
-testCases/t2.c SCANNER Time::1539935895:35059	 Line: 25	) ==> CLOSE_PAREN_tok
+testCases/t2.c SCANNER Time::1539936498:36275	 Line: 25	if ==> IF_tok
+testCases/t2.c SCANNER Time::1539936498:36334	 Line: 25	( ==> OPEN_PAREN_tok
+testCases/t2.c SCANNER Time::1539936498:36402	 Line: 25	i ==> ID_tok
+testCases/t2.c SCANNER Time::1539936498:36696	 Line: 25	== ==> EQ_OP_tok
+testCases/t2.c SCANNER Time::1539936498:37348	 Line: 25	10 ==> INTEGER_CONSTANT_tok
+testCases/t2.c SCANNER Time::1539936498:37696	 Line: 25	) ==> CLOSE_PAREN_tok
 
 	if(i ==10)
 
-testCases/t2.c SCANNER Time::1539935895:36585	 Line: 26	{ ==> OPEN_BRACE_tok
+testCases/t2.c SCANNER Time::1539936498:39660	 Line: 26	{ ==> OPEN_BRACE_tok
 
 	{
 
-testCases/t2.c SCANNER Time::1539935895:36640	 Line: 27	printf ==> ID_tok
-testCases/t2.c SCANNER Time::1539935895:36774	 Line: 27	( ==> OPEN_PAREN_tok
-testCases/t2.c SCANNER Time::1539935895:37060	 Line: 27	"%s\n" ==> STRING_LITERAL_tok
-testCases/t2.c SCANNER Time::1539935895:37398	 Line: 27	, ==> COMMA_tok
-testCases/t2.c SCANNER Time::1539935895:39157	 Line: 27	teststring ==> ID_tok
-testCases/t2.c SCANNER Time::1539935895:39544	 Line: 27	) ==> CLOSE_PAREN_tok
-testCases/t2.c SCANNER Time::1539935895:41588	 Line: 27	; ==> SEMI_tok
+testCases/t2.c SCANNER Time::1539936498:39714	 Line: 27	printf ==> ID_tok
+testCases/t2.c SCANNER Time::1539936498:39871	 Line: 27	( ==> OPEN_PAREN_tok
+testCases/t2.c SCANNER Time::1539936498:40165	 Line: 27	"%s\n" ==> STRING_LITERAL_tok
+testCases/t2.c SCANNER Time::1539936498:40565	 Line: 27	, ==> COMMA_tok
+testCases/t2.c SCANNER Time::1539936498:42720	 Line: 27	teststring ==> ID_tok
+testCases/t2.c SCANNER Time::1539936498:43184	 Line: 27	) ==> CLOSE_PAREN_tok
+testCases/t2.c SCANNER Time::1539936498:45579	 Line: 27	; ==> SEMI_tok
 
 		printf("%s\n", teststring);
 
-testCases/t2.c SCANNER Time::1539935895:43780	 Line: 28	} ==> CLOSE_BRACE_tok
+testCases/t2.c SCANNER Time::1539936498:48013	 Line: 28	} ==> CLOSE_BRACE_tok
 
 	}
 
 
 	
 
-testCases/t2.c SCANNER Time::1539935895:44046	 Line: 30	return ==> RETURN_tok
-testCases/t2.c SCANNER Time::1539935895:44415	 Line: 30	0 ==> INTEGER_CONSTANT_tok
-testCases/t2.c SCANNER Time::1539935895:44718	 Line: 30	; ==> SEMI_tok
+testCases/t2.c SCANNER Time::1539936498:48357	 Line: 30	return ==> RETURN_tok
+testCases/t2.c SCANNER Time::1539936498:48836	 Line: 30	0 ==> INTEGER_CONSTANT_tok
+testCases/t2.c SCANNER Time::1539936498:49189	 Line: 30	; ==> SEMI_tok
 
 	return 0;
 
-testCases/t2.c SCANNER Time::1539935895:46401	 Line: 31	} ==> CLOSE_BRACE_tok
+testCases/t2.c SCANNER Time::1539936498:51034	 Line: 31	} ==> CLOSE_BRACE_tok

@@ -16,25 +16,25 @@
 
 */
 
-testCases/t1.c SCANNER Time::1539935876:2375	 Line: 7	void ==> VOID_tok
-testCases/t1.c SCANNER Time::1539935876:2487	 Line: 7	printf ==> ID_tok
-testCases/t1.c SCANNER Time::1539935876:2668	 Line: 7	( ==> OPEN_PAREN_tok
-testCases/t1.c SCANNER Time::1539935876:2702	 Line: 7	) ==> CLOSE_PAREN_tok
-testCases/t1.c SCANNER Time::1539935876:2818	 Line: 7	; ==> SEMI_tok
+testCases/t1.c SCANNER Time::1539936491:2386	 Line: 7	void ==> VOID_tok
+testCases/t1.c SCANNER Time::1539936491:2542	 Line: 7	printf ==> ID_tok
+testCases/t1.c SCANNER Time::1539936491:2911	 Line: 7	( ==> OPEN_PAREN_tok
+testCases/t1.c SCANNER Time::1539936491:2957	 Line: 7	) ==> CLOSE_PAREN_tok
+testCases/t1.c SCANNER Time::1539936491:3101	 Line: 7	; ==> SEMI_tok
 
 void printf();
 
 
 
 
-testCases/t1.c SCANNER Time::1539935876:3246	 Line: 9	int ==> INT_tok
-testCases/t1.c SCANNER Time::1539935876:3384	 Line: 9	main ==> ID_tok
-testCases/t1.c SCANNER Time::1539935876:3573	 Line: 9	( ==> OPEN_PAREN_tok
-testCases/t1.c SCANNER Time::1539935876:3606	 Line: 9	) ==> CLOSE_PAREN_tok
+testCases/t1.c SCANNER Time::1539936491:3638	 Line: 9	int ==> INT_tok
+testCases/t1.c SCANNER Time::1539936491:3827	 Line: 9	main ==> ID_tok
+testCases/t1.c SCANNER Time::1539936491:4129	 Line: 9	( ==> OPEN_PAREN_tok
+testCases/t1.c SCANNER Time::1539936491:4201	 Line: 9	) ==> CLOSE_PAREN_tok
 
 int main()
 
-testCases/t1.c SCANNER Time::1539935876:3743	 Line: 10	{ ==> OPEN_BRACE_tok
+testCases/t1.c SCANNER Time::1539936491:4372	 Line: 10	{ ==> OPEN_BRACE_tok
 
 {
 
@@ -54,76 +54,76 @@ testCases/t1.c SCANNER Time::1539935876:3743	 Line: 10	{ ==> OPEN_BRACE_tok
 	/*fkfkfkfkfkfkffkfkfkfkfkkfkfkffewieieieieieieieieieieei3939393939393939393eoe
 
 	//fkfkfkfkfkfkffkfkfkfkfkkfkfkffewieieieieieieieieieieei3939393939393939393eoe
-testCases/t1.c SCANNER Time::1539935876:3869	 Line: 17	char ==> CHAR_tok
-testCases/t1.c SCANNER Time::1539935876:4008	 Line: 17	* ==> STAR_tok
-testCases/t1.c SCANNER Time::1539935876:4121	 Line: 17	d ==> ID_tok
-testCases/t1.c SCANNER Time::1539935876:4360	 Line: 17	= ==> EQUAL_tok
-testCases/t1.c SCANNER Time::1539935876:4480	 Line: 17	"fkfkfkfkfkfkffkfkfkfkfkkfkfkffewieieieieieieieieieieei3939393939393939393eoeoeoeoeoeieieieoeoie939393939eoieeiei39e9fmfkrk3939foivkfme9e9f9ivkek39e9f9kvkdkekekekekekekjekjekjekj3i3i93928282827377eyyddbdnndndnmddjjfjvivibibigkrmrmemjejjewuwuw8us8s8dderthyjlnbfdsert5678ikjgfr5678ikjngfdrer45678uikjnbvfdrtyujnbvfdertyu	juy6t5r4e5678ikiuyuikmkiuytrertyuikuytresxswertyuytrertyuioihygtfrdfghjkl,mnbvcdxsewsdfcdfewerdfrtyuikm cder4wsdfv bmkoijm cxswasxc vbnm,lki87654ewsxc ,loi9ko98u9okmko9879ikko98765678ikjmki87678ijki8765432qaasw234ed" ==> STRING_LITERAL_tok
-testCases/t1.c SCANNER Time::1539935876:4783	 Line: 17	; ==> SEMI_tok
+testCases/t1.c SCANNER Time::1539936491:4550	 Line: 17	char ==> CHAR_tok
+testCases/t1.c SCANNER Time::1539936491:4748	 Line: 17	* ==> STAR_tok
+testCases/t1.c SCANNER Time::1539936491:4932	 Line: 17	d ==> ID_tok
+testCases/t1.c SCANNER Time::1539936491:5295	 Line: 17	= ==> EQUAL_tok
+testCases/t1.c SCANNER Time::1539936491:5489	 Line: 17	"fkfkfkfkfkfkffkfkfkfkfkkfkfkffewieieieieieieieieieieei3939393939393939393eoeoeoeoeoeieieieoeoie939393939eoieeiei39e9fmfkrk3939foivkfme9e9f9ivkek39e9f9kvkdkekekekekekekjekjekjekj3i3i93928282827377eyyddbdnndndnmddjjfjvivibibigkrmrmemjejjewuwuw8us8s8dderthyjlnbfdsert5678ikjgfr5678ikjngfdrer45678uikjnbvfdrtyujnbvfdertyu	juy6t5r4e5678ikiuyuikmkiuytrertyuikuytresxswertyuytrertyuioihygtfrdfghjkl,mnbvcdxsewsdfcdfewerdfrtyuikm cder4wsdfv bmkoijm cxswasxc vbnm,lki87654ewsxc ,loi9ko98u9okmko9879ikko98765678ikjmki87678ijki8765432qaasw234ed" ==> STRING_LITERAL_tok
+testCases/t1.c SCANNER Time::1539936491:5822	 Line: 17	; ==> SEMI_tok
 
 	char* d = "fkfkfkfkfkfkffkfkfkfkfkkfkfkffewieieieieieieieieieieei3939393939393
-testCases/t1.c SCANNER Time::1539935876:6865	 Line: 18	int ==> INT_tok
-testCases/t1.c SCANNER Time::1539935876:7163	 Line: 18	i_error ==> ID_tok
-testCases/t1.c SCANNER Time::1539935876:7462	 Line: 18	= ==> EQUAL_tok
+testCases/t1.c SCANNER Time::1539936491:8079	 Line: 18	int ==> INT_tok
+testCases/t1.c SCANNER Time::1539936491:8369	 Line: 18	i_error ==> ID_tok
+testCases/t1.c SCANNER Time::1539936491:8731	 Line: 18	= ==> EQUAL_tok
 
 	int i_error = 2147483650;
 
-testCases/t1.c SCANNER Time::1539935876:7650	 Line: 18	2147483650 ==> INTEGER_CONSTANT_tok
-testCases/t1.c SCANNER Time::1539935876:7977	 Line: 18	; ==> SEMI_tok
+testCases/t1.c SCANNER Time::1539936491:8941	 Line: 18	2147483650 ==> INTEGER_CONSTANT_tok
+testCases/t1.c SCANNER Time::1539936491:9280	 Line: 18	; ==> SEMI_tok
 
 	int i_error = 2147483650;
 
-testCases/t1.c SCANNER Time::1539935876:10363	 Line: 19	int ==> INT_tok
-testCases/t1.c SCANNER Time::1539935876:10577	 Line: 19	j_error ==> ID_tok
-testCases/t1.c SCANNER Time::1539935876:10871	 Line: 19	= ==> EQUAL_tok
+testCases/t1.c SCANNER Time::1539936491:11656	 Line: 19	int ==> INT_tok
+testCases/t1.c SCANNER Time::1539936491:11858	 Line: 19	j_error ==> ID_tok
+testCases/t1.c SCANNER Time::1539936491:12165	 Line: 19	= ==> EQUAL_tok
 
 	int j_error = -2147483650;
 
-testCases/t1.c SCANNER Time::1539935876:11033	 Line: 19	-2147483650 ==> INTEGER_CONSTANT_tok
-testCases/t1.c SCANNER Time::1539935876:11387	 Line: 19	; ==> SEMI_tok
+testCases/t1.c SCANNER Time::1539936491:12320	 Line: 19	-2147483650 ==> INTEGER_CONSTANT_tok
+testCases/t1.c SCANNER Time::1539936491:12693	 Line: 19	; ==> SEMI_tok
 
 	int j_error = -2147483650;
 
-testCases/t1.c SCANNER Time::1539935876:13653	 Line: 20	int ==> INT_tok
+testCases/t1.c SCANNER Time::1539936491:14647	 Line: 20	int ==> INT_tok
 
 	int Charcter_length_too_large_for_language_and_should_casuse_error = 1;
 
-testCases/t1.c SCANNER Time::1539935876:13951	 Line: 20	Charcter_length_too_large_for_language_and_should_casuse_error ==> ID_tok
-testCases/t1.c SCANNER Time::1539935876:14297	 Line: 20	= ==> EQUAL_tok
-testCases/t1.c SCANNER Time::1539935876:14473	 Line: 20	1 ==> INTEGER_CONSTANT_tok
-testCases/t1.c SCANNER Time::1539935876:14875	 Line: 20	; ==> SEMI_tok
+testCases/t1.c SCANNER Time::1539936491:14905	 Line: 20	Charcter_length_too_large_for_language_and_should_casuse_error ==> ID_tok
+testCases/t1.c SCANNER Time::1539936491:15186	 Line: 20	= ==> EQUAL_tok
+testCases/t1.c SCANNER Time::1539936491:15341	 Line: 20	1 ==> INTEGER_CONSTANT_tok
+testCases/t1.c SCANNER Time::1539936491:15663	 Line: 20	; ==> SEMI_tok
 
 	int Charcter_length_too_large_for_language_and_should_casuse_error = 1;
 
-testCases/t1.c SCANNER Time::1539935876:17063	 Line: 21	int ==> INT_tok
-testCases/t1.c SCANNER Time::1539935876:17328	 Line: 21	i ==> ID_tok
-testCases/t1.c SCANNER Time::1539935876:17700	 Line: 21	= ==> EQUAL_tok
-testCases/t1.c SCANNER Time::1539935876:17859	 Line: 21	2147483620 ==> INTEGER_CONSTANT_tok
-testCases/t1.c SCANNER Time::1539935876:18194	 Line: 21	; ==> SEMI_tok
+testCases/t1.c SCANNER Time::1539936491:18080	 Line: 21	int ==> INT_tok
+testCases/t1.c SCANNER Time::1539936491:18329	 Line: 21	i ==> ID_tok
+testCases/t1.c SCANNER Time::1539936491:18691	 Line: 21	= ==> EQUAL_tok
+testCases/t1.c SCANNER Time::1539936491:18863	 Line: 21	2147483620 ==> INTEGER_CONSTANT_tok
+testCases/t1.c SCANNER Time::1539936491:19271	 Line: 21	; ==> SEMI_tok
 
 	int i = 2147483620;
 
-testCases/t1.c SCANNER Time::1539935876:20535	 Line: 22	int ==> INT_tok
-testCases/t1.c SCANNER Time::1539935876:20786	 Line: 22	j ==> ID_tok
-testCases/t1.c SCANNER Time::1539935876:21127	 Line: 22	= ==> EQUAL_tok
-testCases/t1.c SCANNER Time::1539935876:21285	 Line: 22	-2147483620 ==> INTEGER_CONSTANT_tok
-testCases/t1.c SCANNER Time::1539935876:21633	 Line: 22	; ==> SEMI_tok
+testCases/t1.c SCANNER Time::1539936491:21983	 Line: 22	int ==> INT_tok
+testCases/t1.c SCANNER Time::1539936491:22346	 Line: 22	j ==> ID_tok
+testCases/t1.c SCANNER Time::1539936491:22793	 Line: 22	= ==> EQUAL_tok
+testCases/t1.c SCANNER Time::1539936491:23026	 Line: 22	-2147483620 ==> INTEGER_CONSTANT_tok
+testCases/t1.c SCANNER Time::1539936491:23478	 Line: 22	; ==> SEMI_tok
 
 	int j = -2147483620;
 
-testCases/t1.c SCANNER Time::1539935876:24015	 Line: 23	int ==> INT_tok
-testCases/t1.c SCANNER Time::1539935876:24293	 Line: 23	hexint ==> ID_tok
-testCases/t1.c SCANNER Time::1539935876:24677	 Line: 23	= ==> EQUAL_tok
-testCases/t1.c SCANNER Time::1539935876:24857	 Line: 23	0xfaa923fl ==> INTEGER_CONSTANT_tok
-testCases/t1.c SCANNER Time::1539935876:25172	 Line: 23	; ==> SEMI_tok
+testCases/t1.c SCANNER Time::1539936491:26180	 Line: 23	int ==> INT_tok
+testCases/t1.c SCANNER Time::1539936491:26452	 Line: 23	hexint ==> ID_tok
+testCases/t1.c SCANNER Time::1539936491:26836	 Line: 23	= ==> EQUAL_tok
+testCases/t1.c SCANNER Time::1539936491:27032	 Line: 23	0xfaa923fl ==> INTEGER_CONSTANT_tok
+testCases/t1.c SCANNER Time::1539936491:27402	 Line: 23	; ==> SEMI_tok
 
 	int hexint = 0xfaa923fl;
 
-testCases/t1.c SCANNER Time::1539935876:27648	 Line: 24	int ==> INT_tok
-testCases/t1.c SCANNER Time::1539935876:27923	 Line: 24	octint ==> ID_tok
-testCases/t1.c SCANNER Time::1539935876:28253	 Line: 24	= ==> EQUAL_tok
-testCases/t1.c SCANNER Time::1539935876:28436	 Line: 24	022332775u ==> INTEGER_CONSTANT_tok
-testCases/t1.c SCANNER Time::1539935876:28812	 Line: 24	; ==> SEMI_tok
+testCases/t1.c SCANNER Time::1539936491:29421	 Line: 24	int ==> INT_tok
+testCases/t1.c SCANNER Time::1539936491:29650	 Line: 24	octint ==> ID_tok
+testCases/t1.c SCANNER Time::1539936491:29880	 Line: 24	= ==> EQUAL_tok
+testCases/t1.c SCANNER Time::1539936491:29997	 Line: 24	022332775u ==> INTEGER_CONSTANT_tok
+testCases/t1.c SCANNER Time::1539936491:30337	 Line: 24	; ==> SEMI_tok
 
 	int octint = 022332775u;
 
@@ -136,152 +136,152 @@ testCases/t1.c SCANNER Time::1539935876:28812	 Line: 24	; ==> SEMI_tok
 
 
 
-testCases/t1.c SCANNER Time::1539935876:31198	 Line: 28	float ==> FLOAT_tok
-testCases/t1.c SCANNER Time::1539935876:31471	 Line: 28	p ==> ID_tok
-testCases/t1.c SCANNER Time::1539935876:31839	 Line: 28	= ==> EQUAL_tok
-testCases/t1.c SCANNER Time::1539935876:32037	 Line: 28	1.44 ==> FLOATING_CONSTANT_tok
-testCases/t1.c SCANNER Time::1539935876:32451	 Line: 28	; ==> SEMI_tok
+testCases/t1.c SCANNER Time::1539936491:32959	 Line: 28	float ==> FLOAT_tok
+testCases/t1.c SCANNER Time::1539936491:33266	 Line: 28	p ==> ID_tok
+testCases/t1.c SCANNER Time::1539936491:33677	 Line: 28	= ==> EQUAL_tok
+testCases/t1.c SCANNER Time::1539936491:33884	 Line: 28	1.44 ==> FLOATING_CONSTANT_tok
+testCases/t1.c SCANNER Time::1539936491:34298	 Line: 28	; ==> SEMI_tok
 
 	float p = 1.44;
 
-testCases/t1.c SCANNER Time::1539935876:34806	 Line: 29	float ==> FLOAT_tok
-testCases/t1.c SCANNER Time::1539935876:35036	 Line: 29	k ==> ID_tok
-testCases/t1.c SCANNER Time::1539935876:35375	 Line: 29	= ==> EQUAL_tok
-testCases/t1.c SCANNER Time::1539935876:35523	 Line: 29	-2.43 ==> FLOATING_CONSTANT_tok
-testCases/t1.c SCANNER Time::1539935876:35870	 Line: 29	; ==> SEMI_tok
+testCases/t1.c SCANNER Time::1539936491:36752	 Line: 29	float ==> FLOAT_tok
+testCases/t1.c SCANNER Time::1539936491:37005	 Line: 29	k ==> ID_tok
+testCases/t1.c SCANNER Time::1539936491:37365	 Line: 29	= ==> EQUAL_tok
+testCases/t1.c SCANNER Time::1539936491:37495	 Line: 29	-2.43 ==> FLOATING_CONSTANT_tok
+testCases/t1.c SCANNER Time::1539936491:37801	 Line: 29	; ==> SEMI_tok
 
 	float k = -2.43;
 
-testCases/t1.c SCANNER Time::1539935876:38154	 Line: 30	float ==> FLOAT_tok
-testCases/t1.c SCANNER Time::1539935876:38402	 Line: 30	pos_max ==> ID_tok
-testCases/t1.c SCANNER Time::1539935876:38745	 Line: 30	= ==> EQUAL_tok
-testCases/t1.c SCANNER Time::1539935876:38932	 Line: 30	3.4E+38 ==> FLOATING_CONSTANT_tok
-testCases/t1.c SCANNER Time::1539935876:39271	 Line: 30	; ==> SEMI_tok
+testCases/t1.c SCANNER Time::1539936491:40170	 Line: 30	float ==> FLOAT_tok
+testCases/t1.c SCANNER Time::1539936491:40412	 Line: 30	pos_max ==> ID_tok
+testCases/t1.c SCANNER Time::1539936491:40822	 Line: 30	= ==> EQUAL_tok
+testCases/t1.c SCANNER Time::1539936491:41046	 Line: 30	3.4E+38 ==> FLOATING_CONSTANT_tok
+testCases/t1.c SCANNER Time::1539936491:41401	 Line: 30	; ==> SEMI_tok
 
 	float pos_max = 3.4E+38;
 
-testCases/t1.c SCANNER Time::1539935876:41508	 Line: 31	float ==> FLOAT_tok
-testCases/t1.c SCANNER Time::1539935876:41759	 Line: 31	pos_min ==> ID_tok
-testCases/t1.c SCANNER Time::1539935876:42088	 Line: 31	= ==> EQUAL_tok
-testCases/t1.c SCANNER Time::1539935876:42261	 Line: 31	1.2E-38 ==> FLOATING_CONSTANT_tok
-testCases/t1.c SCANNER Time::1539935876:42599	 Line: 31	; ==> SEMI_tok
+testCases/t1.c SCANNER Time::1539936491:43913	 Line: 31	float ==> FLOAT_tok
+testCases/t1.c SCANNER Time::1539936491:44191	 Line: 31	pos_min ==> ID_tok
+testCases/t1.c SCANNER Time::1539936491:44587	 Line: 31	= ==> EQUAL_tok
+testCases/t1.c SCANNER Time::1539936491:44767	 Line: 31	1.2E-38 ==> FLOATING_CONSTANT_tok
+testCases/t1.c SCANNER Time::1539936491:45175	 Line: 31	; ==> SEMI_tok
 
 	float pos_min = 1.2E-38;
 
-testCases/t1.c SCANNER Time::1539935876:44628	 Line: 32	float ==> FLOAT_tok
-testCases/t1.c SCANNER Time::1539935876:44873	 Line: 32	neg_max ==> ID_tok
-testCases/t1.c SCANNER Time::1539935876:45219	 Line: 32	= ==> EQUAL_tok
-testCases/t1.c SCANNER Time::1539935876:45380	 Line: 32	-3.4E+38 ==> FLOATING_CONSTANT_tok
-testCases/t1.c SCANNER Time::1539935876:45737	 Line: 32	; ==> SEMI_tok
+testCases/t1.c SCANNER Time::1539936491:47681	 Line: 32	float ==> FLOAT_tok
+testCases/t1.c SCANNER Time::1539936491:47933	 Line: 32	neg_max ==> ID_tok
+testCases/t1.c SCANNER Time::1539936491:48296	 Line: 32	= ==> EQUAL_tok
+testCases/t1.c SCANNER Time::1539936491:48478	 Line: 32	-3.4E+38 ==> FLOATING_CONSTANT_tok
+testCases/t1.c SCANNER Time::1539936491:48854	 Line: 32	; ==> SEMI_tok
 
 	float neg_max = -3.4E+38;
 
-testCases/t1.c SCANNER Time::1539935876:47931	 Line: 33	float ==> FLOAT_tok
-testCases/t1.c SCANNER Time::1539935876:48254	 Line: 33	neg_min ==> ID_tok
-testCases/t1.c SCANNER Time::1539935876:48551	 Line: 33	= ==> EQUAL_tok
-testCases/t1.c SCANNER Time::1539935876:48694	 Line: 33	-1.2E-38 ==> FLOATING_CONSTANT_tok
-testCases/t1.c SCANNER Time::1539935876:49057	 Line: 33	; ==> SEMI_tok
+testCases/t1.c SCANNER Time::1539936491:51189	 Line: 33	float ==> FLOAT_tok
+testCases/t1.c SCANNER Time::1539936491:51453	 Line: 33	neg_min ==> ID_tok
+testCases/t1.c SCANNER Time::1539936491:51822	 Line: 33	= ==> EQUAL_tok
+testCases/t1.c SCANNER Time::1539936491:52009	 Line: 33	-1.2E-38 ==> FLOATING_CONSTANT_tok
+testCases/t1.c SCANNER Time::1539936491:52394	 Line: 33	; ==> SEMI_tok
 
 	float neg_min = -1.2E-38;
 
-testCases/t1.c SCANNER Time::1539935876:51163	 Line: 34	float ==> FLOAT_tok
-testCases/t1.c SCANNER Time::1539935876:51392	 Line: 34	out_pos_max ==> ID_tok
-testCases/t1.c SCANNER Time::1539935876:51688	 Line: 34	= ==> EQUAL_tok
+testCases/t1.c SCANNER Time::1539936491:54864	 Line: 34	float ==> FLOAT_tok
+testCases/t1.c SCANNER Time::1539936491:55080	 Line: 34	out_pos_max ==> ID_tok
+testCases/t1.c SCANNER Time::1539936491:55395	 Line: 34	= ==> EQUAL_tok
 
 	float out_pos_max = 3.4E+39;
 
-testCases/t1.c SCANNER Time::1539935876:51930	 Line: 34	3.4E+39 ==> FLOATING_CONSTANT_tok
-testCases/t1.c SCANNER Time::1539935876:52355	 Line: 34	; ==> SEMI_tok
+testCases/t1.c SCANNER Time::1539936491:55565	 Line: 34	3.4E+39 ==> FLOATING_CONSTANT_tok
+testCases/t1.c SCANNER Time::1539936491:55954	 Line: 34	; ==> SEMI_tok
 
 	float out_pos_max = 3.4E+39;
 
-testCases/t1.c SCANNER Time::1539935876:54936	 Line: 35	float ==> FLOAT_tok
-testCases/t1.c SCANNER Time::1539935876:55232	 Line: 35	out_pos_min ==> ID_tok
-testCases/t1.c SCANNER Time::1539935876:55683	 Line: 35	= ==> EQUAL_tok
+testCases/t1.c SCANNER Time::1539936491:58369	 Line: 35	float ==> FLOAT_tok
+testCases/t1.c SCANNER Time::1539936491:58657	 Line: 35	out_pos_min ==> ID_tok
+testCases/t1.c SCANNER Time::1539936491:59022	 Line: 35	= ==> EQUAL_tok
 
 	float out_pos_min = 1.2E-39;
 
-testCases/t1.c SCANNER Time::1539935876:55892	 Line: 35	1.2E-39 ==> FLOATING_CONSTANT_tok
-testCases/t1.c SCANNER Time::1539935876:56323	 Line: 35	; ==> SEMI_tok
+testCases/t1.c SCANNER Time::1539936491:59220	 Line: 35	1.2E-39 ==> FLOATING_CONSTANT_tok
+testCases/t1.c SCANNER Time::1539936491:59641	 Line: 35	; ==> SEMI_tok
 
 	float out_pos_min = 1.2E-39;
 
-testCases/t1.c SCANNER Time::1539935876:59393	 Line: 36	float ==> FLOAT_tok
-testCases/t1.c SCANNER Time::1539935876:59691	 Line: 36	out_neg_max ==> ID_tok
-testCases/t1.c SCANNER Time::1539935876:60188	 Line: 36	= ==> EQUAL_tok
+testCases/t1.c SCANNER Time::1539936491:62182	 Line: 36	float ==> FLOAT_tok
+testCases/t1.c SCANNER Time::1539936491:62422	 Line: 36	out_neg_max ==> ID_tok
+testCases/t1.c SCANNER Time::1539936491:62799	 Line: 36	= ==> EQUAL_tok
 
 	float out_neg_max = -3.4E+39;
 
-testCases/t1.c SCANNER Time::1539935876:60443	 Line: 36	-3.4E+39 ==> FLOATING_CONSTANT_tok
-testCases/t1.c SCANNER Time::1539935876:61009	 Line: 36	; ==> SEMI_tok
+testCases/t1.c SCANNER Time::1539936491:62988	 Line: 36	-3.4E+39 ==> FLOATING_CONSTANT_tok
+testCases/t1.c SCANNER Time::1539936491:63362	 Line: 36	; ==> SEMI_tok
 
 	float out_neg_max = -3.4E+39;
 
-testCases/t1.c SCANNER Time::1539935876:63825	 Line: 37	float ==> FLOAT_tok
-testCases/t1.c SCANNER Time::1539935876:64130	 Line: 37	out_neg_min ==> ID_tok
-testCases/t1.c SCANNER Time::1539935876:64563	 Line: 37	= ==> EQUAL_tok
+testCases/t1.c SCANNER Time::1539936491:65752	 Line: 37	float ==> FLOAT_tok
+testCases/t1.c SCANNER Time::1539936491:66036	 Line: 37	out_neg_min ==> ID_tok
+testCases/t1.c SCANNER Time::1539936491:66412	 Line: 37	= ==> EQUAL_tok
 
 	float out_neg_min = -1.2E-39;
 
-testCases/t1.c SCANNER Time::1539935876:64816	 Line: 37	-1.2E-39 ==> FLOATING_CONSTANT_tok
-testCases/t1.c SCANNER Time::1539935876:65222	 Line: 37	; ==> SEMI_tok
+testCases/t1.c SCANNER Time::1539936491:66636	 Line: 37	-1.2E-39 ==> FLOATING_CONSTANT_tok
+testCases/t1.c SCANNER Time::1539936491:67034	 Line: 37	; ==> SEMI_tok
 
 	float out_neg_min = -1.2E-39;
 
-testCases/t1.c SCANNER Time::1539935876:67875	 Line: 38	float ==> FLOAT_tok
-testCases/t1.c SCANNER Time::1539935876:68167	 Line: 38	m ==> ID_tok
-testCases/t1.c SCANNER Time::1539935876:68609	 Line: 38	= ==> EQUAL_tok
-testCases/t1.c SCANNER Time::1539935876:68826	 Line: 38	12.4232223323222 ==> FLOATING_CONSTANT_tok
-testCases/t1.c SCANNER Time::1539935876:69264	 Line: 38	; ==> SEMI_tok
+testCases/t1.c SCANNER Time::1539936491:69585	 Line: 38	float ==> FLOAT_tok
+testCases/t1.c SCANNER Time::1539936491:69948	 Line: 38	m ==> ID_tok
+testCases/t1.c SCANNER Time::1539936491:70311	 Line: 38	= ==> EQUAL_tok
+testCases/t1.c SCANNER Time::1539936491:70479	 Line: 38	12.4232223323222 ==> FLOATING_CONSTANT_tok
+testCases/t1.c SCANNER Time::1539936491:70866	 Line: 38	; ==> SEMI_tok
 
 	float m = 12.4232223323222;
 
-testCases/t1.c SCANNER Time::1539935876:71857	 Line: 39	float ==> FLOAT_tok
-testCases/t1.c SCANNER Time::1539935876:72133	 Line: 39	n ==> ID_tok
-testCases/t1.c SCANNER Time::1539935876:72516	 Line: 39	= ==> EQUAL_tok
-testCases/t1.c SCANNER Time::1539935876:72700	 Line: 39	-123.12233221133 ==> FLOATING_CONSTANT_tok
-testCases/t1.c SCANNER Time::1539935876:73212	 Line: 39	; ==> SEMI_tok
+testCases/t1.c SCANNER Time::1539936491:72943	 Line: 39	float ==> FLOAT_tok
+testCases/t1.c SCANNER Time::1539936491:73160	 Line: 39	n ==> ID_tok
+testCases/t1.c SCANNER Time::1539936491:73456	 Line: 39	= ==> EQUAL_tok
+testCases/t1.c SCANNER Time::1539936491:73587	 Line: 39	-123.12233221133 ==> FLOATING_CONSTANT_tok
+testCases/t1.c SCANNER Time::1539936491:73874	 Line: 39	; ==> SEMI_tok
 
 	float n = -123.12233221133;
 
-testCases/t1.c SCANNER Time::1539935876:75900	 Line: 40	float ==> FLOAT_tok
+testCases/t1.c SCANNER Time::1539936491:76258	 Line: 40	float ==> FLOAT_tok
 
 	float d = 1.2E-122;
 
-testCases/t1.c SCANNER Time::1539935876:76228	 Line: 40	d ==> ID_tok
-testCases/t1.c SCANNER Time::1539935876:76641	 Line: 40	= ==> EQUAL_tok
+testCases/t1.c SCANNER Time::1539936491:76547	 Line: 40	d ==> ID_tok
+testCases/t1.c SCANNER Time::1539936491:76939	 Line: 40	= ==> EQUAL_tok
 
 	float d = 1.2E-122;
 
-testCases/t1.c SCANNER Time::1539935876:76831	 Line: 40	1.2E-122 ==> FLOATING_CONSTANT_tok
-testCases/t1.c SCANNER Time::1539935876:77226	 Line: 40	; ==> SEMI_tok
+testCases/t1.c SCANNER Time::1539936491:77148	 Line: 40	1.2E-122 ==> FLOATING_CONSTANT_tok
+testCases/t1.c SCANNER Time::1539936491:77569	 Line: 40	; ==> SEMI_tok
 
 	float d = 1.2E-122;
 
-testCases/t1.c SCANNER Time::1539935876:79589	 Line: 41	float ==> FLOAT_tok
-testCases/t1.c SCANNER Time::1539935876:79867	 Line: 41	s ==> ID_tok
-testCases/t1.c SCANNER Time::1539935876:80300	 Line: 41	= ==> EQUAL_tok
+testCases/t1.c SCANNER Time::1539936491:80158	 Line: 41	float ==> FLOAT_tok
+testCases/t1.c SCANNER Time::1539936491:80422	 Line: 41	s ==> ID_tok
+testCases/t1.c SCANNER Time::1539936491:80847	 Line: 41	= ==> EQUAL_tok
 
 	float s = -12.3e+220;
 
-testCases/t1.c SCANNER Time::1539935876:80497	 Line: 41	-12.3e+220 ==> FLOATING_CONSTANT_tok
-testCases/t1.c SCANNER Time::1539935876:80882	 Line: 41	; ==> SEMI_tok
+testCases/t1.c SCANNER Time::1539936491:81053	 Line: 41	-12.3e+220 ==> FLOATING_CONSTANT_tok
+testCases/t1.c SCANNER Time::1539936491:81649	 Line: 41	; ==> SEMI_tok
 
 	float s = -12.3e+220;
 
-testCases/t1.c SCANNER Time::1539935876:83217	 Line: 42	float ==> FLOAT_tok
-testCases/t1.c SCANNER Time::1539935876:83445	 Line: 42	f ==> ID_tok
-testCases/t1.c SCANNER Time::1539935876:83769	 Line: 42	= ==> EQUAL_tok
-testCases/t1.c SCANNER Time::1539935876:83912	 Line: 42	1.3e-12 ==> FLOATING_CONSTANT_tok
-testCases/t1.c SCANNER Time::1539935876:84319	 Line: 42	; ==> SEMI_tok
+testCases/t1.c SCANNER Time::1539936491:84143	 Line: 42	float ==> FLOAT_tok
+testCases/t1.c SCANNER Time::1539936491:84422	 Line: 42	f ==> ID_tok
+testCases/t1.c SCANNER Time::1539936491:84804	 Line: 42	= ==> EQUAL_tok
+testCases/t1.c SCANNER Time::1539936491:85002	 Line: 42	1.3e-12 ==> FLOATING_CONSTANT_tok
+testCases/t1.c SCANNER Time::1539936491:85412	 Line: 42	; ==> SEMI_tok
 
 	float f = 1.3e-12;
 
-testCases/t1.c SCANNER Time::1539935876:86709	 Line: 43	float ==> FLOAT_tok
-testCases/t1.c SCANNER Time::1539935876:86951	 Line: 43	h ==> ID_tok
-testCases/t1.c SCANNER Time::1539935876:87301	 Line: 43	= ==> EQUAL_tok
-testCases/t1.c SCANNER Time::1539935876:87464	 Line: 43	-2.5E+10 ==> FLOATING_CONSTANT_tok
-testCases/t1.c SCANNER Time::1539935876:87830	 Line: 43	; ==> SEMI_tok
+testCases/t1.c SCANNER Time::1539936491:87994	 Line: 43	float ==> FLOAT_tok
+testCases/t1.c SCANNER Time::1539936491:88262	 Line: 43	h ==> ID_tok
+testCases/t1.c SCANNER Time::1539936491:88901	 Line: 43	= ==> EQUAL_tok
+testCases/t1.c SCANNER Time::1539936491:89073	 Line: 43	-2.5E+10 ==> FLOATING_CONSTANT_tok
+testCases/t1.c SCANNER Time::1539936491:89470	 Line: 43	; ==> SEMI_tok
 
 	float h = -2.5E+10;
 
@@ -291,99 +291,99 @@ testCases/t1.c SCANNER Time::1539935876:87830	 Line: 43	; ==> SEMI_tok
 
 	
 
-testCases/t1.c SCANNER Time::1539935876:90069	 Line: 46	char ==> CHAR_tok
-testCases/t1.c SCANNER Time::1539935876:90235	 Line: 46	taco ==> ID_tok
-testCases/t1.c SCANNER Time::1539935876:90567	 Line: 46	= ==> EQUAL_tok
-testCases/t1.c SCANNER Time::1539935876:90705	 Line: 46	't' ==> CHARACTER_CONSTANT_tok
-testCases/t1.c SCANNER Time::1539935876:91094	 Line: 46	; ==> SEMI_tok
+testCases/t1.c SCANNER Time::1539936491:92047	 Line: 46	char ==> CHAR_tok
+testCases/t1.c SCANNER Time::1539936491:92356	 Line: 46	taco ==> ID_tok
+testCases/t1.c SCANNER Time::1539936491:92738	 Line: 46	= ==> EQUAL_tok
+testCases/t1.c SCANNER Time::1539936491:92964	 Line: 46	't' ==> CHARACTER_CONSTANT_tok
+testCases/t1.c SCANNER Time::1539936491:93386	 Line: 46	; ==> SEMI_tok
 
 	char taco = 't';
 
-testCases/t1.c SCANNER Time::1539935876:94573	 Line: 47	char ==> CHAR_tok
-testCases/t1.c SCANNER Time::1539935876:95031	 Line: 47	newl ==> ID_tok
-testCases/t1.c SCANNER Time::1539935876:95724	 Line: 47	= ==> EQUAL_tok
-testCases/t1.c SCANNER Time::1539935876:96034	 Line: 47	'\n' ==> CHARACTER_CONSTANT_tok
-testCases/t1.c SCANNER Time::1539935876:96762	 Line: 47	; ==> SEMI_tok
+testCases/t1.c SCANNER Time::1539936491:96009	 Line: 47	char ==> CHAR_tok
+testCases/t1.c SCANNER Time::1539936491:96281	 Line: 47	newl ==> ID_tok
+testCases/t1.c SCANNER Time::1539936491:96665	 Line: 47	= ==> EQUAL_tok
+testCases/t1.c SCANNER Time::1539936491:96838	 Line: 47	'\n' ==> CHARACTER_CONSTANT_tok
+testCases/t1.c SCANNER Time::1539936491:97236	 Line: 47	; ==> SEMI_tok
 
 	char newl = '\n';
 
-testCases/t1.c SCANNER Time::1539935876:100295	 Line: 48	char ==> CHAR_tok
-testCases/t1.c SCANNER Time::1539935876:100518	 Line: 48	tab ==> ID_tok
-testCases/t1.c SCANNER Time::1539935876:100801	 Line: 48	= ==> EQUAL_tok
-testCases/t1.c SCANNER Time::1539935876:100939	 Line: 48	'\t' ==> CHARACTER_CONSTANT_tok
-testCases/t1.c SCANNER Time::1539935876:101250	 Line: 48	; ==> SEMI_tok
+testCases/t1.c SCANNER Time::1539936491:99792	 Line: 48	char ==> CHAR_tok
+testCases/t1.c SCANNER Time::1539936491:100065	 Line: 48	tab ==> ID_tok
+testCases/t1.c SCANNER Time::1539936491:100442	 Line: 48	= ==> EQUAL_tok
+testCases/t1.c SCANNER Time::1539936491:100615	 Line: 48	'\t' ==> CHARACTER_CONSTANT_tok
+testCases/t1.c SCANNER Time::1539936491:101072	 Line: 48	; ==> SEMI_tok
 
 	char tab = '\t';
 
-testCases/t1.c SCANNER Time::1539935876:103171	 Line: 49	char ==> CHAR_tok
-testCases/t1.c SCANNER Time::1539935876:103381	 Line: 49	vert ==> ID_tok
-testCases/t1.c SCANNER Time::1539935876:103689	 Line: 49	= ==> EQUAL_tok
-testCases/t1.c SCANNER Time::1539935876:103827	 Line: 49	'\v' ==> CHARACTER_CONSTANT_tok
-testCases/t1.c SCANNER Time::1539935876:104141	 Line: 49	; ==> SEMI_tok
+testCases/t1.c SCANNER Time::1539936491:103655	 Line: 49	char ==> CHAR_tok
+testCases/t1.c SCANNER Time::1539936491:103934	 Line: 49	vert ==> ID_tok
+testCases/t1.c SCANNER Time::1539936491:104357	 Line: 49	= ==> EQUAL_tok
+testCases/t1.c SCANNER Time::1539936491:104533	 Line: 49	'\v' ==> CHARACTER_CONSTANT_tok
+testCases/t1.c SCANNER Time::1539936491:104956	 Line: 49	; ==> SEMI_tok
 
 	char vert = '\v';
 
-testCases/t1.c SCANNER Time::1539935876:106156	 Line: 50	char ==> CHAR_tok
-testCases/t1.c SCANNER Time::1539935876:106358	 Line: 50	back ==> ID_tok
-testCases/t1.c SCANNER Time::1539935876:106667	 Line: 50	= ==> EQUAL_tok
-testCases/t1.c SCANNER Time::1539935876:106802	 Line: 50	'\b' ==> CHARACTER_CONSTANT_tok
-testCases/t1.c SCANNER Time::1539935876:107116	 Line: 50	; ==> SEMI_tok
+testCases/t1.c SCANNER Time::1539936491:107606	 Line: 50	char ==> CHAR_tok
+testCases/t1.c SCANNER Time::1539936491:107882	 Line: 50	back ==> ID_tok
+testCases/t1.c SCANNER Time::1539936491:108291	 Line: 50	= ==> EQUAL_tok
+testCases/t1.c SCANNER Time::1539936491:108470	 Line: 50	'\b' ==> CHARACTER_CONSTANT_tok
+testCases/t1.c SCANNER Time::1539936491:108891	 Line: 50	; ==> SEMI_tok
 
 	char back = '\b';
 
-testCases/t1.c SCANNER Time::1539935876:109152	 Line: 51	char ==> CHAR_tok
-testCases/t1.c SCANNER Time::1539935876:109358	 Line: 51	rcha ==> ID_tok
-testCases/t1.c SCANNER Time::1539935876:109725	 Line: 51	= ==> EQUAL_tok
-testCases/t1.c SCANNER Time::1539935876:109857	 Line: 51	'\r' ==> CHARACTER_CONSTANT_tok
-testCases/t1.c SCANNER Time::1539935876:110169	 Line: 51	; ==> SEMI_tok
+testCases/t1.c SCANNER Time::1539936491:112134	 Line: 51	char ==> CHAR_tok
+testCases/t1.c SCANNER Time::1539936491:112497	 Line: 51	rcha ==> ID_tok
+testCases/t1.c SCANNER Time::1539936491:113090	 Line: 51	= ==> EQUAL_tok
+testCases/t1.c SCANNER Time::1539936491:113331	 Line: 51	'\r' ==> CHARACTER_CONSTANT_tok
+testCases/t1.c SCANNER Time::1539936491:113858	 Line: 51	; ==> SEMI_tok
 
 	char rcha = '\r';
 
-testCases/t1.c SCANNER Time::1539935876:113771	 Line: 52	char ==> CHAR_tok
-testCases/t1.c SCANNER Time::1539935876:114144	 Line: 52	fchar ==> ID_tok
-testCases/t1.c SCANNER Time::1539935876:114787	 Line: 52	= ==> EQUAL_tok
-testCases/t1.c SCANNER Time::1539935876:115096	 Line: 52	'\f' ==> CHARACTER_CONSTANT_tok
-testCases/t1.c SCANNER Time::1539935876:115925	 Line: 52	; ==> SEMI_tok
+testCases/t1.c SCANNER Time::1539936491:116735	 Line: 52	char ==> CHAR_tok
+testCases/t1.c SCANNER Time::1539936491:117021	 Line: 52	fchar ==> ID_tok
+testCases/t1.c SCANNER Time::1539936491:117436	 Line: 52	= ==> EQUAL_tok
+testCases/t1.c SCANNER Time::1539936491:117638	 Line: 52	'\f' ==> CHARACTER_CONSTANT_tok
+testCases/t1.c SCANNER Time::1539936491:118044	 Line: 52	; ==> SEMI_tok
 
 	char fchar = '\f';
 
-testCases/t1.c SCANNER Time::1539935876:120600	 Line: 53	char ==> CHAR_tok
-testCases/t1.c SCANNER Time::1539935876:121105	 Line: 53	achar ==> ID_tok
-testCases/t1.c SCANNER Time::1539935876:121817	 Line: 53	= ==> EQUAL_tok
-testCases/t1.c SCANNER Time::1539935876:122131	 Line: 53	'\a' ==> CHARACTER_CONSTANT_tok
-testCases/t1.c SCANNER Time::1539935876:122891	 Line: 53	; ==> SEMI_tok
+testCases/t1.c SCANNER Time::1539936491:120786	 Line: 53	char ==> CHAR_tok
+testCases/t1.c SCANNER Time::1539936491:121072	 Line: 53	achar ==> ID_tok
+testCases/t1.c SCANNER Time::1539936491:121483	 Line: 53	= ==> EQUAL_tok
+testCases/t1.c SCANNER Time::1539936491:121656	 Line: 53	'\a' ==> CHARACTER_CONSTANT_tok
+testCases/t1.c SCANNER Time::1539936491:122043	 Line: 53	; ==> SEMI_tok
 
 	char achar = '\a';
 
-testCases/t1.c SCANNER Time::1539935876:127519	 Line: 54	char ==> CHAR_tok
-testCases/t1.c SCANNER Time::1539935876:128016	 Line: 54	slash ==> ID_tok
-testCases/t1.c SCANNER Time::1539935876:128652	 Line: 54	= ==> EQUAL_tok
-testCases/t1.c SCANNER Time::1539935876:128887	 Line: 54	'\\' ==> CHARACTER_CONSTANT_tok
-testCases/t1.c SCANNER Time::1539935876:129401	 Line: 54	; ==> SEMI_tok
+testCases/t1.c SCANNER Time::1539936491:124622	 Line: 54	char ==> CHAR_tok
+testCases/t1.c SCANNER Time::1539936491:124897	 Line: 54	slash ==> ID_tok
+testCases/t1.c SCANNER Time::1539936491:125311	 Line: 54	= ==> EQUAL_tok
+testCases/t1.c SCANNER Time::1539936491:125442	 Line: 54	'\\' ==> CHARACTER_CONSTANT_tok
+testCases/t1.c SCANNER Time::1539936491:125770	 Line: 54	; ==> SEMI_tok
 
 	char slash = '\\';
 
-testCases/t1.c SCANNER Time::1539935876:131654	 Line: 55	char ==> CHAR_tok
-testCases/t1.c SCANNER Time::1539935876:131898	 Line: 55	question ==> ID_tok
-testCases/t1.c SCANNER Time::1539935876:132260	 Line: 55	= ==> EQUAL_tok
-testCases/t1.c SCANNER Time::1539935876:132421	 Line: 55	'\?' ==> CHARACTER_CONSTANT_tok
-testCases/t1.c SCANNER Time::1539935876:132824	 Line: 55	; ==> SEMI_tok
+testCases/t1.c SCANNER Time::1539936491:128255	 Line: 55	char ==> CHAR_tok
+testCases/t1.c SCANNER Time::1539936491:128669	 Line: 55	question ==> ID_tok
+testCases/t1.c SCANNER Time::1539936491:129220	 Line: 55	= ==> EQUAL_tok
+testCases/t1.c SCANNER Time::1539936491:129466	 Line: 55	'\?' ==> CHARACTER_CONSTANT_tok
+testCases/t1.c SCANNER Time::1539936491:130013	 Line: 55	; ==> SEMI_tok
 
 	char question = '\?';
 
-testCases/t1.c SCANNER Time::1539935876:135311	 Line: 56	char ==> CHAR_tok
-testCases/t1.c SCANNER Time::1539935876:135576	 Line: 56	singlQuote ==> ID_tok
-testCases/t1.c SCANNER Time::1539935876:135902	 Line: 56	= ==> EQUAL_tok
-testCases/t1.c SCANNER Time::1539935876:136102	 Line: 56	'\'' ==> CHARACTER_CONSTANT_tok
-testCases/t1.c SCANNER Time::1539935876:136507	 Line: 56	; ==> SEMI_tok
+testCases/t1.c SCANNER Time::1539936491:132401	 Line: 56	char ==> CHAR_tok
+testCases/t1.c SCANNER Time::1539936491:132638	 Line: 56	singlQuote ==> ID_tok
+testCases/t1.c SCANNER Time::1539936491:132912	 Line: 56	= ==> EQUAL_tok
+testCases/t1.c SCANNER Time::1539936491:133031	 Line: 56	'\'' ==> CHARACTER_CONSTANT_tok
+testCases/t1.c SCANNER Time::1539936491:133387	 Line: 56	; ==> SEMI_tok
 
 	char singlQuote = '\'';
 
-testCases/t1.c SCANNER Time::1539935876:138891	 Line: 57	char ==> CHAR_tok
-testCases/t1.c SCANNER Time::1539935876:139151	 Line: 57	doubleQuote ==> ID_tok
-testCases/t1.c SCANNER Time::1539935876:139545	 Line: 57	= ==> EQUAL_tok
-testCases/t1.c SCANNER Time::1539935876:139726	 Line: 57	'\"' ==> CHARACTER_CONSTANT_tok
-testCases/t1.c SCANNER Time::1539935876:140093	 Line: 57	; ==> SEMI_tok
+testCases/t1.c SCANNER Time::1539936491:135280	 Line: 57	char ==> CHAR_tok
+testCases/t1.c SCANNER Time::1539936491:135501	 Line: 57	doubleQuote ==> ID_tok
+testCases/t1.c SCANNER Time::1539936491:135830	 Line: 57	= ==> EQUAL_tok
+testCases/t1.c SCANNER Time::1539936491:135964	 Line: 57	'\"' ==> CHARACTER_CONSTANT_tok
+testCases/t1.c SCANNER Time::1539936491:136271	 Line: 57	; ==> SEMI_tok
 
 	char doubleQuote = '\"';
 
@@ -393,63 +393,63 @@ testCases/t1.c SCANNER Time::1539935876:140093	 Line: 57	; ==> SEMI_tok
 
 	!!L 210
 
-testCases/t1.c SCANNER Time::1539935876:142515	 Line: 60	char ==> CHAR_tok
-testCases/t1.c SCANNER Time::1539935876:142780	 Line: 60	hex ==> ID_tok
-testCases/t1.c SCANNER Time::1539935876:143138	 Line: 60	= ==> EQUAL_tok
-testCases/t1.c SCANNER Time::1539935876:143327	 Line: 60	'\x21' ==> CHARACTER_CONSTANT_tok
-testCases/t1.c SCANNER Time::1539935876:143706	 Line: 60	; ==> SEMI_tok
+testCases/t1.c SCANNER Time::1539936491:138085	 Line: 60	char ==> CHAR_tok
+testCases/t1.c SCANNER Time::1539936491:138295	 Line: 60	hex ==> ID_tok
+testCases/t1.c SCANNER Time::1539936491:138603	 Line: 60	= ==> EQUAL_tok
+testCases/t1.c SCANNER Time::1539936491:138719	 Line: 60	'\x21' ==> CHARACTER_CONSTANT_tok
+testCases/t1.c SCANNER Time::1539936491:138957	 Line: 60	; ==> SEMI_tok
 
 	char hex = '\x21';
 
-testCases/t1.c SCANNER Time::1539935876:146200	 Line: 61	char ==> CHAR_tok
-testCases/t1.c SCANNER Time::1539935876:146452	 Line: 61	oct ==> ID_tok
-testCases/t1.c SCANNER Time::1539935876:146832	 Line: 61	= ==> EQUAL_tok
-testCases/t1.c SCANNER Time::1539935876:147001	 Line: 61	'\041' ==> CHARACTER_CONSTANT_tok
-testCases/t1.c SCANNER Time::1539935876:147445	 Line: 61	; ==> SEMI_tok
+testCases/t1.c SCANNER Time::1539936491:140849	 Line: 61	char ==> CHAR_tok
+testCases/t1.c SCANNER Time::1539936491:141023	 Line: 61	oct ==> ID_tok
+testCases/t1.c SCANNER Time::1539936491:141335	 Line: 61	= ==> EQUAL_tok
+testCases/t1.c SCANNER Time::1539936491:141440	 Line: 61	'\041' ==> CHARACTER_CONSTANT_tok
+testCases/t1.c SCANNER Time::1539936491:141846	 Line: 61	; ==> SEMI_tok
 
 	char oct = '\041';
 
-testCases/t1.c SCANNER Time::1539935876:149755	 Line: 62	char ==> CHAR_tok
-testCases/t1.c SCANNER Time::1539935876:150044	 Line: 62	hex_error ==> ID_tok
-testCases/t1.c SCANNER Time::1539935876:150422	 Line: 62	= ==> EQUAL_tok
+testCases/t1.c SCANNER Time::1539936491:143704	 Line: 62	char ==> CHAR_tok
+testCases/t1.c SCANNER Time::1539936491:143861	 Line: 62	hex_error ==> ID_tok
+testCases/t1.c SCANNER Time::1539936491:144141	 Line: 62	= ==> EQUAL_tok
 
 	char hex_error = '\x8F';
 
-testCases/t1.c SCANNER Time::1539935876:150664	 Line: 62	'\x8F' ==> CHARACTER_CONSTANT_tok
-testCases/t1.c SCANNER Time::1539935876:151078	 Line: 62	; ==> SEMI_tok
+testCases/t1.c SCANNER Time::1539936491:144292	 Line: 62	'\x8F' ==> CHARACTER_CONSTANT_tok
+testCases/t1.c SCANNER Time::1539936491:144536	 Line: 62	; ==> SEMI_tok
 
 	char hex_error = '\x8F';
 
-testCases/t1.c SCANNER Time::1539935876:153291	 Line: 63	char ==> CHAR_tok
-testCases/t1.c SCANNER Time::1539935876:153547	 Line: 63	oct_error ==> ID_tok
-testCases/t1.c SCANNER Time::1539935876:153878	 Line: 63	= ==> EQUAL_tok
+testCases/t1.c SCANNER Time::1539936491:146446	 Line: 63	char ==> CHAR_tok
+testCases/t1.c SCANNER Time::1539936491:146663	 Line: 63	oct_error ==> ID_tok
+testCases/t1.c SCANNER Time::1539936491:146956	 Line: 63	= ==> EQUAL_tok
 
 	char oct_error = '\200';
 
-testCases/t1.c SCANNER Time::1539935876:154093	 Line: 63	'\200' ==> CHARACTER_CONSTANT_tok
-testCases/t1.c SCANNER Time::1539935876:154446	 Line: 63	; ==> SEMI_tok
+testCases/t1.c SCANNER Time::1539936491:147125	 Line: 63	'\200' ==> CHARACTER_CONSTANT_tok
+testCases/t1.c SCANNER Time::1539936491:147430	 Line: 63	; ==> SEMI_tok
 
 	char oct_error = '\200';
 
-testCases/t1.c SCANNER Time::1539935876:156911	 Line: 64	char ==> CHAR_tok
-testCases/t1.c SCANNER Time::1539935876:157160	 Line: 64	hex_error2 ==> ID_tok
-testCases/t1.c SCANNER Time::1539935876:157518	 Line: 64	= ==> EQUAL_tok
+testCases/t1.c SCANNER Time::1539936491:149420	 Line: 64	char ==> CHAR_tok
+testCases/t1.c SCANNER Time::1539936491:149636	 Line: 64	hex_error2 ==> ID_tok
+testCases/t1.c SCANNER Time::1539936491:149936	 Line: 64	= ==> EQUAL_tok
 
 	char hex_error2 = '\xkF';
 
-testCases/t1.c SCANNER Time::1539935876:157704	 Line: 64	'\xkF' ==> CHARACTER_CONSTANT_tok
-testCases/t1.c SCANNER Time::1539935876:158089	 Line: 64	; ==> SEMI_tok
+testCases/t1.c SCANNER Time::1539936491:150094	 Line: 64	'\xkF' ==> CHARACTER_CONSTANT_tok
+testCases/t1.c SCANNER Time::1539936491:150471	 Line: 64	; ==> SEMI_tok
 
 	char hex_error2 = '\xkF';
 
-testCases/t1.c SCANNER Time::1539935876:160472	 Line: 65	char ==> CHAR_tok
-testCases/t1.c SCANNER Time::1539935876:160710	 Line: 65	oct_error2 ==> ID_tok
-testCases/t1.c SCANNER Time::1539935876:161072	 Line: 65	= ==> EQUAL_tok
+testCases/t1.c SCANNER Time::1539936491:154941	 Line: 65	char ==> CHAR_tok
+testCases/t1.c SCANNER Time::1539936491:155314	 Line: 65	oct_error2 ==> ID_tok
+testCases/t1.c SCANNER Time::1539936491:155769	 Line: 65	= ==> EQUAL_tok
 
 	char oct_error2 = '\128';
 
-testCases/t1.c SCANNER Time::1539935876:161254	 Line: 65	'\128' ==> CHARACTER_CONSTANT_tok
-testCases/t1.c SCANNER Time::1539935876:161647	 Line: 65	; ==> SEMI_tok
+testCases/t1.c SCANNER Time::1539936491:155989	 Line: 65	'\128' ==> CHARACTER_CONSTANT_tok
+testCases/t1.c SCANNER Time::1539936491:156593	 Line: 65	; ==> SEMI_tok
 
 	char oct_error2 = '\128';
 
@@ -462,71 +462,71 @@ testCases/t1.c SCANNER Time::1539935876:161647	 Line: 65	; ==> SEMI_tok
 
 
 
-testCases/t1.c SCANNER Time::1539935876:164064	 Line: 69	int ==> INT_tok
-testCases/t1.c SCANNER Time::1539935876:164424	 Line: 69	o ==> ID_tok
-testCases/t1.c SCANNER Time::1539935876:164731	 Line: 69	= ==> EQUAL_tok
-testCases/t1.c SCANNER Time::1539935876:164901	 Line: 69	44 ==> INTEGER_CONSTANT_tok
-testCases/t1.c SCANNER Time::1539935876:165270	 Line: 69	; ==> SEMI_tok
+testCases/t1.c SCANNER Time::1539936491:160310	 Line: 69	int ==> INT_tok
+testCases/t1.c SCANNER Time::1539936491:160665	 Line: 69	o ==> ID_tok
+testCases/t1.c SCANNER Time::1539936491:161138	 Line: 69	= ==> EQUAL_tok
+testCases/t1.c SCANNER Time::1539936491:161355	 Line: 69	44 ==> INTEGER_CONSTANT_tok
+testCases/t1.c SCANNER Time::1539936491:161845	 Line: 69	; ==> SEMI_tok
 
 	int o = 44;
 
 
 
 
-testCases/t1.c SCANNER Time::1539935876:167822	 Line: 71	i ==> ID_tok
-testCases/t1.c SCANNER Time::1539935876:167971	 Line: 71	= ==> EQUAL_tok
-testCases/t1.c SCANNER Time::1539935876:168447	 Line: 71	2 ==> INTEGER_CONSTANT_tok
-testCases/t1.c SCANNER Time::1539935876:168814	 Line: 71	; ==> SEMI_tok
+testCases/t1.c SCANNER Time::1539936491:165103	 Line: 71	i ==> ID_tok
+testCases/t1.c SCANNER Time::1539936491:165281	 Line: 71	= ==> EQUAL_tok
+testCases/t1.c SCANNER Time::1539936491:165884	 Line: 71	2 ==> INTEGER_CONSTANT_tok
+testCases/t1.c SCANNER Time::1539936491:166325	 Line: 71	; ==> SEMI_tok
 
 	i = 2;
 
-testCases/t1.c SCANNER Time::1539935876:171038	 Line: 72	i ==> ID_tok
-testCases/t1.c SCANNER Time::1539935876:171149	 Line: 72	+= ==> ADD_ASSIGN_tok
-testCases/t1.c SCANNER Time::1539935876:171603	 Line: 72	2 ==> INTEGER_CONSTANT_tok
-testCases/t1.c SCANNER Time::1539935876:172001	 Line: 72	; ==> SEMI_tok
+testCases/t1.c SCANNER Time::1539936491:168880	 Line: 72	i ==> ID_tok
+testCases/t1.c SCANNER Time::1539936491:169094	 Line: 72	+= ==> ADD_ASSIGN_tok
+testCases/t1.c SCANNER Time::1539936491:169790	 Line: 72	2 ==> INTEGER_CONSTANT_tok
+testCases/t1.c SCANNER Time::1539936491:170456	 Line: 72	; ==> SEMI_tok
 
 	i +=2;
 
-testCases/t1.c SCANNER Time::1539935876:174389	 Line: 73	if ==> IF_tok
-testCases/t1.c SCANNER Time::1539935876:174432	 Line: 73	( ==> OPEN_PAREN_tok
-testCases/t1.c SCANNER Time::1539935876:174494	 Line: 73	i ==> ID_tok
-testCases/t1.c SCANNER Time::1539935876:174885	 Line: 73	== ==> EQ_OP_tok
-testCases/t1.c SCANNER Time::1539935876:175837	 Line: 73	4 ==> INTEGER_CONSTANT_tok
-testCases/t1.c SCANNER Time::1539935876:176232	 Line: 73	) ==> CLOSE_PAREN_tok
+testCases/t1.c SCANNER Time::1539936491:172924	 Line: 73	if ==> IF_tok
+testCases/t1.c SCANNER Time::1539936491:172977	 Line: 73	( ==> OPEN_PAREN_tok
+testCases/t1.c SCANNER Time::1539936491:173062	 Line: 73	i ==> ID_tok
+testCases/t1.c SCANNER Time::1539936491:173382	 Line: 73	== ==> EQ_OP_tok
+testCases/t1.c SCANNER Time::1539936491:174184	 Line: 73	4 ==> INTEGER_CONSTANT_tok
+testCases/t1.c SCANNER Time::1539936491:174532	 Line: 73	) ==> CLOSE_PAREN_tok
 
 	if(i==4)
 
-testCases/t1.c SCANNER Time::1539935876:178221	 Line: 74	{ ==> OPEN_BRACE_tok
+testCases/t1.c SCANNER Time::1539936491:176312	 Line: 74	{ ==> OPEN_BRACE_tok
 
 	{
 
-testCases/t1.c SCANNER Time::1539935876:178285	 Line: 75	int ==> INT_tok
-testCases/t1.c SCANNER Time::1539935876:178616	 Line: 75	j ==> ID_tok
-testCases/t1.c SCANNER Time::1539935876:179090	 Line: 75	= ==> EQUAL_tok
-testCases/t1.c SCANNER Time::1539935876:179300	 Line: 75	2 ==> INTEGER_CONSTANT_tok
-testCases/t1.c SCANNER Time::1539935876:179751	 Line: 75	; ==> SEMI_tok
+testCases/t1.c SCANNER Time::1539936491:176366	 Line: 75	int ==> INT_tok
+testCases/t1.c SCANNER Time::1539936491:176691	 Line: 75	j ==> ID_tok
+testCases/t1.c SCANNER Time::1539936491:177143	 Line: 75	= ==> EQUAL_tok
+testCases/t1.c SCANNER Time::1539936491:177332	 Line: 75	2 ==> INTEGER_CONSTANT_tok
+testCases/t1.c SCANNER Time::1539936491:177854	 Line: 75	; ==> SEMI_tok
 
 		int j =2;
 
-testCases/t1.c SCANNER Time::1539935876:182695	 Line: 76	i ==> ID_tok
-testCases/t1.c SCANNER Time::1539935876:182903	 Line: 76	= ==> EQUAL_tok
-testCases/t1.c SCANNER Time::1539935876:183484	 Line: 76	10 ==> INTEGER_CONSTANT_tok
-testCases/t1.c SCANNER Time::1539935876:183932	 Line: 76	; ==> SEMI_tok
+testCases/t1.c SCANNER Time::1539936491:180484	 Line: 76	i ==> ID_tok
+testCases/t1.c SCANNER Time::1539936491:180662	 Line: 76	= ==> EQUAL_tok
+testCases/t1.c SCANNER Time::1539936491:181216	 Line: 76	10 ==> INTEGER_CONSTANT_tok
+testCases/t1.c SCANNER Time::1539936491:181660	 Line: 76	; ==> SEMI_tok
 
 		i = 10;
 
 
 		!!D
 
-testCases/t1.c SCANNER Time::1539935876:187397	 Line: 78	} ==> CLOSE_BRACE_tok
+testCases/t1.c SCANNER Time::1539936491:184819	 Line: 78	} ==> CLOSE_BRACE_tok
 
 	}
 
-testCases/t1.c SCANNER Time::1539935876:187753	 Line: 79	printf ==> ID_tok
-testCases/t1.c SCANNER Time::1539935876:188306	 Line: 79	( ==> OPEN_PAREN_tok
-testCases/t1.c SCANNER Time::1539935876:188561	 Line: 79	"KKD'DK311!!@3" ==> STRING_LITERAL_tok
-testCases/t1.c SCANNER Time::1539935876:188940	 Line: 79	) ==> CLOSE_PAREN_tok
-testCases/t1.c SCANNER Time::1539935876:191027	 Line: 79	; ==> SEMI_tok
+testCases/t1.c SCANNER Time::1539936491:185170	 Line: 79	printf ==> ID_tok
+testCases/t1.c SCANNER Time::1539936491:185682	 Line: 79	( ==> OPEN_PAREN_tok
+testCases/t1.c SCANNER Time::1539936491:185893	 Line: 79	"KKD'DK311!!@3" ==> STRING_LITERAL_tok
+testCases/t1.c SCANNER Time::1539936491:186247	 Line: 79	) ==> CLOSE_PAREN_tok
+testCases/t1.c SCANNER Time::1539936491:188158	 Line: 79	; ==> SEMI_tok
 
 	printf("KKD'DK311!!@3");
 
@@ -539,13 +539,13 @@ testCases/t1.c SCANNER Time::1539935876:191027	 Line: 79	; ==> SEMI_tok
 
 	!!L 1
 
-testCases/t1.c SCANNER Time::1539935876:193038	 Line: 83	return ==> RETURN_tok
-testCases/t1.c SCANNER Time::1539935876:193088	 Line: 83	0 ==> INTEGER_CONSTANT_tok
-testCases/t1.c SCANNER Time::1539935876:193354	 Line: 83	; ==> SEMI_tok
+testCases/t1.c SCANNER Time::1539936491:189987	 Line: 83	return ==> RETURN_tok
+testCases/t1.c SCANNER Time::1539936491:190040	 Line: 83	0 ==> INTEGER_CONSTANT_tok
+testCases/t1.c SCANNER Time::1539936491:190320	 Line: 83	; ==> SEMI_tok
 
 	return 0;
 
-testCases/t1.c SCANNER Time::1539935876:195499	 Line: 84	} ==> CLOSE_BRACE_tok
+testCases/t1.c SCANNER Time::1539936491:192170	 Line: 84	} ==> CLOSE_BRACE_tok
 
 }
 

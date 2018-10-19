@@ -505,6 +505,15 @@ void print_error(char const *error_msg)
 		printf("-");
 	}
 	printf("^ \n\n");
+	
+	fprintf(out_log,"ERROR: %s:Line: %d Column: %d %s\n",file_name,line,column,error_msg);
+	fprintf(out_log,"%s",tmp);
+	for(int i = column; i>0;i--)
+	{
+		fprintf(out_log,"-");
+	}
+	fprintf(out_log,"^ \n\n");
+	
 	//printf("columns %d, lines %d\n",column,line);
 }
 

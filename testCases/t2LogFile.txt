@@ -21,3 +21,30 @@ Level: 2 Key: BETA Line: 17 Type: 0
 
 SYMBOL TABLE ABOVE
 
+SYMBOL TABLE DUMP
+
+Level: 0 Key: main Line: 10 Column: 5 Type: 0
+Level: 0 Key: printf Line: 8 Column: 6 Type: 0
+Level: 1 Key: a Line: 12 Column: 15 Type: 0
+Level: 2 Key: j Line: 13 Column: 26 Type: 0
+Level: 2 Key: y Line: 14 Column: 27 Type: 0
+
+
+SYMBOL TABLE ABOVE
+
+SYMBOL TABLE DUMP
+
+Level: 0 Key: main Line: 10 Column: 5 Type: 0
+Level: 0 Key: printf Line: 8 Column: 6 Type: 0
+Level: 1 Key: a Line: 12 Column: 15 Type: 0
+Level: 1 Key: j Line: 17 Column: 13 Type: 0
+Level: 2 Key: ALPHA Line: 17 Column: 18 Type: 0
+Level: 2 Key: BETA Line: 17 Column: 24 Type: 0
+
+
+SYMBOL TABLE ABOVE
+
+ERROR: testCases/t2.c:Line: 19 Column: 14 Conflicts with variable in current scope on line : 17
+	float j = 2.3;
+--------------^ 
+

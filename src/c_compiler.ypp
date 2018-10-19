@@ -746,6 +746,14 @@ void yyerror(char const *msg)
 	}
 	printf("^ \n\n");
 	fprintf(stderr,"%s\n",msg);
+	
+	fprintf(out_log,"ERROR: %s:Line: %d Column: %d %s\n",file_name,line,column,msg);
+	fprintf(out_log,"%s",tmp);
+	for(int i = column; i>0;i--)
+	{
+		fprintf(out_log,"-");
+	}
+	fprintf(out_log,"^ \n\n");
 }
 
 void outputReduction(const char *production)

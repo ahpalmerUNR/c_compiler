@@ -16,262 +16,262 @@
 
 */
 
-testCases/t3.c PARSER Time::1539935916:3690	 Line: 7	type_specifier : CHAR_tok
-testCases/t3.c PARSER Time::1539935916:4024	 Line: 7	declaration_specifiers : type_specifier
-testCases/t3.c PARSER Time::1539935916:4205	 Line: 7	identifier : ID_tok
-testCases/t3.c PARSER Time::1539935916:4349	 Line: 7	direct_declarator : identifier
-testCases/t3.c PARSER Time::1539935916:4523	 Line: 7	declarator : direct_declarator
-testCases/t3.c PARSER Time::1539935916:4642	 Line: 7	init_declarator : declarator
-testCases/t3.c PARSER Time::1539935916:4738	 Line: 7	init_declarator_list : init_declarator
-testCases/t3.c PARSER Time::1539935916:4941	 Line: 7	declaration : declaration_specifiers init_declarator_list SEMI_tok
-testCases/t3.c PARSER Time::1539935916:5050	 Line: 7	external_declaration : declaration
-testCases/t3.c PARSER Time::1539935916:5163	 Line: 7	translation_unit : external_declaration
+testCases/t3.c PARSER Time::1539936503:2183	 Line: 7	type_specifier : CHAR_tok
+testCases/t3.c PARSER Time::1539936503:2286	 Line: 7	declaration_specifiers : type_specifier
+testCases/t3.c PARSER Time::1539936503:2374	 Line: 7	identifier : ID_tok
+testCases/t3.c PARSER Time::1539936503:2434	 Line: 7	direct_declarator : identifier
+testCases/t3.c PARSER Time::1539936503:2516	 Line: 7	declarator : direct_declarator
+testCases/t3.c PARSER Time::1539936503:2589	 Line: 7	init_declarator : declarator
+testCases/t3.c PARSER Time::1539936503:2646	 Line: 7	init_declarator_list : init_declarator
+testCases/t3.c PARSER Time::1539936503:2753	 Line: 7	declaration : declaration_specifiers init_declarator_list SEMI_tok
+testCases/t3.c PARSER Time::1539936503:2805	 Line: 7	external_declaration : declaration
+testCases/t3.c PARSER Time::1539936503:2871	 Line: 7	translation_unit : external_declaration
 
 char i;
 
 
 
 
-testCases/t3.c PARSER Time::1539935916:5391	 Line: 9	type_specifier : VOID_tok
-testCases/t3.c PARSER Time::1539935916:5601	 Line: 9	declaration_specifiers : type_specifier
-testCases/t3.c PARSER Time::1539935916:5839	 Line: 9	identifier : ID_tok
-testCases/t3.c PARSER Time::1539935916:5998	 Line: 9	direct_declarator : identifier
-testCases/t3.c PARSER Time::1539935916:6347	 Line: 9	type_specifier : CHAR_tok
-testCases/t3.c PARSER Time::1539935916:6584	 Line: 9	declaration_specifiers : type_specifier
-testCases/t3.c PARSER Time::1539935916:6767	 Line: 9	identifier : ID_tok
-testCases/t3.c PARSER Time::1539935916:6884	 Line: 9	direct_declarator : identifier
-testCases/t3.c PARSER Time::1539935916:7067	 Line: 9	declarator : direct_declarator
-testCases/t3.c PARSER Time::1539935916:7233	 Line: 9	parameter_declaration : declaration_specifiers declarator
-testCases/t3.c PARSER Time::1539935916:7365	 Line: 9	parameter_list : parameter_declaration
-testCases/t3.c PARSER Time::1539935916:7666	 Line: 9	type_specifier : INT_tok
-testCases/t3.c PARSER Time::1539935916:7882	 Line: 9	declaration_specifiers : type_specifier
-testCases/t3.c PARSER Time::1539935916:8116	 Line: 9	identifier : ID_tok
-testCases/t3.c PARSER Time::1539935916:8322	 Line: 9	direct_declarator : identifier
-testCases/t3.c PARSER Time::1539935916:8593	 Line: 9	declarator : direct_declarator
-testCases/t3.c PARSER Time::1539935916:8709	 Line: 9	parameter_declaration : declaration_specifiers declarator
-testCases/t3.c PARSER Time::1539935916:8854	 Line: 9	parameter_list : parameter_list COMMA_tok parameter_declaration
-testCases/t3.c PARSER Time::1539935916:8975	 Line: 9	parameter_type_list : parameter_list
-testCases/t3.c PARSER Time::1539935916:9179	 Line: 9	direct_declarator : direct_declarator OPEN_PAREN_tok parameter_type_list CLOSE_PAREN_tok
-testCases/t3.c PARSER Time::1539935916:9329	 Line: 9	declarator : direct_declarator
+testCases/t3.c PARSER Time::1539936503:3032	 Line: 9	type_specifier : VOID_tok
+testCases/t3.c PARSER Time::1539936503:3133	 Line: 9	declaration_specifiers : type_specifier
+testCases/t3.c PARSER Time::1539936503:3223	 Line: 9	identifier : ID_tok
+testCases/t3.c PARSER Time::1539936503:3287	 Line: 9	direct_declarator : identifier
+testCases/t3.c PARSER Time::1539936503:3443	 Line: 9	type_specifier : CHAR_tok
+testCases/t3.c PARSER Time::1539936503:3554	 Line: 9	declaration_specifiers : type_specifier
+testCases/t3.c PARSER Time::1539936503:3655	 Line: 9	identifier : ID_tok
+testCases/t3.c PARSER Time::1539936503:3759	 Line: 9	direct_declarator : identifier
+testCases/t3.c PARSER Time::1539936503:3953	 Line: 9	declarator : direct_declarator
+testCases/t3.c PARSER Time::1539936503:4059	 Line: 9	parameter_declaration : declaration_specifiers declarator
+testCases/t3.c PARSER Time::1539936503:4130	 Line: 9	parameter_list : parameter_declaration
+testCases/t3.c PARSER Time::1539936503:4274	 Line: 9	type_specifier : INT_tok
+testCases/t3.c PARSER Time::1539936503:4413	 Line: 9	declaration_specifiers : type_specifier
+testCases/t3.c PARSER Time::1539936503:4520	 Line: 9	identifier : ID_tok
+testCases/t3.c PARSER Time::1539936503:4598	 Line: 9	direct_declarator : identifier
+testCases/t3.c PARSER Time::1539936503:4703	 Line: 9	declarator : direct_declarator
+testCases/t3.c PARSER Time::1539936503:4795	 Line: 9	parameter_declaration : declaration_specifiers declarator
+testCases/t3.c PARSER Time::1539936503:4910	 Line: 9	parameter_list : parameter_list COMMA_tok parameter_declaration
+testCases/t3.c PARSER Time::1539936503:4996	 Line: 9	parameter_type_list : parameter_list
+testCases/t3.c PARSER Time::1539936503:5132	 Line: 9	direct_declarator : direct_declarator OPEN_PAREN_tok parameter_type_list CLOSE_PAREN_tok
+testCases/t3.c PARSER Time::1539936503:5242	 Line: 9	declarator : direct_declarator
 
 void chartastic(char alpha, int listical){
 
 
 	//stuff
 
-testCases/t3.c PARSER Time::1539935916:9528	 Line: 11	compound_statement : OPEN_BRACE_tok CLOSE_BRACE_tok
-testCases/t3.c PARSER Time::1539935916:9649	 Line: 11	function_definition : declaration_specifiers declarator compound_statement
-testCases/t3.c PARSER Time::1539935916:9717	 Line: 11	external_declaration : function_definition
-testCases/t3.c PARSER Time::1539935916:9821	 Line: 11	translation_unit : translation_unit external_declaration
+testCases/t3.c PARSER Time::1539936503:5413	 Line: 11	compound_statement : OPEN_BRACE_tok CLOSE_BRACE_tok
+testCases/t3.c PARSER Time::1539936503:5505	 Line: 11	function_definition : declaration_specifiers declarator compound_statement
+testCases/t3.c PARSER Time::1539936503:5563	 Line: 11	external_declaration : function_definition
+testCases/t3.c PARSER Time::1539936503:5649	 Line: 11	translation_unit : translation_unit external_declaration
 
 }
 
 
 
 
-testCases/t3.c PARSER Time::1539935916:10006	 Line: 13	type_specifier : INT_tok
-testCases/t3.c PARSER Time::1539935916:10130	 Line: 13	declaration_specifiers : type_specifier
-testCases/t3.c PARSER Time::1539935916:10240	 Line: 13	identifier : ID_tok
-testCases/t3.c PARSER Time::1539935916:10320	 Line: 13	direct_declarator : identifier
-testCases/t3.c PARSER Time::1539935916:10595	 Line: 13	direct_declarator : direct_declarator OPEN_PAREN_tok CLOSE_PAREN_tok
+testCases/t3.c PARSER Time::1539936503:5794	 Line: 13	type_specifier : INT_tok
+testCases/t3.c PARSER Time::1539936503:5888	 Line: 13	declaration_specifiers : type_specifier
+testCases/t3.c PARSER Time::1539936503:5992	 Line: 13	identifier : ID_tok
+testCases/t3.c PARSER Time::1539936503:6056	 Line: 13	direct_declarator : identifier
+testCases/t3.c PARSER Time::1539936503:6226	 Line: 13	direct_declarator : direct_declarator OPEN_PAREN_tok CLOSE_PAREN_tok
 
 int main()
 
-testCases/t3.c PARSER Time::1539935916:10725	 Line: 14	declarator : direct_declarator
+testCases/t3.c PARSER Time::1539936503:6321	 Line: 14	declarator : direct_declarator
 
 {
 
-testCases/t3.c PARSER Time::1539935916:11017	 Line: 15	type_specifier : INT_tok
-testCases/t3.c PARSER Time::1539935916:11287	 Line: 15	declaration_specifiers : type_specifier
-testCases/t3.c PARSER Time::1539935916:11423	 Line: 15	identifier : ID_tok
-testCases/t3.c PARSER Time::1539935916:11521	 Line: 15	direct_declarator : identifier
-testCases/t3.c PARSER Time::1539935916:11661	 Line: 15	declarator : direct_declarator
-testCases/t3.c PARSER Time::1539935916:11859	 Line: 15	constant : INTEGER_CONSTANT_tok
-testCases/t3.c PARSER Time::1539935916:11987	 Line: 15	primary_expression : constant
-testCases/t3.c PARSER Time::1539935916:12181	 Line: 15	postfix_expression : primary_expression
-testCases/t3.c PARSER Time::1539935916:12338	 Line: 15	unary_expression : postfix_expression
-testCases/t3.c PARSER Time::1539935916:12461	 Line: 15	cast_expression : unary_expression
-testCases/t3.c PARSER Time::1539935916:12568	 Line: 15	multiplicative_expression : cast_expression
-testCases/t3.c PARSER Time::1539935916:12692	 Line: 15	additive_expression : multiplicative_expression
-testCases/t3.c PARSER Time::1539935916:12826	 Line: 15	shift_expression : additive_expression
-testCases/t3.c PARSER Time::1539935916:12950	 Line: 15	relational_expression : shift_expression
-testCases/t3.c PARSER Time::1539935916:13096	 Line: 15	equality_expression : relational_expression
-testCases/t3.c PARSER Time::1539935916:13220	 Line: 15	and_expression : equality_expression
-testCases/t3.c PARSER Time::1539935916:13351	 Line: 15	exclusive_or_expression : and_expression 
-testCases/t3.c PARSER Time::1539935916:13508	 Line: 15	inclusive_or_expression : exclusive_or_expression
-testCases/t3.c PARSER Time::1539935916:13643	 Line: 15	logical_and_expression : inclusive_or_expression
-testCases/t3.c PARSER Time::1539935916:13773	 Line: 15	logical_or_expression : logical_and_expression
-testCases/t3.c PARSER Time::1539935916:13910	 Line: 15	conditional_expression : logical_or_expression
-testCases/t3.c PARSER Time::1539935916:14024	 Line: 15	assignment_expression : conditional_expression
-testCases/t3.c PARSER Time::1539935916:14139	 Line: 15	initializer : assignment_expression
-testCases/t3.c PARSER Time::1539935916:14302	 Line: 15	init_declarator : declarator EQUAL_tok initializer
-testCases/t3.c PARSER Time::1539935916:14409	 Line: 15	init_declarator_list : init_declarator
-testCases/t3.c PARSER Time::1539935916:14607	 Line: 15	declaration : declaration_specifiers init_declarator_list SEMI_tok
-testCases/t3.c PARSER Time::1539935916:14779	 Line: 15	declaration_list : declaration
+testCases/t3.c PARSER Time::1539936503:6534	 Line: 15	type_specifier : INT_tok
+testCases/t3.c PARSER Time::1539936503:6638	 Line: 15	declaration_specifiers : type_specifier
+testCases/t3.c PARSER Time::1539936503:6769	 Line: 15	identifier : ID_tok
+testCases/t3.c PARSER Time::1539936503:6832	 Line: 15	direct_declarator : identifier
+testCases/t3.c PARSER Time::1539936503:6943	 Line: 15	declarator : direct_declarator
+testCases/t3.c PARSER Time::1539936503:7098	 Line: 15	constant : INTEGER_CONSTANT_tok
+testCases/t3.c PARSER Time::1539936503:7182	 Line: 15	primary_expression : constant
+testCases/t3.c PARSER Time::1539936503:7262	 Line: 15	postfix_expression : primary_expression
+testCases/t3.c PARSER Time::1539936503:7369	 Line: 15	unary_expression : postfix_expression
+testCases/t3.c PARSER Time::1539936503:7478	 Line: 15	cast_expression : unary_expression
+testCases/t3.c PARSER Time::1539936503:7563	 Line: 15	multiplicative_expression : cast_expression
+testCases/t3.c PARSER Time::1539936503:7659	 Line: 15	additive_expression : multiplicative_expression
+testCases/t3.c PARSER Time::1539936503:7753	 Line: 15	shift_expression : additive_expression
+testCases/t3.c PARSER Time::1539936503:7876	 Line: 15	relational_expression : shift_expression
+testCases/t3.c PARSER Time::1539936503:7980	 Line: 15	equality_expression : relational_expression
+testCases/t3.c PARSER Time::1539936503:8082	 Line: 15	and_expression : equality_expression
+testCases/t3.c PARSER Time::1539936503:8178	 Line: 15	exclusive_or_expression : and_expression 
+testCases/t3.c PARSER Time::1539936503:8273	 Line: 15	inclusive_or_expression : exclusive_or_expression
+testCases/t3.c PARSER Time::1539936503:8359	 Line: 15	logical_and_expression : inclusive_or_expression
+testCases/t3.c PARSER Time::1539936503:8471	 Line: 15	logical_or_expression : logical_and_expression
+testCases/t3.c PARSER Time::1539936503:8567	 Line: 15	conditional_expression : logical_or_expression
+testCases/t3.c PARSER Time::1539936503:8652	 Line: 15	assignment_expression : conditional_expression
+testCases/t3.c PARSER Time::1539936503:8733	 Line: 15	initializer : assignment_expression
+testCases/t3.c PARSER Time::1539936503:8842	 Line: 15	init_declarator : declarator EQUAL_tok initializer
+testCases/t3.c PARSER Time::1539936503:8934	 Line: 15	init_declarator_list : init_declarator
+testCases/t3.c PARSER Time::1539936503:9067	 Line: 15	declaration : declaration_specifiers init_declarator_list SEMI_tok
+testCases/t3.c PARSER Time::1539936503:9154	 Line: 15	declaration_list : declaration
 
 	int one = 1;
 
-testCases/t3.c PARSER Time::1539935916:15137	 Line: 16	type_specifier : INT_tok
-testCases/t3.c PARSER Time::1539935916:15346	 Line: 16	declaration_specifiers : type_specifier
-testCases/t3.c PARSER Time::1539935916:15534	 Line: 16	identifier : ID_tok
-testCases/t3.c PARSER Time::1539935916:15694	 Line: 16	direct_declarator : identifier
-testCases/t3.c PARSER Time::1539935916:15883	 Line: 16	declarator : direct_declarator
-testCases/t3.c PARSER Time::1539935916:16169	 Line: 16	constant : INTEGER_CONSTANT_tok
-testCases/t3.c PARSER Time::1539935916:16300	 Line: 16	primary_expression : constant
-testCases/t3.c PARSER Time::1539935916:16434	 Line: 16	postfix_expression : primary_expression
-testCases/t3.c PARSER Time::1539935916:16655	 Line: 16	unary_expression : postfix_expression
-testCases/t3.c PARSER Time::1539935916:16862	 Line: 16	cast_expression : unary_expression
-testCases/t3.c PARSER Time::1539935916:17060	 Line: 16	multiplicative_expression : cast_expression
-testCases/t3.c PARSER Time::1539935916:17261	 Line: 16	additive_expression : multiplicative_expression
-testCases/t3.c PARSER Time::1539935916:17612	 Line: 16	constant : INTEGER_CONSTANT_tok
-testCases/t3.c PARSER Time::1539935916:17772	 Line: 16	primary_expression : constant
-testCases/t3.c PARSER Time::1539935916:17897	 Line: 16	postfix_expression : primary_expression
-testCases/t3.c PARSER Time::1539935916:18074	 Line: 16	unary_expression : postfix_expression
-testCases/t3.c PARSER Time::1539935916:18219	 Line: 16	cast_expression : unary_expression
-testCases/t3.c PARSER Time::1539935916:18550	 Line: 16	multiplicative_expression : cast_expression
-testCases/t3.c PARSER Time::1539935916:18880	 Line: 16	additive_expression : additive_expression PLUS_tok multiplicative_expression
-testCases/t3.c PARSER Time::1539935916:19107	 Line: 16	shift_expression : additive_expression
-testCases/t3.c PARSER Time::1539935916:19292	 Line: 16	relational_expression : shift_expression
-testCases/t3.c PARSER Time::1539935916:19503	 Line: 16	equality_expression : relational_expression
-testCases/t3.c PARSER Time::1539935916:19725	 Line: 16	and_expression : equality_expression
-testCases/t3.c PARSER Time::1539935916:19956	 Line: 16	exclusive_or_expression : and_expression 
-testCases/t3.c PARSER Time::1539935916:20119	 Line: 16	inclusive_or_expression : exclusive_or_expression
-testCases/t3.c PARSER Time::1539935916:20281	 Line: 16	logical_and_expression : inclusive_or_expression
-testCases/t3.c PARSER Time::1539935916:20426	 Line: 16	logical_or_expression : logical_and_expression
-testCases/t3.c PARSER Time::1539935916:20572	 Line: 16	conditional_expression : logical_or_expression
-testCases/t3.c PARSER Time::1539935916:20713	 Line: 16	assignment_expression : conditional_expression
-testCases/t3.c PARSER Time::1539935916:20821	 Line: 16	initializer : assignment_expression
-testCases/t3.c PARSER Time::1539935916:21007	 Line: 16	init_declarator : declarator EQUAL_tok initializer
-testCases/t3.c PARSER Time::1539935916:21136	 Line: 16	init_declarator_list : init_declarator
-testCases/t3.c PARSER Time::1539935916:21360	 Line: 16	declaration : declaration_specifiers init_declarator_list SEMI_tok
-testCases/t3.c PARSER Time::1539935916:21514	 Line: 16	declaration_list : declaration_list declaration
+testCases/t3.c PARSER Time::1539936503:9326	 Line: 16	type_specifier : INT_tok
+testCases/t3.c PARSER Time::1539936503:9454	 Line: 16	declaration_specifiers : type_specifier
+testCases/t3.c PARSER Time::1539936503:9557	 Line: 16	identifier : ID_tok
+testCases/t3.c PARSER Time::1539936503:9639	 Line: 16	direct_declarator : identifier
+testCases/t3.c PARSER Time::1539936503:9740	 Line: 16	declarator : direct_declarator
+testCases/t3.c PARSER Time::1539936503:9910	 Line: 16	constant : INTEGER_CONSTANT_tok
+testCases/t3.c PARSER Time::1539936503:9997	 Line: 16	primary_expression : constant
+testCases/t3.c PARSER Time::1539936503:10083	 Line: 16	postfix_expression : primary_expression
+testCases/t3.c PARSER Time::1539936503:10193	 Line: 16	unary_expression : postfix_expression
+testCases/t3.c PARSER Time::1539936503:10294	 Line: 16	cast_expression : unary_expression
+testCases/t3.c PARSER Time::1539936503:10380	 Line: 16	multiplicative_expression : cast_expression
+testCases/t3.c PARSER Time::1539936503:10491	 Line: 16	additive_expression : multiplicative_expression
+testCases/t3.c PARSER Time::1539936503:10652	 Line: 16	constant : INTEGER_CONSTANT_tok
+testCases/t3.c PARSER Time::1539936503:10743	 Line: 16	primary_expression : constant
+testCases/t3.c PARSER Time::1539936503:10839	 Line: 16	postfix_expression : primary_expression
+testCases/t3.c PARSER Time::1539936503:10969	 Line: 16	unary_expression : postfix_expression
+testCases/t3.c PARSER Time::1539936503:11063	 Line: 16	cast_expression : unary_expression
+testCases/t3.c PARSER Time::1539936503:11157	 Line: 16	multiplicative_expression : cast_expression
+testCases/t3.c PARSER Time::1539936503:11291	 Line: 16	additive_expression : additive_expression PLUS_tok multiplicative_expression
+testCases/t3.c PARSER Time::1539936503:11425	 Line: 16	shift_expression : additive_expression
+testCases/t3.c PARSER Time::1539936503:11520	 Line: 16	relational_expression : shift_expression
+testCases/t3.c PARSER Time::1539936503:11621	 Line: 16	equality_expression : relational_expression
+testCases/t3.c PARSER Time::1539936503:11721	 Line: 16	and_expression : equality_expression
+testCases/t3.c PARSER Time::1539936503:11820	 Line: 16	exclusive_or_expression : and_expression 
+testCases/t3.c PARSER Time::1539936503:11959	 Line: 16	inclusive_or_expression : exclusive_or_expression
+testCases/t3.c PARSER Time::1539936503:12060	 Line: 16	logical_and_expression : inclusive_or_expression
+testCases/t3.c PARSER Time::1539936503:12162	 Line: 16	logical_or_expression : logical_and_expression
+testCases/t3.c PARSER Time::1539936503:12263	 Line: 16	conditional_expression : logical_or_expression
+testCases/t3.c PARSER Time::1539936503:12351	 Line: 16	assignment_expression : conditional_expression
+testCases/t3.c PARSER Time::1539936503:12449	 Line: 16	initializer : assignment_expression
+testCases/t3.c PARSER Time::1539936503:12563	 Line: 16	init_declarator : declarator EQUAL_tok initializer
+testCases/t3.c PARSER Time::1539936503:12641	 Line: 16	init_declarator_list : init_declarator
+testCases/t3.c PARSER Time::1539936503:12778	 Line: 16	declaration : declaration_specifiers init_declarator_list SEMI_tok
+testCases/t3.c PARSER Time::1539936503:12881	 Line: 16	declaration_list : declaration_list declaration
 
 	int two = 1 + 1;
 
 
 	
 
-testCases/t3.c PARSER Time::1539935916:21785	 Line: 18	type_specifier : CHAR_tok
-testCases/t3.c PARSER Time::1539935916:21972	 Line: 18	declaration_specifiers : type_specifier
-testCases/t3.c PARSER Time::1539935916:22105	 Line: 18	identifier : ID_tok
-testCases/t3.c PARSER Time::1539935916:22199	 Line: 18	direct_declarator : identifier
-testCases/t3.c PARSER Time::1539935916:22404	 Line: 18	declarator : direct_declarator
-testCases/t3.c PARSER Time::1539935916:22608	 Line: 18	constant : INTEGER_CONSTANT_tok
-testCases/t3.c PARSER Time::1539935916:22714	 Line: 18	primary_expression : constant
-testCases/t3.c PARSER Time::1539935916:22820	 Line: 18	postfix_expression : primary_expression
-testCases/t3.c PARSER Time::1539935916:23044	 Line: 18	unary_expression : postfix_expression
-testCases/t3.c PARSER Time::1539935916:23343	 Line: 18	cast_expression : unary_expression
-testCases/t3.c PARSER Time::1539935916:23521	 Line: 18	multiplicative_expression : cast_expression
-testCases/t3.c PARSER Time::1539935916:23709	 Line: 18	additive_expression : multiplicative_expression
-testCases/t3.c PARSER Time::1539935916:23916	 Line: 18	shift_expression : additive_expression
-testCases/t3.c PARSER Time::1539935916:24102	 Line: 18	relational_expression : shift_expression
-testCases/t3.c PARSER Time::1539935916:24288	 Line: 18	equality_expression : relational_expression
-testCases/t3.c PARSER Time::1539935916:24505	 Line: 18	and_expression : equality_expression
-testCases/t3.c PARSER Time::1539935916:24772	 Line: 18	exclusive_or_expression : and_expression 
-testCases/t3.c PARSER Time::1539935916:25045	 Line: 18	inclusive_or_expression : exclusive_or_expression
-testCases/t3.c PARSER Time::1539935916:25224	 Line: 18	logical_and_expression : inclusive_or_expression
-testCases/t3.c PARSER Time::1539935916:25517	 Line: 18	logical_or_expression : logical_and_expression
-testCases/t3.c PARSER Time::1539935916:25736	 Line: 18	conditional_expression : logical_or_expression
-testCases/t3.c PARSER Time::1539935916:25889	 Line: 18	assignment_expression : conditional_expression
-testCases/t3.c PARSER Time::1539935916:26026	 Line: 18	initializer : assignment_expression
-testCases/t3.c PARSER Time::1539935916:26238	 Line: 18	init_declarator : declarator EQUAL_tok initializer
-testCases/t3.c PARSER Time::1539935916:26404	 Line: 18	init_declarator_list : init_declarator
-testCases/t3.c PARSER Time::1539935916:26712	 Line: 18	declaration : declaration_specifiers init_declarator_list SEMI_tok
-testCases/t3.c PARSER Time::1539935916:27034	 Line: 18	declaration_list : declaration_list declaration
+testCases/t3.c PARSER Time::1539936503:13189	 Line: 18	type_specifier : CHAR_tok
+testCases/t3.c PARSER Time::1539936503:13318	 Line: 18	declaration_specifiers : type_specifier
+testCases/t3.c PARSER Time::1539936503:13438	 Line: 18	identifier : ID_tok
+testCases/t3.c PARSER Time::1539936503:13519	 Line: 18	direct_declarator : identifier
+testCases/t3.c PARSER Time::1539936503:13624	 Line: 18	declarator : direct_declarator
+testCases/t3.c PARSER Time::1539936503:13775	 Line: 18	constant : INTEGER_CONSTANT_tok
+testCases/t3.c PARSER Time::1539936503:13865	 Line: 18	primary_expression : constant
+testCases/t3.c PARSER Time::1539936503:13970	 Line: 18	postfix_expression : primary_expression
+testCases/t3.c PARSER Time::1539936503:14080	 Line: 18	unary_expression : postfix_expression
+testCases/t3.c PARSER Time::1539936503:14181	 Line: 18	cast_expression : unary_expression
+testCases/t3.c PARSER Time::1539936503:14267	 Line: 18	multiplicative_expression : cast_expression
+testCases/t3.c PARSER Time::1539936503:14360	 Line: 18	additive_expression : multiplicative_expression
+testCases/t3.c PARSER Time::1539936503:14474	 Line: 18	shift_expression : additive_expression
+testCases/t3.c PARSER Time::1539936503:14575	 Line: 18	relational_expression : shift_expression
+testCases/t3.c PARSER Time::1539936503:14676	 Line: 18	equality_expression : relational_expression
+testCases/t3.c PARSER Time::1539936503:14776	 Line: 18	and_expression : equality_expression
+testCases/t3.c PARSER Time::1539936503:14877	 Line: 18	exclusive_or_expression : and_expression 
+testCases/t3.c PARSER Time::1539936503:14997	 Line: 18	inclusive_or_expression : exclusive_or_expression
+testCases/t3.c PARSER Time::1539936503:15098	 Line: 18	logical_and_expression : inclusive_or_expression
+testCases/t3.c PARSER Time::1539936503:15199	 Line: 18	logical_or_expression : logical_and_expression
+testCases/t3.c PARSER Time::1539936503:15299	 Line: 18	conditional_expression : logical_or_expression
+testCases/t3.c PARSER Time::1539936503:15386	 Line: 18	assignment_expression : conditional_expression
+testCases/t3.c PARSER Time::1539936503:15484	 Line: 18	initializer : assignment_expression
+testCases/t3.c PARSER Time::1539936503:15599	 Line: 18	init_declarator : declarator EQUAL_tok initializer
+testCases/t3.c PARSER Time::1539936503:15680	 Line: 18	init_declarator_list : init_declarator
+testCases/t3.c PARSER Time::1539936503:15882	 Line: 18	declaration : declaration_specifiers init_declarator_list SEMI_tok
+testCases/t3.c PARSER Time::1539936503:16032	 Line: 18	declaration_list : declaration_list declaration
 
 	char a = 3;
 
 
 	
 
-testCases/t3.c PARSER Time::1539935916:27435	 Line: 20	type_specifier : INT_tok
-testCases/t3.c PARSER Time::1539935916:27646	 Line: 20	declaration_specifiers : type_specifier
-testCases/t3.c PARSER Time::1539935916:27868	 Line: 20	identifier : ID_tok
-testCases/t3.c PARSER Time::1539935916:28024	 Line: 20	direct_declarator : identifier
-testCases/t3.c PARSER Time::1539935916:28194	 Line: 20	declarator : direct_declarator
-testCases/t3.c PARSER Time::1539935916:28368	 Line: 20	init_declarator : declarator
-testCases/t3.c PARSER Time::1539935916:28527	 Line: 20	init_declarator_list : init_declarator
-testCases/t3.c PARSER Time::1539935916:28790	 Line: 20	declaration : declaration_specifiers init_declarator_list SEMI_tok
-testCases/t3.c PARSER Time::1539935916:28989	 Line: 20	declaration_list : declaration_list declaration
+testCases/t3.c PARSER Time::1539936503:16205	 Line: 20	type_specifier : INT_tok
+testCases/t3.c PARSER Time::1539936503:16351	 Line: 20	declaration_specifiers : type_specifier
+testCases/t3.c PARSER Time::1539936503:16472	 Line: 20	identifier : ID_tok
+testCases/t3.c PARSER Time::1539936503:16553	 Line: 20	direct_declarator : identifier
+testCases/t3.c PARSER Time::1539936503:16659	 Line: 20	declarator : direct_declarator
+testCases/t3.c PARSER Time::1539936503:16753	 Line: 20	init_declarator : declarator
+testCases/t3.c PARSER Time::1539936503:16835	 Line: 20	init_declarator_list : init_declarator
+testCases/t3.c PARSER Time::1539936503:16985	 Line: 20	declaration : declaration_specifiers init_declarator_list SEMI_tok
+testCases/t3.c PARSER Time::1539936503:17089	 Line: 20	declaration_list : declaration_list declaration
 
 	int three;
 
-testCases/t3.c PARSER Time::1539935916:29222	 Line: 21	identifier : ID_tok
-testCases/t3.c PARSER Time::1539935916:29575	 Line: 21	primary_expression : identifier
-testCases/t3.c PARSER Time::1539935916:29651	 Line: 21	postfix_expression : primary_expression
-testCases/t3.c PARSER Time::1539935916:29738	 Line: 21	unary_expression : postfix_expression
-testCases/t3.c PARSER Time::1539935916:29857	 Line: 21	assignment_operator : EQUAL_tok
-testCases/t3.c PARSER Time::1539935916:30003	 Line: 21	identifier : ID_tok
-testCases/t3.c PARSER Time::1539935916:30086	 Line: 21	primary_expression : identifier
-testCases/t3.c PARSER Time::1539935916:30165	 Line: 21	postfix_expression : primary_expression
-testCases/t3.c PARSER Time::1539935916:30276	 Line: 21	unary_expression : postfix_expression
-testCases/t3.c PARSER Time::1539935916:30400	 Line: 21	cast_expression : unary_expression
-testCases/t3.c PARSER Time::1539935916:30500	 Line: 21	multiplicative_expression : cast_expression
-testCases/t3.c PARSER Time::1539935916:30604	 Line: 21	additive_expression : multiplicative_expression
-testCases/t3.c PARSER Time::1539935916:30826	 Line: 21	identifier : ID_tok
-testCases/t3.c PARSER Time::1539935916:30931	 Line: 21	primary_expression : identifier
-testCases/t3.c PARSER Time::1539935916:31038	 Line: 21	postfix_expression : primary_expression
-testCases/t3.c PARSER Time::1539935916:31175	 Line: 21	unary_expression : postfix_expression
-testCases/t3.c PARSER Time::1539935916:31267	 Line: 21	cast_expression : unary_expression
-testCases/t3.c PARSER Time::1539935916:31385	 Line: 21	multiplicative_expression : cast_expression
-testCases/t3.c PARSER Time::1539935916:31522	 Line: 21	additive_expression : additive_expression PLUS_tok multiplicative_expression
-testCases/t3.c PARSER Time::1539935916:31615	 Line: 21	shift_expression : additive_expression
-testCases/t3.c PARSER Time::1539935916:31704	 Line: 21	relational_expression : shift_expression
-testCases/t3.c PARSER Time::1539935916:31797	 Line: 21	equality_expression : relational_expression
-testCases/t3.c PARSER Time::1539935916:31999	 Line: 21	and_expression : equality_expression
-testCases/t3.c PARSER Time::1539935916:32104	 Line: 21	exclusive_or_expression : and_expression 
-testCases/t3.c PARSER Time::1539935916:32264	 Line: 21	inclusive_or_expression : exclusive_or_expression
-testCases/t3.c PARSER Time::1539935916:32453	 Line: 21	logical_and_expression : inclusive_or_expression
-testCases/t3.c PARSER Time::1539935916:32612	 Line: 21	logical_or_expression : logical_and_expression
-testCases/t3.c PARSER Time::1539935916:32941	 Line: 21	conditional_expression : logical_or_expression
-testCases/t3.c PARSER Time::1539935916:33075	 Line: 21	assignment_expression : conditional_expression
-testCases/t3.c PARSER Time::1539935916:33281	 Line: 21	assignment_expression : unary_expression assignment_operator assignment_expression
-testCases/t3.c PARSER Time::1539935916:33410	 Line: 21	expression : assignment_expression
-testCases/t3.c PARSER Time::1539935916:33608	 Line: 21	expression_statement : expression SEMI_tok
-testCases/t3.c PARSER Time::1539935916:33745	 Line: 21	statement : expression_statement
-testCases/t3.c PARSER Time::1539935916:33837	 Line: 21	statement_list : statement
+testCases/t3.c PARSER Time::1539936503:17208	 Line: 21	identifier : ID_tok
+testCases/t3.c PARSER Time::1539936503:17309	 Line: 21	primary_expression : identifier
+testCases/t3.c PARSER Time::1539936503:17382	 Line: 21	postfix_expression : primary_expression
+testCases/t3.c PARSER Time::1539936503:17471	 Line: 21	unary_expression : postfix_expression
+testCases/t3.c PARSER Time::1539936503:17605	 Line: 21	assignment_operator : EQUAL_tok
+testCases/t3.c PARSER Time::1539936503:17752	 Line: 21	identifier : ID_tok
+testCases/t3.c PARSER Time::1539936503:17850	 Line: 21	primary_expression : identifier
+testCases/t3.c PARSER Time::1539936503:17933	 Line: 21	postfix_expression : primary_expression
+testCases/t3.c PARSER Time::1539936503:18039	 Line: 21	unary_expression : postfix_expression
+testCases/t3.c PARSER Time::1539936503:18135	 Line: 21	cast_expression : unary_expression
+testCases/t3.c PARSER Time::1539936503:18213	 Line: 21	multiplicative_expression : cast_expression
+testCases/t3.c PARSER Time::1539936503:18308	 Line: 21	additive_expression : multiplicative_expression
+testCases/t3.c PARSER Time::1539936503:18492	 Line: 21	identifier : ID_tok
+testCases/t3.c PARSER Time::1539936503:18579	 Line: 21	primary_expression : identifier
+testCases/t3.c PARSER Time::1539936503:18665	 Line: 21	postfix_expression : primary_expression
+testCases/t3.c PARSER Time::1539936503:18775	 Line: 21	unary_expression : postfix_expression
+testCases/t3.c PARSER Time::1539936503:18874	 Line: 21	cast_expression : unary_expression
+testCases/t3.c PARSER Time::1539936503:18961	 Line: 21	multiplicative_expression : cast_expression
+testCases/t3.c PARSER Time::1539936503:19091	 Line: 21	additive_expression : additive_expression PLUS_tok multiplicative_expression
+testCases/t3.c PARSER Time::1539936503:19184	 Line: 21	shift_expression : additive_expression
+testCases/t3.c PARSER Time::1539936503:19279	 Line: 21	relational_expression : shift_expression
+testCases/t3.c PARSER Time::1539936503:19387	 Line: 21	equality_expression : relational_expression
+testCases/t3.c PARSER Time::1539936503:19479	 Line: 21	and_expression : equality_expression
+testCases/t3.c PARSER Time::1539936503:19575	 Line: 21	exclusive_or_expression : and_expression 
+testCases/t3.c PARSER Time::1539936503:19668	 Line: 21	inclusive_or_expression : exclusive_or_expression
+testCases/t3.c PARSER Time::1539936503:19766	 Line: 21	logical_and_expression : inclusive_or_expression
+testCases/t3.c PARSER Time::1539936503:19874	 Line: 21	logical_or_expression : logical_and_expression
+testCases/t3.c PARSER Time::1539936503:19968	 Line: 21	conditional_expression : logical_or_expression
+testCases/t3.c PARSER Time::1539936503:20048	 Line: 21	assignment_expression : conditional_expression
+testCases/t3.c PARSER Time::1539936503:20138	 Line: 21	assignment_expression : unary_expression assignment_operator assignment_expression
+testCases/t3.c PARSER Time::1539936503:20194	 Line: 21	expression : assignment_expression
+testCases/t3.c PARSER Time::1539936503:20304	 Line: 21	expression_statement : expression SEMI_tok
+testCases/t3.c PARSER Time::1539936503:20421	 Line: 21	statement : expression_statement
+testCases/t3.c PARSER Time::1539936503:20538	 Line: 21	statement_list : statement
 
 	three = one + two;
 
 
 	{
 
-testCases/t3.c PARSER Time::1539935916:34174	 Line: 23	type_specifier : INT_tok
-testCases/t3.c PARSER Time::1539935916:34384	 Line: 23	declaration_specifiers : type_specifier
-testCases/t3.c PARSER Time::1539935916:34556	 Line: 23	identifier : ID_tok
-testCases/t3.c PARSER Time::1539935916:34662	 Line: 23	direct_declarator : identifier
-testCases/t3.c PARSER Time::1539935916:34819	 Line: 23	declarator : direct_declarator
-testCases/t3.c PARSER Time::1539935916:35064	 Line: 23	constant : INTEGER_CONSTANT_tok
-testCases/t3.c PARSER Time::1539935916:35183	 Line: 23	primary_expression : constant
-testCases/t3.c PARSER Time::1539935916:35316	 Line: 23	postfix_expression : primary_expression
-testCases/t3.c PARSER Time::1539935916:35477	 Line: 23	unary_expression : postfix_expression
-testCases/t3.c PARSER Time::1539935916:35646	 Line: 23	cast_expression : unary_expression
-testCases/t3.c PARSER Time::1539935916:35761	 Line: 23	multiplicative_expression : cast_expression
-testCases/t3.c PARSER Time::1539935916:35931	 Line: 23	additive_expression : multiplicative_expression
-testCases/t3.c PARSER Time::1539935916:36116	 Line: 23	shift_expression : additive_expression
-testCases/t3.c PARSER Time::1539935916:36256	 Line: 23	relational_expression : shift_expression
-testCases/t3.c PARSER Time::1539935916:36396	 Line: 23	equality_expression : relational_expression
-testCases/t3.c PARSER Time::1539935916:36542	 Line: 23	and_expression : equality_expression
-testCases/t3.c PARSER Time::1539935916:36681	 Line: 23	exclusive_or_expression : and_expression 
-testCases/t3.c PARSER Time::1539935916:36831	 Line: 23	inclusive_or_expression : exclusive_or_expression
-testCases/t3.c PARSER Time::1539935916:36978	 Line: 23	logical_and_expression : inclusive_or_expression
-testCases/t3.c PARSER Time::1539935916:37116	 Line: 23	logical_or_expression : logical_and_expression
-testCases/t3.c PARSER Time::1539935916:37252	 Line: 23	conditional_expression : logical_or_expression
-testCases/t3.c PARSER Time::1539935916:37367	 Line: 23	assignment_expression : conditional_expression
-testCases/t3.c PARSER Time::1539935916:37513	 Line: 23	initializer : assignment_expression
-testCases/t3.c PARSER Time::1539935916:37707	 Line: 23	init_declarator : declarator EQUAL_tok initializer
-testCases/t3.c PARSER Time::1539935916:37818	 Line: 23	init_declarator_list : init_declarator
-testCases/t3.c PARSER Time::1539935916:38067	 Line: 23	declaration : declaration_specifiers init_declarator_list SEMI_tok
-testCases/t3.c PARSER Time::1539935916:38218	 Line: 23	declaration_list : declaration
+testCases/t3.c PARSER Time::1539936503:20864	 Line: 23	type_specifier : INT_tok
+testCases/t3.c PARSER Time::1539936503:21005	 Line: 23	declaration_specifiers : type_specifier
+testCases/t3.c PARSER Time::1539936503:21118	 Line: 23	identifier : ID_tok
+testCases/t3.c PARSER Time::1539936503:21206	 Line: 23	direct_declarator : identifier
+testCases/t3.c PARSER Time::1539936503:21318	 Line: 23	declarator : direct_declarator
+testCases/t3.c PARSER Time::1539936503:21510	 Line: 23	constant : INTEGER_CONSTANT_tok
+testCases/t3.c PARSER Time::1539936503:21603	 Line: 23	primary_expression : constant
+testCases/t3.c PARSER Time::1539936503:21698	 Line: 23	postfix_expression : primary_expression
+testCases/t3.c PARSER Time::1539936503:21816	 Line: 23	unary_expression : postfix_expression
+testCases/t3.c PARSER Time::1539936503:21937	 Line: 23	cast_expression : unary_expression
+testCases/t3.c PARSER Time::1539936503:22030	 Line: 23	multiplicative_expression : cast_expression
+testCases/t3.c PARSER Time::1539936503:22137	 Line: 23	additive_expression : multiplicative_expression
+testCases/t3.c PARSER Time::1539936503:22244	 Line: 23	shift_expression : additive_expression
+testCases/t3.c PARSER Time::1539936503:22371	 Line: 23	relational_expression : shift_expression
+testCases/t3.c PARSER Time::1539936503:22479	 Line: 23	equality_expression : relational_expression
+testCases/t3.c PARSER Time::1539936503:22586	 Line: 23	and_expression : equality_expression
+testCases/t3.c PARSER Time::1539936503:22692	 Line: 23	exclusive_or_expression : and_expression 
+testCases/t3.c PARSER Time::1539936503:22799	 Line: 23	inclusive_or_expression : exclusive_or_expression
+testCases/t3.c PARSER Time::1539936503:22923	 Line: 23	logical_and_expression : inclusive_or_expression
+testCases/t3.c PARSER Time::1539936503:23031	 Line: 23	logical_or_expression : logical_and_expression
+testCases/t3.c PARSER Time::1539936503:23139	 Line: 23	conditional_expression : logical_or_expression
+testCases/t3.c PARSER Time::1539936503:23235	 Line: 23	assignment_expression : conditional_expression
+testCases/t3.c PARSER Time::1539936503:23328	 Line: 23	initializer : assignment_expression
+testCases/t3.c PARSER Time::1539936503:23480	 Line: 23	init_declarator : declarator EQUAL_tok initializer
+testCases/t3.c PARSER Time::1539936503:23569	 Line: 23	init_declarator_list : init_declarator
+testCases/t3.c PARSER Time::1539936503:23710	 Line: 23	declaration : declaration_specifiers init_declarator_list SEMI_tok
+testCases/t3.c PARSER Time::1539936503:23810	 Line: 23	declaration_list : declaration
 
 		int four = 4;
 
 
 		!!D
 
-testCases/t3.c PARSER Time::1539935916:38877	 Line: 25	compound_statement : OPEN_BRACE_tok declaration_list CLOSE_BRACE_tok
-testCases/t3.c PARSER Time::1539935916:39016	 Line: 25	statement : compound_statement
-testCases/t3.c PARSER Time::1539935916:39213	 Line: 25	statement_list : statement_list statement
+testCases/t3.c PARSER Time::1539936503:24429	 Line: 25	compound_statement : OPEN_BRACE_tok declaration_list CLOSE_BRACE_tok
+testCases/t3.c PARSER Time::1539936503:24549	 Line: 25	statement : compound_statement
+testCases/t3.c PARSER Time::1539936503:24721	 Line: 25	statement_list : statement_list statement
 
 	}
 
