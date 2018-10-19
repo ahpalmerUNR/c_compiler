@@ -7,7 +7,6 @@ column num added to symbol table
 Andrew
 -------
 ReadMe.txt
-float check
 make test cases and outputs
 
 

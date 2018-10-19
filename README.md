@@ -1,17 +1,18 @@
 # c_compiler
-c compiler for UNR Compilers CS 660
+c_compiler for UNR Compilers CS 660. This program takes in a .c file and returns a MIPS program. The MIPS program is intended to be passed into the SPIM program for execution.
 
-Monday Oct 15:
-2pm-5pm
+##Table Of Contents
+[Installation](#installation)
 
-Tuesday Oct 16:
-10:30am-1:30pm 2:30pm-4pm
+[Usage](#usage)
 
-Wednesday Oct 17:
-None
+[Team Mate Contributions](#contributions)
 
-Thursday Oct 18:
-10:30am - 4pm (But I may have to leave for an hour.)
+##Installation
+
+##Usage
+
+##Contributions
 
 git pull origin andrew
 git merge andrew
