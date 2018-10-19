@@ -713,6 +713,8 @@ int main(int argc, char **argv)
 	fclose(out_log);
 	fclose(outfile);
 	fclose(errorText);
+	fclose(parseFile);
+	fclose(tokenFile);
 	return 0;	
 }
 

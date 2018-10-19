@@ -91,6 +91,11 @@ The following are the commandline debug levels.
 	
 	yyyyy: print parse tree passing (11)**In Progress
 	
+An example call with max debugging set, and file names set would be:
+```
+./build/c_compiler -o testCases/t1Out.txt -t testCases/t1TokenFile.txt -l testCases/t1LogFile.txt -dlllyyyyysss testCases/t1.c
+```
+	
 Inside the .c file, there are commands to turn on/off debug options. Unlike the command line settings, the levels are not progressive (you can pick just the ones you want and not everything less than the given level).
 
 ```
@@ -127,8 +132,22 @@ int main()
 ```
 
 ## Contributions
+* Zachary Young
+	Symbol table
+	Converting token names to custom token names in given grammar
+	Insert and lookup mode flag setting
+	Wiki
+	Symbol table driver
+	Regular expressions for Lex
+	Solving various errors
+	
 
-git pull origin andrew
-git merge andrew
-git commit
-git push
+* Andrew Palmer
+	Scanner
+	Command line args
+	Regular expressions for Lex
+	Print function for productions
+	Test cases t1,t2,t3,t4
+	README.md
+	Makefile
+	Solving various errors

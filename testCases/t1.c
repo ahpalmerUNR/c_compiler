@@ -2,8 +2,10 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-03 22:57:09
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-10-18 22:50:45
+* @Last Modified time: 2018-10-19 00:37:49
 */
+void printf();
+
 int main()
 {
 	//Line Comment
@@ -62,7 +64,7 @@ int main()
 	char hex_error2 = '\xkF';
 	char oct_error2 = '\128';
 	
-	
+
 
 	int o = 44;
 
