@@ -58,17 +58,17 @@ The c_compiler excepts commandline arguments.
 
 The following are the commandline debug levels.
 
-* Symbol:
+* Symbol Table:
 
    : no debug (1)
    
    s: print current scope (2)
    
-   ss: enter and leave scopes (3)
+   ss: print enter and leave scopes (3)
    
-   sss: search keys (5)
+   sss: print search keys (5)
 
-* Lex:
+* Scanner:
 
    : no debug (1)
    
@@ -78,7 +78,7 @@ The following are the commandline debug levels.
    
    lll: print symbol table commands (5)**In Progress
 
-* Yacc:
+* Parser:
 	: no debug (1)
 	
 	y: print productions (2)
@@ -90,6 +90,41 @@ The following are the commandline debug levels.
 	yyyy: print 3 address code (7)**In Progress
 	
 	yyyyy: print parse tree passing (11)**In Progress
+	
+Inside the .c file, there are commands to turn on/off debug options. Unlike the command line settings, the levels are not progressive (you can pick just the ones you want and not everything less than the given level).
+
+```
+	!!D 			Dumps symbol table to log file.
+	!!L [number]	Sets scanner debug level.
+	!!S [number]	Sets symbol table debug level.
+	!!Y [number]	Sets parser debug level.
+```
+
+To allow for just the specific levels wanted, the [number] argument is an integer determined by the multiplication of the numbers in parenthesis in the above debug levels.
+
+So if we want to set the scanner debug to have just `print symbol table commands` and `print token` then we multiply 5*2=10. 
+
+Likewise if we want to set symbol table debug to `print search keys` and `print enter and leave scopes` then we multiply 5*3=15.
+
+In code this can be placed anywhere with whitepace on either side.
+```
+int main()
+{
+	int j !!D = 1;
+	char p !!L 10 ='p';
+	
+	!!L 1
+	!!Y 6
+	j = 10;
+	if(j == 14)
+	{
+		return 1;
+	}
+	!!Y 1
+	
+	return 0;
+}
+```
 
 ## Contributions
 
