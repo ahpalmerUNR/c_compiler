@@ -1,0 +1,65 @@
+SYMBOL TABLE DUMP
+
+Level: 0 Key: main Line: 7 Type: 0
+Level: 1 Key: Charcter_length_too_large_for_language_and_should_casuse_error Line: 18 Type: 0
+Level: 1 Key: d Line: 15 Type: 0
+Level: 1 Key: hexint Line: 21 Type: 0
+Level: 1 Key: i Line: 19 Type: 0
+Level: 1 Key: i_error Line: 16 Type: 0
+Level: 1 Key: j Line: 20 Type: 0
+Level: 1 Key: j_error Line: 17 Type: 0
+Level: 1 Key: octint Line: 22 Type: 0
+
+
+SYMBOL TABLE ABOVE
+
+SYMBOL TABLE DUMP
+
+Level: 0 Key: main Line: 7 Type: 0
+Level: 1 Key: Charcter_length_too_large_for_language_and_should_casuse_error Line: 18 Type: 0
+Level: 1 Key: achar Line: 51 Type: 0
+Level: 1 Key: back Line: 48 Type: 0
+Level: 1 Key: d Line: 15 Type: 0
+Level: 1 Key: doubleQuote Line: 55 Type: 0
+Level: 1 Key: f Line: 40 Type: 0
+Level: 1 Key: fchar Line: 50 Type: 0
+Level: 1 Key: h Line: 41 Type: 0
+Level: 1 Key: hex Line: 58 Type: 0
+Level: 1 Key: hex_error Line: 60 Type: 0
+Level: 1 Key: hex_error2 Line: 62 Type: 0
+Level: 1 Key: hexint Line: 21 Type: 0
+Level: 1 Key: i Line: 19 Type: 0
+Level: 1 Key: i_error Line: 16 Type: 0
+Level: 1 Key: j Line: 20 Type: 0
+Level: 1 Key: j_error Line: 17 Type: 0
+Level: 1 Key: k Line: 27 Type: 0
+Level: 1 Key: m Line: 36 Type: 0
+Level: 1 Key: n Line: 37 Type: 0
+Level: 1 Key: neg_max Line: 30 Type: 0
+Level: 1 Key: neg_min Line: 31 Type: 0
+Level: 1 Key: newl Line: 45 Type: 0
+Level: 1 Key: o Line: 67 Type: 0
+Level: 1 Key: oct Line: 59 Type: 0
+Level: 1 Key: oct_error Line: 61 Type: 0
+Level: 1 Key: oct_error2 Line: 63 Type: 0
+Level: 1 Key: octint Line: 22 Type: 0
+Level: 1 Key: out_neg_max Line: 34 Type: 0
+Level: 1 Key: out_neg_min Line: 35 Type: 0
+Level: 1 Key: out_pos_max Line: 32 Type: 0
+Level: 1 Key: out_pos_min Line: 33 Type: 0
+Level: 1 Key: p Line: 26 Type: 0
+Level: 1 Key: pos_max Line: 28 Type: 0
+Level: 1 Key: pos_min Line: 29 Type: 0
+Level: 1 Key: question Line: 53 Type: 0
+Level: 1 Key: rcha Line: 49 Type: 0
+Level: 1 Key: s Line: 39 Type: 0
+Level: 1 Key: singlQuote Line: 54 Type: 0
+Level: 1 Key: slash Line: 52 Type: 0
+Level: 1 Key: tab Line: 46 Type: 0
+Level: 1 Key: taco Line: 44 Type: 0
+Level: 1 Key: vert Line: 47 Type: 0
+Level: 2 Key: j Line: 73 Type: 0
+
+
+SYMBOL TABLE ABOVE
+
