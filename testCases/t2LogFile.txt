@@ -1,0 +1,23 @@
+SYMBOL TABLE DUMP
+
+Level: 0 Key: main Line: 10 Type: 0
+Level: 0 Key: printf Line: 8 Type: 0
+Level: 1 Key: a Line: 12 Type: 0
+Level: 2 Key: j Line: 13 Type: 0
+Level: 2 Key: y Line: 14 Type: 0
+
+
+SYMBOL TABLE ABOVE
+
+SYMBOL TABLE DUMP
+
+Level: 0 Key: main Line: 10 Type: 0
+Level: 0 Key: printf Line: 8 Type: 0
+Level: 1 Key: a Line: 12 Type: 0
+Level: 1 Key: j Line: 17 Type: 0
+Level: 2 Key: ALPHA Line: 17 Type: 0
+Level: 2 Key: BETA Line: 17 Type: 0
+
+
+SYMBOL TABLE ABOVE
+
