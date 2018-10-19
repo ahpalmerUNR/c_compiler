@@ -61,23 +61,34 @@ The following are the commandline debug levels.
 * Symbol:
 
    : no debug (1)
+   
    s: print current scope (2)
+   
    ss: enter and leave scopes (3)
+   
    sss: search keys (5)
 
 * Lex:
 
    : no debug (1)
+   
    l: print token (2)
+   
    ll: print yytext (3)
+   
    lll: print symbol table commands (5)**In Progress
 
 * Yacc:
 	: no debug (1)
+	
 	y: print productions (2)
+	
 	yy: print $$,$1,$2... (3)**In Progress
+	
 	yyy: set yydebug=1 for built in debug (5)
+	
 	yyyy: print 3 address code (7)**In Progress
+	
 	yyyyy: print parse tree passing (11)**In Progress
 
 ## Contributions
