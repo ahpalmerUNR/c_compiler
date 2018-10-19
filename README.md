@@ -50,7 +50,7 @@ The c_compiler excepts commandline arguments.
 	
 	-t [filename] sets the token file name. Defaults to tokenFile.txt
 	-l [filename] sets the log file name. Defaults to compilerLog.txt
-	Note: currently log file only holds symbol table dumps.
+	Note: currently log file only holds symbol table dumps and error messages.
 	
 	-d[lsy]* sets the debug levels for scanner, symbol table, and parser.
 	
