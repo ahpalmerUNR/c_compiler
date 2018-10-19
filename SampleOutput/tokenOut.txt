@@ -1,0 +1,128 @@
+
+/*
+
+
+* @Author: ahpalmerUNR
+
+
+* @Date:   2018-10-14 14:05:57
+
+
+* @Last Modified by:   ahpalmerUNR
+
+
+* @Last Modified time: 2018-10-16 15:48:36
+
+
+*/
+
+testCases/t3.c SCANNER Time::1539927818:1023	 Line: 7	CHAR_tok
+testCases/t3.c SCANNER Time::1539927818:1036	 Line: 7	ID_tok
+testCases/t3.c SCANNER Time::1539927818:1045	 Line: 7	SEMI_tok
+
+char i;
+
+
+
+
+testCases/t3.c SCANNER Time::1539927818:1060	 Line: 9	VOID_tok
+testCases/t3.c SCANNER Time::1539927818:1068	 Line: 9	ID_tok
+testCases/t3.c SCANNER Time::1539927818:1075	 Line: 9	OPEN_PAREN_tok
+testCases/t3.c SCANNER Time::1539927818:1077	 Line: 9	CHAR_tok
+testCases/t3.c SCANNER Time::1539927818:1082	 Line: 9	ID_tok
+testCases/t3.c SCANNER Time::1539927818:1089	 Line: 9	COMMA_tok
+testCases/t3.c SCANNER Time::1539927818:1097	 Line: 9	INT_tok
+testCases/t3.c SCANNER Time::1539927818:1102	 Line: 9	ID_tok
+testCases/t3.c SCANNER Time::1539927818:1109	 Line: 9	CLOSE_PAREN_tok
+testCases/t3.c SCANNER Time::1539927818:1126	 Line: 9	OPEN_BRACE_tok
+
+void chartastic(char alpha, int listical){
+
+
+	//stuff
+
+testCases/t3.c SCANNER Time::1539927818:1132	 Line: 11	CLOSE_BRACE_tok
+
+}
+
+
+
+
+testCases/t3.c SCANNER Time::1539927818:1143	 Line: 13	INT_tok
+testCases/t3.c SCANNER Time::1539927818:1148	 Line: 13	ID_tok
+testCases/t3.c SCANNER Time::1539927818:1155	 Line: 13	OPEN_PAREN_tok
+testCases/t3.c SCANNER Time::1539927818:1157	 Line: 13	CLOSE_PAREN_tok
+
+int main()
+
+testCases/t3.c SCANNER Time::1539927818:1162	 Line: 14	OPEN_BRACE_tok
+
+{
+
+testCases/t3.c SCANNER Time::1539927818:1166	 Line: 15	INT_tok
+testCases/t3.c SCANNER Time::1539927818:1171	 Line: 15	ID_tok
+testCases/t3.c SCANNER Time::1539927818:1201	 Line: 15	EQUAL_tok
+testCases/t3.c SCANNER Time::1539927818:1207	 Line: 15	INTEGER_CONSTANT_tok
+testCases/t3.c SCANNER Time::1539927818:1215	 Line: 15	SEMI_tok
+
+	int one = 1;
+
+testCases/t3.c SCANNER Time::1539927818:1254	 Line: 16	INT_tok
+testCases/t3.c SCANNER Time::1539927818:1259	 Line: 16	ID_tok
+testCases/t3.c SCANNER Time::1539927818:1267	 Line: 16	EQUAL_tok
+testCases/t3.c SCANNER Time::1539927818:1270	 Line: 16	INTEGER_CONSTANT_tok
+testCases/t3.c SCANNER Time::1539927818:1277	 Line: 16	PLUS_tok
+testCases/t3.c SCANNER Time::1539927818:1287	 Line: 16	INTEGER_CONSTANT_tok
+testCases/t3.c SCANNER Time::1539927818:1294	 Line: 16	SEMI_tok
+
+	int two = 1 + 1;
+
+
+	
+
+testCases/t3.c SCANNER Time::1539927818:1337	 Line: 18	CHAR_tok
+testCases/t3.c SCANNER Time::1539927818:1342	 Line: 18	ID_tok
+testCases/t3.c SCANNER Time::1539927818:1349	 Line: 18	EQUAL_tok
+testCases/t3.c SCANNER Time::1539927818:1353	 Line: 18	INTEGER_CONSTANT_tok
+testCases/t3.c SCANNER Time::1539927818:1360	 Line: 18	SEMI_tok
+
+	char a = 3;
+
+
+	
+
+testCases/t3.c SCANNER Time::1539927818:1400	 Line: 20	INT_tok
+testCases/t3.c SCANNER Time::1539927818:1405	 Line: 20	ID_tok
+testCases/t3.c SCANNER Time::1539927818:1413	 Line: 20	SEMI_tok
+
+	int three;
+
+testCases/t3.c SCANNER Time::1539927818:1424	 Line: 21	ID_tok
+testCases/t3.c SCANNER Time::1539927818:1428	 Line: 21	EQUAL_tok
+testCases/t3.c SCANNER Time::1539927818:1438	 Line: 21	ID_tok
+testCases/t3.c SCANNER Time::1539927818:1445	 Line: 21	PLUS_tok
+testCases/t3.c SCANNER Time::1539927818:1469	 Line: 21	ID_tok
+testCases/t3.c SCANNER Time::1539927818:1485	 Line: 21	SEMI_tok
+
+	three = one + two;
+
+testCases/t3.c SCANNER Time::1539927818:1586	 Line: 22	OPEN_BRACE_tok
+
+	{
+
+testCases/t3.c SCANNER Time::1539927818:1591	 Line: 23	INT_tok
+testCases/t3.c SCANNER Time::1539927818:1612	 Line: 23	ID_tok
+testCases/t3.c SCANNER Time::1539927818:1627	 Line: 23	EQUAL_tok
+testCases/t3.c SCANNER Time::1539927818:1635	 Line: 23	INTEGER_CONSTANT_tok
+testCases/t3.c SCANNER Time::1539927818:1651	 Line: 23	SEMI_tok
+
+		int four = 4;
+
+
+		!!D
+
+testCases/t3.c SCANNER Time::1539927818:1789	 Line: 25	CLOSE_BRACE_tok
+
+	}
+
+testCases/t3.c SCANNER Time::1539927818:1806	 Line: 26	CHAR_tok
