@@ -10,13 +10,16 @@
 SymbolTable::SymbolTable()
 {
 	currentLevel = -1;
+	// Initialize the symbol table with a bst
 	pushEmptyBST();
 }
 
 Node* SymbolTable::insert(string tokenKey, int lN, int cN, DataType t,int*errorcode)
 {
 	int location;
+	// Search for a previous declaration
 	Node *prevDecl = searchAll(tokenKey,&location);
+	// No previous : insert symbol
 	if(prevDecl == NULL)
 	{
 		Node d;
@@ -30,12 +33,14 @@ Node* SymbolTable::insert(string tokenKey, int lN, int cN, DataType t,int*errorc
 	else
 	{
 		//cout << "The identifier already exists" << endl;
+		// Previous declaration in same level : return error code
 		if(location == currentLevel)
 		{
 			// cout << "Conflict with variable in current level on line number: " << prevDecl->lineNumber << endl;
 			// 
 			*errorcode = 1;
 		}
+		// Previous declaration in another level : shadow warning, insert node
 		else
 		{
 			cout << "Shadowed variable in level: " << location << " On line number: " << prevDecl->lineNumber << endl;
@@ -54,7 +59,9 @@ Node* SymbolTable::insert(string tokenKey, int lN, int cN, DataType t,int*errorc
 Node* SymbolTable::insert(string tokenKey, Node d)
 {
 	int location;
+	// Search for a previous declaration
 	Node *prevDecl = searchAll(tokenKey,&location);
+	// No previous : insert symbol
 	if(prevDecl == NULL)
 	{
 		stack[currentLevel].insert(pair<string,Node>(tokenKey,d));
@@ -63,11 +70,13 @@ Node* SymbolTable::insert(string tokenKey, Node d)
 	}
 	else
 	{
-		cout << "The identifier already exists" << endl;
+		//cout << "The identifier already exists" << endl;
+		// Previous declaration in same level : return error code
 		if(location == currentLevel)
 		{
 			cout << "Conflict with variable in current level on line number: " << prevDecl->lineNumber << endl;
 		}
+		// Previous declaration in another level : shadow warning, insert node
 		else
 		{
 			cout << "Shadowed variable in level: " << location << " On line number: " << prevDecl->lineNumber << endl;
@@ -82,6 +91,7 @@ Node* SymbolTable::searchAll(string key, int *location)
 {
 	//cout<<"entered search all"<<endl;
 	//Print key value and node values on debug level
+	// Iterate from top to bottom of stack and return first node or null if not found
 	for(int i = currentLevel; i >= 0; i--)
 	{
 		map<string, Node>::iterator it = stack[i].find( key );
@@ -115,6 +125,7 @@ Node* SymbolTable::searchAll(string key, int *location)
 Node* SymbolTable::searchTop(string key)
 {
 	// Print key value and node values on debug level
+	// Search top level and return node found or NULL
 	map<string, Node>::iterator it = stack[currentLevel].find( key );
 	if(it != stack[currentLevel].end())
 	{
@@ -142,6 +153,7 @@ void SymbolTable::writeToFile(char const *fileName)
 	stream.open(fileName,fstream::app);
 	int count = 0;
 	stream<<"SYMBOL TABLE DUMP\n"<<endl;
+	// Iterate through symbol table and dump contents to file
 	for(vector<map<string, Node> >::iterator it = stack.begin(); it != stack.end(); ++it)
 	{
 		for(map<string, Node>::iterator i = it->begin(); i != it->end(); ++i)
@@ -156,6 +168,7 @@ void SymbolTable::writeToFile(char const *fileName)
 }
 void SymbolTable::printCurrentScope()
 {
+		// Iterate through top level and output information
 		for(map<string, Node>::iterator i = stack[currentLevel].begin(); i != stack[currentLevel].end(); ++i)
 		{
 				cout << "Level: " << currentLevel << " Key: " << i->first << " ";
@@ -164,11 +177,13 @@ void SymbolTable::printCurrentScope()
 }
 void SymbolTable::pushBST(map<string, Node> bst)
 {
+	//Push bst and increment level
 	stack.push_back(bst);
 	currentLevel++;
 }
 void SymbolTable::pushEmptyBST()
 {
+	// Push empty bst and increment level
 	map<string, Node> bst;
 	stack.push_back(bst);
 	currentLevel++;
@@ -178,6 +193,7 @@ void SymbolTable::pushEmptyBST()
 }
 void SymbolTable::popBST()
 {
+	// Pop bst and decrement level
 	stack.pop_back();
 	currentLevel--;
 	//Debug messege
