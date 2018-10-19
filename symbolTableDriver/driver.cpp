@@ -6,6 +6,10 @@ int symbol_table_debug = 1;
 
 int main()
 {
+	//emtpy the file contents
+	ofstream f("driverOut.txt",ofstream::trunc);
+	f.close();
+
 	// Used by scanner to deal with conflicts/redeclarations
 	int errorCode;
 	// Level a declaration was found in

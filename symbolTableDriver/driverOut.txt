@@ -1,0 +1,66 @@
+SYMBOL TABLE DUMP
+
+Level: 0 Key: func Line: 2 Column: 12 Type: 4
+Level: 0 Key: j Line: 1 Column: 11 Type: 0
+Level: 0 Key: main Line: 3 Column: 11 Type: 0
+Level: 1 Key: burrito Line: 9 Column: 12 Type: 3
+Level: 1 Key: j Line: 7 Column: 11 Type: 0
+Level: 1 Key: k Line: 6 Column: 13 Type: 1
+Level: 1 Key: p Line: 5 Column: 13 Type: 1
+Level: 1 Key: q Line: 8 Column: 11 Type: 0
+Level: 1 Key: taco Line: 10 Column: 13 Type: 3
+
+
+SYMBOL TABLE ABOVE
+
+SYMBOL TABLE DUMP
+
+Level: 0 Key: func Line: 2 Column: 12 Type: 4
+Level: 0 Key: j Line: 1 Column: 11 Type: 0
+Level: 0 Key: main Line: 3 Column: 11 Type: 0
+Level: 1 Key: burrito Line: 9 Column: 12 Type: 3
+Level: 1 Key: j Line: 7 Column: 11 Type: 0
+Level: 1 Key: k Line: 6 Column: 13 Type: 1
+Level: 1 Key: o Line: 13 Column: 12 Type: 0
+Level: 1 Key: p Line: 5 Column: 13 Type: 1
+Level: 1 Key: q Line: 8 Column: 11 Type: 0
+Level: 1 Key: taco Line: 10 Column: 13 Type: 3
+Level: 2 Key: j Line: 16 Column: 15 Type: 0
+
+
+SYMBOL TABLE ABOVE
+
+SYMBOL TABLE DUMP
+
+Level: 0 Key: func Line: 2 Column: 12 Type: 4
+Level: 0 Key: j Line: 1 Column: 11 Type: 0
+Level: 0 Key: main Line: 3 Column: 11 Type: 0
+Level: 1 Key: burrito Line: 9 Column: 12 Type: 3
+Level: 1 Key: j Line: 7 Column: 11 Type: 0
+Level: 1 Key: k Line: 6 Column: 13 Type: 1
+Level: 1 Key: o Line: 13 Column: 12 Type: 0
+Level: 1 Key: p Line: 5 Column: 13 Type: 1
+Level: 1 Key: q Line: 8 Column: 11 Type: 0
+Level: 1 Key: taco Line: 10 Column: 13 Type: 3
+Level: 2 Key: j Line: 16 Column: 15 Type: 0
+Level: 3 Key: k Line: 20 Column: 17 Type: 0
+
+
+SYMBOL TABLE ABOVE
+
+SYMBOL TABLE DUMP
+
+Level: 0 Key: func Line: 2 Column: 12 Type: 4
+Level: 0 Key: j Line: 1 Column: 11 Type: 0
+Level: 0 Key: main Line: 3 Column: 11 Type: 0
+Level: 1 Key: burrito Line: 9 Column: 12 Type: 3
+Level: 1 Key: j Line: 7 Column: 11 Type: 0
+Level: 1 Key: k Line: 6 Column: 13 Type: 1
+Level: 1 Key: o Line: 13 Column: 12 Type: 0
+Level: 1 Key: p Line: 5 Column: 13 Type: 1
+Level: 1 Key: q Line: 8 Column: 11 Type: 0
+Level: 1 Key: taco Line: 10 Column: 13 Type: 3
+
+
+SYMBOL TABLE ABOVE
+
