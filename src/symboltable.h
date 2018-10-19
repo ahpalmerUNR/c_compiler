@@ -36,11 +36,11 @@ struct Node {
 	int ntype = 1;
 	void output(ofstream &stream)
 	{
-		stream << "Line: " << lineNumber << " Type: " << type << endl;
+		stream << "Line: " << lineNumber << " Column: " << colNumber << " Type: " << type << endl;
 	};
 	void print()
 	{
-		cout << "Line: " << lineNumber << " Type: " << type << endl;
+		cout << "Line: " << lineNumber << " Column: " << colNumber << " Type: " << type << endl;
 	};
 };
 class SymbolTable {

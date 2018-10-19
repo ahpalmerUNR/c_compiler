@@ -29,7 +29,7 @@ Node* SymbolTable::insert(string tokenKey, int lN, int cN, DataType t,int*errorc
 	}
 	else
 	{
-		cout << "The identifier already exists" << endl;
+		//cout << "The identifier already exists" << endl;
 		if(location == currentLevel)
 		{
 			// cout << "Conflict with variable in current level on line number: " << prevDecl->lineNumber << endl;
@@ -41,6 +41,7 @@ Node* SymbolTable::insert(string tokenKey, int lN, int cN, DataType t,int*errorc
 			cout << "Shadowed variable in level: " << location << " On line number: " << prevDecl->lineNumber << endl;
 			Node d;
 			d.lineNumber = lN;
+			d.colNumber = cN;
 			d.type = t;
 			stack[currentLevel].insert(pair<string,Node>(tokenKey,d));
 			return searchTop(tokenKey);

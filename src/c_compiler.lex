@@ -641,7 +641,7 @@ int id_token()
 	else
 	{
 		//printf("\n\nID NOT FOUND AND NOW ADDING\n");
-		yylval.lnode = s.insert(yytext,line,INT_TYPE,&errorcode);
+		yylval.lnode = s.insert(yytext,line,column,INT_TYPE,&errorcode);
 		
 		if(errorcode!=0)
 		{
