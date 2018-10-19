@@ -21,9 +21,20 @@ First, navigate to the intended destination for the repo folder. By default, we 
 ```
 cd ~/Desktop
 ```
-The just copy and 
+The just copy the repo, and navigate into it.
+```
+git clone https://github.com/ahpalmerUNR/c_compiler.git
+cd c_compiler
+```
 ## Usage
-
+To make the compiler, just type make in the top folder of the repository. 
+```
+make
+```
+You can optionally clear out the build folder via:
+```
+make clean
+```
 ## Contributions
 
 git pull origin andrew
