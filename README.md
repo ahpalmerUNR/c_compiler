@@ -133,21 +133,38 @@ int main()
 
 ## Contributions
 * Zachary Young
+
 	Symbol table
+	
 	Converting token names to custom token names in given grammar
+	
 	Insert and lookup mode flag setting
+	
 	Wiki
+	
 	Symbol table driver
+	
 	Regular expressions for Lex
+	
 	Solving various errors
+	
 	
 
 * Andrew Palmer
+
 	Scanner
+	
 	Command line args
+	
 	Regular expressions for Lex
+	
 	Print function for productions
+	
 	Test cases t1,t2,t3,t4
+	
 	README.md
+	
 	Makefile
+	
 	Solving various errors
+	
