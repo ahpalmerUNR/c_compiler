@@ -2,9 +2,10 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-09-28 12:11:57
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-10-18 13:51:44
+* @Last Modified time: 2018-10-19 10:55:42
 */
 #include "symboltable.h"
+#include <stdio.h>
 
 
 SymbolTable::SymbolTable()
