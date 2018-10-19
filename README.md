@@ -57,21 +57,22 @@ The c_compiler excepts commandline arguments.
 ```
 
 The following are the commandline debug levels.
-*Symbol:
+
+* Symbol:
 
    : no debug (1)
    s: print current scope (2)
    ss: enter and leave scopes (3)
    sss: search keys (5)
 
-*Lex:
+* Lex:
 
    : no debug (1)
    l: print token (2)
    ll: print yytext (3)
    lll: print symbol table commands (5)**In Progress
 
-*Yacc:
+* Yacc:
 	: no debug (1)
 	y: print productions (2)
 	yy: print $$,$1,$2... (3)**In Progress
