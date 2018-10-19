@@ -12,9 +12,10 @@ c_compiler for UNR Compilers CS 660. This program takes in a .c file and returns
 ## Installation
 Installation is done through the terminal.
 
-If you do not have SPIM, g++, flex, or bison, perform a sudo apt-get install.
+If you do not have SPIM you can get it [here](https://sourceforge.net/projects/spimsimulator/files/).
+
+To install g++, flex, or bison, perform a sudo apt-get install.
 ```
-sudo apt-get install qt-sdk qtspim 
 sudo apt-get install flex bison g++
 ```
 First, navigate to the intended destination for the repo folder. By default, we use the Desktop.
@@ -35,6 +36,15 @@ You can optionally clear out the build folder via:
 ```
 make clean
 ```
+
+To compile a c program, run the program with the last argument the source file.
+```
+./build/c_compiler [args] testCases/t1.c
+```
+The above code would compile the t1.c test case. All resulting files are saved alongside the testcases.
+
+The c_compiler excepts commandline arguments.
+
 ## Contributions
 
 git pull origin andrew
