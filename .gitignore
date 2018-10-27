@@ -6,3 +6,5 @@ lex.yy.c
 c_compiler
 *.s
 tokenFile.txt
+compilerLog.txt
+parseFile.txt

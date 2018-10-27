@@ -1,0 +1,142 @@
+
+/*
+
+
+* @Author: ahpalmerUNR
+
+
+* @Date:   2018-10-16 11:22:58
+
+
+* @Last Modified by:   ahpalmerUNR
+
+
+* @Last Modified time: 2018-10-17 22:34:29
+
+
+*/
+
+testCases/t4.c PARSER Time::1540404813:5815	 Line: 7	type_specifier : CHAR_tok
+testCases/t4.c PARSER Time::1540404813:5843	 Line: 7	declaration_specifiers : type_specifier
+testCases/t4.c PARSER Time::1540404813:5848	 Line: 7	identifier : ID_tok
+testCases/t4.c PARSER Time::1540404813:5853	 Line: 7	direct_declarator : identifier
+testCases/t4.c PARSER Time::1540404813:5859	 Line: 7	declarator : direct_declarator
+testCases/t4.c PARSER Time::1540404813:5863	 Line: 7	init_declarator : declarator
+testCases/t4.c PARSER Time::1540404813:5866	 Line: 7	init_declarator_list : init_declarator
+testCases/t4.c PARSER Time::1540404813:5869	 Line: 7	declaration : declaration_specifiers init_declarator_list SEMI_tok
+testCases/t4.c PARSER Time::1540404813:5872	 Line: 7	external_declaration : declaration
+testCases/t4.c PARSER Time::1540404813:5876	 Line: 7	translation_unit : external_declaration
+
+char i ;
+
+
+//i = 'b';
+
+
+
+
+testCases/t4.c PARSER Time::1540404813:5886	 Line: 10	type_specifier : INT_tok
+testCases/t4.c PARSER Time::1540404813:5902	 Line: 10	declaration_specifiers : type_specifier
+testCases/t4.c PARSER Time::1540404813:5906	 Line: 10	identifier : ID_tok
+testCases/t4.c PARSER Time::1540404813:5911	 Line: 10	direct_declarator : identifier
+testCases/t4.c PARSER Time::1540404813:5928	 Line: 10	type_specifier : INT_tok
+testCases/t4.c PARSER Time::1540404813:5940	 Line: 10	declaration_specifiers : type_specifier
+testCases/t4.c PARSER Time::1540404813:5945	 Line: 10	identifier : ID_tok
+testCases/t4.c PARSER Time::1540404813:5950	 Line: 10	direct_declarator : identifier
+testCases/t4.c PARSER Time::1540404813:5961	 Line: 10	declarator : direct_declarator
+testCases/t4.c PARSER Time::1540404813:5967	 Line: 10	parameter_declaration : declaration_specifiers declarator
+testCases/t4.c PARSER Time::1540404813:5974	 Line: 10	parameter_list : parameter_declaration
+testCases/t4.c PARSER Time::1540404813:5986	 Line: 10	type_specifier : CHAR_tok
+testCases/t4.c PARSER Time::1540404813:5997	 Line: 10	declaration_specifiers : type_specifier
+testCases/t4.c PARSER Time::1540404813:6018	 Line: 10	pointer : STAR_tok
+testCases/t4.c PARSER Time::1540404813:6023	 Line: 10	pointer : STAR_tok pointer
+testCases/t4.c PARSER Time::1540404813:6036	 Line: 10	identifier : ID_tok
+testCases/t4.c PARSER Time::1540404813:6041	 Line: 10	direct_declarator : identifier
+testCases/t4.c PARSER Time::1540404813:6052	 Line: 10	declarator :  pointer direct_declarator
+testCases/t4.c PARSER Time::1540404813:6058	 Line: 10	parameter_declaration : declaration_specifiers declarator
+testCases/t4.c PARSER Time::1540404813:6064	 Line: 10	parameter_list : parameter_list COMMA_tok parameter_declaration
+testCases/t4.c PARSER Time::1540404813:6070	 Line: 10	parameter_type_list : parameter_list
+testCases/t4.c PARSER Time::1540404813:6075	 Line: 10	direct_declarator : direct_declarator OPEN_PAREN_tok parameter_type_list CLOSE_PAREN_tok
+
+int main(int argc, char**argv)
+
+testCases/t4.c PARSER Time::1540404813:6096	 Line: 11	declarator : direct_declarator
+
+{
+
+testCases/t4.c PARSER Time::1540404813:6110	 Line: 12	type_specifier : INT_tok
+testCases/t4.c PARSER Time::1540404813:6124	 Line: 12	declaration_specifiers : type_specifier
+testCases/t4.c PARSER Time::1540404813:6130	 Line: 12	identifier : ID_tok
+testCases/t4.c PARSER Time::1540404813:6135	 Line: 12	direct_declarator : identifier
+testCases/t4.c PARSER Time::1540404813:6146	 Line: 12	declarator : direct_declarator
+testCases/t4.c PARSER Time::1540404813:6165	 Line: 12	constant : INTEGER_CONSTANT_tok
+testCases/t4.c PARSER Time::1540404813:6170	 Line: 12	primary_expression : constant
+testCases/t4.c PARSER Time::1540404813:6176	 Line: 12	postfix_expression : primary_expression
+testCases/t4.c PARSER Time::1540404813:6188	 Line: 12	unary_expression : postfix_expression
+testCases/t4.c PARSER Time::1540404813:6193	 Line: 12	cast_expression : unary_expression
+testCases/t4.c PARSER Time::1540404813:6199	 Line: 12	multiplicative_expression : cast_expression
+testCases/t4.c PARSER Time::1540404813:6227	 Line: 12	additive_expression : multiplicative_expression
+testCases/t4.c PARSER Time::1540404813:6233	 Line: 12	shift_expression : additive_expression
+testCases/t4.c PARSER Time::1540404813:6239	 Line: 12	relational_expression : shift_expression
+testCases/t4.c PARSER Time::1540404813:6244	 Line: 12	equality_expression : relational_expression
+testCases/t4.c PARSER Time::1540404813:6249	 Line: 12	and_expression : equality_expression
+testCases/t4.c PARSER Time::1540404813:6255	 Line: 12	exclusive_or_expression : and_expression 
+testCases/t4.c PARSER Time::1540404813:6260	 Line: 12	inclusive_or_expression : exclusive_or_expression
+testCases/t4.c PARSER Time::1540404813:6266	 Line: 12	logical_and_expression : inclusive_or_expression
+testCases/t4.c PARSER Time::1540404813:6271	 Line: 12	logical_or_expression : logical_and_expression
+testCases/t4.c PARSER Time::1540404813:6277	 Line: 12	conditional_expression : logical_or_expression
+testCases/t4.c PARSER Time::1540404813:6283	 Line: 12	assignment_expression : conditional_expression
+testCases/t4.c PARSER Time::1540404813:6289	 Line: 12	initializer : assignment_expression
+testCases/t4.c PARSER Time::1540404813:6294	 Line: 12	init_declarator : declarator EQUAL_tok initializer
+testCases/t4.c PARSER Time::1540404813:6300	 Line: 12	init_declarator_list : init_declarator
+testCases/t4.c PARSER Time::1540404813:6306	 Line: 12	declaration : declaration_specifiers init_declarator_list SEMI_tok
+testCases/t4.c PARSER Time::1540404813:6312	 Line: 12	declaration_list : declaration
+
+	int j = 7;
+
+testCases/t4.c PARSER Time::1540404813:6325	 Line: 13	type_specifier : INT_tok
+
+	int j;
+
+testCases/t4.c PARSER Time::1540404813:6373	 Line: 13	declaration_specifiers : type_specifier
+testCases/t4.c PARSER Time::1540404813:6379	 Line: 13	identifier : ID_tok
+testCases/t4.c PARSER Time::1540404813:6384	 Line: 13	direct_declarator : identifier
+testCases/t4.c PARSER Time::1540404813:6395	 Line: 13	declarator : direct_declarator
+testCases/t4.c PARSER Time::1540404813:6402	 Line: 13	init_declarator : declarator
+testCases/t4.c PARSER Time::1540404813:6407	 Line: 13	init_declarator_list : init_declarator
+testCases/t4.c PARSER Time::1540404813:6413	 Line: 13	declaration : declaration_specifiers init_declarator_list SEMI_tok
+testCases/t4.c PARSER Time::1540404813:6419	 Line: 13	declaration_list : declaration_list declaration
+
+	int j;
+
+
+	!!D 
+
+testCases/t4.c PARSER Time::1540404813:6510	 Line: 15	constant : INTEGER_CONSTANT_tok
+testCases/t4.c PARSER Time::1540404813:6515	 Line: 15	primary_expression : constant
+testCases/t4.c PARSER Time::1540404813:6520	 Line: 15	postfix_expression : primary_expression
+testCases/t4.c PARSER Time::1540404813:6531	 Line: 15	unary_expression : postfix_expression
+testCases/t4.c PARSER Time::1540404813:6537	 Line: 15	cast_expression : unary_expression
+testCases/t4.c PARSER Time::1540404813:6543	 Line: 15	multiplicative_expression : cast_expression
+testCases/t4.c PARSER Time::1540404813:6548	 Line: 15	additive_expression : multiplicative_expression
+testCases/t4.c PARSER Time::1540404813:6554	 Line: 15	shift_expression : additive_expression
+testCases/t4.c PARSER Time::1540404813:6559	 Line: 15	relational_expression : shift_expression
+testCases/t4.c PARSER Time::1540404813:6564	 Line: 15	equality_expression : relational_expression
+testCases/t4.c PARSER Time::1540404813:6569	 Line: 15	and_expression : equality_expression
+testCases/t4.c PARSER Time::1540404813:6575	 Line: 15	exclusive_or_expression : and_expression 
+testCases/t4.c PARSER Time::1540404813:6580	 Line: 15	inclusive_or_expression : exclusive_or_expression
+testCases/t4.c PARSER Time::1540404813:6585	 Line: 15	logical_and_expression : inclusive_or_expression
+testCases/t4.c PARSER Time::1540404813:6591	 Line: 15	logical_or_expression : logical_and_expression
+testCases/t4.c PARSER Time::1540404813:6596	 Line: 15	conditional_expression : logical_or_expression
+testCases/t4.c PARSER Time::1540404813:6604	 Line: 15	assignment_expression : conditional_expression
+testCases/t4.c PARSER Time::1540404813:6621	 Line: 15	expression : assignment_expression
+testCases/t4.c PARSER Time::1540404813:6627	 Line: 15	jump_statement : RETURN_tok expression SEMI_tok
+testCases/t4.c PARSER Time::1540404813:6632	 Line: 15	statement : jump_statement
+testCases/t4.c PARSER Time::1540404813:6638	 Line: 15	statement_list : statement
+
+	return 0;
+
+testCases/t4.c PARSER Time::1540404813:6651	 Line: 16	compound_statement : OPEN_BRACE_tok declaration_list statement_list CLOSE_BRACE_tok
+testCases/t4.c PARSER Time::1540404813:6659	 Line: 16	function_definition : declaration_specifiers declarator compound_statement
+testCases/t4.c PARSER Time::1540404813:6664	 Line: 16	external_declaration : function_definition
+testCases/t4.c PARSER Time::1540404813:6670	 Line: 16	translation_unit : translation_unit external_declaration
