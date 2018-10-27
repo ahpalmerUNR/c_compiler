@@ -3,6 +3,7 @@
 	#include <time.h>
 	#include <stdio.h>
 	#include <stdlib.h>
+	#include "../src/tree.h"
 
 
 	#define MAX_LINE_LENGTH 500
@@ -21,6 +22,7 @@
 	int levels[5];
 	
 	
+	Tree AST;
 
 
 	void outputReduction(const char *s);

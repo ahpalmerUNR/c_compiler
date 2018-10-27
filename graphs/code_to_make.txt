@@ -1,0 +1,1 @@
+dot -Tps [file].gv -o [outfile].ps
