@@ -133,6 +133,9 @@
 	class TreeNode* tnode;
 }
 
+%left THEN
+%left ELSE_tok
+
 %start translation_unit
 %%
 
@@ -684,7 +687,7 @@ pointer
 		TreeNode* tmp = new TreeNode(AST_node_counter, "pointer_"+to_string(AST_node_counter),2);
 		++AST_node_counter;
 		tmp->assignChild(0,$<tnode>2);
-		tmp->assignChild(1,$<tnode>3)
+		tmp->assignChild(1,$<tnode>3);
 		$<tnode>$ = tmp;
 		outputReduction("pointer : STAR_tok type_qualifier_list pointer");}
 	;
@@ -1027,7 +1030,7 @@ statement_list
 	;
 
 selection_statement
-	: IF_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement {outputReduction("selection_statement : IF_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement");}
+	: IF_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement %prec THEN {outputReduction("selection_statement : IF_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement");}
 	| IF_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement ELSE_tok statement {outputReduction("selection_statement : IF_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement ELSE_tok statement");}
 	| SWITCH_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement {outputReduction("selection_statement : SWITCH_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement");}
 	;
