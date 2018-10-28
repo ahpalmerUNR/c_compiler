@@ -1,1 +1,1 @@
-dot -Tps [file].gv -o [outfile].ps
+dot -Tps [directory]/[file].gv -o [directory]/[outfile].ps

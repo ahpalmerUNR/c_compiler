@@ -142,7 +142,7 @@ translation_unit
 		++AST_node_counter;
 		tmp->assignChild(0,$<tnode>2);
 		$<tnode>$ = tmp;
-		AST.set_root($<tnode>$);
+		AST.set_root(tmp);
 		insert_lookup = 1;  outputReduction("translation_unit : external_declaration");}
 	| translation_unit {insert_lookup = 0;} external_declaration {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "translation_unit_"+to_string(AST_node_counter),2);
@@ -150,7 +150,7 @@ translation_unit
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>3);
 		$<tnode>$ = tmp;
-		AST.set_root($<tnode>$);
+		AST.set_root(tmp);
 		insert_lookup = 1; outputReduction("translation_unit : translation_unit external_declaration");}
 	;
 
@@ -684,7 +684,7 @@ pointer
 		TreeNode* tmp = new TreeNode(AST_node_counter, "pointer_"+to_string(AST_node_counter),2);
 		++AST_node_counter;
 		tmp->assignChild(0,$<tnode>2);
-		tmp->assignChild(1,$<tnode>3)
+		tmp->assignChild(1,$<tnode>3);
 		$<tnode>$ = tmp;
 		outputReduction("pointer : STAR_tok type_qualifier_list pointer");}
 	;
@@ -1027,182 +1027,694 @@ statement_list
 	;
 
 selection_statement
-	: IF_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement {outputReduction("selection_statement : IF_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement");}
-	| IF_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement ELSE_tok statement {outputReduction("selection_statement : IF_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement ELSE_tok statement");}
-	| SWITCH_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement {outputReduction("selection_statement : SWITCH_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement");}
+	: IF_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "selection_statement_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>3);
+		tmp->assignChild(1,$<tnode>5);
+		$<tnode>$ = tmp;
+		outputReduction("selection_statement : IF_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement");}
+	| IF_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement ELSE_tok statement {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "selection_statement_"+to_string(AST_node_counter),3);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>3);
+		tmp->assignChild(1,$<tnode>5);
+		tmp->assignChild(2,$<tnode>7);
+		$<tnode>$ = tmp;
+		outputReduction("selection_statement : IF_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement ELSE_tok statement");}
+	| SWITCH_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "selection_statement_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>3);
+		tmp->assignChild(1,$<tnode>5);
+		$<tnode>$ = tmp;
+		outputReduction("selection_statement : SWITCH_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement");}
 	;
 
 iteration_statement
-	: WHILE_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement {outputReduction("iteration_statement : WHILE_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement");}
-	| DO_tok statement WHILE_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok SEMI_tok {outputReduction("iteration_statement : DO_tok statement WHILE_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok SEMI_tok");}
-	| FOR_tok OPEN_PAREN_tok SEMI_tok SEMI_tok CLOSE_PAREN_tok statement {outputReduction("iteration_statement : FOR_tok OPEN_PAREN_tok SEMI_tok SEMI_tok CLOSE_PAREN_tok statement");}
-	| FOR_tok OPEN_PAREN_tok SEMI_tok SEMI_tok expression CLOSE_PAREN_tok statement {outputReduction("iteration_statement : FOR_tok OPEN_PAREN_tok SEMI_tok SEMI_tok expression CLOSE_PAREN_tok statement");}
-	| FOR_tok OPEN_PAREN_tok SEMI_tok expression SEMI_tok CLOSE_PAREN_tok statement {outputReduction("iteration_statement : FOR_tok OPEN_PAREN_tok SEMI_tok expression SEMI_tok CLOSE_PAREN_tok statement");}
-	| FOR_tok OPEN_PAREN_tok SEMI_tok expression SEMI_tok expression CLOSE_PAREN_tok statement {outputReduction("iteration_statement : FOR_tok OPEN_PAREN_tok SEMI_tok expression SEMI_tok expression CLOSE_PAREN_tok statement");}
-	| FOR_tok OPEN_PAREN_tok expression SEMI_tok SEMI_tok CLOSE_PAREN_tok statement {outputReduction("iteration_statement : FOR_tok OPEN_PAREN_tok expression SEMI_tok SEMI_tok CLOSE_PAREN_tok statement");}
-	| FOR_tok OPEN_PAREN_tok expression SEMI_tok SEMI_tok expression CLOSE_PAREN_tok statement {outputReduction("iteration_statement : FOR_tok OPEN_PAREN_tok expression SEMI_tok SEMI_tok expression CLOSE_PAREN_tok statement");}
-	| FOR_tok OPEN_PAREN_tok expression SEMI_tok expression SEMI_tok CLOSE_PAREN_tok statement {outputReduction("iteration_statement : FOR_tok OPEN_PAREN_tok expression SEMI_tok expression SEMI_tok CLOSE_PAREN_tok statement");}
-	| FOR_tok OPEN_PAREN_tok expression SEMI_tok expression SEMI_tok expression CLOSE_PAREN_tok statement {outputReduction("iteration_statement : FOR_tok OPEN_PAREN_tok expression SEMI_tok expression SEMI_tok expression CLOSE_PAREN_tok statement");}
+	: WHILE_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "iteration_statement_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>3);
+		tmp->assignChild(1,$<tnode>5);
+		$<tnode>$ = tmp;
+		outputReduction("iteration_statement : WHILE_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement");}
+	| DO_tok statement WHILE_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok SEMI_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "iteration_statement_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>2);
+		tmp->assignChild(1,$<tnode>5);
+		$<tnode>$ = tmp;
+		outputReduction("iteration_statement : DO_tok statement WHILE_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok SEMI_tok");}
+	| FOR_tok OPEN_PAREN_tok SEMI_tok SEMI_tok CLOSE_PAREN_tok statement {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "iteration_statement_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>6);
+		$<tnode>$ = tmp;
+		outputReduction("iteration_statement : FOR_tok OPEN_PAREN_tok SEMI_tok SEMI_tok CLOSE_PAREN_tok statement");}
+	| FOR_tok OPEN_PAREN_tok SEMI_tok SEMI_tok expression CLOSE_PAREN_tok statement {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "iteration_statement_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>5);
+		tmp->assignChild(1,$<tnode>7);
+		$<tnode>$ = tmp;
+		outputReduction("iteration_statement : FOR_tok OPEN_PAREN_tok SEMI_tok SEMI_tok expression CLOSE_PAREN_tok statement");}
+	| FOR_tok OPEN_PAREN_tok SEMI_tok expression SEMI_tok CLOSE_PAREN_tok statement {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "iteration_statement_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>4);
+		tmp->assignChild(1,$<tnode>7);
+		$<tnode>$ = tmp;
+		outputReduction("iteration_statement : FOR_tok OPEN_PAREN_tok SEMI_tok expression SEMI_tok CLOSE_PAREN_tok statement");}
+	| FOR_tok OPEN_PAREN_tok SEMI_tok expression SEMI_tok expression CLOSE_PAREN_tok statement {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "iteration_statement_"+to_string(AST_node_counter),3);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>4);
+		tmp->assignChild(1,$<tnode>6);
+		tmp->assignChild(2,$<tnode>8);
+		$<tnode>$ = tmp;
+		outputReduction("iteration_statement : FOR_tok OPEN_PAREN_tok SEMI_tok expression SEMI_tok expression CLOSE_PAREN_tok statement");}
+	| FOR_tok OPEN_PAREN_tok expression SEMI_tok SEMI_tok CLOSE_PAREN_tok statement {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "iteration_statement_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>3);
+		tmp->assignChild(1,$<tnode>7);
+		$<tnode>$ = tmp;
+		outputReduction("iteration_statement : FOR_tok OPEN_PAREN_tok expression SEMI_tok SEMI_tok CLOSE_PAREN_tok statement");}
+	| FOR_tok OPEN_PAREN_tok expression SEMI_tok SEMI_tok expression CLOSE_PAREN_tok statement {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "iteration_statement_"+to_string(AST_node_counter),3);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>3);
+		tmp->assignChild(1,$<tnode>6);
+		tmp->assignChild(2,$<tnode>8);
+		$<tnode>$ = tmp;
+		outputReduction("iteration_statement : FOR_tok OPEN_PAREN_tok expression SEMI_tok SEMI_tok expression CLOSE_PAREN_tok statement");}
+	| FOR_tok OPEN_PAREN_tok expression SEMI_tok expression SEMI_tok CLOSE_PAREN_tok statement {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "iteration_statement_"+to_string(AST_node_counter),3);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>3);
+		tmp->assignChild(1,$<tnode>5);
+		tmp->assignChild(2,$<tnode>8);
+		$<tnode>$ = tmp;
+		outputReduction("iteration_statement : FOR_tok OPEN_PAREN_tok expression SEMI_tok expression SEMI_tok CLOSE_PAREN_tok statement");}
+	| FOR_tok OPEN_PAREN_tok expression SEMI_tok expression SEMI_tok expression CLOSE_PAREN_tok statement {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "iteration_statement_"+to_string(AST_node_counter),4);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>3);
+		tmp->assignChild(1,$<tnode>5);
+		tmp->assignChild(2,$<tnode>7);
+		tmp->assignChild(3,$<tnode>9);
+		$<tnode>$ = tmp;
+		outputReduction("iteration_statement : FOR_tok OPEN_PAREN_tok expression SEMI_tok expression SEMI_tok expression CLOSE_PAREN_tok statement");}
 	;
 
 jump_statement
-	: GOTO_tok identifier SEMI_tok {outputReduction("jump_statement : GOTO_tok identifier SEMI_tok");}
-	| CONTINUE_tok SEMI_tok {outputReduction("jump_statement : CONTINUE_tok SEMI_tok");}
-	| BREAK_tok SEMI_tok {outputReduction("jump_statement : BREAK_tok SEMI_tok");}
-	| RETURN_tok SEMI_tok {outputReduction("jump_statement : RETURN_tok SEMI_tok");}
-	| RETURN_tok expression SEMI_tok {outputReduction("jump_statement : RETURN_tok expression SEMI_tok");}
+	: GOTO_tok identifier SEMI_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "jump_statement_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>2);
+		$<tnode>$ = tmp;
+		outputReduction("jump_statement : GOTO_tok identifier SEMI_tok");}
+	| CONTINUE_tok SEMI_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "jump_statement_"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("jump_statement : CONTINUE_tok SEMI_tok");}
+	| BREAK_tok SEMI_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "jump_statement_"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("jump_statement : BREAK_tok SEMI_tok");}
+	| RETURN_tok SEMI_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "jump_statement_"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("jump_statement : RETURN_tok SEMI_tok");}
+	| RETURN_tok expression SEMI_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "jump_statement_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>2);
+		$<tnode>$ = tmp;
+		outputReduction("jump_statement : RETURN_tok expression SEMI_tok");}
 	;
 
 expression
-	: assignment_expression {outputReduction("expression : assignment_expression");}
-	| expression COMMA_tok assignment_expression {outputReduction("expression : expression COMMA_tok assignment_expression");}
+	: assignment_expression {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "expression_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("expression : assignment_expression");}
+	| expression COMMA_tok assignment_expression {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "expression_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>3);
+		$<tnode>$ = tmp;
+		outputReduction("expression : expression COMMA_tok assignment_expression");}
 	;
 
 assignment_expression
-	: conditional_expression {outputReduction("assignment_expression : conditional_expression");}
-	| unary_expression assignment_operator assignment_expression {outputReduction("assignment_expression : unary_expression assignment_operator assignment_expression");}
+	: conditional_expression {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "assignment_expression_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("assignment_expression : conditional_expression");}
+	| unary_expression assignment_operator assignment_expression {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "assignment_expression_"+to_string(AST_node_counter),3);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>2);
+		tmp->assignChild(2,$<tnode>3);
+		$<tnode>$ = tmp;
+		outputReduction("assignment_expression : unary_expression assignment_operator assignment_expression");}
 	;
 
 assignment_operator
-	: EQUAL_tok {outputReduction("assignment_operator : EQUAL_tok");}
-	| MULT_ASSIGN_tok {outputReduction("assignment_operator : MULT_ASSIGN_tok");}
-	| DIV_ASSIGN_tok {outputReduction("assignment_operator : DIV_ASSIGN_tok");}
-	| MOD_ASSIGN_tok {outputReduction("assignment_operator : MOD_ASSIGN_tok");}
-	| ADD_ASSIGN_tok {outputReduction("assignment_operator : ADD_ASSIGN_tok ");}
-	| SUB_ASSIGN_tok {outputReduction("assignment_operator : SUB_ASSIGN_tok");}
-	| LEFT_ASSIGN_tok {outputReduction("assignment_operator : LEFT_ASSIGN_tok");}
-	| RIGHT_ASSIGN_tok {outputReduction("assignment_operator : RIGHT_ASSIGN_tok");}
-	| AND_ASSIGN_tok {outputReduction("assignment_operator : AND_ASSIGN_tok");}
-	| XOR_ASSIGN_tok {outputReduction("assignment_operator : XOR_ASSIGN_tok");}
-	| OR_ASSIGN_tok {outputReduction("assignment_operator : OR_ASSIGN_tok");}
+	: EQUAL_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "assignment_operator_"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("assignment_operator : EQUAL_tok");}
+	| MULT_ASSIGN_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "assignment_operator_"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("assignment_operator : MULT_ASSIGN_tok");}
+	| DIV_ASSIGN_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "assignment_operator_"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("assignment_operator : DIV_ASSIGN_tok");}
+	| MOD_ASSIGN_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "assignment_operator_"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("assignment_operator : MOD_ASSIGN_tok");}
+	| ADD_ASSIGN_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "assignment_operator_"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("assignment_operator : ADD_ASSIGN_tok ");}
+	| SUB_ASSIGN_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "assignment_operator_"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("assignment_operator : SUB_ASSIGN_tok");}
+	| LEFT_ASSIGN_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "assignment_operator_"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("assignment_operator : LEFT_ASSIGN_tok");}
+	| RIGHT_ASSIGN_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "assignment_operator_"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("assignment_operator : RIGHT_ASSIGN_tok");}
+	| AND_ASSIGN_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "assignment_operator_"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("assignment_operator : AND_ASSIGN_tok");}
+	| XOR_ASSIGN_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "assignment_operator_"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("assignment_operator : XOR_ASSIGN_tok");}
+	| OR_ASSIGN_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "assignment_operator_"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("assignment_operator : OR_ASSIGN_tok");}
 	;
 
 conditional_expression
-	: logical_or_expression {outputReduction("conditional_expression : logical_or_expression");}
-	| logical_or_expression QUESTION_MARK_tok expression COLON_tok conditional_expression {outputReduction("conditional_expression : logical_or_expression QUESTION_MARK_tok expression COLON_tok conditional_expression");}
+	: logical_or_expression {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "conditional_expression_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("conditional_expression : logical_or_expression");}
+	| logical_or_expression QUESTION_MARK_tok expression COLON_tok conditional_expression {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "assignment_expression_"+to_string(AST_node_counter),3);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>3);
+		tmp->assignChild(2,$<tnode>5);
+		$<tnode>$ = tmp;
+		outputReduction("conditional_expression : logical_or_expression QUESTION_MARK_tok expression COLON_tok conditional_expression");}
 	;
 
 constant_expression
-	: conditional_expression {outputReduction("constant_expression : conditional_expression");}
+	: conditional_expression {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "constant_expression_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("constant_expression : conditional_expression");}
 	;
 
 logical_or_expression
-	: logical_and_expression {outputReduction("logical_or_expression : logical_and_expression");}
-	| logical_or_expression OR_OP_tok logical_and_expression {outputReduction("logical_or_expression : logical_or_expression OR_OP_tok logical_and_expression");}
+	: logical_and_expression {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "logical_or_expression_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("logical_or_expression : logical_and_expression");}
+	| logical_or_expression OR_OP_tok logical_and_expression {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "logical_or_expression_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>3);
+		$<tnode>$ = tmp;
+		outputReduction("logical_or_expression : logical_or_expression OR_OP_tok logical_and_expression");}
 	;
 
 logical_and_expression
-	: inclusive_or_expression {outputReduction("logical_and_expression : inclusive_or_expression");}
-	| logical_and_expression AND_OP_tok inclusive_or_expression {outputReduction("logical_and_expression : logical_and_expression AND_OP_tok inclusive_or_expression");}
+	: inclusive_or_expression {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "logical_and_expression_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("logical_and_expression : inclusive_or_expression");}
+	| logical_and_expression AND_OP_tok inclusive_or_expression {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "logical_and_expression_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>3);
+		$<tnode>$ = tmp;
+		outputReduction("logical_and_expression : logical_and_expression AND_OP_tok inclusive_or_expression");}
 	;
 
 inclusive_or_expression
-	: exclusive_or_expression {outputReduction("inclusive_or_expression : exclusive_or_expression");}
-	| inclusive_or_expression BAR_tok exclusive_or_expression {outputReduction("inclusive_or_expression : inclusive_or_expression BAR_tok exclusive_or_expression");}
+	: exclusive_or_expression {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "inclusive_or_expression"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("inclusive_or_expression : exclusive_or_expression");}
+	| inclusive_or_expression BAR_tok exclusive_or_expression {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "inclusive_or_expression"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>3);
+		$<tnode>$ = tmp;
+		outputReduction("inclusive_or_expression : inclusive_or_expression BAR_tok exclusive_or_expression");}
 	;
 
 exclusive_or_expression
-	: and_expression {outputReduction("exclusive_or_expression : and_expression ");}
-	| exclusive_or_expression CARET_tok and_expression {outputReduction("exclusive_or_expression : exclusive_or_expression CARET_tok and_expression");}
+	: and_expression {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "exclusive_or_expression_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("exclusive_or_expression : and_expression ");}
+	| exclusive_or_expression CARET_tok and_expression {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "exclusive_or_expression_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>3);
+		$<tnode>$ = tmp;
+		outputReduction("exclusive_or_expression : exclusive_or_expression CARET_tok and_expression");}
 	;
 
 and_expression
-	: equality_expression {outputReduction("and_expression : equality_expression");}
-	| and_expression AMP_tok equality_expression {outputReduction("and_expression : and_expression AMP_tok equality_expression");}
+	: equality_expression {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "and_expression_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("and_expression : equality_expression");}
+	| and_expression AMP_tok equality_expression {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "and_expression_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>3);
+		$<tnode>$ = tmp;
+		outputReduction("and_expression : and_expression AMP_tok equality_expression");}
 	;
 
 equality_expression
-	: relational_expression {outputReduction("equality_expression : relational_expression");}
-	| equality_expression EQ_OP_tok relational_expression {outputReduction("equality_expression : equality_expression EQ_OP_tok relational_expression");}
-	| equality_expression NE_OP_tok relational_expression {outputReduction("equality_expression : equality_expression NE_OP_tok relational_expression");}
+	: relational_expression {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "equality_expression_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("equality_expression : relational_expression");}
+	| equality_expression EQ_OP_tok relational_expression {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "equality_expression_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>3);
+		$<tnode>$ = tmp;
+		outputReduction("equality_expression : equality_expression EQ_OP_tok relational_expression");}
+	| equality_expression NE_OP_tok relational_expression {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "equality_expression_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>3);
+		$<tnode>$ = tmp;
+		outputReduction("equality_expression : equality_expression NE_OP_tok relational_expression");}
 	;
 
 relational_expression
-	: shift_expression {outputReduction("relational_expression : shift_expression");}
-	| relational_expression LT_tok shift_expression {outputReduction("relational_expression : relational_expression LT_tok shift_expression");}
-	| relational_expression GT_tok shift_expression {outputReduction("relational_expression : relational_expression GT_tok shift_expression");}
-	| relational_expression LE_OP_tok shift_expression {outputReduction("relational_expression : relational_expression LE_OP_tok shift_expression");}
-	| relational_expression GE_OP_tok shift_expression {outputReduction("relational_expression : relational_expression GE_OP_tok shift_expression");}
+	: shift_expression {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "relational_expression_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("relational_expression : shift_expression");}
+	| relational_expression LT_tok shift_expression {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "relational_expression_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>3);
+		$<tnode>$ = tmp;
+		outputReduction("relational_expression : relational_expression LT_tok shift_expression");}
+	| relational_expression GT_tok shift_expression {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "relational_expression_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>3);
+		$<tnode>$ = tmp;
+		outputReduction("relational_expression : relational_expression GT_tok shift_expression");}
+	| relational_expression LE_OP_tok shift_expression {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "relational_expression_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>3);
+		$<tnode>$ = tmp;
+		outputReduction("relational_expression : relational_expression LE_OP_tok shift_expression");}
+	| relational_expression GE_OP_tok shift_expression {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "relational_expression_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>3);
+		$<tnode>$ = tmp;
+		outputReduction("relational_expression : relational_expression GE_OP_tok shift_expression");}
 	;
 
 shift_expression
-	: additive_expression {outputReduction("shift_expression : additive_expression");}
-	| shift_expression LEFT_OP_tok additive_expression {outputReduction("shift_expression : shift_expression LEFT_OP_tok additive_expression");}
-	| shift_expression RIGHT_OP_tok additive_expression {outputReduction("shift_expression : shift_expression RIGHT_OP_tok additive_expression");}
+	: additive_expression {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "shift_expression_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("shift_expression : additive_expression");}
+	| shift_expression LEFT_OP_tok additive_expression {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "shift_expression_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>3);
+		$<tnode>$ = tmp;
+		outputReduction("shift_expression : shift_expression LEFT_OP_tok additive_expression");}
+	| shift_expression RIGHT_OP_tok additive_expression {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "shift_expression_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>3);
+		$<tnode>$ = tmp;
+		outputReduction("shift_expression : shift_expression RIGHT_OP_tok additive_expression");}
 	;
 
 additive_expression
-	: multiplicative_expression {outputReduction("additive_expression : multiplicative_expression");}
-	| additive_expression PLUS_tok multiplicative_expression {outputReduction("additive_expression : additive_expression PLUS_tok multiplicative_expression");}
-	| additive_expression MINUS_tok multiplicative_expression {outputReduction("additive_expression : additive_expression MINUS_tok multiplicative_expression");}
+	: multiplicative_expression {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "additive_expression_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("additive_expression : multiplicative_expression");}
+	| additive_expression PLUS_tok multiplicative_expression {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "additive_expression_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>3);
+		$<tnode>$ = tmp;
+		outputReduction("additive_expression : additive_expression PLUS_tok multiplicative_expression");}
+	| additive_expression MINUS_tok multiplicative_expression {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "additive_expression_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>3);
+		$<tnode>$ = tmp;
+		outputReduction("additive_expression : additive_expression MINUS_tok multiplicative_expression");}
 	;
 
 multiplicative_expression
-	: cast_expression {outputReduction("multiplicative_expression : cast_expression");}
-	| multiplicative_expression STAR_tok cast_expression {outputReduction("multiplicative_expression : multiplicative_expression STAR_tok cast_expression");}
-	| multiplicative_expression DIV_tok cast_expression {outputReduction("multiplicative_expression : multiplicative_expression DIV_tok cast_expression");}
-	| multiplicative_expression PERCENT_tok cast_expression {outputReduction("multiplicative_expression : multiplicative_expression PERCENT_tok cast_expression");}
+	: cast_expression {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "multiplicative_expression_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("multiplicative_expression : cast_expression");}
+	| multiplicative_expression STAR_tok cast_expression {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "multiplicative_expression_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>3);
+		$<tnode>$ = tmp;
+		outputReduction("multiplicative_expression : multiplicative_expression STAR_tok cast_expression");}
+	| multiplicative_expression DIV_tok cast_expression {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "multiplicative_expression_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>3);
+		$<tnode>$ = tmp;
+		outputReduction("multiplicative_expression : multiplicative_expression DIV_tok cast_expression");}
+	| multiplicative_expression PERCENT_tok cast_expression {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "multiplicative_expression_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>3);
+		$<tnode>$ = tmp;
+		outputReduction("multiplicative_expression : multiplicative_expression PERCENT_tok cast_expression");}
 	;
 
 cast_expression
-	: unary_expression {outputReduction("cast_expression : unary_expression");}
-	| OPEN_PAREN_tok type_name CLOSE_PAREN_tok cast_expression {outputReduction("cast_expression : OPEN_PAREN_tok type_name CLOSE_PAREN_tok cast_expression");}
+	: unary_expression {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "cast_expression_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("cast_expression : unary_expression");}
+	| OPEN_PAREN_tok type_name CLOSE_PAREN_tok cast_expression {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "cast_expression_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>2);
+		tmp->assignChild(1,$<tnode>4);
+		$<tnode>$ = tmp;
+		outputReduction("cast_expression : OPEN_PAREN_tok type_name CLOSE_PAREN_tok cast_expression");}
 	;
 
 unary_expression
-	: postfix_expression {outputReduction("unary_expression : postfix_expression");}
-	| INC_OP_tok unary_expression {outputReduction("unary_expression : INC_OP_tok unary_expression");}
-	| DEC_OP_tok unary_expression {outputReduction("unary_expression : DEC_OP_tok unary_expression");}
-	| unary_operator cast_expression {outputReduction("unary_expression : unary_operator cast_expression");}
-	| SIZEOF_tok unary_expression {outputReduction("unary_expression : SIZEOF_tok unary_expression");}
-	| SIZEOF_tok OPEN_PAREN_tok type_name CLOSE_PAREN_tok {outputReduction("unary_expression : SIZEOF_tok OPEN_PAREN_tok type_name CLOSE_PAREN_tok");}
+	: postfix_expression {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "unary_expression_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("unary_expression : postfix_expression");}
+	| INC_OP_tok unary_expression {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "unary_expression_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>2);
+		$<tnode>$ = tmp;
+		outputReduction("unary_expression : INC_OP_tok unary_expression");}
+	| DEC_OP_tok unary_expression {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "unary_expression_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>2);
+		$<tnode>$ = tmp;
+		outputReduction("unary_expression : DEC_OP_tok unary_expression");}
+	| unary_operator cast_expression {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "unary_expression_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>2);
+		$<tnode>$ = tmp;
+		outputReduction("unary_expression : unary_operator cast_expression");}
+	| SIZEOF_tok unary_expression {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "unary_expression_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>2);
+		$<tnode>$ = tmp;
+		outputReduction("unary_expression : SIZEOF_tok unary_expression");}
+	| SIZEOF_tok OPEN_PAREN_tok type_name CLOSE_PAREN_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "unary_expression_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>3);
+		$<tnode>$ = tmp;
+		outputReduction("unary_expression : SIZEOF_tok OPEN_PAREN_tok type_name CLOSE_PAREN_tok");}
 	;
 
 unary_operator
-	: AMP_tok {outputReduction("unary_operator : AMP_tok");}
-	| STAR_tok {outputReduction("unary_operator : STAR_tok");}
-	| PLUS_tok {outputReduction("unary_operator : PLUS_tok");}
-	| MINUS_tok {outputReduction("unary_operator : MINUS_tok");}
-	| TILDA_tok {outputReduction("unary_operator : TILDA_tok");}
-	| NOT_tok {outputReduction("unary_operator : NOT_tok");}
+	: AMP_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "unary_operator_"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("unary_operator : AMP_tok");}
+	| STAR_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "unary_operator_"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("unary_operator : STAR_tok");}
+	| PLUS_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "unary_operator_"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("unary_operator : PLUS_tok");}
+	| MINUS_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "unary_operator_"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("unary_operator : MINUS_tok");}
+	| TILDA_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "unary_operator_"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("unary_operator : TILDA_tok");}
+	| NOT_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "unary_operator_"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("unary_operator : NOT_tok");}
 	;
 
 postfix_expression
-	: primary_expression {outputReduction("postfix_expression : primary_expression");}
-	| postfix_expression OPEN_BRACKET_tok expression CLOSE_BRACKET_tok {outputReduction("postfix_expression : postfix_expression OPEN_BRACKET_tok expression CLOSE_BRACKET_tok");}
-	| postfix_expression OPEN_PAREN_tok CLOSE_PAREN_tok {outputReduction("postfix_expression : postfix_expression OPEN_PAREN_tok CLOSE_PAREN_tok");}
-	| postfix_expression OPEN_PAREN_tok argument_expression_list CLOSE_PAREN_tok {outputReduction("postfix_expression : postfix_expression OPEN_PAREN_tok argument_expression_list CLOSE_PAREN_tok");}
-	| postfix_expression PERIOD_tok identifier {outputReduction("postfix_expression : postfix_expression PERIOD_tok identifier");}
-	| postfix_expression PTR_OP_tok identifier {outputReduction("postfix_expression : postfix_expression PTR_OP_tok identifier");}
-	| postfix_expression INC_OP_tok {outputReduction("postfix_expression : postfix_expression INC_OP_tok");}
-	| postfix_expression DEC_OP_tok {outputReduction("postfix_expression : postfix_expression DEC_OP_tok");}
+	: primary_expression {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "postfix_expression_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("postfix_expression : primary_expression");}
+	| postfix_expression OPEN_BRACKET_tok expression CLOSE_BRACKET_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "postfix_expression_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>3);
+		$<tnode>$ = tmp;
+		outputReduction("postfix_expression : postfix_expression OPEN_BRACKET_tok expression CLOSE_BRACKET_tok");}
+	| postfix_expression OPEN_PAREN_tok CLOSE_PAREN_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "postfix_expression_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("postfix_expression : postfix_expression OPEN_PAREN_tok CLOSE_PAREN_tok");}
+	| postfix_expression OPEN_PAREN_tok argument_expression_list CLOSE_PAREN_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "postfix_expression_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>3);
+		$<tnode>$ = tmp;
+		outputReduction("postfix_expression : postfix_expression OPEN_PAREN_tok argument_expression_list CLOSE_PAREN_tok");}
+	| postfix_expression PERIOD_tok identifier {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "postfix_expression_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>3);
+		$<tnode>$ = tmp;
+		outputReduction("postfix_expression : postfix_expression PERIOD_tok identifier");}
+	| postfix_expression PTR_OP_tok identifier {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "postfix_expression_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>3);
+		$<tnode>$ = tmp;
+		outputReduction("postfix_expression : postfix_expression PTR_OP_tok identifier");}
+	| postfix_expression INC_OP_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "postfix_expression_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("postfix_expression : postfix_expression INC_OP_tok");}
+	| postfix_expression DEC_OP_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "postfix_expression_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("postfix_expression : postfix_expression DEC_OP_tok");}
 	;
 
 primary_expression
-	: identifier {outputReduction("primary_expression : identifier");}
-	| constant {outputReduction("primary_expression : constant");}
-	| string {outputReduction("primary_expression : string");}
-	| OPEN_PAREN_tok expression CLOSE_PAREN_tok {outputReduction("primary_expression : OPEN_PAREN_tok expression CLOSE_PAREN_tok");}
+	: identifier {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "primary_expression_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("primary_expression : identifier");}
+	| constant {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "primary_expression_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("primary_expression : constant");}
+	| string {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "primary_expression_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("primary_expression : string");}
+	| OPEN_PAREN_tok expression CLOSE_PAREN_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "primary_expression_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>2);
+		$<tnode>$ = tmp;
+		outputReduction("primary_expression : OPEN_PAREN_tok expression CLOSE_PAREN_tok");}
 	;
 
 argument_expression_list
-	: assignment_expression {outputReduction("argument_expression_list : assignment_expression");}
-	| argument_expression_list COMMA_tok assignment_expression {outputReduction("argument_expression_list : argument_expression_list COMMA_tok assignment_expression");}
+	: assignment_expression {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "argument_expression_list_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("argument_expression_list : assignment_expression");}
+	| argument_expression_list COMMA_tok assignment_expression {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "argument_expression_list_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>3);
+		$<tnode>$ = tmp;
+		outputReduction("argument_expression_list : argument_expression_list COMMA_tok assignment_expression");}
 	;
 
 constant
-	: INTEGER_CONSTANT_tok {outputReduction("constant : INTEGER_CONSTANT_tok");}
-	| CHARACTER_CONSTANT_tok {outputReduction("constant : CHARACTER_CONSTANT_tok");}
-	| FLOATING_CONSTANT_tok {outputReduction("constant : FLOATING_CONSTANT_tok");}
-	| ENUMERATION_CONSTANT_tok {outputReduction("constant : ENUMERATION_CONSTANT_tok");}
+	: INTEGER_CONSTANT_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "constant"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("constant : INTEGER_CONSTANT_tok");}
+	| CHARACTER_CONSTANT_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "constant"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("constant : CHARACTER_CONSTANT_tok");}
+	| FLOATING_CONSTANT_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "constant"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("constant : FLOATING_CONSTANT_tok");}
+	| ENUMERATION_CONSTANT_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "constant"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("constant : ENUMERATION_CONSTANT_tok");}
 	;
 
 string
-	: STRING_LITERAL_tok {outputReduction("string : STRING_LITERAL_tok");}
+	: STRING_LITERAL_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "string_"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("string : STRING_LITERAL_tok");}
 	;
 
 identifier
-	: ID_tok { outputReduction("identifier : ID_tok");}
+	: ID_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "identifier_"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("identifier : ID_tok");}
 	;
 %%
 
@@ -1250,7 +1762,7 @@ int main(int argc, char **argv)
 	levels[4] = 11;
 	
 	outfile = fopen("testCases/out.s","w");
-	out_log = fopen(logName,"a");
+	out_log = fopen(logName,"w");
 	tokenFile = fopen("testCases/tokenFile.txt","w");
 	parseFile = fopen("testCases/parseFile.txt","w");
 	//productionFile = fopen("productionFile.txt","w");
@@ -1360,6 +1872,7 @@ int main(int argc, char **argv)
 	//yacc_debug_level = 1;
 	yyparse();
 
+	AST.tree_to_gv("graphs/default.gv");
 	//while((tok = yylex()))
 	//{
 	
@@ -1428,4 +1941,5 @@ void outputReduction(const char *production)
 		fprintf(parseFile,"%s\n",production);
 		printf("%s\n",production);
 	}
+	
 }
