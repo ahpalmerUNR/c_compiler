@@ -134,6 +134,9 @@
 	class TreeNode* tnode;
 }
 
+%right THEN
+%right ELSE_tok
+
 %start translation_unit
 %%
 
@@ -1028,7 +1031,7 @@ statement_list
 	;
 
 selection_statement
-	: IF_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement {
+	: IF_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement %prec THEN  {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "selection_statement_"+to_string(AST_node_counter),2);
 		++AST_node_counter;
 		tmp->assignChild(0,$<tnode>3);
