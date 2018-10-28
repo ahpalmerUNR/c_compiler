@@ -133,8 +133,8 @@
 	class TreeNode* tnode;
 }
 
-%left THEN
-%left ELSE_tok
+%right THEN
+%right ELSE_tok
 
 %start translation_unit
 %%
