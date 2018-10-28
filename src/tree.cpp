@@ -2,16 +2,15 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-27 14:10:44
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-10-27 15:52:27
+* @Last Modified time: 2018-10-27 16:16:18
 */
 #include "tree.h"
 
-TreeNode::TreeNode(TreeNode* parentTreeNode,int TreeNodeNum,string TreeNodeProductionName,int numberOfChildren)
+TreeNode::TreeNode(int TreeNodeNum,string TreeNodeProductionName,int numberOfChildren)
 {
 	TreeNodeNumber = TreeNodeNum;
 	numberChildren = numberOfChildren;
 	TreeNodeName = TreeNodeProductionName;
-	parent = parentTreeNode;
 	children.resize(numberChildren);
 	
 }

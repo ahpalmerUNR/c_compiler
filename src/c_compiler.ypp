@@ -23,8 +23,10 @@
 	
 	
 	Tree AST;
-
-
+	int AST_node_counter;
+	int Label_counter;
+	
+	
 	void outputReduction(const char *s);
 
 	void yyerror(char const *msg);
@@ -128,250 +130,900 @@
 	char* lstr;
 	double ldoub;
 	class Node* lnode;
+	class TreeNode* tnode;
 }
 
 %start translation_unit
 %%
 
 translation_unit
-	: {insert_lookup = 0;} external_declaration {insert_lookup = 1; outputReduction("translation_unit : external_declaration");}
-	| translation_unit {insert_lookup = 0;} external_declaration {insert_lookup = 1; outputReduction("translation_unit : translation_unit external_declaration");}
+	: {insert_lookup = 0;} external_declaration {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "translation_unit_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>2);
+		$<tnode>$ = tmp;
+		AST.set_root($<tnode>$);
+		insert_lookup = 1;  outputReduction("translation_unit : external_declaration");}
+	| translation_unit {insert_lookup = 0;} external_declaration {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "translation_unit_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>3);
+		$<tnode>$ = tmp;
+		AST.set_root($<tnode>$);
+		insert_lookup = 1; outputReduction("translation_unit : translation_unit external_declaration");}
 	;
 
 external_declaration
-	: function_definition {outputReduction("external_declaration : function_definition");}
-	|  declaration {outputReduction("external_declaration : declaration");}
+	: function_definition {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "external_declaration_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("external_declaration : function_definition");}
+	|  declaration {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "external_declaration_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("external_declaration : declaration");}
 	;
 
 function_definition
-	: declarator compound_statement {outputReduction("function_definition : declarator compound_statement");}
-	| declarator   declaration_list {insert_lookup=1;}  compound_statement {outputReduction("function_definition : declarator declaration_list compound_statement");}
-	| declaration_specifiers declarator compound_statement {outputReduction("function_definition : declaration_specifiers declarator compound_statement");}
-	| declaration_specifiers declarator   declaration_list {insert_lookup=1;} compound_statement {outputReduction("function_definition : declaration_specifiers declarator declaration_list compound_statement");}
+	: declarator compound_statement {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "function_definition_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>2);
+		$<tnode>$ = tmp;
+		outputReduction("function_definition : declarator compound_statement");}
+	| declarator   declaration_list {insert_lookup=1;}  compound_statement {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "function_definition_"+to_string(AST_node_counter),3);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>2);
+		tmp->assignChild(2,$<tnode>4);
+		$<tnode>$ = tmp;
+		outputReduction("function_definition : declarator declaration_list compound_statement");}
+	| declaration_specifiers declarator compound_statement {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "function_definition_"+to_string(AST_node_counter),3);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>2);
+		tmp->assignChild(2,$<tnode>3);
+		$<tnode>$ = tmp;
+		outputReduction("function_definition : declaration_specifiers declarator compound_statement");}
+	| declaration_specifiers declarator   declaration_list {insert_lookup=1;} compound_statement {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "function_definition_"+to_string(AST_node_counter),4);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>2);
+		tmp->assignChild(2,$<tnode>3);
+		tmp->assignChild(3,$<tnode>5);
+		$<tnode>$ = tmp;
+		outputReduction("function_definition : declaration_specifiers declarator declaration_list compound_statement");}
 	;
 
 declaration
-	: declaration_specifiers SEMI_tok {outputReduction("declaration : declaration_specifiers SEMI_tok");}
-	| declaration_specifiers init_declarator_list SEMI_tok {outputReduction("declaration : declaration_specifiers init_declarator_list SEMI_tok");}
+	: declaration_specifiers SEMI_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "declaration_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("declaration : declaration_specifiers SEMI_tok");}
+	| declaration_specifiers init_declarator_list SEMI_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "declaration_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>2);
+		$<tnode>$ = tmp;
+		outputReduction("declaration : declaration_specifiers init_declarator_list SEMI_tok");}
 
 declaration_list
-	: {insert_lookup=0;} declaration {insert_lookup = 1; outputReduction("declaration_list : declaration");}
-	|  declaration_list {insert_lookup=0;} declaration {insert_lookup=1; outputReduction("declaration_list : declaration_list declaration");}
+	: {insert_lookup=0;} declaration {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "declaration_list_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>2);
+		$<tnode>$ = tmp;
+		insert_lookup = 1; outputReduction("declaration_list : declaration");}
+	|  declaration_list {insert_lookup=0;} declaration {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "declaration_list_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>3);
+		$<tnode>$ = tmp;
+		insert_lookup=1; outputReduction("declaration_list : declaration_list declaration");}
 	;
 
 declaration_specifiers
-	: storage_class_specifier {outputReduction("declaration_specifiers : storage_class_specifier");}
-	| storage_class_specifier declaration_specifiers {outputReduction("declaration_specifiers : storage_class_specifier declaration_specifiers");}
-	| type_specifier {outputReduction("declaration_specifiers : type_specifier");}
-	| type_specifier declaration_specifiers {outputReduction("declaration_specifiers : type_specifier declaration_specifiers");}
-	| type_qualifier {outputReduction("declaration_specifiers : type_qualifier");}
-	| type_qualifier declaration_specifiers {outputReduction("declaration_specifiers : type_qualifier declaration_specifiers");}
+	: storage_class_specifier {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "declaration_specifiers_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("declaration_specifiers : storage_class_specifier");}
+	| storage_class_specifier declaration_specifiers {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "declaration_specifiers_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>2);
+		$<tnode>$ = tmp;
+		outputReduction("declaration_specifiers : storage_class_specifier declaration_specifiers");}
+	| type_specifier {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "declaration_specifiers_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("declaration_specifiers : type_specifier");}
+	| type_specifier declaration_specifiers {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "declaration_specifiers_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>2);
+		$<tnode>$ = tmp;
+		outputReduction("declaration_specifiers : type_specifier declaration_specifiers");}
+	| type_qualifier {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "declaration_specifiers_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("declaration_specifiers : type_qualifier");}
+	| type_qualifier declaration_specifiers {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "declaration_specifiers_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>2);
+		$<tnode>$ = tmp;
+		outputReduction("declaration_specifiers : type_qualifier declaration_specifiers");}
 	;
 
 storage_class_specifier
-	: AUTO_tok {outputReduction("storage_class_specifier : AUTO_tok");}
-	| REGISTER_tok {outputReduction("storage_class_specifier : REGISTER_tok");}
-	| STATIC_tok {outputReduction("storage_class_specifier : STATIC_tok");}
-	| EXTERN_tok {outputReduction("storage_class_specifier : EXTERN_tok");}
-	| TYPEDEF_tok {outputReduction("storage_class_specifier : TYPEDEF_tok");}
+	: AUTO_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "storage_class_specifier"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("storage_class_specifier : AUTO_tok");}
+	| REGISTER_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "storage_class_specifier"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("storage_class_specifier : REGISTER_tok");}
+	| STATIC_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "storage_class_specifier"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("storage_class_specifier : STATIC_tok");}
+	| EXTERN_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "storage_class_specifier"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("storage_class_specifier : EXTERN_tok");}
+	| TYPEDEF_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "storage_class_specifier"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("storage_class_specifier : TYPEDEF_tok");}
 	;
 
 type_specifier
-	: VOID_tok { outputReduction("type_specifier : VOID_tok");}
-	| CHAR_tok {outputReduction("type_specifier : CHAR_tok");}
-	| SHORT_tok { outputReduction("type_specifier : SHORT_tok");}
-	| INT_tok { outputReduction("type_specifier : INT_tok");}
-	| LONG_tok { outputReduction("type_specifier : LONG_tok");}
-	| FLOAT_tok { outputReduction("type_specifier : FLOAT_tok");}
-	| DOUBLE_tok { outputReduction("type_specifier : DOUBLE_tok");}
-	| SIGNED_tok { outputReduction("type_specifier : SIGNED_tok");}
-	| UNSIGNED_tok { outputReduction("type_specifier : UNSIGNED_tok");}
-	| struct_or_union_specifier { outputReduction("type_specifier : struct_or_union_specifier");}
-	| ENUM_tok { outputReduction("type_specifier : ENUM_tok");}
-	| TYPEDEF_NAME_tok { outputReduction("type_specifier : TYPEDEF_NAME_tok");}
+	: VOID_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("type_specifier : VOID_tok");}
+	| CHAR_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("type_specifier : CHAR_tok");}
+	| SHORT_tok { 
+		TreeNode* tmp = new TreeNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("type_specifier : SHORT_tok");}
+	| INT_tok { 
+		TreeNode* tmp = new TreeNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("type_specifier : INT_tok");}
+	| LONG_tok { 
+		TreeNode* tmp = new TreeNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("type_specifier : LONG_tok");}
+	| FLOAT_tok { 
+		TreeNode* tmp = new TreeNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("type_specifier : FLOAT_tok");}
+	| DOUBLE_tok { 
+		TreeNode* tmp = new TreeNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("type_specifier : DOUBLE_tok");}
+	| SIGNED_tok { 
+		TreeNode* tmp = new TreeNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("type_specifier : SIGNED_tok");}
+	| UNSIGNED_tok { 
+		TreeNode* tmp = new TreeNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("type_specifier : UNSIGNED_tok");}
+	| struct_or_union_specifier { 
+		TreeNode* tmp = new TreeNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("type_specifier : struct_or_union_specifier");}
+	| ENUM_tok { 
+		TreeNode* tmp = new TreeNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("type_specifier : ENUM_tok");}
+	| TYPEDEF_NAME_tok { 
+		TreeNode* tmp = new TreeNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("type_specifier : TYPEDEF_NAME_tok");}
 	;
 
 type_qualifier
-	: CONST_tok {outputReduction("type_qualifier : CONST_tok");}
-	| VOLATILE_tok {outputReduction("type_qualifier : VOLATILE_tok");}
+	: CONST_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "type_qualifier_"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("type_qualifier : CONST_tok");}
+	| VOLATILE_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "type_qualifier_"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("type_qualifier : VOLATILE_tok");}
 	;
 
 struct_or_union_specifier
-	: struct_or_union identifier OPEN_BRACE_tok   struct_declaration_list   CLOSE_BRACE_tok {outputReduction("struct_or_union_specifier : struct_or_union identifier OPEN_BRACE_tok struct_declaration_list CLOSE_BRACE_tok");}
-	| struct_or_union OPEN_BRACE_tok   struct_declaration_list   CLOSE_BRACE_tok {outputReduction("struct_or_union_specifier : struct_or_union OPEN_BRACE_tok struct_declaration_list CLOSE_BRACE_tok");}
-	| struct_or_union identifier {outputReduction("struct_or_union_specifier : struct_or_union identifier");}
+	: struct_or_union identifier OPEN_BRACE_tok   struct_declaration_list   CLOSE_BRACE_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "struct_or_union_specifier_"+to_string(AST_node_counter),3);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>2);
+		tmp->assignChild(2,$<tnode>4);
+		$<tnode>$ = tmp;
+		outputReduction("struct_or_union_specifier : struct_or_union identifier OPEN_BRACE_tok struct_declaration_list CLOSE_BRACE_tok");}
+	| struct_or_union OPEN_BRACE_tok   struct_declaration_list   CLOSE_BRACE_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "struct_or_union_specifier_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>3);
+		$<tnode>$ = tmp;
+		outputReduction("struct_or_union_specifier : struct_or_union OPEN_BRACE_tok struct_declaration_list CLOSE_BRACE_tok");}
+	| struct_or_union identifier {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "struct_or_union_specifier_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>2);
+		$<tnode>$ = tmp;
+		outputReduction("struct_or_union_specifier : struct_or_union identifier");}
 	;
 
 struct_or_union
-	: STRUCT_tok {outputReduction("struct_or_union : STRUCT_tok");}
-	| UNION_tok {outputReduction("struct_or_union : UNION_tok");}
+	: STRUCT_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "struct_or_union_"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("struct_or_union : STRUCT_tok");}
+	| UNION_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "struct_or_union_"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("struct_or_union : UNION_tok");}
 	;
 
 struct_declaration_list
-	: struct_declaration {outputReduction("struct_declaration_list : struct_declaration");}
-	| struct_declaration_list struct_declaration {outputReduction("struct_declaration_list : struct_declaration_list struct_declaration");}
+	: struct_declaration {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "struct_declaration_list_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("struct_declaration_list : struct_declaration");}
+	| struct_declaration_list struct_declaration {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "struct_declaration_list_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>2);
+		$<tnode>$ = tmp;
+		outputReduction("struct_declaration_list : struct_declaration_list struct_declaration");}
 	;
 
 init_declarator_list
-	: init_declarator {outputReduction("init_declarator_list : init_declarator");}
-	| init_declarator_list COMMA_tok init_declarator {outputReduction("init_declarator_list : init_declarator_list COMMA_tok init_declarator");}
+	: init_declarator {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "init_declarator_list_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("init_declarator_list : init_declarator");}
+	| init_declarator_list COMMA_tok init_declarator {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "init_declarator_list_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>3);
+		$<tnode>$ = tmp;
+		outputReduction("init_declarator_list : init_declarator_list COMMA_tok init_declarator");}
 	;
 
 init_declarator
-	: declarator {outputReduction("init_declarator : declarator");}
-	| declarator EQUAL_tok initializer {outputReduction("init_declarator : declarator EQUAL_tok initializer");}
+	: declarator {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "init_declarator_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("init_declarator : declarator");}
+	| declarator EQUAL_tok initializer {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "init_declarator_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>3);
+		$<tnode>$ = tmp;
+		outputReduction("init_declarator : declarator EQUAL_tok initializer");}
 	;
 
 struct_declaration
-	: specifier_qualifier_list struct_declarator_list SEMI_tok {outputReduction("struct_declaration : specifier_qualifier_list struct_declarator_list SEMI_tok");}
+	: specifier_qualifier_list struct_declarator_list SEMI_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "struct_declaration_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>2);
+		$<tnode>$ = tmp;
+		outputReduction("struct_declaration : specifier_qualifier_list struct_declarator_list SEMI_tok");}
 	;
 
 specifier_qualifier_list
-	: type_specifier {outputReduction("specifier_qualifier_list : type_specifier");}
-	| type_specifier specifier_qualifier_list {outputReduction("specifier_qualifier_list : type_specifier specifier_qualifier_list");}
-	| type_qualifier {outputReduction("specifier_qualifier_list : type_qualifier");}
-	| type_qualifier specifier_qualifier_list {outputReduction("specifier_qualifier_list : type_qualifier specifier_qualifier_list");}
+	: type_specifier {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "specifier_qualifier_list_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("specifier_qualifier_list : type_specifier");}
+	| type_specifier specifier_qualifier_list {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "specifier_qualifier_list_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(0,$<tnode>2);
+		$<tnode>$ = tmp;
+		outputReduction("specifier_qualifier_list : type_specifier specifier_qualifier_list");}
+	| type_qualifier {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "specifier_qualifier_list_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("specifier_qualifier_list : type_qualifier");}
+	| type_qualifier specifier_qualifier_list {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "specifier_qualifier_list_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(0,$<tnode>2);
+		$<tnode>$ = tmp;
+		outputReduction("specifier_qualifier_list : type_qualifier specifier_qualifier_list");}
 	;
 
 struct_declarator_list
-	: struct_declarator {outputReduction("struct_declarator_list : struct_declarator");}
-	| struct_declarator_list COMMA_tok struct_declarator {outputReduction("struct_declarator_list : struct_declarator_list COMMA_tok struct_declarator");}
+	: struct_declarator {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "specifier_qualifier_list_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("struct_declarator_list : struct_declarator");}
+	| struct_declarator_list COMMA_tok struct_declarator {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "specifier_qualifier_list_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>3);
+		$<tnode>$ = tmp;
+		outputReduction("struct_declarator_list : struct_declarator_list COMMA_tok struct_declarator");}
 	;
 
 struct_declarator
-	: declarator {outputReduction("struct_declarator : declarator");}
-	| COLON_tok constant_expression {outputReduction("struct_declarator : COLON_tok constant_expression");}
-	| declarator COLON_tok constant_expression {outputReduction("struct_declarator : declarator COLON_tok constant_expression");}
+	: declarator {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "struct_declarator_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("struct_declarator : declarator");}
+	| COLON_tok constant_expression {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "struct_declarator_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>2);
+		$<tnode>$ = tmp;
+		outputReduction("struct_declarator : COLON_tok constant_expression");}
+	| declarator COLON_tok constant_expression {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "struct_declarator_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>3);
+		$<tnode>$ = tmp;
+		outputReduction("struct_declarator : declarator COLON_tok constant_expression");}
 	;
 
 enum_specifier
-	: ENUM_tok OPEN_BRACE_tok enumerator_list CLOSE_BRACE_tok {outputReduction("enum_specifier : ENUM_tok OPEN_BRACE_tok enumerator_list CLOSE_BRACE_tok");}
-	| ENUM_tok identifier OPEN_BRACE_tok enumerator_list CLOSE_BRACE_tok {outputReduction("enum_specifier : ENUM_tok identifier OPEN_BRACE_tok enumerator_list CLOSE_BRACE_tok");}
-	| ENUM_tok identifier {outputReduction("enum_specifier : ENUM_tok identifier");}
+	: ENUM_tok OPEN_BRACE_tok enumerator_list CLOSE_BRACE_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "enum_specifier_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>3);
+		$<tnode>$ = tmp;
+		outputReduction("enum_specifier : ENUM_tok OPEN_BRACE_tok enumerator_list CLOSE_BRACE_tok");}
+	| ENUM_tok identifier OPEN_BRACE_tok enumerator_list CLOSE_BRACE_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "enum_specifier_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>2);
+		tmp->assignChild(1,$<tnode>4);
+		$<tnode>$ = tmp;
+		outputReduction("enum_specifier : ENUM_tok identifier OPEN_BRACE_tok enumerator_list CLOSE_BRACE_tok");}
+	| ENUM_tok identifier {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "enum_specifier_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>2);
+		$<tnode>$ = tmp;
+		outputReduction("enum_specifier : ENUM_tok identifier");}
 	;
 
 enumerator_list
-	: enumerator {outputReduction("enumerator_list : enumerator");}
-	| enumerator_list COMMA_tok enumerator {outputReduction("enumerator_list : enumerator_list COMMA_tok enumerator");}
+	: enumerator {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "enumerator_list_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("enumerator_list : enumerator");}
+	| enumerator_list COMMA_tok enumerator {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "enumerator_list_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>3);
+		$<tnode>$ = tmp;
+		outputReduction("enumerator_list : enumerator_list COMMA_tok enumerator");}
 	;
 
 enumerator
-	: identifier {outputReduction("enumerator : identifier");}
-	| identifier EQUAL_tok constant_expression {outputReduction("enumerator : identifier EQUAL_tok constant_expression");}
+	: identifier {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "enumerator_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("enumerator : identifier");}
+	| identifier EQUAL_tok constant_expression {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "enumerator_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>3);
+		$<tnode>$ = tmp;
+		outputReduction("enumerator : identifier EQUAL_tok constant_expression");}
 	;
 
 declarator
-	: direct_declarator {outputReduction("declarator : direct_declarator");}
-	| pointer direct_declarator {outputReduction("declarator :  pointer direct_declarator");}
+	: direct_declarator {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "declarator_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("declarator : direct_declarator");}
+	| pointer direct_declarator {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "declarator_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>2);
+		$<tnode>$ = tmp;
+		outputReduction("declarator :  pointer direct_declarator");}
 	;
 
 direct_declarator
-	: identifier {outputReduction("direct_declarator : identifier");}
-	| OPEN_PAREN_tok declarator CLOSE_PAREN_tok {outputReduction("direct_declarator : OPEN_PAREN_tok declarator CLOSE_PAREN_tok");}
-	| direct_declarator OPEN_BRACKET_tok CLOSE_BRACKET_tok {outputReduction("direct_declarator : direct_declarator OPEN_BRACKET_tok CLOSE_BRACKET_tok");}
-	| direct_declarator OPEN_BRACKET_tok constant_expression CLOSE_BRACKET_tok {outputReduction("direct_declarator : direct_declarator OPEN_BRACKET_tok constant_expression CLOSE_BRACKET_tok");}
-	| direct_declarator OPEN_PAREN_tok CLOSE_PAREN_tok {outputReduction("direct_declarator : direct_declarator OPEN_PAREN_tok CLOSE_PAREN_tok");}
-	| direct_declarator OPEN_PAREN_tok parameter_type_list CLOSE_PAREN_tok {outputReduction("direct_declarator : direct_declarator OPEN_PAREN_tok parameter_type_list CLOSE_PAREN_tok");}
-	| direct_declarator OPEN_PAREN_tok identifier_list CLOSE_PAREN_tok {outputReduction("direct_declarator : direct_declarator OPEN_PAREN_tok identifier_list CLOSE_PAREN_tok");}
+	: identifier {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "direct_declarator_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("direct_declarator : identifier");}
+	| OPEN_PAREN_tok declarator CLOSE_PAREN_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "direct_declarator_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>2);
+		$<tnode>$ = tmp;
+		outputReduction("direct_declarator : OPEN_PAREN_tok declarator CLOSE_PAREN_tok");}
+	| direct_declarator OPEN_BRACKET_tok CLOSE_BRACKET_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "direct_declarator_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("direct_declarator : direct_declarator OPEN_BRACKET_tok CLOSE_BRACKET_tok");}
+	| direct_declarator OPEN_BRACKET_tok constant_expression CLOSE_BRACKET_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "direct_declarator_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>3);
+		$<tnode>$ = tmp;
+		outputReduction("direct_declarator : direct_declarator OPEN_BRACKET_tok constant_expression CLOSE_BRACKET_tok");}
+	| direct_declarator OPEN_PAREN_tok CLOSE_PAREN_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "direct_declarator_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("direct_declarator : direct_declarator OPEN_PAREN_tok CLOSE_PAREN_tok");}
+	| direct_declarator OPEN_PAREN_tok parameter_type_list CLOSE_PAREN_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "direct_declarator_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>3);
+		$<tnode>$ = tmp;
+		outputReduction("direct_declarator : direct_declarator OPEN_PAREN_tok parameter_type_list CLOSE_PAREN_tok");}
+	| direct_declarator OPEN_PAREN_tok identifier_list CLOSE_PAREN_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "direct_declarator_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>3);
+		$<tnode>$ = tmp;
+		outputReduction("direct_declarator : direct_declarator OPEN_PAREN_tok identifier_list CLOSE_PAREN_tok");}
 	;
 
 pointer
-	: STAR_tok {outputReduction("pointer : STAR_tok");}
-	| STAR_tok type_qualifier_list {outputReduction("pointer : STAR_tok type_qualifier_list");}
-	| STAR_tok pointer {outputReduction("pointer : STAR_tok pointer");}
-	| STAR_tok type_qualifier_list pointer {outputReduction("pointer : STAR_tok type_qualifier_list pointer");}
+	: STAR_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "pointer_"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("pointer : STAR_tok");}
+	| STAR_tok type_qualifier_list {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "pointer_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>2);
+		$<tnode>$ = tmp;
+		outputReduction("pointer : STAR_tok type_qualifier_list");}
+	| STAR_tok pointer {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "pointer_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>2);
+		$<tnode>$ = tmp;
+		outputReduction("pointer : STAR_tok pointer");}
+	| STAR_tok type_qualifier_list pointer {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "pointer_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>2);
+		tmp->assignChild(1,$<tnode>3)
+		$<tnode>$ = tmp;
+		outputReduction("pointer : STAR_tok type_qualifier_list pointer");}
 	;
 
 type_qualifier_list
-	: type_qualifier {outputReduction("type_qualifier_list : type_qualifier");}
-	| type_qualifier_list type_qualifier {outputReduction("type_qualifier_list : type_qualifier_list type_qualifier");}
+	: type_qualifier {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "type_qualifier_list_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("type_qualifier_list : type_qualifier");}
+	| type_qualifier_list type_qualifier {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "type_qualifier_list_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>2);
+		$<tnode>$ = tmp;
+		outputReduction("type_qualifier_list : type_qualifier_list type_qualifier");}
 	;
 
 parameter_type_list
-	: parameter_list {outputReduction("parameter_type_list : parameter_list");}
-	| parameter_list COMMA_tok ELIPSIS_tok {outputReduction("parameter_type_list : parameter_list COMMA_tok ELIPSIS_tok");}
+	: parameter_list {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "parameter_type_list_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("parameter_type_list : parameter_list");}
+	| parameter_list COMMA_tok ELIPSIS_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "parameter_type_list_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("parameter_type_list : parameter_list COMMA_tok ELIPSIS_tok");}
 	;
 
 parameter_list
-	: parameter_declaration {outputReduction("parameter_list : parameter_declaration");}
-	| parameter_list COMMA_tok parameter_declaration {outputReduction("parameter_list : parameter_list COMMA_tok parameter_declaration");}
+	: parameter_declaration {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "parameter_list_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("parameter_list : parameter_declaration");}
+	| parameter_list COMMA_tok parameter_declaration {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "parameter_list_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>3);
+		$<tnode>$ = tmp;
+		outputReduction("parameter_list : parameter_list COMMA_tok parameter_declaration");}
 	;
 
 parameter_declaration
-	: declaration_specifiers declarator {outputReduction("parameter_declaration : declaration_specifiers declarator");}
-	| declaration_specifiers {outputReduction("parameter_declaration : declaration_specifiers");}
-	| declaration_specifiers abstract_declarator {outputReduction("parameter_declaration : declaration_specifiers abstract_declarator");}
+	: declaration_specifiers declarator {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "parameter_declaration_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>2);
+		$<tnode>$ = tmp;
+		outputReduction("parameter_declaration : declaration_specifiers declarator");}
+	| declaration_specifiers {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "parameter_declaration_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("parameter_declaration : declaration_specifiers");}
+	| declaration_specifiers abstract_declarator {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "parameter_declaration_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>2);
+		$<tnode>$ = tmp;
+		outputReduction("parameter_declaration : declaration_specifiers abstract_declarator");}
 	;
 
 identifier_list
-	: identifier {outputReduction("identifier_list : identifier");}
-	| identifier_list COMMA_tok identifier {outputReduction("identifier_list : identifier_list COMMA_tok identifier");}
+	: identifier {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "identifier_list_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("identifier_list : identifier");}
+	| identifier_list COMMA_tok identifier {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "identifier_list_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>3);
+		$<tnode>$ = tmp;
+		outputReduction("identifier_list : identifier_list COMMA_tok identifier");}
 	;
 
 initializer
-	: assignment_expression {outputReduction("initializer : assignment_expression");}
-	| OPEN_BRACE_tok initializer_list CLOSE_BRACE_tok {outputReduction("initializer : OPEN_BRACE_tok initializer_list CLOSE_BRACE_tok");}
-	| OPEN_BRACE_tok initializer_list COMMA_tok CLOSE_BRACE_tok {outputReduction("initializer : OPEN_BRACE_tok initializer_list COMMA_tok CLOSE_BRACE_tok");}
+	: assignment_expression {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "initializer_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("initializer : assignment_expression");}
+	| OPEN_BRACE_tok initializer_list CLOSE_BRACE_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "initializer_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>2);
+		$<tnode>$ = tmp;
+		outputReduction("initializer : OPEN_BRACE_tok initializer_list CLOSE_BRACE_tok");}
+	| OPEN_BRACE_tok initializer_list COMMA_tok CLOSE_BRACE_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "initializer_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>2);
+		$<tnode>$ = tmp;
+		outputReduction("initializer : OPEN_BRACE_tok initializer_list COMMA_tok CLOSE_BRACE_tok");}
 	;
 
 initializer_list
-	: initializer {outputReduction("initializer_list : initializer");}
-	| initializer_list COMMA_tok initializer {outputReduction("initializer_list : initializer_list COMMA_tok initializer");}
+	: initializer {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "initializer_list_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("initializer_list : initializer");}
+	| initializer_list COMMA_tok initializer {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "initializer_list_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>3);
+		$<tnode>$ = tmp;
+		outputReduction("initializer_list : initializer_list COMMA_tok initializer");}
 	;
 
 type_name
-	: specifier_qualifier_list {outputReduction("type_name : specifier_qualifier_list");}
-	| specifier_qualifier_list abstract_declarator {outputReduction("type_name : specifier_qualifier_list abstract_declarator");}
+	: specifier_qualifier_list {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "type_name_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("type_name : specifier_qualifier_list");}
+	| specifier_qualifier_list abstract_declarator {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "type_name_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>2);
+		$<tnode>$ = tmp;
+		outputReduction("type_name : specifier_qualifier_list abstract_declarator");}
 	;
 
 abstract_declarator
-	: pointer {outputReduction("abstract_declarator : pointer");}
-	| direct_abstract_declarator {outputReduction("abstract_declarator : direct_abstract_declarator");}
-	| pointer direct_abstract_declarator {outputReduction("abstract_declarator : pointer direct_abstract_declarator");}
+	: pointer {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "abstract_declarator_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("abstract_declarator : pointer");}
+	| direct_abstract_declarator {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "abstract_declarator_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("abstract_declarator : direct_abstract_declarator");}
+	| pointer direct_abstract_declarator {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "abstract_declarator_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>2);
+		$<tnode>$ = tmp;
+		outputReduction("abstract_declarator : pointer direct_abstract_declarator");}
 	;
 
 direct_abstract_declarator
-	: OPEN_PAREN_tok abstract_declarator CLOSE_PAREN_tok {outputReduction("direct_abstract_declarator : OPEN_PAREN_tok abstract_declarator CLOSE_PAREN_tok");}
-	| OPEN_BRACKET_tok CLOSE_BRACKET_tok {outputReduction("direct_abstract_declarator : OPEN_BRACKET_tok CLOSE_BRACKET_tok");}
-	| OPEN_BRACKET_tok constant_expression CLOSE_BRACKET_tok {outputReduction("direct_abstract_declarator : OPEN_BRACKET_tok constant_expression CLOSE_BRACKET_tok");}
-	| direct_abstract_declarator OPEN_BRACKET_tok CLOSE_BRACKET_tok {outputReduction("direct_abstract_declarator : direct_abstract_declarator OPEN_BRACKET_tok CLOSE_BRACKET_tok");}
-	| direct_abstract_declarator OPEN_BRACKET_tok constant_expression CLOSE_BRACKET_tok {outputReduction("direct_abstract_declarator : direct_abstract_declarator OPEN_BRACKET_tok constant_expression CLOSE_BRACKET_tok");}
-	| OPEN_PAREN_tok CLOSE_PAREN_tok {outputReduction("direct_abstract_declarator : OPEN_PAREN_tok CLOSE_PAREN_tok");}
-	| OPEN_PAREN_tok parameter_type_list CLOSE_PAREN_tok {outputReduction("direct_abstract_declarator : OPEN_PAREN_tok parameter_type_list CLOSE_PAREN_tok");}
-	| direct_abstract_declarator OPEN_PAREN_tok CLOSE_PAREN_tok {outputReduction("direct_abstract_declarator : direct_abstract_declarator OPEN_PAREN_tok CLOSE_PAREN_tok");}
-	| direct_abstract_declarator OPEN_PAREN_tok parameter_type_list CLOSE_PAREN_tok {outputReduction("direct_abstract_declarator : direct_abstract_declarator OPEN_PAREN_tok parameter_type_list CLOSE_PAREN_tok");}
+	: OPEN_PAREN_tok abstract_declarator CLOSE_PAREN_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "direct_abstract_declarator_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>2);
+		$<tnode>$ = tmp;
+		outputReduction("direct_abstract_declarator : OPEN_PAREN_tok abstract_declarator CLOSE_PAREN_tok");}
+	| OPEN_BRACKET_tok CLOSE_BRACKET_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "direct_abstract_declarator_"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("direct_abstract_declarator : OPEN_BRACKET_tok CLOSE_BRACKET_tok");}
+	| OPEN_BRACKET_tok constant_expression CLOSE_BRACKET_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "direct_abstract_declarator_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>2);
+		$<tnode>$ = tmp;
+		outputReduction("direct_abstract_declarator : OPEN_BRACKET_tok constant_expression CLOSE_BRACKET_tok");}
+	| direct_abstract_declarator OPEN_BRACKET_tok CLOSE_BRACKET_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "direct_abstract_declarator_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("direct_abstract_declarator : direct_abstract_declarator OPEN_BRACKET_tok CLOSE_BRACKET_tok");}
+	| direct_abstract_declarator OPEN_BRACKET_tok constant_expression CLOSE_BRACKET_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "direct_abstract_declarator_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>2);
+		$<tnode>$ = tmp;
+		outputReduction("direct_abstract_declarator : direct_abstract_declarator OPEN_BRACKET_tok constant_expression CLOSE_BRACKET_tok");}
+	| OPEN_PAREN_tok CLOSE_PAREN_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "direct_abstract_declarator_"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("direct_abstract_declarator : OPEN_PAREN_tok CLOSE_PAREN_tok");}
+	| OPEN_PAREN_tok parameter_type_list CLOSE_PAREN_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "direct_abstract_declarator_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>2);
+		$<tnode>$ = tmp;
+		outputReduction("direct_abstract_declarator : OPEN_PAREN_tok parameter_type_list CLOSE_PAREN_tok");}
+	| direct_abstract_declarator OPEN_PAREN_tok CLOSE_PAREN_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "direct_abstract_declarator_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("direct_abstract_declarator : direct_abstract_declarator OPEN_PAREN_tok CLOSE_PAREN_tok");}
+	| direct_abstract_declarator OPEN_PAREN_tok parameter_type_list CLOSE_PAREN_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "direct_abstract_declarator_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>2);
+		$<tnode>$ = tmp;
+		outputReduction("direct_abstract_declarator : direct_abstract_declarator OPEN_PAREN_tok parameter_type_list CLOSE_PAREN_tok");}
 	;
 
 statement
-	: labeled_statement {outputReduction("statement : labeled_statement");}
-	| compound_statement {outputReduction("statement : compound_statement");}
-	| expression_statement {outputReduction("statement : expression_statement");}
-	| selection_statement {outputReduction("statement : selection_statement");}
-	| iteration_statement {outputReduction("statement : iteration_statement");}
-	| jump_statement {outputReduction("statement : jump_statement");}
+	: labeled_statement {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "statement_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("statement : labeled_statement");}
+	| compound_statement {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "statement_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("statement : compound_statement");}
+	| expression_statement {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "statement_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("statement : expression_statement");}
+	| selection_statement {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "statement_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("statement : selection_statement");}
+	| iteration_statement {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "statement_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("statement : iteration_statement");}
+	| jump_statement {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "statement_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("statement : jump_statement");}
 	;
 
 labeled_statement
-	: identifier COLON_tok statement {outputReduction("labeled_statement : identifier COLON_tok statement");}
-	| CASE_tok constant_expression COLON_tok statement {outputReduction("labeled_statement : CASE_tok constant_expression COLON_tok statement");}
-	| DEFAULT_tok COLON_tok statement {outputReduction("labeled_statement : DEFAULT_tok COLON_tok statement");}
+	: identifier COLON_tok statement {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "labeled_statement_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>3);
+		$<tnode>$ = tmp;
+		outputReduction("labeled_statement : identifier COLON_tok statement");}
+	| CASE_tok constant_expression COLON_tok statement {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "labeled_statement_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>2);
+		tmp->assignChild(1,$<tnode>4);
+		$<tnode>$ = tmp;
+		outputReduction("labeled_statement : CASE_tok constant_expression COLON_tok statement");}
+	| DEFAULT_tok COLON_tok statement {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "labeled_statement_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>3);
+		$<tnode>$ = tmp;
+		outputReduction("labeled_statement : DEFAULT_tok COLON_tok statement");}
 	;
 
 expression_statement
-	: SEMI_tok {outputReduction("expression_statement : SEMI_tok");}
-	| expression SEMI_tok {outputReduction("expression_statement : expression SEMI_tok");}
+	: SEMI_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "expression_statement_"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("expression_statement : SEMI_tok");}
+	| expression SEMI_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "expression_statement_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("expression_statement : expression SEMI_tok");}
 	;
 
 compound_statement
-	: OPEN_BRACE_tok CLOSE_BRACE_tok {outputReduction("compound_statement : OPEN_BRACE_tok CLOSE_BRACE_tok");}
-	| OPEN_BRACE_tok statement_list CLOSE_BRACE_tok {outputReduction("compound_statement : OPEN_BRACE_tok statement_list CLOSE_BRACE_tok");}
-	| OPEN_BRACE_tok  declaration_list  CLOSE_BRACE_tok {outputReduction("compound_statement : OPEN_BRACE_tok declaration_list CLOSE_BRACE_tok");}
-	| OPEN_BRACE_tok  declaration_list  statement_list CLOSE_BRACE_tok {outputReduction("compound_statement : OPEN_BRACE_tok declaration_list statement_list CLOSE_BRACE_tok");}
+	: OPEN_BRACE_tok CLOSE_BRACE_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "compound_statement_"+to_string(AST_node_counter),0);
+		++AST_node_counter;
+		$<tnode>$ = tmp;
+		outputReduction("compound_statement : OPEN_BRACE_tok CLOSE_BRACE_tok");}
+	| OPEN_BRACE_tok statement_list CLOSE_BRACE_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "compound_statement_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>2);
+		$<tnode>$ = tmp;
+		outputReduction("compound_statement : OPEN_BRACE_tok statement_list CLOSE_BRACE_tok");}
+	| OPEN_BRACE_tok  declaration_list  CLOSE_BRACE_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "compound_statement_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>2);
+		$<tnode>$ = tmp;
+		outputReduction("compound_statement : OPEN_BRACE_tok declaration_list CLOSE_BRACE_tok");}
+	| OPEN_BRACE_tok  declaration_list  statement_list CLOSE_BRACE_tok {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "compound_statement_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>2);
+		tmp->assignChild(1,$<tnode>3);
+		$<tnode>$ = tmp;
+		outputReduction("compound_statement : OPEN_BRACE_tok declaration_list statement_list CLOSE_BRACE_tok");}
 	;
 
 statement_list
-	: statement {outputReduction("statement_list : statement");}
-	| statement_list statement {outputReduction("statement_list : statement_list statement");}
+	: statement {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "statement_list_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
+		outputReduction("statement_list : statement");}
+	| statement_list statement {
+		TreeNode* tmp = new TreeNode(AST_node_counter, "statement_list_"+to_string(AST_node_counter),2);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>2);
+		$<tnode>$ = tmp;
+		outputReduction("statement_list : statement_list statement");}
 	;
 
 selection_statement
@@ -580,7 +1232,8 @@ int main(int argc, char **argv)
 	int yacc_count = 0;
 	insert_lookup = 0;
 
-	
+	Label_counter = 0;
+	AST_node_counter = 0;
 	
 	lex_debug_level=1;
 	symbol_table_debug=1;

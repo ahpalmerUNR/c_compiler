@@ -7,7 +7,7 @@ using namespace std;
 class TreeNode
 {
 public:
-	TreeNode(TreeNode* parentTreeNode,int TreeNodeNum,string TreeNodeProductionName,int numberOfChildren);
+	TreeNode(int TreeNodeNum,string TreeNodeProductionName,int numberOfChildren);
 	~TreeNode();
 	void traverse_to_file(FILE*);
 	void ast_to_3ac(FILE*);
@@ -15,7 +15,6 @@ public:
 private:
 	int TreeNodeNumber;
 	string TreeNodeName;
-	TreeNode* parent;
 	int numberChildren;
 	vector<TreeNode*> children;
 };
