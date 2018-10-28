@@ -14,6 +14,7 @@ public:
 	void assignChild(int childIndex, TreeNode* child);
 private:
 	int TreeNodeNumber;
+	//type
 	string TreeNodeName;
 	int numberChildren;
 	vector<TreeNode*> children;

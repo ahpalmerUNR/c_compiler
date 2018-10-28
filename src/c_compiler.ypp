@@ -34,6 +34,7 @@
 	int yylex();
 
 %}
+%define parse.error verbose
 %token AUTO_tok
 %token BREAK_tok
 %token CASE_tok
@@ -1753,6 +1754,7 @@ int main(int argc, char **argv)
 	c_line_symbol_table_debug =1;
 	c_line_lex_debug_level=1;
 	c_line_yacc_debug_level=1;
+	
 	
 	
 	levels[0] = 2;
