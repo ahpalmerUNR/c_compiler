@@ -252,7 +252,7 @@ mult_line_comment	"/*"([^*]|\*+[^*/])*"*/"
 
 "!!"(L|Y|S)\ {digit}+		{set_debug_level();}
 
-"!!D"			{column+=yyleng;s.writeToFile(logName); }
+"!!D"			{column+=yyleng;s.writeToFile(out_log); }
 
 .			{print_error("Syntax Error: Not Legal Character.");
 				return(send_token("ERROR_tok",ERROR_tok));}
