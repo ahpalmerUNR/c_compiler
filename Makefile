@@ -28,7 +28,7 @@ symboltable.o: src/symboltable.h
 tree.o: src/tree.cpp src/tree.h
 	$(CPP) $(CPPFLAGS) -c src/tree.cpp
 
-labelNode.o: src/labelNode.cpp src/labelNode.h
+labelNode.o: src/labelNode.cpp src/labelNode.h src/tree.h
 	$(CPP) $(CPPFLAGS) -c src/labelNode.cpp
 
 clean:

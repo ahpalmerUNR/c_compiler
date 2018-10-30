@@ -15,7 +15,7 @@ public:
 	void traverse_to_file(FILE*);
 	void ast_to_3ac(FILE*);
 	void assignChild(int childIndex, TreeNode* child);
-private:
+protected:
 	int TreeNodeNumber;
 	//type
 	string TreeNodeName;
