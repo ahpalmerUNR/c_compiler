@@ -25,6 +25,7 @@
 	Tree AST;
 	int AST_node_counter;
 	int Label_counter;
+	int Variable_counter;
 	
 	
 	void outputReduction(const char *s);
@@ -1750,6 +1751,7 @@ int main(int argc, char **argv)
 
 	Label_counter = 0;
 	AST_node_counter = 0;
+	Variable_counter = 0;
 	
 	lex_debug_level=1;
 	symbol_table_debug=1;
