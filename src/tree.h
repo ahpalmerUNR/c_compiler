@@ -1,3 +1,6 @@
+#ifndef TREE
+#define TREE
+
 #include <string>
 #include <stdio.h>
 #include <vector>
@@ -30,3 +33,4 @@ public:
 private:
 	TreeNode* root;
 };
+#endif
