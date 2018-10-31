@@ -3,10 +3,10 @@
 	#include <time.h>
 	#include <stdio.h>
 	#include <stdlib.h>
-	#include "../src/tree.h"
-	#include "../src/labelNode.h"
-	#include "../src/emptyNode.h"
-	#include "../src/iteration_statement.h"
+	#include "../src/tree/tree.h"
+	#include "../src/tree/labelNode.h"
+	#include "../src/tree/emptyNode.h"
+	#include "../src/tree/iteration_statement.h"
 
 
 	#define MAX_LINE_LENGTH 500

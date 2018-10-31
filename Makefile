@@ -26,17 +26,17 @@ flex_out: src/symboltable.h
 symboltable.o: src/symboltable.h
 	$(CPP) $(CPPFLAGS) -c src/symboltable.cpp
 
-tree.o: src/tree.cpp src/tree.h
-	$(CPP) $(CPPFLAGS) -c src/tree.cpp
+tree.o: src/tree/tree.cpp src/tree/tree.h
+	$(CPP) $(CPPFLAGS) -c src/tree/tree.cpp
 
-labelNode.o: src/labelNode.cpp src/labelNode.h src/tree.h
-	$(CPP) $(CPPFLAGS) -c src/labelNode.cpp
+labelNode.o: src/tree/labelNode.cpp src/tree/labelNode.h src/tree/tree.h
+	$(CPP) $(CPPFLAGS) -c src/tree/labelNode.cpp
 	
-emptyNode.o: src/emptyNode.cpp src/emptyNode.h src/tree.h
-	$(CPP) $(CPPFLAGS) -c src/emptyNode.cpp
+emptyNode.o: src/tree/emptyNode.cpp src/tree/emptyNode.h src/tree/tree.h
+	$(CPP) $(CPPFLAGS) -c src/tree/emptyNode.cpp
 	
-iteration_statement.o: src/iteration_statement.cpp src/iteration_statement.h src/tree.h
-	$(CPP) $(CPPFLAGS) -c src/iteration_statement.cpp
+iteration_statement.o: src/tree/iteration_statement.cpp src/tree/iteration_statement.h src/tree/tree.h
+	$(CPP) $(CPPFLAGS) -c src/tree/iteration_statement.cpp
 
 clean:
 	-rm -f build/lex.yy.* build/c_compiler.tab.* build/*.o build/*.s build/c_compiler build/c_compiler.output 
