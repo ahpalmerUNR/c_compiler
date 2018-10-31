@@ -1809,6 +1809,7 @@ string
 		int ticket = Variable_counter;
 		DataNode* tmp = new DataNode(AST_node_counter, "string_"+to_string(AST_node_counter),ticket);
 		tmp->storeString(yytext);
+		std::cout << yylval.lstr << std::endl;
 		++Variable_counter;
 		++AST_node_counter;
 		$<tnode>$ = tmp;

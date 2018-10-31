@@ -19,6 +19,8 @@ public:
 	void traverse_to_file(FILE*);
 	void ast_to_3ac(FILE*);
 
+	int returnTicket();
+
 	void storeInt(int i);
 	void storeDouble(double d);
 	void storeString(char *s);
