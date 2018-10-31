@@ -1712,7 +1712,10 @@ string
 
 identifier
 	: ID_tok {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "identifier_"+to_string(AST_node_counter),0);
+		int ticket = Variable_counter;
+		DataNode* tmp = new DataNode(AST_node_counter, "identifier_"+to_string(AST_node_counter),ticket);
+		tmp->storeString((char*)yylval.lnode->name.c_str());
+		++Variable_counter;
 		++AST_node_counter;
 		$<tnode>$ = tmp;
 		outputReduction("identifier : ID_tok");}

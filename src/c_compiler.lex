@@ -634,7 +634,7 @@ int id_token()
 {
 	//printf("Entered ID function\n");
 	Node * pointsTo = NULL;
-	stringVal()
+	stringVal();
 	yytext = yylval.lstr;
 	//printf("pointsto made\n");
 	int scope;
