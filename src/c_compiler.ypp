@@ -1066,9 +1066,9 @@ selection_statement
 
 iteration_statement
 	: WHILE_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement {
-		EmptyNode* blank1 = new EmptyNode(AST_node_counter,"iteration_statement_"+to_string(AST_node_counter));
+		EmptyNode* blank1 = new EmptyNode(AST_node_counter,"empty_"+to_string(AST_node_counter));
 		++AST_node_counter;
-		EmptyNode* blank2 = new EmptyNode(AST_node_counter,"iteration_statement_"+to_string(AST_node_counter));
+		EmptyNode* blank2 = new EmptyNode(AST_node_counter,"empty_"+to_string(AST_node_counter));
 		++AST_node_counter;
 		int ticket1 = Label_counter;
 		++Label_counter;
@@ -1083,9 +1083,9 @@ iteration_statement
 		$<tnode>$ = tmp;
 		outputReduction("iteration_statement : WHILE_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement");}
 	| DO_tok statement WHILE_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok SEMI_tok {
-		EmptyNode* blank1 = new EmptyNode(AST_node_counter,"iteration_statement_"+to_string(AST_node_counter));
+		EmptyNode* blank1 = new EmptyNode(AST_node_counter,"empty_"+to_string(AST_node_counter));
 		++AST_node_counter;
-		EmptyNode* blank2 = new EmptyNode(AST_node_counter,"iteration_statement_"+to_string(AST_node_counter));
+		EmptyNode* blank2 = new EmptyNode(AST_node_counter,"empty_"+to_string(AST_node_counter));
 		++AST_node_counter;
 		int ticket1 = Label_counter;
 		++Label_counter;
@@ -1100,11 +1100,11 @@ iteration_statement
 		$<tnode>$ = tmp;
 		outputReduction("iteration_statement : DO_tok statement WHILE_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok SEMI_tok");}
 	| FOR_tok OPEN_PAREN_tok SEMI_tok SEMI_tok CLOSE_PAREN_tok statement {
-		EmptyNode* blank1 = new EmptyNode(AST_node_counter,"iteration_statement_"+to_string(AST_node_counter));
+		EmptyNode* blank1 = new EmptyNode(AST_node_counter,"empty_"+to_string(AST_node_counter));
 		++AST_node_counter;
-		EmptyNode* blank2 = new EmptyNode(AST_node_counter,"iteration_statement_"+to_string(AST_node_counter));
+		EmptyNode* blank2 = new EmptyNode(AST_node_counter,"empty_"+to_string(AST_node_counter));
 		++AST_node_counter;
-		EmptyNode* blank3 = new EmptyNode(AST_node_counter,"iteration_statement_"+to_string(AST_node_counter));
+		EmptyNode* blank3 = new EmptyNode(AST_node_counter,"empty_"+to_string(AST_node_counter));
 		++AST_node_counter;
 		int ticket1 = Label_counter;
 		++Label_counter;
@@ -1119,9 +1119,9 @@ iteration_statement
 		$<tnode>$ = tmp;
 		outputReduction("iteration_statement : FOR_tok OPEN_PAREN_tok SEMI_tok SEMI_tok CLOSE_PAREN_tok statement");}
 	| FOR_tok OPEN_PAREN_tok SEMI_tok SEMI_tok expression CLOSE_PAREN_tok statement {
-		EmptyNode* blank1 = new EmptyNode(AST_node_counter,"iteration_statement_"+to_string(AST_node_counter));
+		EmptyNode* blank1 = new EmptyNode(AST_node_counter,"empty_"+to_string(AST_node_counter));
 		++AST_node_counter;
-		EmptyNode* blank2 = new EmptyNode(AST_node_counter,"iteration_statement_"+to_string(AST_node_counter));
+		EmptyNode* blank2 = new EmptyNode(AST_node_counter,"empty_"+to_string(AST_node_counter));
 		++AST_node_counter;
 		int ticket1 = Label_counter;
 		++Label_counter;
@@ -1136,9 +1136,9 @@ iteration_statement
 		$<tnode>$ = tmp;
 		outputReduction("iteration_statement : FOR_tok OPEN_PAREN_tok SEMI_tok SEMI_tok expression CLOSE_PAREN_tok statement");}
 	| FOR_tok OPEN_PAREN_tok SEMI_tok expression SEMI_tok CLOSE_PAREN_tok statement {
-		EmptyNode* blank1 = new EmptyNode(AST_node_counter,"iteration_statement_"+to_string(AST_node_counter));
+		EmptyNode* blank1 = new EmptyNode(AST_node_counter,"empty_"+to_string(AST_node_counter));
 		++AST_node_counter;
-		EmptyNode* blank2 = new EmptyNode(AST_node_counter,"iteration_statement_"+to_string(AST_node_counter));
+		EmptyNode* blank2 = new EmptyNode(AST_node_counter,"empty_"+to_string(AST_node_counter));
 		++AST_node_counter;
 		int ticket1 = Label_counter;
 		++Label_counter;
@@ -1153,7 +1153,7 @@ iteration_statement
 		$<tnode>$ = tmp;
 		outputReduction("iteration_statement : FOR_tok OPEN_PAREN_tok SEMI_tok expression SEMI_tok CLOSE_PAREN_tok statement");}
 	| FOR_tok OPEN_PAREN_tok SEMI_tok expression SEMI_tok expression CLOSE_PAREN_tok statement {
-		EmptyNode* blank1 = new EmptyNode(AST_node_counter,"iteration_statement_"+to_string(AST_node_counter));
+		EmptyNode* blank1 = new EmptyNode(AST_node_counter,"empty_"+to_string(AST_node_counter));
 		++AST_node_counter;
 		int ticket1 = Label_counter;
 		++Label_counter;
@@ -1168,9 +1168,9 @@ iteration_statement
 		$<tnode>$ = tmp;
 		outputReduction("iteration_statement : FOR_tok OPEN_PAREN_tok SEMI_tok expression SEMI_tok expression CLOSE_PAREN_tok statement");}
 	| FOR_tok OPEN_PAREN_tok expression SEMI_tok SEMI_tok CLOSE_PAREN_tok statement {
-		EmptyNode* blank1 = new EmptyNode(AST_node_counter,"iteration_statement_"+to_string(AST_node_counter));
+		EmptyNode* blank1 = new EmptyNode(AST_node_counter,"empty_"+to_string(AST_node_counter));
 		++AST_node_counter;
-		EmptyNode* blank2 = new EmptyNode(AST_node_counter,"iteration_statement_"+to_string(AST_node_counter));
+		EmptyNode* blank2 = new EmptyNode(AST_node_counter,"empty_"+to_string(AST_node_counter));
 		++AST_node_counter;
 		int ticket1 = Label_counter;
 		++Label_counter;
@@ -1185,7 +1185,7 @@ iteration_statement
 		$<tnode>$ = tmp;
 		outputReduction("iteration_statement : FOR_tok OPEN_PAREN_tok expression SEMI_tok SEMI_tok CLOSE_PAREN_tok statement");}
 	| FOR_tok OPEN_PAREN_tok expression SEMI_tok SEMI_tok expression CLOSE_PAREN_tok statement {
-		EmptyNode* blank1 = new EmptyNode(AST_node_counter,"iteration_statement_"+to_string(AST_node_counter));
+		EmptyNode* blank1 = new EmptyNode(AST_node_counter,"empty_"+to_string(AST_node_counter));
 		++AST_node_counter;
 		int ticket1 = Label_counter;
 		++Label_counter;
@@ -1200,7 +1200,7 @@ iteration_statement
 		$<tnode>$ = tmp;
 		outputReduction("iteration_statement : FOR_tok OPEN_PAREN_tok expression SEMI_tok SEMI_tok expression CLOSE_PAREN_tok statement");}
 	| FOR_tok OPEN_PAREN_tok expression SEMI_tok expression SEMI_tok CLOSE_PAREN_tok statement {
-		EmptyNode* blank1 = new EmptyNode(AST_node_counter,"iteration_statement_"+to_string(AST_node_counter));
+		EmptyNode* blank1 = new EmptyNode(AST_node_counter,"empty_"+to_string(AST_node_counter));
 		++AST_node_counter;
 		int ticket1 = Label_counter;
 		++Label_counter;
@@ -1230,7 +1230,8 @@ iteration_statement
 	;
 
 jump_statement
-	: GOTO_tok identifier SEMI_tok {
+	: GOTO_tok {insert_lookup = 0;} identifier SEMI_tok {
+		insert_lookup = 1;
 		TreeNode* tmp = new TreeNode(AST_node_counter, "jump_statement_"+to_string(AST_node_counter),1);
 		++AST_node_counter;
 		tmp->assignChild(0,$<tnode>2);

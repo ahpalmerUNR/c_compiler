@@ -12,15 +12,15 @@ Terminals unused in grammar
 
 Rules useless in grammar
 
-  223 enum_specifier: ENUM_tok OPEN_BRACE_tok enumerator_list CLOSE_BRACE_tok
-  224               | ENUM_tok identifier OPEN_BRACE_tok enumerator_list CLOSE_BRACE_tok
-  225               | ENUM_tok identifier
+  224 enum_specifier: ENUM_tok OPEN_BRACE_tok enumerator_list CLOSE_BRACE_tok
+  225               | ENUM_tok identifier OPEN_BRACE_tok enumerator_list CLOSE_BRACE_tok
+  226               | ENUM_tok identifier
 
-  226 enumerator_list: enumerator
-  227                | enumerator_list COMMA_tok enumerator
+  227 enumerator_list: enumerator
+  228                | enumerator_list COMMA_tok enumerator
 
-  228 enumerator: identifier
-  229           | identifier EQUAL_tok constant_expression
+  229 enumerator: identifier
+  230           | identifier EQUAL_tok constant_expression
 
 
 Grammar
@@ -212,115 +212,117 @@ Grammar
   136                    | FOR_tok OPEN_PAREN_tok expression SEMI_tok expression SEMI_tok CLOSE_PAREN_tok statement
   137                    | FOR_tok OPEN_PAREN_tok expression SEMI_tok expression SEMI_tok expression CLOSE_PAREN_tok statement
 
-  138 jump_statement: GOTO_tok identifier SEMI_tok
-  139               | CONTINUE_tok SEMI_tok
-  140               | BREAK_tok SEMI_tok
-  141               | RETURN_tok SEMI_tok
-  142               | RETURN_tok expression SEMI_tok
+  138 @7: %empty
 
-  143 expression: assignment_expression
-  144           | expression COMMA_tok assignment_expression
+  139 jump_statement: GOTO_tok @7 identifier SEMI_tok
+  140               | CONTINUE_tok SEMI_tok
+  141               | BREAK_tok SEMI_tok
+  142               | RETURN_tok SEMI_tok
+  143               | RETURN_tok expression SEMI_tok
 
-  145 assignment_expression: conditional_expression
-  146                      | unary_expression assignment_operator assignment_expression
+  144 expression: assignment_expression
+  145           | expression COMMA_tok assignment_expression
 
-  147 assignment_operator: EQUAL_tok
-  148                    | MULT_ASSIGN_tok
-  149                    | DIV_ASSIGN_tok
-  150                    | MOD_ASSIGN_tok
-  151                    | ADD_ASSIGN_tok
-  152                    | SUB_ASSIGN_tok
-  153                    | LEFT_ASSIGN_tok
-  154                    | RIGHT_ASSIGN_tok
-  155                    | AND_ASSIGN_tok
-  156                    | XOR_ASSIGN_tok
-  157                    | OR_ASSIGN_tok
+  146 assignment_expression: conditional_expression
+  147                      | unary_expression assignment_operator assignment_expression
 
-  158 conditional_expression: logical_or_expression
-  159                       | logical_or_expression QUESTION_MARK_tok expression COLON_tok conditional_expression
+  148 assignment_operator: EQUAL_tok
+  149                    | MULT_ASSIGN_tok
+  150                    | DIV_ASSIGN_tok
+  151                    | MOD_ASSIGN_tok
+  152                    | ADD_ASSIGN_tok
+  153                    | SUB_ASSIGN_tok
+  154                    | LEFT_ASSIGN_tok
+  155                    | RIGHT_ASSIGN_tok
+  156                    | AND_ASSIGN_tok
+  157                    | XOR_ASSIGN_tok
+  158                    | OR_ASSIGN_tok
 
-  160 constant_expression: conditional_expression
+  159 conditional_expression: logical_or_expression
+  160                       | logical_or_expression QUESTION_MARK_tok expression COLON_tok conditional_expression
 
-  161 logical_or_expression: logical_and_expression
-  162                      | logical_or_expression OR_OP_tok logical_and_expression
+  161 constant_expression: conditional_expression
 
-  163 logical_and_expression: inclusive_or_expression
-  164                       | logical_and_expression AND_OP_tok inclusive_or_expression
+  162 logical_or_expression: logical_and_expression
+  163                      | logical_or_expression OR_OP_tok logical_and_expression
 
-  165 inclusive_or_expression: exclusive_or_expression
-  166                        | inclusive_or_expression BAR_tok exclusive_or_expression
+  164 logical_and_expression: inclusive_or_expression
+  165                       | logical_and_expression AND_OP_tok inclusive_or_expression
 
-  167 exclusive_or_expression: and_expression
-  168                        | exclusive_or_expression CARET_tok and_expression
+  166 inclusive_or_expression: exclusive_or_expression
+  167                        | inclusive_or_expression BAR_tok exclusive_or_expression
 
-  169 and_expression: equality_expression
-  170               | and_expression AMP_tok equality_expression
+  168 exclusive_or_expression: and_expression
+  169                        | exclusive_or_expression CARET_tok and_expression
 
-  171 equality_expression: relational_expression
-  172                    | equality_expression EQ_OP_tok relational_expression
-  173                    | equality_expression NE_OP_tok relational_expression
+  170 and_expression: equality_expression
+  171               | and_expression AMP_tok equality_expression
 
-  174 relational_expression: shift_expression
-  175                      | relational_expression LT_tok shift_expression
-  176                      | relational_expression GT_tok shift_expression
-  177                      | relational_expression LE_OP_tok shift_expression
-  178                      | relational_expression GE_OP_tok shift_expression
+  172 equality_expression: relational_expression
+  173                    | equality_expression EQ_OP_tok relational_expression
+  174                    | equality_expression NE_OP_tok relational_expression
 
-  179 shift_expression: additive_expression
-  180                 | shift_expression LEFT_OP_tok additive_expression
-  181                 | shift_expression RIGHT_OP_tok additive_expression
+  175 relational_expression: shift_expression
+  176                      | relational_expression LT_tok shift_expression
+  177                      | relational_expression GT_tok shift_expression
+  178                      | relational_expression LE_OP_tok shift_expression
+  179                      | relational_expression GE_OP_tok shift_expression
 
-  182 additive_expression: multiplicative_expression
-  183                    | additive_expression PLUS_tok multiplicative_expression
-  184                    | additive_expression MINUS_tok multiplicative_expression
+  180 shift_expression: additive_expression
+  181                 | shift_expression LEFT_OP_tok additive_expression
+  182                 | shift_expression RIGHT_OP_tok additive_expression
 
-  185 multiplicative_expression: cast_expression
-  186                          | multiplicative_expression STAR_tok cast_expression
-  187                          | multiplicative_expression DIV_tok cast_expression
-  188                          | multiplicative_expression PERCENT_tok cast_expression
+  183 additive_expression: multiplicative_expression
+  184                    | additive_expression PLUS_tok multiplicative_expression
+  185                    | additive_expression MINUS_tok multiplicative_expression
 
-  189 cast_expression: unary_expression
-  190                | OPEN_PAREN_tok type_name CLOSE_PAREN_tok cast_expression
+  186 multiplicative_expression: cast_expression
+  187                          | multiplicative_expression STAR_tok cast_expression
+  188                          | multiplicative_expression DIV_tok cast_expression
+  189                          | multiplicative_expression PERCENT_tok cast_expression
 
-  191 unary_expression: postfix_expression
-  192                 | INC_OP_tok unary_expression
-  193                 | DEC_OP_tok unary_expression
-  194                 | unary_operator cast_expression
-  195                 | SIZEOF_tok unary_expression
-  196                 | SIZEOF_tok OPEN_PAREN_tok type_name CLOSE_PAREN_tok
+  190 cast_expression: unary_expression
+  191                | OPEN_PAREN_tok type_name CLOSE_PAREN_tok cast_expression
 
-  197 unary_operator: AMP_tok
-  198               | STAR_tok
-  199               | PLUS_tok
-  200               | MINUS_tok
-  201               | TILDA_tok
-  202               | NOT_tok
+  192 unary_expression: postfix_expression
+  193                 | INC_OP_tok unary_expression
+  194                 | DEC_OP_tok unary_expression
+  195                 | unary_operator cast_expression
+  196                 | SIZEOF_tok unary_expression
+  197                 | SIZEOF_tok OPEN_PAREN_tok type_name CLOSE_PAREN_tok
 
-  203 postfix_expression: primary_expression
-  204                   | postfix_expression OPEN_BRACKET_tok expression CLOSE_BRACKET_tok
-  205                   | postfix_expression OPEN_PAREN_tok CLOSE_PAREN_tok
-  206                   | postfix_expression OPEN_PAREN_tok argument_expression_list CLOSE_PAREN_tok
-  207                   | postfix_expression PERIOD_tok identifier
-  208                   | postfix_expression PTR_OP_tok identifier
-  209                   | postfix_expression INC_OP_tok
-  210                   | postfix_expression DEC_OP_tok
+  198 unary_operator: AMP_tok
+  199               | STAR_tok
+  200               | PLUS_tok
+  201               | MINUS_tok
+  202               | TILDA_tok
+  203               | NOT_tok
 
-  211 primary_expression: identifier
-  212                   | constant
-  213                   | string
-  214                   | OPEN_PAREN_tok expression CLOSE_PAREN_tok
+  204 postfix_expression: primary_expression
+  205                   | postfix_expression OPEN_BRACKET_tok expression CLOSE_BRACKET_tok
+  206                   | postfix_expression OPEN_PAREN_tok CLOSE_PAREN_tok
+  207                   | postfix_expression OPEN_PAREN_tok argument_expression_list CLOSE_PAREN_tok
+  208                   | postfix_expression PERIOD_tok identifier
+  209                   | postfix_expression PTR_OP_tok identifier
+  210                   | postfix_expression INC_OP_tok
+  211                   | postfix_expression DEC_OP_tok
 
-  215 argument_expression_list: assignment_expression
-  216                         | argument_expression_list COMMA_tok assignment_expression
+  212 primary_expression: identifier
+  213                   | constant
+  214                   | string
+  215                   | OPEN_PAREN_tok expression CLOSE_PAREN_tok
 
-  217 constant: INTEGER_CONSTANT_tok
-  218         | CHARACTER_CONSTANT_tok
-  219         | FLOATING_CONSTANT_tok
-  220         | ENUMERATION_CONSTANT_tok
+  216 argument_expression_list: assignment_expression
+  217                         | argument_expression_list COMMA_tok assignment_expression
 
-  221 string: STRING_LITERAL_tok
+  218 constant: INTEGER_CONSTANT_tok
+  219         | CHARACTER_CONSTANT_tok
+  220         | FLOATING_CONSTANT_tok
+  221         | ENUMERATION_CONSTANT_tok
 
-  222 identifier: ID_tok
+  222 string: STRING_LITERAL_tok
+
+  223 identifier: ID_tok
 
 
 Terminals, with rules where they appear
@@ -328,11 +330,11 @@ Terminals, with rules where they appear
 $end (0) 0
 error (256)
 AUTO_tok (258) 25
-BREAK_tok (259) 140
+BREAK_tok (259) 141
 CASE_tok (260) 115
 CHAR_tok (261) 31
 CONST_tok (262) 42
-CONTINUE_tok (263) 139
+CONTINUE_tok (263) 140
 DEFAULT_tok (264) 116
 DO_tok (265) 129
 DOUBLE_tok (266) 36
@@ -341,15 +343,15 @@ ENUM_tok (268) 40
 EXTERN_tok (269) 28
 FLOAT_tok (270) 35
 FOR_tok (271) 130 131 132 133 134 135 136 137
-GOTO_tok (272) 138
+GOTO_tok (272) 139
 IF_tok (273) 125 126
 INT_tok (274) 33
 LONG_tok (275) 34
 REGISTER_tok (276) 26
-RETURN_tok (277) 141 142
+RETURN_tok (277) 142 143
 SHORT_tok (278) 32
 SIGNED_tok (279) 37
-SIZEOF_tok (280) 195 196
+SIZEOF_tok (280) 196 197
 STATIC_tok (281) 27
 STRUCT_tok (282) 47
 SWITCH_tok (283) 127
@@ -360,62 +362,62 @@ VOID_tok (287) 30
 VOLATILE_tok (288) 43
 WHILE_tok (289) 128 129
 ERROR_tok (290)
-ID_tok (291) 222
-PLUS_tok (292) 183 199
-MINUS_tok (293) 184 200
-STAR_tok (294) 74 75 76 77 186 198
+ID_tok (291) 223
+PLUS_tok (292) 184 200
+MINUS_tok (293) 185 201
+STAR_tok (294) 74 75 76 77 187 199
 SEMI_tok (295) 13 14 55 117 118 129 130 131 132 133 134 135 136 137
-    138 139 140 141 142
-OPEN_BRACKET_tok (296) 69 70 100 101 102 103 204
-CLOSE_BRACKET_tok (297) 69 70 100 101 102 103 204
-EQUAL_tok (298) 54 147
-COLON_tok (299) 63 64 114 115 116 159
-COMMA_tok (300) 52 61 81 83 88 91 93 144 216
+    139 140 141 142 143
+OPEN_BRACKET_tok (296) 69 70 100 101 102 103 205
+CLOSE_BRACKET_tok (297) 69 70 100 101 102 103 205
+EQUAL_tok (298) 54 148
+COLON_tok (299) 63 64 114 115 116 160
+COMMA_tok (300) 52 61 81 83 88 91 93 145 217
 OPEN_PAREN_tok (301) 68 71 72 73 99 104 105 106 107 125 126 127 128
-    129 130 131 132 133 134 135 136 137 190 196 205 206 214
+    129 130 131 132 133 134 135 136 137 191 197 206 207 215
 CLOSE_PAREN_tok (302) 68 71 72 73 99 104 105 106 107 125 126 127 128
-    129 130 131 132 133 134 135 136 137 190 196 205 206 214
+    129 130 131 132 133 134 135 136 137 191 197 206 207 215
 OPEN_BRACE_tok (303) 44 45 90 91 119 120 121 122
 CLOSE_BRACE_tok (304) 44 45 90 91 119 120 121 122
-QUESTION_MARK_tok (305) 159
-BAR_tok (306) 166
-CARET_tok (307) 168
-AMP_tok (308) 170 197
-GT_tok (309) 176
-LT_tok (310) 175
-PERCENT_tok (311) 188
-TILDA_tok (312) 201
-NOT_tok (313) 202
-INC_OP_tok (314) 192 209
-DEC_OP_tok (315) 193 210
-INTEGER_CONSTANT_tok (316) 217
-FLOATING_CONSTANT_tok (317) 219
-CHARACTER_CONSTANT_tok (318) 218
-ENUMERATION_CONSTANT_tok (319) 220
-STRING_LITERAL_tok (320) 221
-PTR_OP_tok (321) 208
-LEFT_OP_tok (322) 180
-RIGHT_OP_tok (323) 181
-LE_OP_tok (324) 177
-GE_OP_tok (325) 178
-EQ_OP_tok (326) 172
-NE_OP_tok (327) 173
-AND_OP_tok (328) 164
-OR_OP_tok (329) 162
-MULT_ASSIGN_tok (330) 148
-DIV_ASSIGN_tok (331) 149
-MOD_ASSIGN_tok (332) 150
-ADD_ASSIGN_tok (333) 151
-SUB_ASSIGN_tok (334) 152
-LEFT_ASSIGN_tok (335) 153
-RIGHT_ASSIGN_tok (336) 154
-AND_ASSIGN_tok (337) 155
-XOR_ASSIGN_tok (338) 156
-OR_ASSIGN_tok (339) 157
+QUESTION_MARK_tok (305) 160
+BAR_tok (306) 167
+CARET_tok (307) 169
+AMP_tok (308) 171 198
+GT_tok (309) 177
+LT_tok (310) 176
+PERCENT_tok (311) 189
+TILDA_tok (312) 202
+NOT_tok (313) 203
+INC_OP_tok (314) 193 210
+DEC_OP_tok (315) 194 211
+INTEGER_CONSTANT_tok (316) 218
+FLOATING_CONSTANT_tok (317) 220
+CHARACTER_CONSTANT_tok (318) 219
+ENUMERATION_CONSTANT_tok (319) 221
+STRING_LITERAL_tok (320) 222
+PTR_OP_tok (321) 209
+LEFT_OP_tok (322) 181
+RIGHT_OP_tok (323) 182
+LE_OP_tok (324) 178
+GE_OP_tok (325) 179
+EQ_OP_tok (326) 173
+NE_OP_tok (327) 174
+AND_OP_tok (328) 165
+OR_OP_tok (329) 163
+MULT_ASSIGN_tok (330) 149
+DIV_ASSIGN_tok (331) 150
+MOD_ASSIGN_tok (332) 151
+ADD_ASSIGN_tok (333) 152
+SUB_ASSIGN_tok (334) 153
+LEFT_ASSIGN_tok (335) 154
+RIGHT_ASSIGN_tok (336) 155
+AND_ASSIGN_tok (337) 156
+XOR_ASSIGN_tok (338) 157
+OR_ASSIGN_tok (339) 158
 TYPEDEF_NAME_tok (340) 41
 ELIPSIS_tok (341) 81
-DIV_tok (342) 187
-PERIOD_tok (343) 207
+DIV_tok (342) 188
+PERIOD_tok (343) 208
 THEN (344)
 
 
@@ -494,7 +496,7 @@ initializer (123)
 initializer_list (124)
     on left: 92 93, on right: 90 91 93
 type_name (125)
-    on left: 94 95, on right: 190 196
+    on left: 94 95, on right: 191 197
 abstract_declarator (126)
     on left: 96 97 98, on right: 86 95 99
 direct_abstract_declarator (127)
@@ -516,59 +518,61 @@ selection_statement (133)
 iteration_statement (134)
     on left: 128 129 130 131 132 133 134 135 136 137, on right: 112
 jump_statement (135)
-    on left: 138 139 140 141 142, on right: 113
-expression (136)
-    on left: 143 144, on right: 118 125 126 127 128 129 131 132 133
-    134 135 136 137 142 144 159 204 214
-assignment_expression (137)
-    on left: 145 146, on right: 89 143 144 146 215 216
-assignment_operator (138)
-    on left: 147 148 149 150 151 152 153 154 155 156 157, on right:
-    146
-conditional_expression (139)
-    on left: 158 159, on right: 145 159 160
-constant_expression (140)
-    on left: 160, on right: 63 64 70 101 103 115
-logical_or_expression (141)
-    on left: 161 162, on right: 158 159 162
-logical_and_expression (142)
-    on left: 163 164, on right: 161 162 164
-inclusive_or_expression (143)
-    on left: 165 166, on right: 163 164 166
-exclusive_or_expression (144)
-    on left: 167 168, on right: 165 166 168
-and_expression (145)
-    on left: 169 170, on right: 167 168 170
-equality_expression (146)
-    on left: 171 172 173, on right: 169 170 172 173
-relational_expression (147)
-    on left: 174 175 176 177 178, on right: 171 172 173 175 176 177
-    178
-shift_expression (148)
-    on left: 179 180 181, on right: 174 175 176 177 178 180 181
-additive_expression (149)
-    on left: 182 183 184, on right: 179 180 181 183 184
-multiplicative_expression (150)
-    on left: 185 186 187 188, on right: 182 183 184 186 187 188
-cast_expression (151)
-    on left: 189 190, on right: 185 186 187 188 190 194
-unary_expression (152)
-    on left: 191 192 193 194 195 196, on right: 146 189 192 193 195
-unary_operator (153)
-    on left: 197 198 199 200 201 202, on right: 194
-postfix_expression (154)
-    on left: 203 204 205 206 207 208 209 210, on right: 191 204 205
-    206 207 208 209 210
-primary_expression (155)
-    on left: 211 212 213 214, on right: 203
-argument_expression_list (156)
-    on left: 215 216, on right: 206 216
-constant (157)
-    on left: 217 218 219 220, on right: 212
-string (158)
-    on left: 221, on right: 213
-identifier (159)
-    on left: 222, on right: 44 46 67 87 88 114 138 207 208 211
+    on left: 139 140 141 142 143, on right: 113
+@7 (136)
+    on left: 138, on right: 139
+expression (137)
+    on left: 144 145, on right: 118 125 126 127 128 129 131 132 133
+    134 135 136 137 143 145 160 205 215
+assignment_expression (138)
+    on left: 146 147, on right: 89 144 145 147 216 217
+assignment_operator (139)
+    on left: 148 149 150 151 152 153 154 155 156 157 158, on right:
+    147
+conditional_expression (140)
+    on left: 159 160, on right: 146 160 161
+constant_expression (141)
+    on left: 161, on right: 63 64 70 101 103 115
+logical_or_expression (142)
+    on left: 162 163, on right: 159 160 163
+logical_and_expression (143)
+    on left: 164 165, on right: 162 163 165
+inclusive_or_expression (144)
+    on left: 166 167, on right: 164 165 167
+exclusive_or_expression (145)
+    on left: 168 169, on right: 166 167 169
+and_expression (146)
+    on left: 170 171, on right: 168 169 171
+equality_expression (147)
+    on left: 172 173 174, on right: 170 171 173 174
+relational_expression (148)
+    on left: 175 176 177 178 179, on right: 172 173 174 176 177 178
+    179
+shift_expression (149)
+    on left: 180 181 182, on right: 175 176 177 178 179 181 182
+additive_expression (150)
+    on left: 183 184 185, on right: 180 181 182 184 185
+multiplicative_expression (151)
+    on left: 186 187 188 189, on right: 183 184 185 187 188 189
+cast_expression (152)
+    on left: 190 191, on right: 186 187 188 189 191 195
+unary_expression (153)
+    on left: 192 193 194 195 196 197, on right: 147 190 193 194 196
+unary_operator (154)
+    on left: 198 199 200 201 202 203, on right: 195
+postfix_expression (155)
+    on left: 204 205 206 207 208 209 210 211, on right: 192 205 206
+    207 208 209 210 211
+primary_expression (156)
+    on left: 212 213 214 215, on right: 204
+argument_expression_list (157)
+    on left: 216 217, on right: 207 217
+constant (158)
+    on left: 218 219 220 221, on right: 213
+string (159)
+    on left: 222, on right: 214
+identifier (160)
+    on left: 223, on right: 44 46 67 87 88 114 139 208 209 212
 
 
 State 0
@@ -821,9 +825,9 @@ State 23
 
 State 24
 
-  222 identifier: ID_tok .
+  223 identifier: ID_tok .
 
-    $default  reduce using rule 222 (identifier)
+    $default  reduce using rule 223 (identifier)
 
 
 State 25
@@ -1706,7 +1710,7 @@ State 75
 
 State 76
 
-  140 jump_statement: BREAK_tok . SEMI_tok
+  141 jump_statement: BREAK_tok . SEMI_tok
 
     SEMI_tok  shift, and go to state 165
 
@@ -1756,7 +1760,7 @@ State 77
 
 State 78
 
-  139 jump_statement: CONTINUE_tok . SEMI_tok
+  140 jump_statement: CONTINUE_tok . SEMI_tok
 
     SEMI_tok  shift, and go to state 167
 
@@ -1848,11 +1852,11 @@ State 81
 
 State 82
 
-  138 jump_statement: GOTO_tok . identifier SEMI_tok
+  139 jump_statement: GOTO_tok . @7 identifier SEMI_tok
 
-    ID_tok  shift, and go to state 24
+    $default  reduce using rule 138 (@7)
 
-    identifier  go to state 171
+    @7  go to state 171
 
 
 State 83
@@ -1865,8 +1869,8 @@ State 83
 
 State 84
 
-  141 jump_statement: RETURN_tok . SEMI_tok
-  142               | RETURN_tok . expression SEMI_tok
+  142 jump_statement: RETURN_tok . SEMI_tok
+  143               | RETURN_tok . expression SEMI_tok
 
     SIZEOF_tok                shift, and go to state 85
     ID_tok                    shift, and go to state 24
@@ -1911,8 +1915,8 @@ State 84
 
 State 85
 
-  195 unary_expression: SIZEOF_tok . unary_expression
-  196                 | SIZEOF_tok . OPEN_PAREN_tok type_name CLOSE_PAREN_tok
+  196 unary_expression: SIZEOF_tok . unary_expression
+  197                 | SIZEOF_tok . OPEN_PAREN_tok type_name CLOSE_PAREN_tok
 
     SIZEOF_tok                shift, and go to state 85
     ID_tok                    shift, and go to state 24
@@ -1956,23 +1960,23 @@ State 87
 
 State 88
 
-  199 unary_operator: PLUS_tok .
-
-    $default  reduce using rule 199 (unary_operator)
-
-
-State 89
-
-  200 unary_operator: MINUS_tok .
+  200 unary_operator: PLUS_tok .
 
     $default  reduce using rule 200 (unary_operator)
 
 
+State 89
+
+  201 unary_operator: MINUS_tok .
+
+    $default  reduce using rule 201 (unary_operator)
+
+
 State 90
 
-  198 unary_operator: STAR_tok .
+  199 unary_operator: STAR_tok .
 
-    $default  reduce using rule 198 (unary_operator)
+    $default  reduce using rule 199 (unary_operator)
 
 
 State 91
@@ -1984,8 +1988,8 @@ State 91
 
 State 92
 
-  190 cast_expression: OPEN_PAREN_tok . type_name CLOSE_PAREN_tok cast_expression
-  214 primary_expression: OPEN_PAREN_tok . expression CLOSE_PAREN_tok
+  191 cast_expression: OPEN_PAREN_tok . type_name CLOSE_PAREN_tok cast_expression
+  215 primary_expression: OPEN_PAREN_tok . expression CLOSE_PAREN_tok
 
     CHAR_tok                  shift, and go to state 6
     CONST_tok                 shift, and go to state 7
@@ -2057,28 +2061,28 @@ State 93
 
 State 94
 
-  197 unary_operator: AMP_tok .
+  198 unary_operator: AMP_tok .
 
-    $default  reduce using rule 197 (unary_operator)
+    $default  reduce using rule 198 (unary_operator)
 
 
 State 95
 
-  201 unary_operator: TILDA_tok .
-
-    $default  reduce using rule 201 (unary_operator)
-
-
-State 96
-
-  202 unary_operator: NOT_tok .
+  202 unary_operator: TILDA_tok .
 
     $default  reduce using rule 202 (unary_operator)
 
 
+State 96
+
+  203 unary_operator: NOT_tok .
+
+    $default  reduce using rule 203 (unary_operator)
+
+
 State 97
 
-  192 unary_expression: INC_OP_tok . unary_expression
+  193 unary_expression: INC_OP_tok . unary_expression
 
     SIZEOF_tok                shift, and go to state 85
     ID_tok                    shift, and go to state 24
@@ -2108,7 +2112,7 @@ State 97
 
 State 98
 
-  193 unary_expression: DEC_OP_tok . unary_expression
+  194 unary_expression: DEC_OP_tok . unary_expression
 
     SIZEOF_tok                shift, and go to state 85
     ID_tok                    shift, and go to state 24
@@ -2138,37 +2142,37 @@ State 98
 
 State 99
 
-  217 constant: INTEGER_CONSTANT_tok .
-
-    $default  reduce using rule 217 (constant)
-
-
-State 100
-
-  219 constant: FLOATING_CONSTANT_tok .
-
-    $default  reduce using rule 219 (constant)
-
-
-State 101
-
-  218 constant: CHARACTER_CONSTANT_tok .
+  218 constant: INTEGER_CONSTANT_tok .
 
     $default  reduce using rule 218 (constant)
 
 
-State 102
+State 100
 
-  220 constant: ENUMERATION_CONSTANT_tok .
+  220 constant: FLOATING_CONSTANT_tok .
 
     $default  reduce using rule 220 (constant)
 
 
+State 101
+
+  219 constant: CHARACTER_CONSTANT_tok .
+
+    $default  reduce using rule 219 (constant)
+
+
+State 102
+
+  221 constant: ENUMERATION_CONSTANT_tok .
+
+    $default  reduce using rule 221 (constant)
+
+
 State 103
 
-  221 string: STRING_LITERAL_tok .
+  222 string: STRING_LITERAL_tok .
 
-    $default  reduce using rule 221 (string)
+    $default  reduce using rule 222 (string)
 
 
 State 104
@@ -2360,7 +2364,7 @@ State 112
 State 113
 
   118 expression_statement: expression . SEMI_tok
-  144 expression: expression . COMMA_tok assignment_expression
+  145 expression: expression . COMMA_tok assignment_expression
 
     SEMI_tok   shift, and go to state 189
     COMMA_tok  shift, and go to state 190
@@ -2368,147 +2372,147 @@ State 113
 
 State 114
 
-  143 expression: assignment_expression .
+  144 expression: assignment_expression .
 
-    $default  reduce using rule 143 (expression)
+    $default  reduce using rule 144 (expression)
 
 
 State 115
 
-  145 assignment_expression: conditional_expression .
+  146 assignment_expression: conditional_expression .
 
-    $default  reduce using rule 145 (assignment_expression)
+    $default  reduce using rule 146 (assignment_expression)
 
 
 State 116
 
-  158 conditional_expression: logical_or_expression .
-  159                       | logical_or_expression . QUESTION_MARK_tok expression COLON_tok conditional_expression
-  162 logical_or_expression: logical_or_expression . OR_OP_tok logical_and_expression
+  159 conditional_expression: logical_or_expression .
+  160                       | logical_or_expression . QUESTION_MARK_tok expression COLON_tok conditional_expression
+  163 logical_or_expression: logical_or_expression . OR_OP_tok logical_and_expression
 
     QUESTION_MARK_tok  shift, and go to state 191
     OR_OP_tok          shift, and go to state 192
 
-    $default  reduce using rule 158 (conditional_expression)
+    $default  reduce using rule 159 (conditional_expression)
 
 
 State 117
 
-  161 logical_or_expression: logical_and_expression .
-  164 logical_and_expression: logical_and_expression . AND_OP_tok inclusive_or_expression
+  162 logical_or_expression: logical_and_expression .
+  165 logical_and_expression: logical_and_expression . AND_OP_tok inclusive_or_expression
 
     AND_OP_tok  shift, and go to state 193
 
-    $default  reduce using rule 161 (logical_or_expression)
+    $default  reduce using rule 162 (logical_or_expression)
 
 
 State 118
 
-  163 logical_and_expression: inclusive_or_expression .
-  166 inclusive_or_expression: inclusive_or_expression . BAR_tok exclusive_or_expression
+  164 logical_and_expression: inclusive_or_expression .
+  167 inclusive_or_expression: inclusive_or_expression . BAR_tok exclusive_or_expression
 
     BAR_tok  shift, and go to state 194
 
-    $default  reduce using rule 163 (logical_and_expression)
+    $default  reduce using rule 164 (logical_and_expression)
 
 
 State 119
 
-  165 inclusive_or_expression: exclusive_or_expression .
-  168 exclusive_or_expression: exclusive_or_expression . CARET_tok and_expression
+  166 inclusive_or_expression: exclusive_or_expression .
+  169 exclusive_or_expression: exclusive_or_expression . CARET_tok and_expression
 
     CARET_tok  shift, and go to state 195
 
-    $default  reduce using rule 165 (inclusive_or_expression)
+    $default  reduce using rule 166 (inclusive_or_expression)
 
 
 State 120
 
-  167 exclusive_or_expression: and_expression .
-  170 and_expression: and_expression . AMP_tok equality_expression
+  168 exclusive_or_expression: and_expression .
+  171 and_expression: and_expression . AMP_tok equality_expression
 
     AMP_tok  shift, and go to state 196
 
-    $default  reduce using rule 167 (exclusive_or_expression)
+    $default  reduce using rule 168 (exclusive_or_expression)
 
 
 State 121
 
-  169 and_expression: equality_expression .
-  172 equality_expression: equality_expression . EQ_OP_tok relational_expression
-  173                    | equality_expression . NE_OP_tok relational_expression
+  170 and_expression: equality_expression .
+  173 equality_expression: equality_expression . EQ_OP_tok relational_expression
+  174                    | equality_expression . NE_OP_tok relational_expression
 
     EQ_OP_tok  shift, and go to state 197
     NE_OP_tok  shift, and go to state 198
 
-    $default  reduce using rule 169 (and_expression)
+    $default  reduce using rule 170 (and_expression)
 
 
 State 122
 
-  171 equality_expression: relational_expression .
-  175 relational_expression: relational_expression . LT_tok shift_expression
-  176                      | relational_expression . GT_tok shift_expression
-  177                      | relational_expression . LE_OP_tok shift_expression
-  178                      | relational_expression . GE_OP_tok shift_expression
+  172 equality_expression: relational_expression .
+  176 relational_expression: relational_expression . LT_tok shift_expression
+  177                      | relational_expression . GT_tok shift_expression
+  178                      | relational_expression . LE_OP_tok shift_expression
+  179                      | relational_expression . GE_OP_tok shift_expression
 
     GT_tok     shift, and go to state 199
     LT_tok     shift, and go to state 200
     LE_OP_tok  shift, and go to state 201
     GE_OP_tok  shift, and go to state 202
 
-    $default  reduce using rule 171 (equality_expression)
+    $default  reduce using rule 172 (equality_expression)
 
 
 State 123
 
-  174 relational_expression: shift_expression .
-  180 shift_expression: shift_expression . LEFT_OP_tok additive_expression
-  181                 | shift_expression . RIGHT_OP_tok additive_expression
+  175 relational_expression: shift_expression .
+  181 shift_expression: shift_expression . LEFT_OP_tok additive_expression
+  182                 | shift_expression . RIGHT_OP_tok additive_expression
 
     LEFT_OP_tok   shift, and go to state 203
     RIGHT_OP_tok  shift, and go to state 204
 
-    $default  reduce using rule 174 (relational_expression)
+    $default  reduce using rule 175 (relational_expression)
 
 
 State 124
 
-  179 shift_expression: additive_expression .
-  183 additive_expression: additive_expression . PLUS_tok multiplicative_expression
-  184                    | additive_expression . MINUS_tok multiplicative_expression
+  180 shift_expression: additive_expression .
+  184 additive_expression: additive_expression . PLUS_tok multiplicative_expression
+  185                    | additive_expression . MINUS_tok multiplicative_expression
 
     PLUS_tok   shift, and go to state 205
     MINUS_tok  shift, and go to state 206
 
-    $default  reduce using rule 179 (shift_expression)
+    $default  reduce using rule 180 (shift_expression)
 
 
 State 125
 
-  182 additive_expression: multiplicative_expression .
-  186 multiplicative_expression: multiplicative_expression . STAR_tok cast_expression
-  187                          | multiplicative_expression . DIV_tok cast_expression
-  188                          | multiplicative_expression . PERCENT_tok cast_expression
+  183 additive_expression: multiplicative_expression .
+  187 multiplicative_expression: multiplicative_expression . STAR_tok cast_expression
+  188                          | multiplicative_expression . DIV_tok cast_expression
+  189                          | multiplicative_expression . PERCENT_tok cast_expression
 
     STAR_tok     shift, and go to state 207
     PERCENT_tok  shift, and go to state 208
     DIV_tok      shift, and go to state 209
 
-    $default  reduce using rule 182 (additive_expression)
+    $default  reduce using rule 183 (additive_expression)
 
 
 State 126
 
-  185 multiplicative_expression: cast_expression .
+  186 multiplicative_expression: cast_expression .
 
-    $default  reduce using rule 185 (multiplicative_expression)
+    $default  reduce using rule 186 (multiplicative_expression)
 
 
 State 127
 
-  146 assignment_expression: unary_expression . assignment_operator assignment_expression
-  189 cast_expression: unary_expression .
+  147 assignment_expression: unary_expression . assignment_operator assignment_expression
+  190 cast_expression: unary_expression .
 
     EQUAL_tok         shift, and go to state 210
     MULT_ASSIGN_tok   shift, and go to state 211
@@ -2522,14 +2526,14 @@ State 127
     XOR_ASSIGN_tok    shift, and go to state 219
     OR_ASSIGN_tok     shift, and go to state 220
 
-    $default  reduce using rule 189 (cast_expression)
+    $default  reduce using rule 190 (cast_expression)
 
     assignment_operator  go to state 221
 
 
 State 128
 
-  194 unary_expression: unary_operator . cast_expression
+  195 unary_expression: unary_operator . cast_expression
 
     SIZEOF_tok                shift, and go to state 85
     ID_tok                    shift, and go to state 24
@@ -2560,14 +2564,14 @@ State 128
 
 State 129
 
-  191 unary_expression: postfix_expression .
-  204 postfix_expression: postfix_expression . OPEN_BRACKET_tok expression CLOSE_BRACKET_tok
-  205                   | postfix_expression . OPEN_PAREN_tok CLOSE_PAREN_tok
-  206                   | postfix_expression . OPEN_PAREN_tok argument_expression_list CLOSE_PAREN_tok
-  207                   | postfix_expression . PERIOD_tok identifier
-  208                   | postfix_expression . PTR_OP_tok identifier
-  209                   | postfix_expression . INC_OP_tok
-  210                   | postfix_expression . DEC_OP_tok
+  192 unary_expression: postfix_expression .
+  205 postfix_expression: postfix_expression . OPEN_BRACKET_tok expression CLOSE_BRACKET_tok
+  206                   | postfix_expression . OPEN_PAREN_tok CLOSE_PAREN_tok
+  207                   | postfix_expression . OPEN_PAREN_tok argument_expression_list CLOSE_PAREN_tok
+  208                   | postfix_expression . PERIOD_tok identifier
+  209                   | postfix_expression . PTR_OP_tok identifier
+  210                   | postfix_expression . INC_OP_tok
+  211                   | postfix_expression . DEC_OP_tok
 
     OPEN_BRACKET_tok  shift, and go to state 223
     OPEN_PAREN_tok    shift, and go to state 224
@@ -2576,38 +2580,38 @@ State 129
     PTR_OP_tok        shift, and go to state 227
     PERIOD_tok        shift, and go to state 228
 
-    $default  reduce using rule 191 (unary_expression)
+    $default  reduce using rule 192 (unary_expression)
 
 
 State 130
 
-  203 postfix_expression: primary_expression .
+  204 postfix_expression: primary_expression .
 
-    $default  reduce using rule 203 (postfix_expression)
+    $default  reduce using rule 204 (postfix_expression)
 
 
 State 131
 
-  212 primary_expression: constant .
+  213 primary_expression: constant .
 
-    $default  reduce using rule 212 (primary_expression)
+    $default  reduce using rule 213 (primary_expression)
 
 
 State 132
 
-  213 primary_expression: string .
+  214 primary_expression: string .
 
-    $default  reduce using rule 213 (primary_expression)
+    $default  reduce using rule 214 (primary_expression)
 
 
 State 133
 
   114 labeled_statement: identifier . COLON_tok statement
-  211 primary_expression: identifier .
+  212 primary_expression: identifier .
 
     COLON_tok  shift, and go to state 229
 
-    $default  reduce using rule 211 (primary_expression)
+    $default  reduce using rule 212 (primary_expression)
 
 
 State 134
@@ -2687,9 +2691,9 @@ State 138
 
 State 139
 
-  160 constant_expression: conditional_expression .
+  161 constant_expression: conditional_expression .
 
-    $default  reduce using rule 160 (constant_expression)
+    $default  reduce using rule 161 (constant_expression)
 
 
 State 140
@@ -2701,16 +2705,16 @@ State 140
 
 State 141
 
-  189 cast_expression: unary_expression .
+  190 cast_expression: unary_expression .
 
-    $default  reduce using rule 189 (cast_expression)
+    $default  reduce using rule 190 (cast_expression)
 
 
 State 142
 
-  211 primary_expression: identifier .
+  212 primary_expression: identifier .
 
-    $default  reduce using rule 211 (primary_expression)
+    $default  reduce using rule 212 (primary_expression)
 
 
 State 143
@@ -2998,9 +3002,9 @@ State 164
 
 State 165
 
-  140 jump_statement: BREAK_tok SEMI_tok .
+  141 jump_statement: BREAK_tok SEMI_tok .
 
-    $default  reduce using rule 140 (jump_statement)
+    $default  reduce using rule 141 (jump_statement)
 
 
 State 166
@@ -3012,9 +3016,9 @@ State 166
 
 State 167
 
-  139 jump_statement: CONTINUE_tok SEMI_tok .
+  140 jump_statement: CONTINUE_tok SEMI_tok .
 
-    $default  reduce using rule 139 (jump_statement)
+    $default  reduce using rule 140 (jump_statement)
 
 
 State 168
@@ -3142,9 +3146,11 @@ State 170
 
 State 171
 
-  138 jump_statement: GOTO_tok identifier . SEMI_tok
+  139 jump_statement: GOTO_tok @7 . identifier SEMI_tok
 
-    SEMI_tok  shift, and go to state 256
+    ID_tok  shift, and go to state 24
+
+    identifier  go to state 256
 
 
 State 172
@@ -3194,15 +3200,15 @@ State 172
 
 State 173
 
-  141 jump_statement: RETURN_tok SEMI_tok .
+  142 jump_statement: RETURN_tok SEMI_tok .
 
-    $default  reduce using rule 141 (jump_statement)
+    $default  reduce using rule 142 (jump_statement)
 
 
 State 174
 
-  142 jump_statement: RETURN_tok expression . SEMI_tok
-  144 expression: expression . COMMA_tok assignment_expression
+  143 jump_statement: RETURN_tok expression . SEMI_tok
+  145 expression: expression . COMMA_tok assignment_expression
 
     SEMI_tok   shift, and go to state 258
     COMMA_tok  shift, and go to state 190
@@ -3210,8 +3216,8 @@ State 174
 
 State 175
 
-  196 unary_expression: SIZEOF_tok OPEN_PAREN_tok . type_name CLOSE_PAREN_tok
-  214 primary_expression: OPEN_PAREN_tok . expression CLOSE_PAREN_tok
+  197 unary_expression: SIZEOF_tok OPEN_PAREN_tok . type_name CLOSE_PAREN_tok
+  215 primary_expression: OPEN_PAREN_tok . expression CLOSE_PAREN_tok
 
     CHAR_tok                  shift, and go to state 6
     CONST_tok                 shift, and go to state 7
@@ -3276,9 +3282,9 @@ State 175
 
 State 176
 
-  195 unary_expression: SIZEOF_tok unary_expression .
+  196 unary_expression: SIZEOF_tok unary_expression .
 
-    $default  reduce using rule 195 (unary_expression)
+    $default  reduce using rule 196 (unary_expression)
 
 
 State 177
@@ -3387,15 +3393,15 @@ State 179
 
 State 180
 
-  190 cast_expression: OPEN_PAREN_tok type_name . CLOSE_PAREN_tok cast_expression
+  191 cast_expression: OPEN_PAREN_tok type_name . CLOSE_PAREN_tok cast_expression
 
     CLOSE_PAREN_tok  shift, and go to state 265
 
 
 State 181
 
-  144 expression: expression . COMMA_tok assignment_expression
-  214 primary_expression: OPEN_PAREN_tok expression . CLOSE_PAREN_tok
+  145 expression: expression . COMMA_tok assignment_expression
+  215 primary_expression: OPEN_PAREN_tok expression . CLOSE_PAREN_tok
 
     COMMA_tok        shift, and go to state 190
     CLOSE_PAREN_tok  shift, and go to state 266
@@ -3403,7 +3409,7 @@ State 181
 
 State 182
 
-  214 primary_expression: OPEN_PAREN_tok . expression CLOSE_PAREN_tok
+  215 primary_expression: OPEN_PAREN_tok . expression CLOSE_PAREN_tok
 
     SIZEOF_tok                shift, and go to state 85
     ID_tok                    shift, and go to state 24
@@ -3447,16 +3453,16 @@ State 182
 
 State 183
 
-  192 unary_expression: INC_OP_tok unary_expression .
+  193 unary_expression: INC_OP_tok unary_expression .
 
-    $default  reduce using rule 192 (unary_expression)
+    $default  reduce using rule 193 (unary_expression)
 
 
 State 184
 
-  193 unary_expression: DEC_OP_tok unary_expression .
+  194 unary_expression: DEC_OP_tok unary_expression .
 
-    $default  reduce using rule 193 (unary_expression)
+    $default  reduce using rule 194 (unary_expression)
 
 
 State 185
@@ -3555,7 +3561,7 @@ State 189
 
 State 190
 
-  144 expression: expression COMMA_tok . assignment_expression
+  145 expression: expression COMMA_tok . assignment_expression
 
     SIZEOF_tok                shift, and go to state 85
     ID_tok                    shift, and go to state 24
@@ -3598,7 +3604,7 @@ State 190
 
 State 191
 
-  159 conditional_expression: logical_or_expression QUESTION_MARK_tok . expression COLON_tok conditional_expression
+  160 conditional_expression: logical_or_expression QUESTION_MARK_tok . expression COLON_tok conditional_expression
 
     SIZEOF_tok                shift, and go to state 85
     ID_tok                    shift, and go to state 24
@@ -3642,7 +3648,7 @@ State 191
 
 State 192
 
-  162 logical_or_expression: logical_or_expression OR_OP_tok . logical_and_expression
+  163 logical_or_expression: logical_or_expression OR_OP_tok . logical_and_expression
 
     SIZEOF_tok                shift, and go to state 85
     ID_tok                    shift, and go to state 24
@@ -3682,7 +3688,7 @@ State 192
 
 State 193
 
-  164 logical_and_expression: logical_and_expression AND_OP_tok . inclusive_or_expression
+  165 logical_and_expression: logical_and_expression AND_OP_tok . inclusive_or_expression
 
     SIZEOF_tok                shift, and go to state 85
     ID_tok                    shift, and go to state 24
@@ -3721,7 +3727,7 @@ State 193
 
 State 194
 
-  166 inclusive_or_expression: inclusive_or_expression BAR_tok . exclusive_or_expression
+  167 inclusive_or_expression: inclusive_or_expression BAR_tok . exclusive_or_expression
 
     SIZEOF_tok                shift, and go to state 85
     ID_tok                    shift, and go to state 24
@@ -3759,7 +3765,7 @@ State 194
 
 State 195
 
-  168 exclusive_or_expression: exclusive_or_expression CARET_tok . and_expression
+  169 exclusive_or_expression: exclusive_or_expression CARET_tok . and_expression
 
     SIZEOF_tok                shift, and go to state 85
     ID_tok                    shift, and go to state 24
@@ -3796,7 +3802,7 @@ State 195
 
 State 196
 
-  170 and_expression: and_expression AMP_tok . equality_expression
+  171 and_expression: and_expression AMP_tok . equality_expression
 
     SIZEOF_tok                shift, and go to state 85
     ID_tok                    shift, and go to state 24
@@ -3832,7 +3838,7 @@ State 196
 
 State 197
 
-  172 equality_expression: equality_expression EQ_OP_tok . relational_expression
+  173 equality_expression: equality_expression EQ_OP_tok . relational_expression
 
     SIZEOF_tok                shift, and go to state 85
     ID_tok                    shift, and go to state 24
@@ -3867,7 +3873,7 @@ State 197
 
 State 198
 
-  173 equality_expression: equality_expression NE_OP_tok . relational_expression
+  174 equality_expression: equality_expression NE_OP_tok . relational_expression
 
     SIZEOF_tok                shift, and go to state 85
     ID_tok                    shift, and go to state 24
@@ -3902,7 +3908,7 @@ State 198
 
 State 199
 
-  176 relational_expression: relational_expression GT_tok . shift_expression
+  177 relational_expression: relational_expression GT_tok . shift_expression
 
     SIZEOF_tok                shift, and go to state 85
     ID_tok                    shift, and go to state 24
@@ -3936,7 +3942,7 @@ State 199
 
 State 200
 
-  175 relational_expression: relational_expression LT_tok . shift_expression
+  176 relational_expression: relational_expression LT_tok . shift_expression
 
     SIZEOF_tok                shift, and go to state 85
     ID_tok                    shift, and go to state 24
@@ -3970,7 +3976,7 @@ State 200
 
 State 201
 
-  177 relational_expression: relational_expression LE_OP_tok . shift_expression
+  178 relational_expression: relational_expression LE_OP_tok . shift_expression
 
     SIZEOF_tok                shift, and go to state 85
     ID_tok                    shift, and go to state 24
@@ -4004,7 +4010,7 @@ State 201
 
 State 202
 
-  178 relational_expression: relational_expression GE_OP_tok . shift_expression
+  179 relational_expression: relational_expression GE_OP_tok . shift_expression
 
     SIZEOF_tok                shift, and go to state 85
     ID_tok                    shift, and go to state 24
@@ -4038,7 +4044,7 @@ State 202
 
 State 203
 
-  180 shift_expression: shift_expression LEFT_OP_tok . additive_expression
+  181 shift_expression: shift_expression LEFT_OP_tok . additive_expression
 
     SIZEOF_tok                shift, and go to state 85
     ID_tok                    shift, and go to state 24
@@ -4071,7 +4077,7 @@ State 203
 
 State 204
 
-  181 shift_expression: shift_expression RIGHT_OP_tok . additive_expression
+  182 shift_expression: shift_expression RIGHT_OP_tok . additive_expression
 
     SIZEOF_tok                shift, and go to state 85
     ID_tok                    shift, and go to state 24
@@ -4104,7 +4110,7 @@ State 204
 
 State 205
 
-  183 additive_expression: additive_expression PLUS_tok . multiplicative_expression
+  184 additive_expression: additive_expression PLUS_tok . multiplicative_expression
 
     SIZEOF_tok                shift, and go to state 85
     ID_tok                    shift, and go to state 24
@@ -4136,7 +4142,7 @@ State 205
 
 State 206
 
-  184 additive_expression: additive_expression MINUS_tok . multiplicative_expression
+  185 additive_expression: additive_expression MINUS_tok . multiplicative_expression
 
     SIZEOF_tok                shift, and go to state 85
     ID_tok                    shift, and go to state 24
@@ -4168,7 +4174,7 @@ State 206
 
 State 207
 
-  186 multiplicative_expression: multiplicative_expression STAR_tok . cast_expression
+  187 multiplicative_expression: multiplicative_expression STAR_tok . cast_expression
 
     SIZEOF_tok                shift, and go to state 85
     ID_tok                    shift, and go to state 24
@@ -4199,7 +4205,7 @@ State 207
 
 State 208
 
-  188 multiplicative_expression: multiplicative_expression PERCENT_tok . cast_expression
+  189 multiplicative_expression: multiplicative_expression PERCENT_tok . cast_expression
 
     SIZEOF_tok                shift, and go to state 85
     ID_tok                    shift, and go to state 24
@@ -4230,7 +4236,7 @@ State 208
 
 State 209
 
-  187 multiplicative_expression: multiplicative_expression DIV_tok . cast_expression
+  188 multiplicative_expression: multiplicative_expression DIV_tok . cast_expression
 
     SIZEOF_tok                shift, and go to state 85
     ID_tok                    shift, and go to state 24
@@ -4261,84 +4267,84 @@ State 209
 
 State 210
 
-  147 assignment_operator: EQUAL_tok .
-
-    $default  reduce using rule 147 (assignment_operator)
-
-
-State 211
-
-  148 assignment_operator: MULT_ASSIGN_tok .
+  148 assignment_operator: EQUAL_tok .
 
     $default  reduce using rule 148 (assignment_operator)
 
 
-State 212
+State 211
 
-  149 assignment_operator: DIV_ASSIGN_tok .
+  149 assignment_operator: MULT_ASSIGN_tok .
 
     $default  reduce using rule 149 (assignment_operator)
 
 
-State 213
+State 212
 
-  150 assignment_operator: MOD_ASSIGN_tok .
+  150 assignment_operator: DIV_ASSIGN_tok .
 
     $default  reduce using rule 150 (assignment_operator)
 
 
-State 214
+State 213
 
-  151 assignment_operator: ADD_ASSIGN_tok .
+  151 assignment_operator: MOD_ASSIGN_tok .
 
     $default  reduce using rule 151 (assignment_operator)
 
 
-State 215
+State 214
 
-  152 assignment_operator: SUB_ASSIGN_tok .
+  152 assignment_operator: ADD_ASSIGN_tok .
 
     $default  reduce using rule 152 (assignment_operator)
 
 
-State 216
+State 215
 
-  153 assignment_operator: LEFT_ASSIGN_tok .
+  153 assignment_operator: SUB_ASSIGN_tok .
 
     $default  reduce using rule 153 (assignment_operator)
 
 
-State 217
+State 216
 
-  154 assignment_operator: RIGHT_ASSIGN_tok .
+  154 assignment_operator: LEFT_ASSIGN_tok .
 
     $default  reduce using rule 154 (assignment_operator)
 
 
-State 218
+State 217
 
-  155 assignment_operator: AND_ASSIGN_tok .
+  155 assignment_operator: RIGHT_ASSIGN_tok .
 
     $default  reduce using rule 155 (assignment_operator)
 
 
-State 219
+State 218
 
-  156 assignment_operator: XOR_ASSIGN_tok .
+  156 assignment_operator: AND_ASSIGN_tok .
 
     $default  reduce using rule 156 (assignment_operator)
 
 
-State 220
+State 219
 
-  157 assignment_operator: OR_ASSIGN_tok .
+  157 assignment_operator: XOR_ASSIGN_tok .
 
     $default  reduce using rule 157 (assignment_operator)
 
 
+State 220
+
+  158 assignment_operator: OR_ASSIGN_tok .
+
+    $default  reduce using rule 158 (assignment_operator)
+
+
 State 221
 
-  146 assignment_expression: unary_expression assignment_operator . assignment_expression
+  147 assignment_expression: unary_expression assignment_operator . assignment_expression
 
     SIZEOF_tok                shift, and go to state 85
     ID_tok                    shift, and go to state 24
@@ -4381,14 +4387,14 @@ State 221
 
 State 222
 
-  194 unary_expression: unary_operator cast_expression .
+  195 unary_expression: unary_operator cast_expression .
 
-    $default  reduce using rule 194 (unary_expression)
+    $default  reduce using rule 195 (unary_expression)
 
 
 State 223
 
-  204 postfix_expression: postfix_expression OPEN_BRACKET_tok . expression CLOSE_BRACKET_tok
+  205 postfix_expression: postfix_expression OPEN_BRACKET_tok . expression CLOSE_BRACKET_tok
 
     SIZEOF_tok                shift, and go to state 85
     ID_tok                    shift, and go to state 24
@@ -4432,8 +4438,8 @@ State 223
 
 State 224
 
-  205 postfix_expression: postfix_expression OPEN_PAREN_tok . CLOSE_PAREN_tok
-  206                   | postfix_expression OPEN_PAREN_tok . argument_expression_list CLOSE_PAREN_tok
+  206 postfix_expression: postfix_expression OPEN_PAREN_tok . CLOSE_PAREN_tok
+  207                   | postfix_expression OPEN_PAREN_tok . argument_expression_list CLOSE_PAREN_tok
 
     SIZEOF_tok                shift, and go to state 85
     ID_tok                    shift, and go to state 24
@@ -4478,21 +4484,21 @@ State 224
 
 State 225
 
-  209 postfix_expression: postfix_expression INC_OP_tok .
-
-    $default  reduce using rule 209 (postfix_expression)
-
-
-State 226
-
-  210 postfix_expression: postfix_expression DEC_OP_tok .
+  210 postfix_expression: postfix_expression INC_OP_tok .
 
     $default  reduce using rule 210 (postfix_expression)
 
 
+State 226
+
+  211 postfix_expression: postfix_expression DEC_OP_tok .
+
+    $default  reduce using rule 211 (postfix_expression)
+
+
 State 227
 
-  208 postfix_expression: postfix_expression PTR_OP_tok . identifier
+  209 postfix_expression: postfix_expression PTR_OP_tok . identifier
 
     ID_tok  shift, and go to state 24
 
@@ -4501,7 +4507,7 @@ State 227
 
 State 228
 
-  207 postfix_expression: postfix_expression PERIOD_tok . identifier
+  208 postfix_expression: postfix_expression PERIOD_tok . identifier
 
     ID_tok  shift, and go to state 24
 
@@ -5028,7 +5034,7 @@ State 255
   135                    | FOR_tok OPEN_PAREN_tok expression . SEMI_tok SEMI_tok expression CLOSE_PAREN_tok statement
   136                    | FOR_tok OPEN_PAREN_tok expression . SEMI_tok expression SEMI_tok CLOSE_PAREN_tok statement
   137                    | FOR_tok OPEN_PAREN_tok expression . SEMI_tok expression SEMI_tok expression CLOSE_PAREN_tok statement
-  144 expression: expression . COMMA_tok assignment_expression
+  145 expression: expression . COMMA_tok assignment_expression
 
     SEMI_tok   shift, and go to state 315
     COMMA_tok  shift, and go to state 190
@@ -5036,51 +5042,51 @@ State 255
 
 State 256
 
-  138 jump_statement: GOTO_tok identifier SEMI_tok .
+  139 jump_statement: GOTO_tok @7 identifier . SEMI_tok
 
-    $default  reduce using rule 138 (jump_statement)
+    SEMI_tok  shift, and go to state 316
 
 
 State 257
 
   125 selection_statement: IF_tok OPEN_PAREN_tok expression . CLOSE_PAREN_tok statement
   126                    | IF_tok OPEN_PAREN_tok expression . CLOSE_PAREN_tok statement ELSE_tok statement
-  144 expression: expression . COMMA_tok assignment_expression
+  145 expression: expression . COMMA_tok assignment_expression
 
     COMMA_tok        shift, and go to state 190
-    CLOSE_PAREN_tok  shift, and go to state 316
+    CLOSE_PAREN_tok  shift, and go to state 317
 
 
 State 258
 
-  142 jump_statement: RETURN_tok expression SEMI_tok .
+  143 jump_statement: RETURN_tok expression SEMI_tok .
 
-    $default  reduce using rule 142 (jump_statement)
+    $default  reduce using rule 143 (jump_statement)
 
 
 State 259
 
-  196 unary_expression: SIZEOF_tok OPEN_PAREN_tok type_name . CLOSE_PAREN_tok
+  197 unary_expression: SIZEOF_tok OPEN_PAREN_tok type_name . CLOSE_PAREN_tok
 
-    CLOSE_PAREN_tok  shift, and go to state 317
+    CLOSE_PAREN_tok  shift, and go to state 318
 
 
 State 260
 
   127 selection_statement: SWITCH_tok OPEN_PAREN_tok expression . CLOSE_PAREN_tok statement
-  144 expression: expression . COMMA_tok assignment_expression
+  145 expression: expression . COMMA_tok assignment_expression
 
     COMMA_tok        shift, and go to state 190
-    CLOSE_PAREN_tok  shift, and go to state 318
+    CLOSE_PAREN_tok  shift, and go to state 319
 
 
 State 261
 
   128 iteration_statement: WHILE_tok OPEN_PAREN_tok expression . CLOSE_PAREN_tok statement
-  144 expression: expression . COMMA_tok assignment_expression
+  145 expression: expression . COMMA_tok assignment_expression
 
     COMMA_tok        shift, and go to state 190
-    CLOSE_PAREN_tok  shift, and go to state 319
+    CLOSE_PAREN_tok  shift, and go to state 320
 
 
 State 262
@@ -5150,7 +5156,7 @@ State 264
 
 State 265
 
-  190 cast_expression: OPEN_PAREN_tok type_name CLOSE_PAREN_tok . cast_expression
+  191 cast_expression: OPEN_PAREN_tok type_name CLOSE_PAREN_tok . cast_expression
 
     SIZEOF_tok                shift, and go to state 85
     ID_tok                    shift, and go to state 24
@@ -5169,7 +5175,7 @@ State 265
     ENUMERATION_CONSTANT_tok  shift, and go to state 102
     STRING_LITERAL_tok        shift, and go to state 103
 
-    cast_expression     go to state 320
+    cast_expression     go to state 321
     unary_expression    go to state 141
     unary_operator      go to state 128
     postfix_expression  go to state 129
@@ -5181,9 +5187,9 @@ State 265
 
 State 266
 
-  214 primary_expression: OPEN_PAREN_tok expression CLOSE_PAREN_tok .
+  215 primary_expression: OPEN_PAREN_tok expression CLOSE_PAREN_tok .
 
-    $default  reduce using rule 214 (primary_expression)
+    $default  reduce using rule 215 (primary_expression)
 
 
 State 267
@@ -5195,95 +5201,79 @@ State 267
 
 State 268
 
-  144 expression: expression COMMA_tok assignment_expression .
+  145 expression: expression COMMA_tok assignment_expression .
 
-    $default  reduce using rule 144 (expression)
+    $default  reduce using rule 145 (expression)
 
 
 State 269
 
-  144 expression: expression . COMMA_tok assignment_expression
-  159 conditional_expression: logical_or_expression QUESTION_MARK_tok expression . COLON_tok conditional_expression
+  145 expression: expression . COMMA_tok assignment_expression
+  160 conditional_expression: logical_or_expression QUESTION_MARK_tok expression . COLON_tok conditional_expression
 
-    COLON_tok  shift, and go to state 321
+    COLON_tok  shift, and go to state 322
     COMMA_tok  shift, and go to state 190
 
 
 State 270
 
-  162 logical_or_expression: logical_or_expression OR_OP_tok logical_and_expression .
-  164 logical_and_expression: logical_and_expression . AND_OP_tok inclusive_or_expression
+  163 logical_or_expression: logical_or_expression OR_OP_tok logical_and_expression .
+  165 logical_and_expression: logical_and_expression . AND_OP_tok inclusive_or_expression
 
     AND_OP_tok  shift, and go to state 193
 
-    $default  reduce using rule 162 (logical_or_expression)
+    $default  reduce using rule 163 (logical_or_expression)
 
 
 State 271
 
-  164 logical_and_expression: logical_and_expression AND_OP_tok inclusive_or_expression .
-  166 inclusive_or_expression: inclusive_or_expression . BAR_tok exclusive_or_expression
+  165 logical_and_expression: logical_and_expression AND_OP_tok inclusive_or_expression .
+  167 inclusive_or_expression: inclusive_or_expression . BAR_tok exclusive_or_expression
 
     BAR_tok  shift, and go to state 194
 
-    $default  reduce using rule 164 (logical_and_expression)
+    $default  reduce using rule 165 (logical_and_expression)
 
 
 State 272
 
-  166 inclusive_or_expression: inclusive_or_expression BAR_tok exclusive_or_expression .
-  168 exclusive_or_expression: exclusive_or_expression . CARET_tok and_expression
+  167 inclusive_or_expression: inclusive_or_expression BAR_tok exclusive_or_expression .
+  169 exclusive_or_expression: exclusive_or_expression . CARET_tok and_expression
 
     CARET_tok  shift, and go to state 195
 
-    $default  reduce using rule 166 (inclusive_or_expression)
+    $default  reduce using rule 167 (inclusive_or_expression)
 
 
 State 273
 
-  168 exclusive_or_expression: exclusive_or_expression CARET_tok and_expression .
-  170 and_expression: and_expression . AMP_tok equality_expression
+  169 exclusive_or_expression: exclusive_or_expression CARET_tok and_expression .
+  171 and_expression: and_expression . AMP_tok equality_expression
 
     AMP_tok  shift, and go to state 196
 
-    $default  reduce using rule 168 (exclusive_or_expression)
+    $default  reduce using rule 169 (exclusive_or_expression)
 
 
 State 274
 
-  170 and_expression: and_expression AMP_tok equality_expression .
-  172 equality_expression: equality_expression . EQ_OP_tok relational_expression
-  173                    | equality_expression . NE_OP_tok relational_expression
+  171 and_expression: and_expression AMP_tok equality_expression .
+  173 equality_expression: equality_expression . EQ_OP_tok relational_expression
+  174                    | equality_expression . NE_OP_tok relational_expression
 
     EQ_OP_tok  shift, and go to state 197
     NE_OP_tok  shift, and go to state 198
 
-    $default  reduce using rule 170 (and_expression)
+    $default  reduce using rule 171 (and_expression)
 
 
 State 275
 
-  172 equality_expression: equality_expression EQ_OP_tok relational_expression .
-  175 relational_expression: relational_expression . LT_tok shift_expression
-  176                      | relational_expression . GT_tok shift_expression
-  177                      | relational_expression . LE_OP_tok shift_expression
-  178                      | relational_expression . GE_OP_tok shift_expression
-
-    GT_tok     shift, and go to state 199
-    LT_tok     shift, and go to state 200
-    LE_OP_tok  shift, and go to state 201
-    GE_OP_tok  shift, and go to state 202
-
-    $default  reduce using rule 172 (equality_expression)
-
-
-State 276
-
-  173 equality_expression: equality_expression NE_OP_tok relational_expression .
-  175 relational_expression: relational_expression . LT_tok shift_expression
-  176                      | relational_expression . GT_tok shift_expression
-  177                      | relational_expression . LE_OP_tok shift_expression
-  178                      | relational_expression . GE_OP_tok shift_expression
+  173 equality_expression: equality_expression EQ_OP_tok relational_expression .
+  176 relational_expression: relational_expression . LT_tok shift_expression
+  177                      | relational_expression . GT_tok shift_expression
+  178                      | relational_expression . LE_OP_tok shift_expression
+  179                      | relational_expression . GE_OP_tok shift_expression
 
     GT_tok     shift, and go to state 199
     LT_tok     shift, and go to state 200
@@ -5293,35 +5283,27 @@ State 276
     $default  reduce using rule 173 (equality_expression)
 
 
+State 276
+
+  174 equality_expression: equality_expression NE_OP_tok relational_expression .
+  176 relational_expression: relational_expression . LT_tok shift_expression
+  177                      | relational_expression . GT_tok shift_expression
+  178                      | relational_expression . LE_OP_tok shift_expression
+  179                      | relational_expression . GE_OP_tok shift_expression
+
+    GT_tok     shift, and go to state 199
+    LT_tok     shift, and go to state 200
+    LE_OP_tok  shift, and go to state 201
+    GE_OP_tok  shift, and go to state 202
+
+    $default  reduce using rule 174 (equality_expression)
+
+
 State 277
 
-  176 relational_expression: relational_expression GT_tok shift_expression .
-  180 shift_expression: shift_expression . LEFT_OP_tok additive_expression
-  181                 | shift_expression . RIGHT_OP_tok additive_expression
-
-    LEFT_OP_tok   shift, and go to state 203
-    RIGHT_OP_tok  shift, and go to state 204
-
-    $default  reduce using rule 176 (relational_expression)
-
-
-State 278
-
-  175 relational_expression: relational_expression LT_tok shift_expression .
-  180 shift_expression: shift_expression . LEFT_OP_tok additive_expression
-  181                 | shift_expression . RIGHT_OP_tok additive_expression
-
-    LEFT_OP_tok   shift, and go to state 203
-    RIGHT_OP_tok  shift, and go to state 204
-
-    $default  reduce using rule 175 (relational_expression)
-
-
-State 279
-
-  177 relational_expression: relational_expression LE_OP_tok shift_expression .
-  180 shift_expression: shift_expression . LEFT_OP_tok additive_expression
-  181                 | shift_expression . RIGHT_OP_tok additive_expression
+  177 relational_expression: relational_expression GT_tok shift_expression .
+  181 shift_expression: shift_expression . LEFT_OP_tok additive_expression
+  182                 | shift_expression . RIGHT_OP_tok additive_expression
 
     LEFT_OP_tok   shift, and go to state 203
     RIGHT_OP_tok  shift, and go to state 204
@@ -5329,11 +5311,23 @@ State 279
     $default  reduce using rule 177 (relational_expression)
 
 
-State 280
+State 278
 
-  178 relational_expression: relational_expression GE_OP_tok shift_expression .
-  180 shift_expression: shift_expression . LEFT_OP_tok additive_expression
-  181                 | shift_expression . RIGHT_OP_tok additive_expression
+  176 relational_expression: relational_expression LT_tok shift_expression .
+  181 shift_expression: shift_expression . LEFT_OP_tok additive_expression
+  182                 | shift_expression . RIGHT_OP_tok additive_expression
+
+    LEFT_OP_tok   shift, and go to state 203
+    RIGHT_OP_tok  shift, and go to state 204
+
+    $default  reduce using rule 176 (relational_expression)
+
+
+State 279
+
+  178 relational_expression: relational_expression LE_OP_tok shift_expression .
+  181 shift_expression: shift_expression . LEFT_OP_tok additive_expression
+  182                 | shift_expression . RIGHT_OP_tok additive_expression
 
     LEFT_OP_tok   shift, and go to state 203
     RIGHT_OP_tok  shift, and go to state 204
@@ -5341,23 +5335,23 @@ State 280
     $default  reduce using rule 178 (relational_expression)
 
 
+State 280
+
+  179 relational_expression: relational_expression GE_OP_tok shift_expression .
+  181 shift_expression: shift_expression . LEFT_OP_tok additive_expression
+  182                 | shift_expression . RIGHT_OP_tok additive_expression
+
+    LEFT_OP_tok   shift, and go to state 203
+    RIGHT_OP_tok  shift, and go to state 204
+
+    $default  reduce using rule 179 (relational_expression)
+
+
 State 281
 
-  180 shift_expression: shift_expression LEFT_OP_tok additive_expression .
-  183 additive_expression: additive_expression . PLUS_tok multiplicative_expression
-  184                    | additive_expression . MINUS_tok multiplicative_expression
-
-    PLUS_tok   shift, and go to state 205
-    MINUS_tok  shift, and go to state 206
-
-    $default  reduce using rule 180 (shift_expression)
-
-
-State 282
-
-  181 shift_expression: shift_expression RIGHT_OP_tok additive_expression .
-  183 additive_expression: additive_expression . PLUS_tok multiplicative_expression
-  184                    | additive_expression . MINUS_tok multiplicative_expression
+  181 shift_expression: shift_expression LEFT_OP_tok additive_expression .
+  184 additive_expression: additive_expression . PLUS_tok multiplicative_expression
+  185                    | additive_expression . MINUS_tok multiplicative_expression
 
     PLUS_tok   shift, and go to state 205
     MINUS_tok  shift, and go to state 206
@@ -5365,26 +5359,24 @@ State 282
     $default  reduce using rule 181 (shift_expression)
 
 
+State 282
+
+  182 shift_expression: shift_expression RIGHT_OP_tok additive_expression .
+  184 additive_expression: additive_expression . PLUS_tok multiplicative_expression
+  185                    | additive_expression . MINUS_tok multiplicative_expression
+
+    PLUS_tok   shift, and go to state 205
+    MINUS_tok  shift, and go to state 206
+
+    $default  reduce using rule 182 (shift_expression)
+
+
 State 283
 
-  183 additive_expression: additive_expression PLUS_tok multiplicative_expression .
-  186 multiplicative_expression: multiplicative_expression . STAR_tok cast_expression
-  187                          | multiplicative_expression . DIV_tok cast_expression
-  188                          | multiplicative_expression . PERCENT_tok cast_expression
-
-    STAR_tok     shift, and go to state 207
-    PERCENT_tok  shift, and go to state 208
-    DIV_tok      shift, and go to state 209
-
-    $default  reduce using rule 183 (additive_expression)
-
-
-State 284
-
-  184 additive_expression: additive_expression MINUS_tok multiplicative_expression .
-  186 multiplicative_expression: multiplicative_expression . STAR_tok cast_expression
-  187                          | multiplicative_expression . DIV_tok cast_expression
-  188                          | multiplicative_expression . PERCENT_tok cast_expression
+  184 additive_expression: additive_expression PLUS_tok multiplicative_expression .
+  187 multiplicative_expression: multiplicative_expression . STAR_tok cast_expression
+  188                          | multiplicative_expression . DIV_tok cast_expression
+  189                          | multiplicative_expression . PERCENT_tok cast_expression
 
     STAR_tok     shift, and go to state 207
     PERCENT_tok  shift, and go to state 208
@@ -5393,78 +5385,92 @@ State 284
     $default  reduce using rule 184 (additive_expression)
 
 
+State 284
+
+  185 additive_expression: additive_expression MINUS_tok multiplicative_expression .
+  187 multiplicative_expression: multiplicative_expression . STAR_tok cast_expression
+  188                          | multiplicative_expression . DIV_tok cast_expression
+  189                          | multiplicative_expression . PERCENT_tok cast_expression
+
+    STAR_tok     shift, and go to state 207
+    PERCENT_tok  shift, and go to state 208
+    DIV_tok      shift, and go to state 209
+
+    $default  reduce using rule 185 (additive_expression)
+
+
 State 285
 
-  186 multiplicative_expression: multiplicative_expression STAR_tok cast_expression .
-
-    $default  reduce using rule 186 (multiplicative_expression)
-
-
-State 286
-
-  188 multiplicative_expression: multiplicative_expression PERCENT_tok cast_expression .
-
-    $default  reduce using rule 188 (multiplicative_expression)
-
-
-State 287
-
-  187 multiplicative_expression: multiplicative_expression DIV_tok cast_expression .
+  187 multiplicative_expression: multiplicative_expression STAR_tok cast_expression .
 
     $default  reduce using rule 187 (multiplicative_expression)
 
 
+State 286
+
+  189 multiplicative_expression: multiplicative_expression PERCENT_tok cast_expression .
+
+    $default  reduce using rule 189 (multiplicative_expression)
+
+
+State 287
+
+  188 multiplicative_expression: multiplicative_expression DIV_tok cast_expression .
+
+    $default  reduce using rule 188 (multiplicative_expression)
+
+
 State 288
 
-  146 assignment_expression: unary_expression assignment_operator assignment_expression .
+  147 assignment_expression: unary_expression assignment_operator assignment_expression .
 
-    $default  reduce using rule 146 (assignment_expression)
+    $default  reduce using rule 147 (assignment_expression)
 
 
 State 289
 
-  144 expression: expression . COMMA_tok assignment_expression
-  204 postfix_expression: postfix_expression OPEN_BRACKET_tok expression . CLOSE_BRACKET_tok
+  145 expression: expression . COMMA_tok assignment_expression
+  205 postfix_expression: postfix_expression OPEN_BRACKET_tok expression . CLOSE_BRACKET_tok
 
-    CLOSE_BRACKET_tok  shift, and go to state 322
+    CLOSE_BRACKET_tok  shift, and go to state 323
     COMMA_tok          shift, and go to state 190
 
 
 State 290
 
-  205 postfix_expression: postfix_expression OPEN_PAREN_tok CLOSE_PAREN_tok .
+  206 postfix_expression: postfix_expression OPEN_PAREN_tok CLOSE_PAREN_tok .
 
-    $default  reduce using rule 205 (postfix_expression)
+    $default  reduce using rule 206 (postfix_expression)
 
 
 State 291
 
-  215 argument_expression_list: assignment_expression .
+  216 argument_expression_list: assignment_expression .
 
-    $default  reduce using rule 215 (argument_expression_list)
+    $default  reduce using rule 216 (argument_expression_list)
 
 
 State 292
 
-  206 postfix_expression: postfix_expression OPEN_PAREN_tok argument_expression_list . CLOSE_PAREN_tok
-  216 argument_expression_list: argument_expression_list . COMMA_tok assignment_expression
+  207 postfix_expression: postfix_expression OPEN_PAREN_tok argument_expression_list . CLOSE_PAREN_tok
+  217 argument_expression_list: argument_expression_list . COMMA_tok assignment_expression
 
-    COMMA_tok        shift, and go to state 323
-    CLOSE_PAREN_tok  shift, and go to state 324
+    COMMA_tok        shift, and go to state 324
+    CLOSE_PAREN_tok  shift, and go to state 325
 
 
 State 293
 
-  208 postfix_expression: postfix_expression PTR_OP_tok identifier .
+  209 postfix_expression: postfix_expression PTR_OP_tok identifier .
 
-    $default  reduce using rule 208 (postfix_expression)
+    $default  reduce using rule 209 (postfix_expression)
 
 
 State 294
 
-  207 postfix_expression: postfix_expression PERIOD_tok identifier .
+  208 postfix_expression: postfix_expression PERIOD_tok identifier .
 
-    $default  reduce using rule 207 (postfix_expression)
+    $default  reduce using rule 208 (postfix_expression)
 
 
 State 295
@@ -5485,7 +5491,7 @@ State 297
 
   101 direct_abstract_declarator: OPEN_BRACKET_tok constant_expression . CLOSE_BRACKET_tok
 
-    CLOSE_BRACKET_tok  shift, and go to state 325
+    CLOSE_BRACKET_tok  shift, and go to state 326
 
 
 State 298
@@ -5499,14 +5505,14 @@ State 299
 
   105 direct_abstract_declarator: OPEN_PAREN_tok parameter_type_list . CLOSE_PAREN_tok
 
-    CLOSE_PAREN_tok  shift, and go to state 326
+    CLOSE_PAREN_tok  shift, and go to state 327
 
 
 State 300
 
    99 direct_abstract_declarator: OPEN_PAREN_tok abstract_declarator . CLOSE_PAREN_tok
 
-    CLOSE_PAREN_tok  shift, and go to state 327
+    CLOSE_PAREN_tok  shift, and go to state 328
 
 
 State 301
@@ -5533,7 +5539,7 @@ State 302
     PLUS_tok                  shift, and go to state 88
     MINUS_tok                 shift, and go to state 89
     STAR_tok                  shift, and go to state 90
-    CLOSE_BRACKET_tok         shift, and go to state 328
+    CLOSE_BRACKET_tok         shift, and go to state 329
     OPEN_PAREN_tok            shift, and go to state 92
     AMP_tok                   shift, and go to state 94
     TILDA_tok                 shift, and go to state 95
@@ -5547,7 +5553,7 @@ State 302
     STRING_LITERAL_tok        shift, and go to state 103
 
     conditional_expression     go to state 139
-    constant_expression        go to state 329
+    constant_expression        go to state 330
     logical_or_expression      go to state 116
     logical_and_expression     go to state 117
     inclusive_or_expression    go to state 118
@@ -5592,7 +5598,7 @@ State 303
     UNSIGNED_tok      shift, and go to state 21
     VOID_tok          shift, and go to state 22
     VOLATILE_tok      shift, and go to state 23
-    CLOSE_PAREN_tok   shift, and go to state 330
+    CLOSE_PAREN_tok   shift, and go to state 331
     TYPEDEF_NAME_tok  shift, and go to state 27
 
     declaration_specifiers     go to state 144
@@ -5601,7 +5607,7 @@ State 303
     type_qualifier             go to state 34
     struct_or_union_specifier  go to state 35
     struct_or_union            go to state 36
-    parameter_type_list        go to state 331
+    parameter_type_list        go to state 332
     parameter_list             go to state 146
     parameter_declaration      go to state 147
 
@@ -5639,7 +5645,7 @@ State 307
     STAR_tok                  shift, and go to state 90
     OPEN_PAREN_tok            shift, and go to state 92
     OPEN_BRACE_tok            shift, and go to state 152
-    CLOSE_BRACE_tok           shift, and go to state 332
+    CLOSE_BRACE_tok           shift, and go to state 333
     AMP_tok                   shift, and go to state 94
     TILDA_tok                 shift, and go to state 95
     NOT_tok                   shift, and go to state 96
@@ -5651,7 +5657,7 @@ State 307
     ENUMERATION_CONSTANT_tok  shift, and go to state 102
     STRING_LITERAL_tok        shift, and go to state 103
 
-    initializer                go to state 333
+    initializer                go to state 334
     assignment_expression      go to state 154
     conditional_expression     go to state 115
     logical_or_expression      go to state 116
@@ -5723,7 +5729,7 @@ State 312
     ENUMERATION_CONSTANT_tok  shift, and go to state 102
     STRING_LITERAL_tok        shift, and go to state 103
 
-    expression                 go to state 334
+    expression                 go to state 335
     assignment_expression      go to state 114
     conditional_expression     go to state 115
     logical_or_expression      go to state 116
@@ -5757,7 +5763,7 @@ State 313
     MINUS_tok                 shift, and go to state 89
     STAR_tok                  shift, and go to state 90
     OPEN_PAREN_tok            shift, and go to state 92
-    CLOSE_PAREN_tok           shift, and go to state 335
+    CLOSE_PAREN_tok           shift, and go to state 336
     AMP_tok                   shift, and go to state 94
     TILDA_tok                 shift, and go to state 95
     NOT_tok                   shift, and go to state 96
@@ -5769,7 +5775,7 @@ State 313
     ENUMERATION_CONSTANT_tok  shift, and go to state 102
     STRING_LITERAL_tok        shift, and go to state 103
 
-    expression                 go to state 336
+    expression                 go to state 337
     assignment_expression      go to state 114
     conditional_expression     go to state 115
     logical_or_expression      go to state 116
@@ -5796,9 +5802,9 @@ State 314
 
   132 iteration_statement: FOR_tok OPEN_PAREN_tok SEMI_tok expression . SEMI_tok CLOSE_PAREN_tok statement
   133                    | FOR_tok OPEN_PAREN_tok SEMI_tok expression . SEMI_tok expression CLOSE_PAREN_tok statement
-  144 expression: expression . COMMA_tok assignment_expression
+  145 expression: expression . COMMA_tok assignment_expression
 
-    SEMI_tok   shift, and go to state 337
+    SEMI_tok   shift, and go to state 338
     COMMA_tok  shift, and go to state 190
 
 
@@ -5814,7 +5820,7 @@ State 315
     PLUS_tok                  shift, and go to state 88
     MINUS_tok                 shift, and go to state 89
     STAR_tok                  shift, and go to state 90
-    SEMI_tok                  shift, and go to state 338
+    SEMI_tok                  shift, and go to state 339
     OPEN_PAREN_tok            shift, and go to state 92
     AMP_tok                   shift, and go to state 94
     TILDA_tok                 shift, and go to state 95
@@ -5827,7 +5833,7 @@ State 315
     ENUMERATION_CONSTANT_tok  shift, and go to state 102
     STRING_LITERAL_tok        shift, and go to state 103
 
-    expression                 go to state 339
+    expression                 go to state 340
     assignment_expression      go to state 114
     conditional_expression     go to state 115
     logical_or_expression      go to state 116
@@ -5852,79 +5858,15 @@ State 315
 
 State 316
 
-  125 selection_statement: IF_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok . statement
-  126                    | IF_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok . statement ELSE_tok statement
+  139 jump_statement: GOTO_tok @7 identifier SEMI_tok .
 
-    BREAK_tok                 shift, and go to state 76
-    CASE_tok                  shift, and go to state 77
-    CONTINUE_tok              shift, and go to state 78
-    DEFAULT_tok               shift, and go to state 79
-    DO_tok                    shift, and go to state 80
-    FOR_tok                   shift, and go to state 81
-    GOTO_tok                  shift, and go to state 82
-    IF_tok                    shift, and go to state 83
-    RETURN_tok                shift, and go to state 84
-    SIZEOF_tok                shift, and go to state 85
-    SWITCH_tok                shift, and go to state 86
-    WHILE_tok                 shift, and go to state 87
-    ID_tok                    shift, and go to state 24
-    PLUS_tok                  shift, and go to state 88
-    MINUS_tok                 shift, and go to state 89
-    STAR_tok                  shift, and go to state 90
-    SEMI_tok                  shift, and go to state 91
-    OPEN_PAREN_tok            shift, and go to state 92
-    OPEN_BRACE_tok            shift, and go to state 55
-    AMP_tok                   shift, and go to state 94
-    TILDA_tok                 shift, and go to state 95
-    NOT_tok                   shift, and go to state 96
-    INC_OP_tok                shift, and go to state 97
-    DEC_OP_tok                shift, and go to state 98
-    INTEGER_CONSTANT_tok      shift, and go to state 99
-    FLOATING_CONSTANT_tok     shift, and go to state 100
-    CHARACTER_CONSTANT_tok    shift, and go to state 101
-    ENUMERATION_CONSTANT_tok  shift, and go to state 102
-    STRING_LITERAL_tok        shift, and go to state 103
-
-    statement                  go to state 340
-    labeled_statement          go to state 106
-    expression_statement       go to state 107
-    compound_statement         go to state 108
-    selection_statement        go to state 110
-    iteration_statement        go to state 111
-    jump_statement             go to state 112
-    expression                 go to state 113
-    assignment_expression      go to state 114
-    conditional_expression     go to state 115
-    logical_or_expression      go to state 116
-    logical_and_expression     go to state 117
-    inclusive_or_expression    go to state 118
-    exclusive_or_expression    go to state 119
-    and_expression             go to state 120
-    equality_expression        go to state 121
-    relational_expression      go to state 122
-    shift_expression           go to state 123
-    additive_expression        go to state 124
-    multiplicative_expression  go to state 125
-    cast_expression            go to state 126
-    unary_expression           go to state 127
-    unary_operator             go to state 128
-    postfix_expression         go to state 129
-    primary_expression         go to state 130
-    constant                   go to state 131
-    string                     go to state 132
-    identifier                 go to state 133
+    $default  reduce using rule 139 (jump_statement)
 
 
 State 317
 
-  196 unary_expression: SIZEOF_tok OPEN_PAREN_tok type_name CLOSE_PAREN_tok .
-
-    $default  reduce using rule 196 (unary_expression)
-
-
-State 318
-
-  127 selection_statement: SWITCH_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok . statement
+  125 selection_statement: IF_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok . statement
+  126                    | IF_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok . statement ELSE_tok statement
 
     BREAK_tok                 shift, and go to state 76
     CASE_tok                  shift, and go to state 77
@@ -5986,9 +5928,16 @@ State 318
     identifier                 go to state 133
 
 
+State 318
+
+  197 unary_expression: SIZEOF_tok OPEN_PAREN_tok type_name CLOSE_PAREN_tok .
+
+    $default  reduce using rule 197 (unary_expression)
+
+
 State 319
 
-  128 iteration_statement: WHILE_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok . statement
+  127 selection_statement: SWITCH_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok . statement
 
     BREAK_tok                 shift, and go to state 76
     CASE_tok                  shift, and go to state 77
@@ -6052,14 +6001,78 @@ State 319
 
 State 320
 
-  190 cast_expression: OPEN_PAREN_tok type_name CLOSE_PAREN_tok cast_expression .
+  128 iteration_statement: WHILE_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok . statement
 
-    $default  reduce using rule 190 (cast_expression)
+    BREAK_tok                 shift, and go to state 76
+    CASE_tok                  shift, and go to state 77
+    CONTINUE_tok              shift, and go to state 78
+    DEFAULT_tok               shift, and go to state 79
+    DO_tok                    shift, and go to state 80
+    FOR_tok                   shift, and go to state 81
+    GOTO_tok                  shift, and go to state 82
+    IF_tok                    shift, and go to state 83
+    RETURN_tok                shift, and go to state 84
+    SIZEOF_tok                shift, and go to state 85
+    SWITCH_tok                shift, and go to state 86
+    WHILE_tok                 shift, and go to state 87
+    ID_tok                    shift, and go to state 24
+    PLUS_tok                  shift, and go to state 88
+    MINUS_tok                 shift, and go to state 89
+    STAR_tok                  shift, and go to state 90
+    SEMI_tok                  shift, and go to state 91
+    OPEN_PAREN_tok            shift, and go to state 92
+    OPEN_BRACE_tok            shift, and go to state 55
+    AMP_tok                   shift, and go to state 94
+    TILDA_tok                 shift, and go to state 95
+    NOT_tok                   shift, and go to state 96
+    INC_OP_tok                shift, and go to state 97
+    DEC_OP_tok                shift, and go to state 98
+    INTEGER_CONSTANT_tok      shift, and go to state 99
+    FLOATING_CONSTANT_tok     shift, and go to state 100
+    CHARACTER_CONSTANT_tok    shift, and go to state 101
+    ENUMERATION_CONSTANT_tok  shift, and go to state 102
+    STRING_LITERAL_tok        shift, and go to state 103
+
+    statement                  go to state 343
+    labeled_statement          go to state 106
+    expression_statement       go to state 107
+    compound_statement         go to state 108
+    selection_statement        go to state 110
+    iteration_statement        go to state 111
+    jump_statement             go to state 112
+    expression                 go to state 113
+    assignment_expression      go to state 114
+    conditional_expression     go to state 115
+    logical_or_expression      go to state 116
+    logical_and_expression     go to state 117
+    inclusive_or_expression    go to state 118
+    exclusive_or_expression    go to state 119
+    and_expression             go to state 120
+    equality_expression        go to state 121
+    relational_expression      go to state 122
+    shift_expression           go to state 123
+    additive_expression        go to state 124
+    multiplicative_expression  go to state 125
+    cast_expression            go to state 126
+    unary_expression           go to state 127
+    unary_operator             go to state 128
+    postfix_expression         go to state 129
+    primary_expression         go to state 130
+    constant                   go to state 131
+    string                     go to state 132
+    identifier                 go to state 133
 
 
 State 321
 
-  159 conditional_expression: logical_or_expression QUESTION_MARK_tok expression COLON_tok . conditional_expression
+  191 cast_expression: OPEN_PAREN_tok type_name CLOSE_PAREN_tok cast_expression .
+
+    $default  reduce using rule 191 (cast_expression)
+
+
+State 322
+
+  160 conditional_expression: logical_or_expression QUESTION_MARK_tok expression COLON_tok . conditional_expression
 
     SIZEOF_tok                shift, and go to state 85
     ID_tok                    shift, and go to state 24
@@ -6078,7 +6091,7 @@ State 321
     ENUMERATION_CONSTANT_tok  shift, and go to state 102
     STRING_LITERAL_tok        shift, and go to state 103
 
-    conditional_expression     go to state 343
+    conditional_expression     go to state 344
     logical_or_expression      go to state 116
     logical_and_expression     go to state 117
     inclusive_or_expression    go to state 118
@@ -6099,16 +6112,16 @@ State 321
     identifier                 go to state 142
 
 
-State 322
-
-  204 postfix_expression: postfix_expression OPEN_BRACKET_tok expression CLOSE_BRACKET_tok .
-
-    $default  reduce using rule 204 (postfix_expression)
-
-
 State 323
 
-  216 argument_expression_list: argument_expression_list COMMA_tok . assignment_expression
+  205 postfix_expression: postfix_expression OPEN_BRACKET_tok expression CLOSE_BRACKET_tok .
+
+    $default  reduce using rule 205 (postfix_expression)
+
+
+State 324
+
+  217 argument_expression_list: argument_expression_list COMMA_tok . assignment_expression
 
     SIZEOF_tok                shift, and go to state 85
     ID_tok                    shift, and go to state 24
@@ -6127,7 +6140,7 @@ State 323
     ENUMERATION_CONSTANT_tok  shift, and go to state 102
     STRING_LITERAL_tok        shift, and go to state 103
 
-    assignment_expression      go to state 344
+    assignment_expression      go to state 345
     conditional_expression     go to state 115
     logical_or_expression      go to state 116
     logical_and_expression     go to state 117
@@ -6149,86 +6162,86 @@ State 323
     identifier                 go to state 142
 
 
-State 324
-
-  206 postfix_expression: postfix_expression OPEN_PAREN_tok argument_expression_list CLOSE_PAREN_tok .
-
-    $default  reduce using rule 206 (postfix_expression)
-
-
 State 325
+
+  207 postfix_expression: postfix_expression OPEN_PAREN_tok argument_expression_list CLOSE_PAREN_tok .
+
+    $default  reduce using rule 207 (postfix_expression)
+
+
+State 326
 
   101 direct_abstract_declarator: OPEN_BRACKET_tok constant_expression CLOSE_BRACKET_tok .
 
     $default  reduce using rule 101 (direct_abstract_declarator)
 
 
-State 326
+State 327
 
   105 direct_abstract_declarator: OPEN_PAREN_tok parameter_type_list CLOSE_PAREN_tok .
 
     $default  reduce using rule 105 (direct_abstract_declarator)
 
 
-State 327
+State 328
 
    99 direct_abstract_declarator: OPEN_PAREN_tok abstract_declarator CLOSE_PAREN_tok .
 
     $default  reduce using rule 99 (direct_abstract_declarator)
 
 
-State 328
+State 329
 
   102 direct_abstract_declarator: direct_abstract_declarator OPEN_BRACKET_tok CLOSE_BRACKET_tok .
 
     $default  reduce using rule 102 (direct_abstract_declarator)
 
 
-State 329
+State 330
 
   103 direct_abstract_declarator: direct_abstract_declarator OPEN_BRACKET_tok constant_expression . CLOSE_BRACKET_tok
 
-    CLOSE_BRACKET_tok  shift, and go to state 345
+    CLOSE_BRACKET_tok  shift, and go to state 346
 
 
-State 330
+State 331
 
   106 direct_abstract_declarator: direct_abstract_declarator OPEN_PAREN_tok CLOSE_PAREN_tok .
 
     $default  reduce using rule 106 (direct_abstract_declarator)
 
 
-State 331
+State 332
 
   107 direct_abstract_declarator: direct_abstract_declarator OPEN_PAREN_tok parameter_type_list . CLOSE_PAREN_tok
 
-    CLOSE_PAREN_tok  shift, and go to state 346
+    CLOSE_PAREN_tok  shift, and go to state 347
 
 
-State 332
+State 333
 
    91 initializer: OPEN_BRACE_tok initializer_list COMMA_tok CLOSE_BRACE_tok .
 
     $default  reduce using rule 91 (initializer)
 
 
-State 333
+State 334
 
    93 initializer_list: initializer_list COMMA_tok initializer .
 
     $default  reduce using rule 93 (initializer_list)
 
 
-State 334
+State 335
 
   129 iteration_statement: DO_tok statement WHILE_tok OPEN_PAREN_tok expression . CLOSE_PAREN_tok SEMI_tok
-  144 expression: expression . COMMA_tok assignment_expression
+  145 expression: expression . COMMA_tok assignment_expression
 
     COMMA_tok        shift, and go to state 190
-    CLOSE_PAREN_tok  shift, and go to state 347
+    CLOSE_PAREN_tok  shift, and go to state 348
 
 
-State 335
+State 336
 
   130 iteration_statement: FOR_tok OPEN_PAREN_tok SEMI_tok SEMI_tok CLOSE_PAREN_tok . statement
 
@@ -6262,7 +6275,7 @@ State 335
     ENUMERATION_CONSTANT_tok  shift, and go to state 102
     STRING_LITERAL_tok        shift, and go to state 103
 
-    statement                  go to state 348
+    statement                  go to state 349
     labeled_statement          go to state 106
     expression_statement       go to state 107
     compound_statement         go to state 108
@@ -6292,16 +6305,16 @@ State 335
     identifier                 go to state 133
 
 
-State 336
+State 337
 
   131 iteration_statement: FOR_tok OPEN_PAREN_tok SEMI_tok SEMI_tok expression . CLOSE_PAREN_tok statement
-  144 expression: expression . COMMA_tok assignment_expression
+  145 expression: expression . COMMA_tok assignment_expression
 
     COMMA_tok        shift, and go to state 190
-    CLOSE_PAREN_tok  shift, and go to state 349
+    CLOSE_PAREN_tok  shift, and go to state 350
 
 
-State 337
+State 338
 
   132 iteration_statement: FOR_tok OPEN_PAREN_tok SEMI_tok expression SEMI_tok . CLOSE_PAREN_tok statement
   133                    | FOR_tok OPEN_PAREN_tok SEMI_tok expression SEMI_tok . expression CLOSE_PAREN_tok statement
@@ -6312,7 +6325,7 @@ State 337
     MINUS_tok                 shift, and go to state 89
     STAR_tok                  shift, and go to state 90
     OPEN_PAREN_tok            shift, and go to state 92
-    CLOSE_PAREN_tok           shift, and go to state 350
+    CLOSE_PAREN_tok           shift, and go to state 351
     AMP_tok                   shift, and go to state 94
     TILDA_tok                 shift, and go to state 95
     NOT_tok                   shift, and go to state 96
@@ -6324,53 +6337,7 @@ State 337
     ENUMERATION_CONSTANT_tok  shift, and go to state 102
     STRING_LITERAL_tok        shift, and go to state 103
 
-    expression                 go to state 351
-    assignment_expression      go to state 114
-    conditional_expression     go to state 115
-    logical_or_expression      go to state 116
-    logical_and_expression     go to state 117
-    inclusive_or_expression    go to state 118
-    exclusive_or_expression    go to state 119
-    and_expression             go to state 120
-    equality_expression        go to state 121
-    relational_expression      go to state 122
-    shift_expression           go to state 123
-    additive_expression        go to state 124
-    multiplicative_expression  go to state 125
-    cast_expression            go to state 126
-    unary_expression           go to state 127
-    unary_operator             go to state 128
-    postfix_expression         go to state 129
-    primary_expression         go to state 130
-    constant                   go to state 131
-    string                     go to state 132
-    identifier                 go to state 142
-
-
-State 338
-
-  134 iteration_statement: FOR_tok OPEN_PAREN_tok expression SEMI_tok SEMI_tok . CLOSE_PAREN_tok statement
-  135                    | FOR_tok OPEN_PAREN_tok expression SEMI_tok SEMI_tok . expression CLOSE_PAREN_tok statement
-
-    SIZEOF_tok                shift, and go to state 85
-    ID_tok                    shift, and go to state 24
-    PLUS_tok                  shift, and go to state 88
-    MINUS_tok                 shift, and go to state 89
-    STAR_tok                  shift, and go to state 90
-    OPEN_PAREN_tok            shift, and go to state 92
-    CLOSE_PAREN_tok           shift, and go to state 352
-    AMP_tok                   shift, and go to state 94
-    TILDA_tok                 shift, and go to state 95
-    NOT_tok                   shift, and go to state 96
-    INC_OP_tok                shift, and go to state 97
-    DEC_OP_tok                shift, and go to state 98
-    INTEGER_CONSTANT_tok      shift, and go to state 99
-    FLOATING_CONSTANT_tok     shift, and go to state 100
-    CHARACTER_CONSTANT_tok    shift, and go to state 101
-    ENUMERATION_CONSTANT_tok  shift, and go to state 102
-    STRING_LITERAL_tok        shift, and go to state 103
-
-    expression                 go to state 353
+    expression                 go to state 352
     assignment_expression      go to state 114
     conditional_expression     go to state 115
     logical_or_expression      go to state 116
@@ -6395,103 +6362,16 @@ State 338
 
 State 339
 
-  136 iteration_statement: FOR_tok OPEN_PAREN_tok expression SEMI_tok expression . SEMI_tok CLOSE_PAREN_tok statement
-  137                    | FOR_tok OPEN_PAREN_tok expression SEMI_tok expression . SEMI_tok expression CLOSE_PAREN_tok statement
-  144 expression: expression . COMMA_tok assignment_expression
+  134 iteration_statement: FOR_tok OPEN_PAREN_tok expression SEMI_tok SEMI_tok . CLOSE_PAREN_tok statement
+  135                    | FOR_tok OPEN_PAREN_tok expression SEMI_tok SEMI_tok . expression CLOSE_PAREN_tok statement
 
-    SEMI_tok   shift, and go to state 354
-    COMMA_tok  shift, and go to state 190
-
-
-State 340
-
-  125 selection_statement: IF_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement .
-  126                    | IF_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement . ELSE_tok statement
-
-    ELSE_tok  shift, and go to state 355
-
-    $default  reduce using rule 125 (selection_statement)
-
-
-State 341
-
-  127 selection_statement: SWITCH_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement .
-
-    $default  reduce using rule 127 (selection_statement)
-
-
-State 342
-
-  128 iteration_statement: WHILE_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement .
-
-    $default  reduce using rule 128 (iteration_statement)
-
-
-State 343
-
-  159 conditional_expression: logical_or_expression QUESTION_MARK_tok expression COLON_tok conditional_expression .
-
-    $default  reduce using rule 159 (conditional_expression)
-
-
-State 344
-
-  216 argument_expression_list: argument_expression_list COMMA_tok assignment_expression .
-
-    $default  reduce using rule 216 (argument_expression_list)
-
-
-State 345
-
-  103 direct_abstract_declarator: direct_abstract_declarator OPEN_BRACKET_tok constant_expression CLOSE_BRACKET_tok .
-
-    $default  reduce using rule 103 (direct_abstract_declarator)
-
-
-State 346
-
-  107 direct_abstract_declarator: direct_abstract_declarator OPEN_PAREN_tok parameter_type_list CLOSE_PAREN_tok .
-
-    $default  reduce using rule 107 (direct_abstract_declarator)
-
-
-State 347
-
-  129 iteration_statement: DO_tok statement WHILE_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok . SEMI_tok
-
-    SEMI_tok  shift, and go to state 356
-
-
-State 348
-
-  130 iteration_statement: FOR_tok OPEN_PAREN_tok SEMI_tok SEMI_tok CLOSE_PAREN_tok statement .
-
-    $default  reduce using rule 130 (iteration_statement)
-
-
-State 349
-
-  131 iteration_statement: FOR_tok OPEN_PAREN_tok SEMI_tok SEMI_tok expression CLOSE_PAREN_tok . statement
-
-    BREAK_tok                 shift, and go to state 76
-    CASE_tok                  shift, and go to state 77
-    CONTINUE_tok              shift, and go to state 78
-    DEFAULT_tok               shift, and go to state 79
-    DO_tok                    shift, and go to state 80
-    FOR_tok                   shift, and go to state 81
-    GOTO_tok                  shift, and go to state 82
-    IF_tok                    shift, and go to state 83
-    RETURN_tok                shift, and go to state 84
     SIZEOF_tok                shift, and go to state 85
-    SWITCH_tok                shift, and go to state 86
-    WHILE_tok                 shift, and go to state 87
     ID_tok                    shift, and go to state 24
     PLUS_tok                  shift, and go to state 88
     MINUS_tok                 shift, and go to state 89
     STAR_tok                  shift, and go to state 90
-    SEMI_tok                  shift, and go to state 91
     OPEN_PAREN_tok            shift, and go to state 92
-    OPEN_BRACE_tok            shift, and go to state 55
+    CLOSE_PAREN_tok           shift, and go to state 353
     AMP_tok                   shift, and go to state 94
     TILDA_tok                 shift, and go to state 95
     NOT_tok                   shift, and go to state 96
@@ -6503,14 +6383,7 @@ State 349
     ENUMERATION_CONSTANT_tok  shift, and go to state 102
     STRING_LITERAL_tok        shift, and go to state 103
 
-    statement                  go to state 357
-    labeled_statement          go to state 106
-    expression_statement       go to state 107
-    compound_statement         go to state 108
-    selection_statement        go to state 110
-    iteration_statement        go to state 111
-    jump_statement             go to state 112
-    expression                 go to state 113
+    expression                 go to state 354
     assignment_expression      go to state 114
     conditional_expression     go to state 115
     logical_or_expression      go to state 116
@@ -6530,12 +6403,88 @@ State 349
     primary_expression         go to state 130
     constant                   go to state 131
     string                     go to state 132
-    identifier                 go to state 133
+    identifier                 go to state 142
+
+
+State 340
+
+  136 iteration_statement: FOR_tok OPEN_PAREN_tok expression SEMI_tok expression . SEMI_tok CLOSE_PAREN_tok statement
+  137                    | FOR_tok OPEN_PAREN_tok expression SEMI_tok expression . SEMI_tok expression CLOSE_PAREN_tok statement
+  145 expression: expression . COMMA_tok assignment_expression
+
+    SEMI_tok   shift, and go to state 355
+    COMMA_tok  shift, and go to state 190
+
+
+State 341
+
+  125 selection_statement: IF_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement .
+  126                    | IF_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement . ELSE_tok statement
+
+    ELSE_tok  shift, and go to state 356
+
+    $default  reduce using rule 125 (selection_statement)
+
+
+State 342
+
+  127 selection_statement: SWITCH_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement .
+
+    $default  reduce using rule 127 (selection_statement)
+
+
+State 343
+
+  128 iteration_statement: WHILE_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement .
+
+    $default  reduce using rule 128 (iteration_statement)
+
+
+State 344
+
+  160 conditional_expression: logical_or_expression QUESTION_MARK_tok expression COLON_tok conditional_expression .
+
+    $default  reduce using rule 160 (conditional_expression)
+
+
+State 345
+
+  217 argument_expression_list: argument_expression_list COMMA_tok assignment_expression .
+
+    $default  reduce using rule 217 (argument_expression_list)
+
+
+State 346
+
+  103 direct_abstract_declarator: direct_abstract_declarator OPEN_BRACKET_tok constant_expression CLOSE_BRACKET_tok .
+
+    $default  reduce using rule 103 (direct_abstract_declarator)
+
+
+State 347
+
+  107 direct_abstract_declarator: direct_abstract_declarator OPEN_PAREN_tok parameter_type_list CLOSE_PAREN_tok .
+
+    $default  reduce using rule 107 (direct_abstract_declarator)
+
+
+State 348
+
+  129 iteration_statement: DO_tok statement WHILE_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok . SEMI_tok
+
+    SEMI_tok  shift, and go to state 357
+
+
+State 349
+
+  130 iteration_statement: FOR_tok OPEN_PAREN_tok SEMI_tok SEMI_tok CLOSE_PAREN_tok statement .
+
+    $default  reduce using rule 130 (iteration_statement)
 
 
 State 350
 
-  132 iteration_statement: FOR_tok OPEN_PAREN_tok SEMI_tok expression SEMI_tok CLOSE_PAREN_tok . statement
+  131 iteration_statement: FOR_tok OPEN_PAREN_tok SEMI_tok SEMI_tok expression CLOSE_PAREN_tok . statement
 
     BREAK_tok                 shift, and go to state 76
     CASE_tok                  shift, and go to state 77
@@ -6599,14 +6548,78 @@ State 350
 
 State 351
 
-  133 iteration_statement: FOR_tok OPEN_PAREN_tok SEMI_tok expression SEMI_tok expression . CLOSE_PAREN_tok statement
-  144 expression: expression . COMMA_tok assignment_expression
+  132 iteration_statement: FOR_tok OPEN_PAREN_tok SEMI_tok expression SEMI_tok CLOSE_PAREN_tok . statement
 
-    COMMA_tok        shift, and go to state 190
-    CLOSE_PAREN_tok  shift, and go to state 359
+    BREAK_tok                 shift, and go to state 76
+    CASE_tok                  shift, and go to state 77
+    CONTINUE_tok              shift, and go to state 78
+    DEFAULT_tok               shift, and go to state 79
+    DO_tok                    shift, and go to state 80
+    FOR_tok                   shift, and go to state 81
+    GOTO_tok                  shift, and go to state 82
+    IF_tok                    shift, and go to state 83
+    RETURN_tok                shift, and go to state 84
+    SIZEOF_tok                shift, and go to state 85
+    SWITCH_tok                shift, and go to state 86
+    WHILE_tok                 shift, and go to state 87
+    ID_tok                    shift, and go to state 24
+    PLUS_tok                  shift, and go to state 88
+    MINUS_tok                 shift, and go to state 89
+    STAR_tok                  shift, and go to state 90
+    SEMI_tok                  shift, and go to state 91
+    OPEN_PAREN_tok            shift, and go to state 92
+    OPEN_BRACE_tok            shift, and go to state 55
+    AMP_tok                   shift, and go to state 94
+    TILDA_tok                 shift, and go to state 95
+    NOT_tok                   shift, and go to state 96
+    INC_OP_tok                shift, and go to state 97
+    DEC_OP_tok                shift, and go to state 98
+    INTEGER_CONSTANT_tok      shift, and go to state 99
+    FLOATING_CONSTANT_tok     shift, and go to state 100
+    CHARACTER_CONSTANT_tok    shift, and go to state 101
+    ENUMERATION_CONSTANT_tok  shift, and go to state 102
+    STRING_LITERAL_tok        shift, and go to state 103
+
+    statement                  go to state 359
+    labeled_statement          go to state 106
+    expression_statement       go to state 107
+    compound_statement         go to state 108
+    selection_statement        go to state 110
+    iteration_statement        go to state 111
+    jump_statement             go to state 112
+    expression                 go to state 113
+    assignment_expression      go to state 114
+    conditional_expression     go to state 115
+    logical_or_expression      go to state 116
+    logical_and_expression     go to state 117
+    inclusive_or_expression    go to state 118
+    exclusive_or_expression    go to state 119
+    and_expression             go to state 120
+    equality_expression        go to state 121
+    relational_expression      go to state 122
+    shift_expression           go to state 123
+    additive_expression        go to state 124
+    multiplicative_expression  go to state 125
+    cast_expression            go to state 126
+    unary_expression           go to state 127
+    unary_operator             go to state 128
+    postfix_expression         go to state 129
+    primary_expression         go to state 130
+    constant                   go to state 131
+    string                     go to state 132
+    identifier                 go to state 133
 
 
 State 352
+
+  133 iteration_statement: FOR_tok OPEN_PAREN_tok SEMI_tok expression SEMI_tok expression . CLOSE_PAREN_tok statement
+  145 expression: expression . COMMA_tok assignment_expression
+
+    COMMA_tok        shift, and go to state 190
+    CLOSE_PAREN_tok  shift, and go to state 360
+
+
+State 353
 
   134 iteration_statement: FOR_tok OPEN_PAREN_tok expression SEMI_tok SEMI_tok CLOSE_PAREN_tok . statement
 
@@ -6640,7 +6653,7 @@ State 352
     ENUMERATION_CONSTANT_tok  shift, and go to state 102
     STRING_LITERAL_tok        shift, and go to state 103
 
-    statement                  go to state 360
+    statement                  go to state 361
     labeled_statement          go to state 106
     expression_statement       go to state 107
     compound_statement         go to state 108
@@ -6670,16 +6683,16 @@ State 352
     identifier                 go to state 133
 
 
-State 353
+State 354
 
   135 iteration_statement: FOR_tok OPEN_PAREN_tok expression SEMI_tok SEMI_tok expression . CLOSE_PAREN_tok statement
-  144 expression: expression . COMMA_tok assignment_expression
+  145 expression: expression . COMMA_tok assignment_expression
 
     COMMA_tok        shift, and go to state 190
-    CLOSE_PAREN_tok  shift, and go to state 361
+    CLOSE_PAREN_tok  shift, and go to state 362
 
 
-State 354
+State 355
 
   136 iteration_statement: FOR_tok OPEN_PAREN_tok expression SEMI_tok expression SEMI_tok . CLOSE_PAREN_tok statement
   137                    | FOR_tok OPEN_PAREN_tok expression SEMI_tok expression SEMI_tok . expression CLOSE_PAREN_tok statement
@@ -6690,7 +6703,7 @@ State 354
     MINUS_tok                 shift, and go to state 89
     STAR_tok                  shift, and go to state 90
     OPEN_PAREN_tok            shift, and go to state 92
-    CLOSE_PAREN_tok           shift, and go to state 362
+    CLOSE_PAREN_tok           shift, and go to state 363
     AMP_tok                   shift, and go to state 94
     TILDA_tok                 shift, and go to state 95
     NOT_tok                   shift, and go to state 96
@@ -6702,7 +6715,7 @@ State 354
     ENUMERATION_CONSTANT_tok  shift, and go to state 102
     STRING_LITERAL_tok        shift, and go to state 103
 
-    expression                 go to state 363
+    expression                 go to state 364
     assignment_expression      go to state 114
     conditional_expression     go to state 115
     logical_or_expression      go to state 116
@@ -6725,94 +6738,9 @@ State 354
     identifier                 go to state 142
 
 
-State 355
-
-  126 selection_statement: IF_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement ELSE_tok . statement
-
-    BREAK_tok                 shift, and go to state 76
-    CASE_tok                  shift, and go to state 77
-    CONTINUE_tok              shift, and go to state 78
-    DEFAULT_tok               shift, and go to state 79
-    DO_tok                    shift, and go to state 80
-    FOR_tok                   shift, and go to state 81
-    GOTO_tok                  shift, and go to state 82
-    IF_tok                    shift, and go to state 83
-    RETURN_tok                shift, and go to state 84
-    SIZEOF_tok                shift, and go to state 85
-    SWITCH_tok                shift, and go to state 86
-    WHILE_tok                 shift, and go to state 87
-    ID_tok                    shift, and go to state 24
-    PLUS_tok                  shift, and go to state 88
-    MINUS_tok                 shift, and go to state 89
-    STAR_tok                  shift, and go to state 90
-    SEMI_tok                  shift, and go to state 91
-    OPEN_PAREN_tok            shift, and go to state 92
-    OPEN_BRACE_tok            shift, and go to state 55
-    AMP_tok                   shift, and go to state 94
-    TILDA_tok                 shift, and go to state 95
-    NOT_tok                   shift, and go to state 96
-    INC_OP_tok                shift, and go to state 97
-    DEC_OP_tok                shift, and go to state 98
-    INTEGER_CONSTANT_tok      shift, and go to state 99
-    FLOATING_CONSTANT_tok     shift, and go to state 100
-    CHARACTER_CONSTANT_tok    shift, and go to state 101
-    ENUMERATION_CONSTANT_tok  shift, and go to state 102
-    STRING_LITERAL_tok        shift, and go to state 103
-
-    statement                  go to state 364
-    labeled_statement          go to state 106
-    expression_statement       go to state 107
-    compound_statement         go to state 108
-    selection_statement        go to state 110
-    iteration_statement        go to state 111
-    jump_statement             go to state 112
-    expression                 go to state 113
-    assignment_expression      go to state 114
-    conditional_expression     go to state 115
-    logical_or_expression      go to state 116
-    logical_and_expression     go to state 117
-    inclusive_or_expression    go to state 118
-    exclusive_or_expression    go to state 119
-    and_expression             go to state 120
-    equality_expression        go to state 121
-    relational_expression      go to state 122
-    shift_expression           go to state 123
-    additive_expression        go to state 124
-    multiplicative_expression  go to state 125
-    cast_expression            go to state 126
-    unary_expression           go to state 127
-    unary_operator             go to state 128
-    postfix_expression         go to state 129
-    primary_expression         go to state 130
-    constant                   go to state 131
-    string                     go to state 132
-    identifier                 go to state 133
-
-
 State 356
 
-  129 iteration_statement: DO_tok statement WHILE_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok SEMI_tok .
-
-    $default  reduce using rule 129 (iteration_statement)
-
-
-State 357
-
-  131 iteration_statement: FOR_tok OPEN_PAREN_tok SEMI_tok SEMI_tok expression CLOSE_PAREN_tok statement .
-
-    $default  reduce using rule 131 (iteration_statement)
-
-
-State 358
-
-  132 iteration_statement: FOR_tok OPEN_PAREN_tok SEMI_tok expression SEMI_tok CLOSE_PAREN_tok statement .
-
-    $default  reduce using rule 132 (iteration_statement)
-
-
-State 359
-
-  133 iteration_statement: FOR_tok OPEN_PAREN_tok SEMI_tok expression SEMI_tok expression CLOSE_PAREN_tok . statement
+  126 selection_statement: IF_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement ELSE_tok . statement
 
     BREAK_tok                 shift, and go to state 76
     CASE_tok                  shift, and go to state 77
@@ -6874,16 +6802,30 @@ State 359
     identifier                 go to state 133
 
 
+State 357
+
+  129 iteration_statement: DO_tok statement WHILE_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok SEMI_tok .
+
+    $default  reduce using rule 129 (iteration_statement)
+
+
+State 358
+
+  131 iteration_statement: FOR_tok OPEN_PAREN_tok SEMI_tok SEMI_tok expression CLOSE_PAREN_tok statement .
+
+    $default  reduce using rule 131 (iteration_statement)
+
+
+State 359
+
+  132 iteration_statement: FOR_tok OPEN_PAREN_tok SEMI_tok expression SEMI_tok CLOSE_PAREN_tok statement .
+
+    $default  reduce using rule 132 (iteration_statement)
+
+
 State 360
 
-  134 iteration_statement: FOR_tok OPEN_PAREN_tok expression SEMI_tok SEMI_tok CLOSE_PAREN_tok statement .
-
-    $default  reduce using rule 134 (iteration_statement)
-
-
-State 361
-
-  135 iteration_statement: FOR_tok OPEN_PAREN_tok expression SEMI_tok SEMI_tok expression CLOSE_PAREN_tok . statement
+  133 iteration_statement: FOR_tok OPEN_PAREN_tok SEMI_tok expression SEMI_tok expression CLOSE_PAREN_tok . statement
 
     BREAK_tok                 shift, and go to state 76
     CASE_tok                  shift, and go to state 77
@@ -6945,9 +6887,16 @@ State 361
     identifier                 go to state 133
 
 
+State 361
+
+  134 iteration_statement: FOR_tok OPEN_PAREN_tok expression SEMI_tok SEMI_tok CLOSE_PAREN_tok statement .
+
+    $default  reduce using rule 134 (iteration_statement)
+
+
 State 362
 
-  136 iteration_statement: FOR_tok OPEN_PAREN_tok expression SEMI_tok expression SEMI_tok CLOSE_PAREN_tok . statement
+  135 iteration_statement: FOR_tok OPEN_PAREN_tok expression SEMI_tok SEMI_tok expression CLOSE_PAREN_tok . statement
 
     BREAK_tok                 shift, and go to state 76
     CASE_tok                  shift, and go to state 77
@@ -7011,42 +6960,106 @@ State 362
 
 State 363
 
-  137 iteration_statement: FOR_tok OPEN_PAREN_tok expression SEMI_tok expression SEMI_tok expression . CLOSE_PAREN_tok statement
-  144 expression: expression . COMMA_tok assignment_expression
+  136 iteration_statement: FOR_tok OPEN_PAREN_tok expression SEMI_tok expression SEMI_tok CLOSE_PAREN_tok . statement
 
-    COMMA_tok        shift, and go to state 190
-    CLOSE_PAREN_tok  shift, and go to state 368
+    BREAK_tok                 shift, and go to state 76
+    CASE_tok                  shift, and go to state 77
+    CONTINUE_tok              shift, and go to state 78
+    DEFAULT_tok               shift, and go to state 79
+    DO_tok                    shift, and go to state 80
+    FOR_tok                   shift, and go to state 81
+    GOTO_tok                  shift, and go to state 82
+    IF_tok                    shift, and go to state 83
+    RETURN_tok                shift, and go to state 84
+    SIZEOF_tok                shift, and go to state 85
+    SWITCH_tok                shift, and go to state 86
+    WHILE_tok                 shift, and go to state 87
+    ID_tok                    shift, and go to state 24
+    PLUS_tok                  shift, and go to state 88
+    MINUS_tok                 shift, and go to state 89
+    STAR_tok                  shift, and go to state 90
+    SEMI_tok                  shift, and go to state 91
+    OPEN_PAREN_tok            shift, and go to state 92
+    OPEN_BRACE_tok            shift, and go to state 55
+    AMP_tok                   shift, and go to state 94
+    TILDA_tok                 shift, and go to state 95
+    NOT_tok                   shift, and go to state 96
+    INC_OP_tok                shift, and go to state 97
+    DEC_OP_tok                shift, and go to state 98
+    INTEGER_CONSTANT_tok      shift, and go to state 99
+    FLOATING_CONSTANT_tok     shift, and go to state 100
+    CHARACTER_CONSTANT_tok    shift, and go to state 101
+    ENUMERATION_CONSTANT_tok  shift, and go to state 102
+    STRING_LITERAL_tok        shift, and go to state 103
+
+    statement                  go to state 368
+    labeled_statement          go to state 106
+    expression_statement       go to state 107
+    compound_statement         go to state 108
+    selection_statement        go to state 110
+    iteration_statement        go to state 111
+    jump_statement             go to state 112
+    expression                 go to state 113
+    assignment_expression      go to state 114
+    conditional_expression     go to state 115
+    logical_or_expression      go to state 116
+    logical_and_expression     go to state 117
+    inclusive_or_expression    go to state 118
+    exclusive_or_expression    go to state 119
+    and_expression             go to state 120
+    equality_expression        go to state 121
+    relational_expression      go to state 122
+    shift_expression           go to state 123
+    additive_expression        go to state 124
+    multiplicative_expression  go to state 125
+    cast_expression            go to state 126
+    unary_expression           go to state 127
+    unary_operator             go to state 128
+    postfix_expression         go to state 129
+    primary_expression         go to state 130
+    constant                   go to state 131
+    string                     go to state 132
+    identifier                 go to state 133
 
 
 State 364
+
+  137 iteration_statement: FOR_tok OPEN_PAREN_tok expression SEMI_tok expression SEMI_tok expression . CLOSE_PAREN_tok statement
+  145 expression: expression . COMMA_tok assignment_expression
+
+    COMMA_tok        shift, and go to state 190
+    CLOSE_PAREN_tok  shift, and go to state 369
+
+
+State 365
 
   126 selection_statement: IF_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement ELSE_tok statement .
 
     $default  reduce using rule 126 (selection_statement)
 
 
-State 365
+State 366
 
   133 iteration_statement: FOR_tok OPEN_PAREN_tok SEMI_tok expression SEMI_tok expression CLOSE_PAREN_tok statement .
 
     $default  reduce using rule 133 (iteration_statement)
 
 
-State 366
+State 367
 
   135 iteration_statement: FOR_tok OPEN_PAREN_tok expression SEMI_tok SEMI_tok expression CLOSE_PAREN_tok statement .
 
     $default  reduce using rule 135 (iteration_statement)
 
 
-State 367
+State 368
 
   136 iteration_statement: FOR_tok OPEN_PAREN_tok expression SEMI_tok expression SEMI_tok CLOSE_PAREN_tok statement .
 
     $default  reduce using rule 136 (iteration_statement)
 
 
-State 368
+State 369
 
   137 iteration_statement: FOR_tok OPEN_PAREN_tok expression SEMI_tok expression SEMI_tok expression CLOSE_PAREN_tok . statement
 
@@ -7080,7 +7093,7 @@ State 368
     ENUMERATION_CONSTANT_tok  shift, and go to state 102
     STRING_LITERAL_tok        shift, and go to state 103
 
-    statement                  go to state 369
+    statement                  go to state 370
     labeled_statement          go to state 106
     expression_statement       go to state 107
     compound_statement         go to state 108
@@ -7110,7 +7123,7 @@ State 368
     identifier                 go to state 133
 
 
-State 369
+State 370
 
   137 iteration_statement: FOR_tok OPEN_PAREN_tok expression SEMI_tok expression SEMI_tok expression CLOSE_PAREN_tok statement .
 

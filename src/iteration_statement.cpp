@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-30 22:43:27
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-10-30 23:31:58
+* @Last Modified time: 2018-10-31 00:01:20
 */
 #include "iteration_statement.h"
 
@@ -21,13 +21,13 @@ void Iter_statement::traverse_to_file(FILE* fileout)
 	string doRep;
 	if (dotype)
 	{
-		doRep = "do type\niteration";
+		doRep = "shape=invhouse,label=\"do type\niteration\",color=firebrick1";
 	}
 	else
 	{
-		doRep = "for type\niteration";
+		doRep = "shape=house,label=\"for type\niteration\",color=firebrick1";
 	}
-	fprintf(fileout, "%s [label=\"%s\",color=\"0.3 0.4 0.4\"]\n",TreeNodeName.c_str(),doRep.c_str() );
+	fprintf(fileout, "%s [%s]\n",TreeNodeName.c_str(),doRep.c_str() );
 	TreeNode::traverse_to_file(fileout);
 }
 void Iter_statement::ast_to_3ac(FILE* fileout)
