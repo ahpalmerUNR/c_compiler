@@ -2,15 +2,19 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-30 16:06:43
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-10-30 20:40:23
+* @Last Modified time: 2018-10-30 23:36:52
 */
 int main()
 {
-	char i;
+	int i;
+	int j=0;
 	
 	i = 3;
-	{ 
+	do
+	{
+		++j;
 	}
+	while (i++);
 		
 	return 0;
 	
