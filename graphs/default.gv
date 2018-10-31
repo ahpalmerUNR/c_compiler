@@ -5,6 +5,7 @@ digraph AST {
 	init_declarator_5 -> declarator_3;
 	declarator_3 -> pointer_1;
 	declarator_3 -> identifier_2;
+	identifier_2 [label="c"]
 	init_declarator_5 -> string_4;
 	string_4 [label="hello"]
 }
