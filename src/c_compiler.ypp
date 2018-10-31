@@ -971,7 +971,9 @@ labeled_statement
 		$<tnode>$ = tmp;
 		outputReduction("labeled_statement : CASE_tok constant_expression COLON_tok statement");}
 	| DEFAULT_tok COLON_tok statement {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "labeled_statement_"+to_string(AST_node_counter),1);
+		int ticket = Label_counter;
+		LabelNode* tmp = new LabelNode(AST_node_counter, "labeled_statement_"+to_string(AST_node_counter),ticket);
+		++Label_counter;
 		++AST_node_counter;
 		tmp->assignChild(0,$<tnode>3);
 		$<tnode>$ = tmp;
