@@ -1783,17 +1783,26 @@ argument_expression_list
 
 constant
 	: INTEGER_CONSTANT_tok {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "constant"+to_string(AST_node_counter),0);
+		int ticket = Variable_counter;
+		DataNode* tmp = new DataNode(AST_node_counter, "string_"+to_string(AST_node_counter),ticket);
+		tmp->storeInt(yylval.lint);
+		++Variable_counter;
 		++AST_node_counter;
 		$<tnode>$ = tmp;
 		outputReduction("constant : INTEGER_CONSTANT_tok");}
 	| CHARACTER_CONSTANT_tok {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "constant"+to_string(AST_node_counter),0);
+		int ticket = Variable_counter;
+		DataNode* tmp = new DataNode(AST_node_counter, "string_"+to_string(AST_node_counter),ticket);
+		tmp->storeChar(yylval.lchar);
+		++Variable_counter;
 		++AST_node_counter;
 		$<tnode>$ = tmp;
 		outputReduction("constant : CHARACTER_CONSTANT_tok");}
 	| FLOATING_CONSTANT_tok {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "constant"+to_string(AST_node_counter),0);
+		int ticket = Variable_counter;
+		DataNode* tmp = new DataNode(AST_node_counter, "string_"+to_string(AST_node_counter),ticket);
+		tmp->storeDouble(yylval.ldoub);
+		++Variable_counter;
 		++AST_node_counter;
 		$<tnode>$ = tmp;
 		outputReduction("constant : FLOATING_CONSTANT_tok");}

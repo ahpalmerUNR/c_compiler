@@ -22,18 +22,22 @@ void DataNode::ast_to_3ac(FILE* fileout)
 void DataNode::storeChar(char c)
 {
 	data.dchar = c;
+	dType = Char;
 }
 void DataNode::storeInt(int i)
 {
 	data.dint = i;
+	dType = Int;
 }
 void DataNode::storeDouble(double d)
 {
 	data.ddoub = d;
+	dType = Double;
 }
 void DataNode::storeString(char *s)
 {
 	data.dstr = s;
+	dType = String;
 }
 
 int DataNode::returnTicket()

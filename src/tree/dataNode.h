@@ -28,9 +28,9 @@ public:
 
 protected:
 
-int ticketNumber;
-
-Data data;
+	int ticketNumber;
+	DataType dType;
+	Data data;
 
 };
 
