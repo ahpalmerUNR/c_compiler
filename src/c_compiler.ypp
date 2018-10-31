@@ -4,6 +4,7 @@
 	#include <stdio.h>
 	#include <stdlib.h>
 	#include "../src/tree.h"
+	#include "../src/labelNode.h"
 
 
 	#define MAX_LINE_LENGTH 500
@@ -133,6 +134,7 @@
 	double ldoub;
 	class Node* lnode;
 	class TreeNode* tnode;
+	class LabelNode* labelnode;
 }
 
 %right THEN
@@ -953,17 +955,19 @@ statement
 
 labeled_statement
 	: identifier COLON_tok statement {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "labeled_statement_"+to_string(AST_node_counter),2);
+		int ticket = Label_counter;
+		LabelNode* tmp = new LabelNode(AST_node_counter, "labeled_statement_"+to_string(AST_node_counter),ticket);
+		++Label_counter;
 		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>1);
-		tmp->assignChild(1,$<tnode>3);
-		$<tnode>$ = tmp;
+		tmp->assignChild(0,$<tnode>3);
+		$<labelnode>$ = tmp;
 		outputReduction("labeled_statement : identifier COLON_tok statement");}
 	| CASE_tok constant_expression COLON_tok statement {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "labeled_statement_"+to_string(AST_node_counter),2);
+		int ticket = Label_counter;
+		LabelNode* tmp = new LabelNode(AST_node_counter, "labeled_statement_"+to_string(AST_node_counter),ticket);
+		++Label_counter;
 		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>2);
-		tmp->assignChild(1,$<tnode>4);
+		tmp->assignChild(0,$<tnode>4);
 		$<tnode>$ = tmp;
 		outputReduction("labeled_statement : CASE_tok constant_expression COLON_tok statement");}
 	| DEFAULT_tok COLON_tok statement {

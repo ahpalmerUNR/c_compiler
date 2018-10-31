@@ -5,34 +5,16 @@
 * @Author: ahpalmerUNR
 
 
-* @Date:   2018-10-14 14:05:57
+* @Date:   2018-10-30 16:06:43
 
 
 * @Last Modified by:   ahpalmerUNR
 
 
-* @Last Modified time: 2018-10-16 15:48:36
+* @Last Modified time: 2018-10-30 16:07:22
 
 
 */
-
-
-char i;
-
-
-
-
-
-void chartastic(char alpha, int listical){
-
-
-	//stuff
-
-
-}
-
-
-
 
 
 int main()
@@ -41,35 +23,14 @@ int main()
 {
 
 
-	int one = 1;
+	case 'a':
 
 
-	int two = 1 + 1;
+		break;
 
 
-	
+		
 
 
-	char a = 3;
-
-
-	
-
-
-	int three;
-
-
-	three = one + two;
-
-
-	{
-
-
-		int four = 4;
-
-
-		!!D
-
-
-	}
+	return 0;
 

@@ -12,8 +12,8 @@ class TreeNode
 public:
 	TreeNode(int TreeNodeNum,string TreeNodeProductionName,int numberOfChildren);
 	~TreeNode();
-	void traverse_to_file(FILE*);
-	void ast_to_3ac(FILE*);
+	virtual void traverse_to_file(FILE*);
+	virtual void ast_to_3ac(FILE*);
 	void assignChild(int childIndex, TreeNode* child);
 protected:
 	int TreeNodeNumber;

@@ -4,7 +4,7 @@ CFLAGS=-std=c99
 CPPFLAGS = -std=c++11
 LEX=flex
 OBJ= c_compiler.tab.hpp lex.yy.o symboltable.o tree.o labelNode.o -lfl
-BUILDOBJ= build/c_compiler.tab.hpp lex.yy.o symboltable.o tree.o -lfl
+BUILDOBJ= build/c_compiler.tab.hpp lex.yy.o symboltable.o tree.o labelNode.o -lfl
 YACC=bison
 YFLAGS=-d -v -t
 
