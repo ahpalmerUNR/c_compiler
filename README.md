@@ -52,7 +52,7 @@ The c_compiler excepts commandline arguments.
 	-l [filename] sets the log file name. Defaults to compilerLog.txt
 	Note: currently log file only holds symbol table dumps and error messages.
 	
-	-d[lsy]* sets the debug levels for scanner, symbol table, and parser.
+	-d[lsp]* sets the debug levels for scanner, symbol table, and parser.
 	
 ```
 
@@ -81,19 +81,19 @@ The following are the commandline debug levels.
 * Parser:
 	: no debug (1)
 	
-	y: print productions (2)
+	p: print productions (2)
 	
-	yy: print $$,$1,$2... (3)**In Progress
+	pp: print $$,$1,$2... (3)**In Progress
 	
-	yyy: set yydebug=1 for built in debug (5)
+	ppp: set yydebug=1 for built in debug (5)
 	
-	yyyy: print 3 address code (7)**In Progress
+	pppp: print 3 address code (7)**In Progress
 	
-	yyyyy: print parse tree passing (11)**In Progress
+	ppppp: print parse tree passing (11)**In Progress
 	
 An example call with max debugging set, and file names set would be:
 ```
-./build/c_compiler -o testCases/t1Out.txt -t testCases/t1TokenFile.txt -l testCases/t1LogFile.txt -dlllyyyyysss testCases/t1.c
+./build/c_compiler -o testCases/t1Out.txt -t testCases/t1TokenFile.txt -l testCases/t1LogFile.txt -dlllpppppsss testCases/t1.c
 ```
 	
 Inside the .c file, there are commands to turn on/off debug options. Unlike the command line settings, the levels are not progressive (you can pick just the ones you want and not everything less than the given level).
