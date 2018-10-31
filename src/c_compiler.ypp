@@ -164,10 +164,11 @@ translation_unit
 	;
 
 external_declaration
-	: function_definition {
+	: {insert_lookup = 1;} function_definition {
+		insert_lookup= 0;
 		TreeNode* tmp = new TreeNode(AST_node_counter, "external_declaration_"+to_string(AST_node_counter),1);
 		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(0,$<tnode>2);
 		$<tnode>$ = tmp;
 		outputReduction("external_declaration : function_definition");}
 	|  declaration {

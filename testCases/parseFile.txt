@@ -11,62 +11,39 @@
 * @Last Modified by:   ahpalmerUNR
 
 
-* @Last Modified time: 2018-10-31 00:02:30
+* @Last Modified time: 2018-10-31 12:11:38
 
 
 */
 
+testCases/nodeClassTest.c PARSER Time::1541013221:5404	 Line: 7	type_specifier : INT_tok
+testCases/nodeClassTest.c PARSER Time::1541013221:5423	 Line: 7	declaration_specifiers : type_specifier
+testCases/nodeClassTest.c PARSER Time::1541013221:5428	 Line: 7	identifier : ID_tok
+testCases/nodeClassTest.c PARSER Time::1541013221:5432	 Line: 7	direct_declarator : identifier
+testCases/nodeClassTest.c PARSER Time::1541013221:5437	 Line: 7	direct_declarator : direct_declarator OPEN_PAREN_tok CLOSE_PAREN_tok
+testCases/nodeClassTest.c PARSER Time::1541013221:5442	 Line: 7	declarator : direct_declarator
+testCases/nodeClassTest.c PARSER Time::1541013221:5446	 Line: 7	init_declarator : declarator
+testCases/nodeClassTest.c PARSER Time::1541013221:5449	 Line: 7	init_declarator_list : init_declarator
+testCases/nodeClassTest.c PARSER Time::1541013221:5456	 Line: 7	declaration : declaration_specifiers init_declarator_list SEMI_tok
+testCases/nodeClassTest.c PARSER Time::1541013221:5462	 Line: 7	external_declaration : declaration
+testCases/nodeClassTest.c PARSER Time::1541013221:5469	 Line: 7	translation_unit : external_declaration
+
+int main();
+
+
+
+
+testCases/nodeClassTest.c PARSER Time::1541013221:5479	 Line: 9	type_specifier : INT_tok
 
 int main()
 
+testCases/nodeClassTest.c PARSER Time::1541013221:5510	 Line: 9	declaration_specifiers : type_specifier
+testCases/nodeClassTest.c PARSER Time::1541013221:5515	 Line: 9	identifier : ID_tok
+testCases/nodeClassTest.c PARSER Time::1541013221:5519	 Line: 9	direct_declarator : identifier
+testCases/nodeClassTest.c PARSER Time::1541013221:5525	 Line: 9	direct_declarator : direct_declarator OPEN_PAREN_tok CLOSE_PAREN_tok
 
-{
+int main()
 
-
-	int i;
-
-
-	int j=0;
-
-
-	
-
-
-	i = 3;
-
-
-	for (;;)
-
-
-	{
-
-
-		
-
-
-	}
-
-
-	do
-
-
-	{
-
-
-		++j;
-
-
-	}
-
-
-	while (i++);
-
-
-		
-
-
-	return 0;
-
-
-	
-
+testCases/nodeClassTest.c PARSER Time::1541013221:5533	 Line: 10	declarator : direct_declarator
+testCases/nodeClassTest.c PARSER Time::1541013221:5537	 Line: 10	init_declarator : declarator
+testCases/nodeClassTest.c PARSER Time::1541013221:5542	 Line: 10	init_declarator_list : init_declarator
