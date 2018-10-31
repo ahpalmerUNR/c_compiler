@@ -432,10 +432,7 @@ struct_declaration_list
 
 init_declarator_list
 	: init_declarator {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "init_declarator_list_"+to_string(AST_node_counter),1);
-		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>1);
-		$<tnode>$ = tmp;
+		$<tnode>$ = $<tnode>1;
 		outputReduction("init_declarator_list : init_declarator");}
 	| init_declarator_list COMMA_tok init_declarator {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "init_declarator_list_"+to_string(AST_node_counter),2);
