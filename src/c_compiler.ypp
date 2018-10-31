@@ -7,7 +7,7 @@
 	#include "../src/tree/labelNode.h"
 	#include "../src/tree/emptyNode.h"
 	#include "../src/tree/iteration_statement.h"
-
+	#include "../src/tree/dataNode.h"
 
 	#define MAX_LINE_LENGTH 500
 	FILE *out_log;
@@ -23,7 +23,8 @@
 	clock_t clock_time;
 
 	int levels[5];
-	
+
+	extern char yytext[];
 	
 	Tree AST;
 	int AST_node_counter;
@@ -1805,7 +1806,10 @@ constant
 
 string
 	: STRING_LITERAL_tok {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "string_"+to_string(AST_node_counter),0);
+		int ticket = Variable_counter;
+		DataNode* tmp = new DataNode(AST_node_counter, "string_"+to_string(AST_node_counter),ticket);
+		tmp->storeString(yytext);
+		++Variable_counter;
 		++AST_node_counter;
 		$<tnode>$ = tmp;
 		outputReduction("string : STRING_LITERAL_tok");}
@@ -1832,7 +1836,7 @@ int c_line_yacc_debug_level;
 SymbolTable s;
 //logName = "compilerLog.txt";
 
-extern char yytext[];
+
 extern int column;
 extern int line;
 extern FILE* yyin;
