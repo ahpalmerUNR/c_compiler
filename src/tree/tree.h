@@ -7,6 +7,8 @@
 
 using namespace std;
 
+enum nodeDataType { INT_TYPE,DOUBLE_TYPE,CHAR_TYPE,VOID_TYPE,POINT_TYPE}
+
 class TreeNode
 {
 public:
@@ -14,7 +16,7 @@ public:
 	~TreeNode();
 	virtual void traverse_to_file(FILE*);
 	virtual void ast_to_3ac(FILE*);
-	void assignChild(int childIndex, TreeNode* child);
+	virtual void assignChild(int childIndex, TreeNode* child);
 protected:
 	int TreeNodeNumber;
 	//type
