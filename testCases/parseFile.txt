@@ -28,21 +28,7 @@ testCases/nodeClassTest.c PARSER Time::1541013221:5456	 Line: 7	declaration : de
 testCases/nodeClassTest.c PARSER Time::1541013221:5462	 Line: 7	external_declaration : declaration
 testCases/nodeClassTest.c PARSER Time::1541013221:5469	 Line: 7	translation_unit : external_declaration
 
-int main();
 
-
-
-
-testCases/nodeClassTest.c PARSER Time::1541013221:5479	 Line: 9	type_specifier : INT_tok
-
-int main()
-
-testCases/nodeClassTest.c PARSER Time::1541013221:5510	 Line: 9	declaration_specifiers : type_specifier
-testCases/nodeClassTest.c PARSER Time::1541013221:5515	 Line: 9	identifier : ID_tok
-testCases/nodeClassTest.c PARSER Time::1541013221:5519	 Line: 9	direct_declarator : identifier
-testCases/nodeClassTest.c PARSER Time::1541013221:5525	 Line: 9	direct_declarator : direct_declarator OPEN_PAREN_tok CLOSE_PAREN_tok
-
-int main()
 
 testCases/nodeClassTest.c PARSER Time::1541013221:5533	 Line: 10	declarator : direct_declarator
 testCases/nodeClassTest.c PARSER Time::1541013221:5537	 Line: 10	init_declarator : declarator

@@ -28,6 +28,7 @@ Node* SymbolTable::insert(string tokenKey, int lN, int cN, DataType t,int*errorc
 		d.lineNumber = lN;
 		d.colNumber = cN;
 		d.type = t;
+		d.name = tokenKey;
 		stack[currentLevel].insert(pair<string,Node>(tokenKey,d));
 		return searchTop(tokenKey);
 

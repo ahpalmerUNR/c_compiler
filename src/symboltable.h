@@ -38,6 +38,7 @@ struct Node {
 	int colNumber;
 	enum DataType type;
 	int ntype = 1;
+	string name;
 	//output node information to a file
 	void output(FILE* stream)//ofstream &stream)
 	{

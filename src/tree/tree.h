@@ -7,7 +7,8 @@
 
 using namespace std;
 
-enum nodeDataType { INT_TYPE,DOUBLE_TYPE,CHAR_TYPE,VOID_TYPE,POINT_TYPE}
+
+enum nodeDataType { INT_TYPE_NODE,DOUBLE_TYPE_NODE,CHAR_TYPE_NODE,VOID_TYPE_NODE,POINT_TYPE_NODE,STRING_TYPE_NODE};
 
 class TreeNode
 {

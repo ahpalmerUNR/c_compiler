@@ -45,6 +45,7 @@ int send_token(char const* token_name,int token);
 void white();
 void character();
 void mult_line();
+void stringVal();
 void single_line();
 void read_line();
 void print_error(char const* error_msg);
@@ -203,7 +204,7 @@ mult_line_comment	"/*"([^*]|\*+[^*/])*"*/"
 
 {character}	{character();return(send_token("CHARACTER_CONSTANT_tok",CHARACTER_CONSTANT_tok));}
 				
-{string}	{return(send_token("STRING_LITERAL_tok",STRING_LITERAL_tok));}
+{string}	{stringVal();return(send_token("STRING_LITERAL_tok",STRING_LITERAL_tok));}
 
 
 "<-"		{return(send_token("PTR_OP_tok",PTR_OP_tok));}
@@ -360,6 +361,15 @@ void white()
 		}
 	}
 	
+}
+
+void stringVal()
+{
+	char* tmp = yytext;
+	tmp++;
+	tmp[yyleng-2] = '\0';
+	printf("%s\n",tmp);
+	yylval.lstr = tmp;
 }
 
 void character()
