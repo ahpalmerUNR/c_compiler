@@ -3,17 +3,18 @@ CPP=g++
 CFLAGS=-std=c99
 CPPFLAGS = -std=c++11
 LEX=flex
-OBJ= c_compiler.tab.hpp lex.yy.o symboltable.o tree.o labelNode.o -lfl
-BUILDOBJ= build/c_compiler.tab.hpp lex.yy.o symboltable.o tree.o labelNode.o -lfl
+OBJ= c_compiler.tab.hpp lex.yy.o symboltable.o tree.o  -lfl
+BUILDOBJ= build/c_compiler.tab.hpp lex.yy.o symboltable.o tree.o -lfl
+NODES= labelNode.o
 YACC=bison
 YFLAGS=-d -v -t
 
 all: c_compiler
 
-c_compiler: $(OBJ)
-	$(CPP) $(CPPFLAGS) -o build/c_compiler  build/c_compiler.tab.cpp $(BUILDOBJ)
+c_compiler: $(OBJ) $(NODES)
+	$(CPP) $(CPPFLAGS) -o build/c_compiler  build/c_compiler.tab.cpp $(BUILDOBJ) $(NODES)
 	
-c_compiler.tab.hpp: symboltable.o tree.o labelNode.o
+c_compiler.tab.hpp: symboltable.o tree.o $(NODES)
 	$(YACC) $(YFLAGS) --file-prefix=build/c_compiler src/c_compiler.ypp
 	
 lex.yy.o: flex_out symboltable.o

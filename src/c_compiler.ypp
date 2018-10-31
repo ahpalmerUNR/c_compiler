@@ -5,6 +5,7 @@
 	#include <stdlib.h>
 	#include "../src/tree.h"
 	#include "../src/labelNode.h"
+	#include "../src/passUpNode.h"
 
 
 	#define MAX_LINE_LENGTH 500
@@ -134,7 +135,7 @@
 	double ldoub;
 	class Node* lnode;
 	class TreeNode* tnode;
-	class LabelNode* labelnode;
+	
 }
 
 %right THEN
@@ -960,7 +961,7 @@ labeled_statement
 		++Label_counter;
 		++AST_node_counter;
 		tmp->assignChild(0,$<tnode>3);
-		$<labelnode>$ = tmp;
+		$<tnode>$ = tmp;
 		outputReduction("labeled_statement : identifier COLON_tok statement");}
 	| CASE_tok constant_expression COLON_tok statement {
 		int ticket = Label_counter;
