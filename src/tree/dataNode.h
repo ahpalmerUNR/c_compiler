@@ -29,7 +29,7 @@ public:
 protected:
 
 	int ticketNumber;
-	DataType dType;
+	nodeDataType dType;
 	Data data;
 
 };

@@ -1566,10 +1566,7 @@ additive_expression
 
 multiplicative_expression
 	: cast_expression {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "multiplicative_expression_"+to_string(AST_node_counter),1);
-		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>1);
-		$<tnode>$ = tmp;
+		$<tnode>$ = $<tnode>1;
 		outputReduction("multiplicative_expression : cast_expression");}
 	| multiplicative_expression STAR_tok cast_expression {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "multiplicative_expression_"+to_string(AST_node_counter),2);
