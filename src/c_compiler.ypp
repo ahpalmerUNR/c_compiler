@@ -1354,10 +1354,7 @@ assignment_operator
 
 conditional_expression
 	: logical_or_expression {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "conditional_expression_"+to_string(AST_node_counter),1);
-		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>1);
-		$<tnode>$ = tmp;
+		$<tnode>$ = $<tnode>1;
 		outputReduction("conditional_expression : logical_or_expression");}
 	| logical_or_expression QUESTION_MARK_tok expression COLON_tok conditional_expression {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "assignment_expression_"+to_string(AST_node_counter),3);
@@ -1371,19 +1368,13 @@ conditional_expression
 
 constant_expression
 	: conditional_expression {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "constant_expression_"+to_string(AST_node_counter),1);
-		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>1);
-		$<tnode>$ = tmp;
+		$<tnode>$ = $<tnode>1;
 		outputReduction("constant_expression : conditional_expression");}
 	;
 
 logical_or_expression
 	: logical_and_expression {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "logical_or_expression_"+to_string(AST_node_counter),1);
-		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>1);
-		$<tnode>$ = tmp;
+		$<tnode>$ = $<tnode>1;
 		outputReduction("logical_or_expression : logical_and_expression");}
 	| logical_or_expression OR_OP_tok logical_and_expression {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "logical_or_expression_"+to_string(AST_node_counter),2);
@@ -1396,10 +1387,7 @@ logical_or_expression
 
 logical_and_expression
 	: inclusive_or_expression {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "logical_and_expression_"+to_string(AST_node_counter),1);
-		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>1);
-		$<tnode>$ = tmp;
+		$<tnode>$ = $<tnode>1;
 		outputReduction("logical_and_expression : inclusive_or_expression");}
 	| logical_and_expression AND_OP_tok inclusive_or_expression {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "logical_and_expression_"+to_string(AST_node_counter),2);
@@ -1412,10 +1400,7 @@ logical_and_expression
 
 inclusive_or_expression
 	: exclusive_or_expression {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "inclusive_or_expression"+to_string(AST_node_counter),1);
-		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>1);
-		$<tnode>$ = tmp;
+		$<tnode>$ = $<tnode>1;
 		outputReduction("inclusive_or_expression : exclusive_or_expression");}
 	| inclusive_or_expression BAR_tok exclusive_or_expression {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "inclusive_or_expression"+to_string(AST_node_counter),2);
@@ -1444,10 +1429,7 @@ exclusive_or_expression
 
 and_expression
 	: equality_expression {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "and_expression_"+to_string(AST_node_counter),1);
-		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>1);
-		$<tnode>$ = tmp;
+		$<tnode>$ = $<tnode>1;
 		outputReduction("and_expression : equality_expression");}
 	| and_expression AMP_tok equality_expression {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "and_expression_"+to_string(AST_node_counter),2);
@@ -1460,10 +1442,7 @@ and_expression
 
 equality_expression
 	: relational_expression {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "equality_expression_"+to_string(AST_node_counter),1);
-		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>1);
-		$<tnode>$ = tmp;
+		$<tnode>$ = $<tnode>1;
 		outputReduction("equality_expression : relational_expression");}
 	| equality_expression EQ_OP_tok relational_expression {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "equality_expression_"+to_string(AST_node_counter),2);
@@ -1483,10 +1462,7 @@ equality_expression
 
 relational_expression
 	: shift_expression {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "relational_expression_"+to_string(AST_node_counter),1);
-		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>1);
-		$<tnode>$ = tmp;
+		$<tnode>$ = $<tnode>1;
 		outputReduction("relational_expression : shift_expression");}
 	| relational_expression LT_tok shift_expression {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "relational_expression_"+to_string(AST_node_counter),2);
@@ -1520,10 +1496,7 @@ relational_expression
 
 shift_expression
 	: additive_expression {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "shift_expression_"+to_string(AST_node_counter),1);
-		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>1);
-		$<tnode>$ = tmp;
+		$<tnode>$ = $<tnode>1;
 		outputReduction("shift_expression : additive_expression");}
 	| shift_expression LEFT_OP_tok additive_expression {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "shift_expression_"+to_string(AST_node_counter),2);
@@ -1543,10 +1516,7 @@ shift_expression
 
 additive_expression
 	: multiplicative_expression {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "additive_expression_"+to_string(AST_node_counter),1);
-		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>1);
-		$<tnode>$ = tmp;
+		$<tnode>$ = $<tnode>1;
 		outputReduction("additive_expression : multiplicative_expression");}
 	| additive_expression PLUS_tok multiplicative_expression {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "additive_expression_"+to_string(AST_node_counter),2);
@@ -1566,10 +1536,7 @@ additive_expression
 
 multiplicative_expression
 	: cast_expression {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "multiplicative_expression_"+to_string(AST_node_counter),1);
-		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>1);
-		$<tnode>$ = tmp;
+		$<tnode>$ = $<tnode>1;
 		outputReduction("multiplicative_expression : cast_expression");}
 	| multiplicative_expression STAR_tok cast_expression {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "multiplicative_expression_"+to_string(AST_node_counter),2);
