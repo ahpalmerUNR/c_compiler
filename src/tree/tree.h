@@ -7,6 +7,8 @@
 
 using namespace std;
 
+enum DataType={String,Int,Char,Double,}
+
 class TreeNode
 {
 public:

@@ -12,7 +12,7 @@ DataNode::~DataNode()
 
 void DataNode::traverse_to_file(FILE* fileout) 
 {
-	fprintf(fileout, "\t%s [label=\"DataLiteral\"]\n", TreeNodeName.c_str());
+	fprintf(fileout, "\t%s [label=\"%s\\n%d\\n%c\\n%f\"]\n", TreeNodeName.c_str(),data.dstr,data.dint,data.dchar,data.ddoub);
 }
 void DataNode::ast_to_3ac(FILE* fileout)
 {

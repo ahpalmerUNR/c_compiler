@@ -365,7 +365,11 @@ void white()
 
 void stringVal()
 {
-	yylval.lstr = yytext;
+	char* tmp = yytext;
+	tmp++;
+	tmp[yyleng-2] = '\0';
+	printf("%s\n",tmp);
+	yylval.lstr = tmp;
 }
 
 void character()

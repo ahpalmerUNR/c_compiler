@@ -27,5 +27,5 @@ digraph AST {
 	unary_expression_9 -> postfix_expression_8;
 	postfix_expression_8 -> primary_expression_7;
 	primary_expression_7 -> string_6;
-	string_6 [label="DataLiteral"]
+	string_6 [label="hello\n8593045\n•\n0.000000"]
 }
