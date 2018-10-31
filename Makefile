@@ -3,17 +3,18 @@ CPP=g++
 CFLAGS=-std=c99
 CPPFLAGS = -std=c++11
 LEX=flex
-OBJ= c_compiler.tab.hpp lex.yy.o symboltable.o tree.o -lfl
+OBJ= c_compiler.tab.hpp lex.yy.o symboltable.o tree.o  -lfl
 BUILDOBJ= build/c_compiler.tab.hpp lex.yy.o symboltable.o tree.o -lfl
+NODES= labelNode.o emptyNode.o iteration_statement.o
 YACC=bison
 YFLAGS=-d -v -t
 
 all: c_compiler
 
-c_compiler: $(OBJ)
-	$(CPP) $(CPPFLAGS) -o build/c_compiler  build/c_compiler.tab.cpp $(BUILDOBJ)
+c_compiler: $(OBJ) $(NODES)
+	$(CPP) $(CPPFLAGS) -o build/c_compiler  build/c_compiler.tab.cpp $(BUILDOBJ) $(NODES)
 	
-c_compiler.tab.hpp: symboltable.o tree.o
+c_compiler.tab.hpp: symboltable.o tree.o $(NODES)
 	$(YACC) $(YFLAGS) --file-prefix=build/c_compiler src/c_compiler.ypp
 	
 lex.yy.o: flex_out symboltable.o
@@ -25,8 +26,17 @@ flex_out: src/symboltable.h
 symboltable.o: src/symboltable.h
 	$(CPP) $(CPPFLAGS) -c src/symboltable.cpp
 
-tree.o: src/tree.h
+tree.o: src/tree.cpp src/tree.h
 	$(CPP) $(CPPFLAGS) -c src/tree.cpp
+
+labelNode.o: src/labelNode.cpp src/labelNode.h src/tree.h
+	$(CPP) $(CPPFLAGS) -c src/labelNode.cpp
+	
+emptyNode.o: src/emptyNode.cpp src/emptyNode.h src/tree.h
+	$(CPP) $(CPPFLAGS) -c src/emptyNode.cpp
+	
+iteration_statement.o: src/iteration_statement.cpp src/iteration_statement.h src/tree.h
+	$(CPP) $(CPPFLAGS) -c src/iteration_statement.cpp
 
 clean:
 	-rm -f build/lex.yy.* build/c_compiler.tab.* build/*.o build/*.s build/c_compiler build/c_compiler.output 

@@ -4,6 +4,9 @@
 	#include <stdio.h>
 	#include <stdlib.h>
 	#include "../src/tree.h"
+	#include "../src/labelNode.h"
+	#include "../src/emptyNode.h"
+	#include "../src/iteration_statement.h"
 
 
 	#define MAX_LINE_LENGTH 500
@@ -25,6 +28,7 @@
 	Tree AST;
 	int AST_node_counter;
 	int Label_counter;
+	int Variable_counter;
 	
 	
 	void outputReduction(const char *s);
@@ -132,6 +136,7 @@
 	double ldoub;
 	class Node* lnode;
 	class TreeNode* tnode;
+	
 }
 
 %right THEN
@@ -952,21 +957,25 @@ statement
 
 labeled_statement
 	: identifier COLON_tok statement {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "labeled_statement_"+to_string(AST_node_counter),2);
+		int ticket = Label_counter;
+		LabelNode* tmp = new LabelNode(AST_node_counter, "labeled_statement_"+to_string(AST_node_counter),ticket);
+		++Label_counter;
 		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>1);
-		tmp->assignChild(1,$<tnode>3);
+		tmp->assignChild(0,$<tnode>3);
 		$<tnode>$ = tmp;
 		outputReduction("labeled_statement : identifier COLON_tok statement");}
 	| CASE_tok constant_expression COLON_tok statement {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "labeled_statement_"+to_string(AST_node_counter),2);
+		int ticket = Label_counter;
+		LabelNode* tmp = new LabelNode(AST_node_counter, "labeled_statement_"+to_string(AST_node_counter),ticket);
+		++Label_counter;
 		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>2);
-		tmp->assignChild(1,$<tnode>4);
+		tmp->assignChild(0,$<tnode>4);
 		$<tnode>$ = tmp;
 		outputReduction("labeled_statement : CASE_tok constant_expression COLON_tok statement");}
 	| DEFAULT_tok COLON_tok statement {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "labeled_statement_"+to_string(AST_node_counter),1);
+		int ticket = Label_counter;
+		LabelNode* tmp = new LabelNode(AST_node_counter, "labeled_statement_"+to_string(AST_node_counter),ticket);
+		++Label_counter;
 		++AST_node_counter;
 		tmp->assignChild(0,$<tnode>3);
 		$<tnode>$ = tmp;
@@ -1057,73 +1066,161 @@ selection_statement
 
 iteration_statement
 	: WHILE_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "iteration_statement_"+to_string(AST_node_counter),2);
+		EmptyNode* blank1 = new EmptyNode(AST_node_counter,"empty_"+to_string(AST_node_counter));
 		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>3);
-		tmp->assignChild(1,$<tnode>5);
+		EmptyNode* blank2 = new EmptyNode(AST_node_counter,"empty_"+to_string(AST_node_counter));
+		++AST_node_counter;
+		int ticket1 = Label_counter;
+		++Label_counter;
+		int ticket2 = Label_counter;
+		Iter_statement* tmp = new Iter_statement(AST_node_counter, "iteration_statement_"+to_string(AST_node_counter),ticket1,ticket2,false);
+		++AST_node_counter;
+		++Label_counter;
+		tmp->assignChild(0,blank1);
+		tmp->assignChild(2,blank2);
+		tmp->assignChild(1,$<tnode>3);
+		tmp->assignChild(3,$<tnode>5);
 		$<tnode>$ = tmp;
 		outputReduction("iteration_statement : WHILE_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement");}
 	| DO_tok statement WHILE_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok SEMI_tok {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "iteration_statement_"+to_string(AST_node_counter),2);
+		EmptyNode* blank1 = new EmptyNode(AST_node_counter,"empty_"+to_string(AST_node_counter));
 		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>2);
+		EmptyNode* blank2 = new EmptyNode(AST_node_counter,"empty_"+to_string(AST_node_counter));
+		++AST_node_counter;
+		int ticket1 = Label_counter;
+		++Label_counter;
+		int ticket2 = Label_counter;
+		Iter_statement* tmp = new Iter_statement(AST_node_counter, "iteration_statement_"+to_string(AST_node_counter),ticket1,ticket2,true);
+		++AST_node_counter;
+		++Label_counter;
+		tmp->assignChild(0,blank1);
+		tmp->assignChild(2,blank2);
 		tmp->assignChild(1,$<tnode>5);
+		tmp->assignChild(3,$<tnode>2);
 		$<tnode>$ = tmp;
 		outputReduction("iteration_statement : DO_tok statement WHILE_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok SEMI_tok");}
 	| FOR_tok OPEN_PAREN_tok SEMI_tok SEMI_tok CLOSE_PAREN_tok statement {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "iteration_statement_"+to_string(AST_node_counter),1);
+		EmptyNode* blank1 = new EmptyNode(AST_node_counter,"empty_"+to_string(AST_node_counter));
 		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>6);
+		EmptyNode* blank2 = new EmptyNode(AST_node_counter,"empty_"+to_string(AST_node_counter));
+		++AST_node_counter;
+		EmptyNode* blank3 = new EmptyNode(AST_node_counter,"empty_"+to_string(AST_node_counter));
+		++AST_node_counter;
+		int ticket1 = Label_counter;
+		++Label_counter;
+		int ticket2 = Label_counter;
+		Iter_statement* tmp = new Iter_statement(AST_node_counter, "iteration_statement_"+to_string(AST_node_counter),ticket1,ticket2,false);
+		++AST_node_counter;
+		++Label_counter;
+		tmp->assignChild(0,blank1);
+		tmp->assignChild(2,blank2);
+		tmp->assignChild(1,blank3);
+		tmp->assignChild(3,$<tnode>6);
 		$<tnode>$ = tmp;
 		outputReduction("iteration_statement : FOR_tok OPEN_PAREN_tok SEMI_tok SEMI_tok CLOSE_PAREN_tok statement");}
 	| FOR_tok OPEN_PAREN_tok SEMI_tok SEMI_tok expression CLOSE_PAREN_tok statement {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "iteration_statement_"+to_string(AST_node_counter),2);
+		EmptyNode* blank1 = new EmptyNode(AST_node_counter,"empty_"+to_string(AST_node_counter));
 		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>5);
-		tmp->assignChild(1,$<tnode>7);
+		EmptyNode* blank2 = new EmptyNode(AST_node_counter,"empty_"+to_string(AST_node_counter));
+		++AST_node_counter;
+		int ticket1 = Label_counter;
+		++Label_counter;
+		int ticket2 = Label_counter;
+		Iter_statement* tmp = new Iter_statement(AST_node_counter, "iteration_statement_"+to_string(AST_node_counter),ticket1,ticket2,false);
+		++AST_node_counter;
+		++Label_counter;
+		tmp->assignChild(0,blank1);
+		tmp->assignChild(1,blank2);
+		tmp->assignChild(2,$<tnode>5);
+		tmp->assignChild(3,$<tnode>7);
 		$<tnode>$ = tmp;
 		outputReduction("iteration_statement : FOR_tok OPEN_PAREN_tok SEMI_tok SEMI_tok expression CLOSE_PAREN_tok statement");}
 	| FOR_tok OPEN_PAREN_tok SEMI_tok expression SEMI_tok CLOSE_PAREN_tok statement {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "iteration_statement_"+to_string(AST_node_counter),2);
+		EmptyNode* blank1 = new EmptyNode(AST_node_counter,"empty_"+to_string(AST_node_counter));
 		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>4);
-		tmp->assignChild(1,$<tnode>7);
+		EmptyNode* blank2 = new EmptyNode(AST_node_counter,"empty_"+to_string(AST_node_counter));
+		++AST_node_counter;
+		int ticket1 = Label_counter;
+		++Label_counter;
+		int ticket2 = Label_counter;
+		Iter_statement* tmp = new Iter_statement(AST_node_counter, "iteration_statement_"+to_string(AST_node_counter),ticket1,ticket2,false);
+		++AST_node_counter;
+		++Label_counter;
+		tmp->assignChild(0,blank1);
+		tmp->assignChild(2,blank2);
+		tmp->assignChild(1,$<tnode>4);
+		tmp->assignChild(3,$<tnode>7);
 		$<tnode>$ = tmp;
 		outputReduction("iteration_statement : FOR_tok OPEN_PAREN_tok SEMI_tok expression SEMI_tok CLOSE_PAREN_tok statement");}
 	| FOR_tok OPEN_PAREN_tok SEMI_tok expression SEMI_tok expression CLOSE_PAREN_tok statement {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "iteration_statement_"+to_string(AST_node_counter),3);
+		EmptyNode* blank1 = new EmptyNode(AST_node_counter,"empty_"+to_string(AST_node_counter));
 		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>4);
-		tmp->assignChild(1,$<tnode>6);
-		tmp->assignChild(2,$<tnode>8);
+		int ticket1 = Label_counter;
+		++Label_counter;
+		int ticket2 = Label_counter;
+		Iter_statement* tmp = new Iter_statement(AST_node_counter, "iteration_statement_"+to_string(AST_node_counter),ticket1,ticket2,false);
+		++AST_node_counter;
+		++Label_counter;
+		tmp->assignChild(0,blank1);
+		tmp->assignChild(1,$<tnode>4);
+		tmp->assignChild(2,$<tnode>6);
+		tmp->assignChild(3,$<tnode>8);
 		$<tnode>$ = tmp;
 		outputReduction("iteration_statement : FOR_tok OPEN_PAREN_tok SEMI_tok expression SEMI_tok expression CLOSE_PAREN_tok statement");}
 	| FOR_tok OPEN_PAREN_tok expression SEMI_tok SEMI_tok CLOSE_PAREN_tok statement {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "iteration_statement_"+to_string(AST_node_counter),2);
+		EmptyNode* blank1 = new EmptyNode(AST_node_counter,"empty_"+to_string(AST_node_counter));
 		++AST_node_counter;
+		EmptyNode* blank2 = new EmptyNode(AST_node_counter,"empty_"+to_string(AST_node_counter));
+		++AST_node_counter;
+		int ticket1 = Label_counter;
+		++Label_counter;
+		int ticket2 = Label_counter;
+		Iter_statement* tmp = new Iter_statement(AST_node_counter, "iteration_statement_"+to_string(AST_node_counter),ticket1,ticket2,false);
+		++AST_node_counter;
+		++Label_counter;
+		tmp->assignChild(1,blank1);
+		tmp->assignChild(2,blank2);
 		tmp->assignChild(0,$<tnode>3);
-		tmp->assignChild(1,$<tnode>7);
+		tmp->assignChild(3,$<tnode>7);
 		$<tnode>$ = tmp;
 		outputReduction("iteration_statement : FOR_tok OPEN_PAREN_tok expression SEMI_tok SEMI_tok CLOSE_PAREN_tok statement");}
 	| FOR_tok OPEN_PAREN_tok expression SEMI_tok SEMI_tok expression CLOSE_PAREN_tok statement {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "iteration_statement_"+to_string(AST_node_counter),3);
+		EmptyNode* blank1 = new EmptyNode(AST_node_counter,"empty_"+to_string(AST_node_counter));
 		++AST_node_counter;
+		int ticket1 = Label_counter;
+		++Label_counter;
+		int ticket2 = Label_counter;
+		Iter_statement* tmp = new Iter_statement(AST_node_counter, "iteration_statement_"+to_string(AST_node_counter),ticket1,ticket2,false);
+		++AST_node_counter;
+		++Label_counter;
+		tmp->assignChild(1,blank1);
 		tmp->assignChild(0,$<tnode>3);
-		tmp->assignChild(1,$<tnode>6);
-		tmp->assignChild(2,$<tnode>8);
+		tmp->assignChild(2,$<tnode>6);
+		tmp->assignChild(3,$<tnode>8);
 		$<tnode>$ = tmp;
 		outputReduction("iteration_statement : FOR_tok OPEN_PAREN_tok expression SEMI_tok SEMI_tok expression CLOSE_PAREN_tok statement");}
 	| FOR_tok OPEN_PAREN_tok expression SEMI_tok expression SEMI_tok CLOSE_PAREN_tok statement {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "iteration_statement_"+to_string(AST_node_counter),3);
+		EmptyNode* blank1 = new EmptyNode(AST_node_counter,"empty_"+to_string(AST_node_counter));
 		++AST_node_counter;
+		int ticket1 = Label_counter;
+		++Label_counter;
+		int ticket2 = Label_counter;
+		Iter_statement* tmp = new Iter_statement(AST_node_counter, "iteration_statement_"+to_string(AST_node_counter),ticket1,ticket2,false);
+		++AST_node_counter;
+		++Label_counter;
+		tmp->assignChild(2,blank1);
 		tmp->assignChild(0,$<tnode>3);
 		tmp->assignChild(1,$<tnode>5);
-		tmp->assignChild(2,$<tnode>8);
+		tmp->assignChild(3,$<tnode>8);
 		$<tnode>$ = tmp;
 		outputReduction("iteration_statement : FOR_tok OPEN_PAREN_tok expression SEMI_tok expression SEMI_tok CLOSE_PAREN_tok statement");}
 	| FOR_tok OPEN_PAREN_tok expression SEMI_tok expression SEMI_tok expression CLOSE_PAREN_tok statement {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "iteration_statement_"+to_string(AST_node_counter),4);
+		int ticket1 = Label_counter;
+		++Label_counter;
+		int ticket2 = Label_counter;
+		Iter_statement* tmp = new Iter_statement(AST_node_counter, "iteration_statement_"+to_string(AST_node_counter),ticket1,ticket2,false);
 		++AST_node_counter;
+		++Label_counter;
 		tmp->assignChild(0,$<tnode>3);
 		tmp->assignChild(1,$<tnode>5);
 		tmp->assignChild(2,$<tnode>7);
@@ -1133,7 +1230,8 @@ iteration_statement
 	;
 
 jump_statement
-	: GOTO_tok identifier SEMI_tok {
+	: GOTO_tok {insert_lookup = 0;} identifier SEMI_tok {
+		insert_lookup = 1;
 		TreeNode* tmp = new TreeNode(AST_node_counter, "jump_statement_"+to_string(AST_node_counter),1);
 		++AST_node_counter;
 		tmp->assignChild(0,$<tnode>2);
@@ -1750,6 +1848,7 @@ int main(int argc, char **argv)
 
 	Label_counter = 0;
 	AST_node_counter = 0;
+	Variable_counter = 0;
 	
 	lex_debug_level=1;
 	symbol_table_debug=1;

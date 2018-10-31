@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-27 14:10:44
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-10-27 19:38:12
+* @Last Modified time: 2018-10-30 20:22:13
 */
 #include "tree.h"
 
@@ -31,7 +31,10 @@ void TreeNode::traverse_to_file(FILE* fileout)
 
 void TreeNode::ast_to_3ac(FILE* fileout)
 {
-	// Fill in Later
+	for (int i = 0; i < numberChildren; ++i)
+	{
+		children[i]->ast_to_3ac(fileout);
+	}
 }
 
 void TreeNode::assignChild(int childIndex, TreeNode* child)
