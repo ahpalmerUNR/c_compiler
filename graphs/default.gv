@@ -1,30 +1,10 @@
 digraph AST {
-	translation_unit_27 -> external_declaration_26;
-	external_declaration_26 -> declaration_25;
-	declaration_25 -> declaration_specifiers_1;
-	declaration_specifiers_1 -> type_specifier_0;
-	declaration_25 -> init_declarator_list_24;
-	init_declarator_list_24 -> init_declarator_23;
-	init_declarator_23 -> declarator_5;
-	declarator_5 -> pointer_2;
-	declarator_5 -> direct_declarator_4;
-	direct_declarator_4 -> identifier_3;
-	init_declarator_23 -> initializer_22;
-	initializer_22 -> assignment_expression_21;
-	assignment_expression_21 -> conditional_expression_20;
-	conditional_expression_20 -> logical_or_expression_19;
-	logical_or_expression_19 -> logical_and_expression_18;
-	logical_and_expression_18 -> inclusive_or_expression17;
-	inclusive_or_expression17 -> exclusive_or_expression_16;
-	exclusive_or_expression_16 -> and_expression_15;
-	and_expression_15 -> equality_expression_14;
-	equality_expression_14 -> relational_expression_13;
-	relational_expression_13 -> shift_expression_12;
-	shift_expression_12 -> additive_expression_11;
-	additive_expression_11 -> cast_expression_10;
-	cast_expression_10 -> unary_expression_9;
-	unary_expression_9 -> postfix_expression_8;
-	postfix_expression_8 -> primary_expression_7;
-	primary_expression_7 -> string_6;
-	string_6 [label="hello\n28888725\n•\n0.000000"]
+	translation_unit_7 -> declaration_6;
+	declaration_6 -> type_specifier_0;
+	declaration_6 -> init_declarator_5;
+	init_declarator_5 -> declarator_3;
+	declarator_3 -> pointer_1;
+	declarator_3 -> identifier_2;
+	init_declarator_5 -> string_4;
+	string_4 [label="hello"]
 }

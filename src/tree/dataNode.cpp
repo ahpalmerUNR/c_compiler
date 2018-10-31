@@ -12,7 +12,23 @@ DataNode::~DataNode()
 
 void DataNode::traverse_to_file(FILE* fileout) 
 {
-	fprintf(fileout, "\t%s [label=\"%s\\n%d\\n%c\\n%f\"]\n", TreeNodeName.c_str(),data.dstr,data.dint,data.dchar,data.ddoub);
+	char* typePrint;
+	switch(dType)
+	{
+		case CHAR_TYPE_NODE:
+			sprintf(typePrint,"%c",data.dchar);
+			break;
+		case INT_TYPE_NODE:
+			sprintf(typePrint,"%d",data.dint);
+			break;
+		case DOUBLE_TYPE_NODE:
+			sprintf(typePrint,"%f",data.ddoub);
+			break;
+		case STRING_TYPE_NODE:
+			sprintf(typePrint,"%s",data.dstr);
+		
+	}
+	fprintf(fileout, "\t%s [label=\"%s\"]\n", TreeNodeName.c_str(),typePrint);
 }
 void DataNode::ast_to_3ac(FILE* fileout)
 {
