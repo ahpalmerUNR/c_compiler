@@ -26,7 +26,7 @@ public:
 	void storeString(char *s);
 	void storeChar(char c);
 	void setTypeSpecifier(nodeDataType typeSpec);
-	int getDataType();
+	int getDataType(char * representation);//representation returned uses max buffer 500 characters.
 	void notData();
 
 protected:

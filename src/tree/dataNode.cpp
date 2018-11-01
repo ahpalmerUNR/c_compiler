@@ -30,6 +30,9 @@ void DataNode::traverse_to_file(FILE* fileout)
 				break;
 			case STRING_TYPE_NODE:
 				snprintf(typePrint, 500,"%s",data.dstr);
+				break;
+			case ID_TYPE_NODE:
+				snprintf(typePrint, 500,"%s",data.dstr);
 			
 		}
 	}
@@ -148,8 +151,29 @@ void DataNode::setTypeSpecifier(nodeDataType typeSpec)
 	dType = typeSpec;
 }
 	
-int DataNode::getDataType()
+int DataNode::getDataType(char * representation)
 {
+	if (isData)
+	{
+		switch(dType)
+		{
+			case CHAR_TYPE_NODE:
+				snprintf(representation, 500,"%c",data.dchar);
+				break;
+			case INT_TYPE_NODE:
+				snprintf(representation, 500,"%d",data.dint);
+				break;
+			case DOUBLE_TYPE_NODE:
+				snprintf(representation, 500,"%f",data.ddoub);
+				break;
+			case STRING_TYPE_NODE:
+				snprintf(representation, 500,"%s",data.dstr);
+				break;
+			case ID_TYPE_NODE:
+				snprintf(representation, 500,"%s",data.dstr);
+			
+		}
+	}
 	return dType;
 }
 

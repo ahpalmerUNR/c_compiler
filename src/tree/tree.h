@@ -5,9 +5,11 @@
 #include <stdio.h>
 #include <vector>
 #include <iostream>
+#include "../symboltable.h"
 
 using namespace std;
 
+extern SymbolTable astTable;
 
 enum nodeDataType { 
 	INT_TYPE_NODE,
@@ -32,6 +34,7 @@ enum nodeDataType {
 	STATIC_TYPE_NODE,
 	EXTERN_TYPE_NODE,
 	TYPEDEF_TYPE_NODE,
+	ID_TYPE_NODE
 	};
 
 class TreeNode
@@ -42,6 +45,7 @@ public:
 	virtual void traverse_to_file(FILE*);
 	virtual void ast_to_3ac(FILE*);
 	virtual void assignChild(int childIndex, TreeNode* child);
+	virtual int getDataType(char *){}
 protected:
 	int TreeNodeNumber;
 	//type

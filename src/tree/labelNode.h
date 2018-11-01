@@ -14,5 +14,6 @@ public:
 protected:
 	int jumpCounter;
 	
+	
 };
 #endif

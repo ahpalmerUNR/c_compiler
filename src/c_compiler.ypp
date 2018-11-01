@@ -30,10 +30,7 @@
 	int AST_node_counter;
 	int Label_counter;
 	int Variable_counter;
-	
-	bool showPassThrough;
-	
-	
+		
 	void outputReduction(const char *s);
 
 	void yyerror(char const *msg);
@@ -930,7 +927,8 @@ labeled_statement
 		LabelNode* tmp = new LabelNode(AST_node_counter, "labeled_statement_"+to_string(AST_node_counter),ticket);
 		++Label_counter;
 		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>3);
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,$<tnode>3);
 		$<tnode>$ = tmp;
 		outputReduction("labeled_statement : identifier COLON_tok statement");}
 	| CASE_tok constant_expression COLON_tok statement {
@@ -938,15 +936,22 @@ labeled_statement
 		LabelNode* tmp = new LabelNode(AST_node_counter, "labeled_statement_"+to_string(AST_node_counter),ticket);
 		++Label_counter;
 		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>4);
+		tmp->assignChild(0,$<tnode>2);
+		tmp->assignChild(1,$<tnode>4);
 		$<tnode>$ = tmp;
 		outputReduction("labeled_statement : CASE_tok constant_expression COLON_tok statement");}
 	| DEFAULT_tok COLON_tok statement {
-		int ticket = Label_counter;
+		int ticket = Variable_counter;
+		DataNode* defaultString = new DataNode(AST_node_counter,"default_"+to_string(AST_node_counter),ticket);
+		defaultString->storeString((char *)"default");
+		++Variable_counter;
+		++AST_node_counter;
+		ticket = Label_counter;
 		LabelNode* tmp = new LabelNode(AST_node_counter, "labeled_statement_"+to_string(AST_node_counter),ticket);
 		++Label_counter;
 		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>3);
+		tmp->assignChild(0,defaultString);
+		tmp->assignChild(1,$<tnode>3);
 		$<tnode>$ = tmp;
 		outputReduction("labeled_statement : DEFAULT_tok COLON_tok statement");}
 	;
@@ -1315,10 +1320,7 @@ conditional_expression
 
 constant_expression
 	: conditional_expression {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "constant_expression_"+to_string(AST_node_counter),1);
-		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>1);
-		$<tnode>$ = tmp;
+		$<tnode>$ = $<tnode>1;
 		outputReduction("constant_expression : conditional_expression");}
 	;
 
@@ -1719,6 +1721,7 @@ identifier
 		int ticket = Variable_counter;
 		DataNode* tmp = new DataNode(AST_node_counter, "identifier_"+to_string(AST_node_counter),ticket);
 		tmp->storeString((char*)yylval.lnode->name.c_str());
+		tmp->setTypeSpecifier(ID_TYPE_NODE);
 		++Variable_counter;
 		++AST_node_counter;
 		$<tnode>$ = tmp;
@@ -1736,6 +1739,7 @@ int c_line_symbol_table_debug;
 int c_line_yacc_debug_level;
 
 SymbolTable s;
+SymbolTable astTable;
 //logName = "compilerLog.txt";
 
 

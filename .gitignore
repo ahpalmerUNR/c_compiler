@@ -5,6 +5,7 @@ lex.yy.c
 *.tab.cpp
 c_compiler
 *.s
+a.out
 tokenFile.txt
 compilerLog.txt
 parseFile.txt

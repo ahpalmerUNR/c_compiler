@@ -1,20 +1,9 @@
-int;
-
-void main()
+int main()
 {
-	int a = 4;
-	
-	if(a == 3)
+	int i;
+	for (i = 0; i < 3; ++i)
 	{
-		
+		/* code */
 	}
-	
-	if(a == 4)
-	{
-		
-	}
-	else
-	{
-		
-	}
+	return 0;
 }
