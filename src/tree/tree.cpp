@@ -2,9 +2,11 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-27 14:10:44
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-10-30 20:22:13
+* @Last Modified time: 2018-10-31 16:43:00
 */
 #include "tree.h"
+
+using namespace std;
 
 TreeNode::TreeNode(int TreeNodeNum,string TreeNodeProductionName,int numberOfChildren)
 {
@@ -22,6 +24,7 @@ TreeNode::~TreeNode()
 
 void TreeNode::traverse_to_file(FILE* fileout)
 {
+	cout<<"TreeNode "<<TreeNodeName.c_str()<<endl;
 	for (int i = 0; i < numberChildren; ++i)
 	{
 		fprintf(fileout, "\t%s -> %s;\n", TreeNodeName.c_str(),children[i]->TreeNodeName.c_str());

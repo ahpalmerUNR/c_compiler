@@ -1,8 +1,0 @@
-ERROR: testCases/nodeClassTest.c:Line: 9 Column: 5 Conflicts with variable in current scope on line : 7
-int main()
------^ 
-
-ERROR: testCases/nodeClassTest.c:Line: 10 Column: 2 syntax error, unexpected OPEN_BRACE_tok, expecting SEMI_tok or COMMA_tok
-{
---^ 
-

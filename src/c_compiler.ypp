@@ -166,10 +166,16 @@ translation_unit
 
 external_declaration
 	: function_definition {
-		$<tnode>$ = $<tnode>1;
+		TreeNode* tmp = new TreeNode(AST_node_counter, "external_declaration_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
 		outputReduction("external_declaration : function_definition");}
 	|  declaration {
-		$<tnode>$ = $<tnode>1;
+		TreeNode* tmp = new TreeNode(AST_node_counter, "external_declaration_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
 		outputReduction("external_declaration : declaration");}
 	;
 
@@ -241,7 +247,10 @@ declaration_list
 
 declaration_specifiers
 	: storage_class_specifier {
-		$<tnode>$ = $<tnode>1;
+		TreeNode* tmp = new TreeNode(AST_node_counter, "declaration_specifiers_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
 		outputReduction("declaration_specifiers : storage_class_specifier");}
 	| storage_class_specifier declaration_specifiers {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "declaration_specifiers_"+to_string(AST_node_counter),2);
@@ -251,7 +260,10 @@ declaration_specifiers
 		$<tnode>$ = tmp;
 		outputReduction("declaration_specifiers : storage_class_specifier declaration_specifiers");}
 	| type_specifier {
-		$<tnode>$ = $<tnode>1;
+		TreeNode* tmp = new TreeNode(AST_node_counter, "declaration_specifiers_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
 		outputReduction("declaration_specifiers : type_specifier");}
 	| type_specifier declaration_specifiers {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "declaration_specifiers_"+to_string(AST_node_counter),2);
@@ -261,7 +273,10 @@ declaration_specifiers
 		$<tnode>$ = tmp;
 		outputReduction("declaration_specifiers : type_specifier declaration_specifiers");}
 	| type_qualifier {
-		$<tnode>$ = $<tnode>1;
+		TreeNode* tmp = new TreeNode(AST_node_counter, "declaration_specifiers_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
 		outputReduction("declaration_specifiers : type_qualifier");}
 	| type_qualifier declaration_specifiers {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "declaration_specifiers_"+to_string(AST_node_counter),2);
@@ -432,7 +447,10 @@ struct_declaration_list
 
 init_declarator_list
 	: init_declarator {
-		$<tnode>$ = $<tnode>1;
+		TreeNode* tmp = new TreeNode(AST_node_counter, "init_declarator_list_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
 		outputReduction("init_declarator_list : init_declarator");}
 	| init_declarator_list COMMA_tok init_declarator {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "init_declarator_list_"+to_string(AST_node_counter),2);
@@ -592,7 +610,10 @@ enumerator
 
 declarator
 	: direct_declarator {
-		$<tnode>$ = $<tnode>1;
+		TreeNode* tmp = new TreeNode(AST_node_counter, "declarator_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
 		outputReduction("declarator : direct_declarator");}
 	| pointer direct_declarator {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "declarator_"+to_string(AST_node_counter),2);
@@ -605,7 +626,10 @@ declarator
 
 direct_declarator
 	: identifier {
-		$<tnode>$ = $<tnode>1;
+		TreeNode* tmp = new TreeNode(AST_node_counter, "direct_declarator_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
 		outputReduction("direct_declarator : identifier");}
 	| OPEN_PAREN_tok declarator CLOSE_PAREN_tok {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "direct_declarator_"+to_string(AST_node_counter),1);
@@ -677,7 +701,10 @@ pointer
 
 type_qualifier_list
 	: type_qualifier {
-		$<tnode>$ = $<tnode>1;
+		TreeNode* tmp = new TreeNode(AST_node_counter, "type_qualifier_list_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
 		outputReduction("type_qualifier_list : type_qualifier");}
 	| type_qualifier_list type_qualifier {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "type_qualifier_list_"+to_string(AST_node_counter),2);
@@ -690,7 +717,10 @@ type_qualifier_list
 
 parameter_type_list
 	: parameter_list {
-		$<tnode>$ = $<tnode>1;
+		TreeNode* tmp = new TreeNode(AST_node_counter, "parameter_type_list_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
 		outputReduction("parameter_type_list : parameter_list");}
 	| parameter_list COMMA_tok ELIPSIS_tok {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "parameter_type_list_"+to_string(AST_node_counter),1);
@@ -702,7 +732,10 @@ parameter_type_list
 
 parameter_list
 	: parameter_declaration {
-		$<tnode>$ = $<tnode>1;
+		TreeNode* tmp = new TreeNode(AST_node_counter, "parameter_list_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
 		outputReduction("parameter_list : parameter_declaration");}
 	| parameter_list COMMA_tok parameter_declaration {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "parameter_list_"+to_string(AST_node_counter),2);
@@ -738,7 +771,10 @@ parameter_declaration
 
 identifier_list
 	: identifier {
-		$<tnode>$ = $<tnode>1;
+		TreeNode* tmp = new TreeNode(AST_node_counter, "identifier_list_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
 		outputReduction("identifier_list : identifier");}
 	| identifier_list COMMA_tok identifier {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "identifier_list_"+to_string(AST_node_counter),2);
@@ -751,7 +787,10 @@ identifier_list
 
 initializer
 	: assignment_expression {
-		$<tnode>$ = $<tnode>1;
+		TreeNode* tmp = new TreeNode(AST_node_counter, "initializer_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
 		outputReduction("initializer : assignment_expression");}
 	| OPEN_BRACE_tok initializer_list CLOSE_BRACE_tok {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "initializer_"+to_string(AST_node_counter),1);
@@ -769,7 +808,10 @@ initializer
 
 initializer_list
 	: initializer {
-		$<tnode>$ = $<tnode>1;
+		TreeNode* tmp = new TreeNode(AST_node_counter, "initializer_list_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
 		outputReduction("initializer_list : initializer");}
 	| initializer_list COMMA_tok initializer {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "initializer_list_"+to_string(AST_node_counter),2);
@@ -782,7 +824,10 @@ initializer_list
 
 type_name
 	: specifier_qualifier_list {
-		$<tnode>$ = $<tnode>1;
+		TreeNode* tmp = new TreeNode(AST_node_counter, "type_name_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
 		outputReduction("type_name : specifier_qualifier_list");}
 	| specifier_qualifier_list abstract_declarator {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "type_name_"+to_string(AST_node_counter),2);
@@ -795,7 +840,10 @@ type_name
 
 abstract_declarator
 	: pointer {
-		$<tnode>$ = $<tnode>1;
+		TreeNode* tmp = new TreeNode(AST_node_counter, "abstract_declarator_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
 		outputReduction("abstract_declarator : pointer");}
 	| direct_abstract_declarator {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "abstract_declarator_"+to_string(AST_node_counter),1);
@@ -978,7 +1026,10 @@ compound_statement
 
 statement_list
 	: statement {
-		$<tnode>$ = $<tnode>1;
+		TreeNode* tmp = new TreeNode(AST_node_counter, "statement_list_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
 		outputReduction("statement_list : statement");}
 	| statement_list statement {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "statement_list_"+to_string(AST_node_counter),2);
@@ -1212,7 +1263,10 @@ jump_statement
 
 expression
 	: assignment_expression {
-		$<tnode>$ = $<tnode>1;
+		TreeNode* tmp = new TreeNode(AST_node_counter, "expression_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
 		outputReduction("expression : assignment_expression");}
 	| expression COMMA_tok assignment_expression {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "expression_"+to_string(AST_node_counter),2);
@@ -1225,7 +1279,10 @@ expression
 
 assignment_expression
 	: conditional_expression {
-		$<tnode>$ = $<tnode>1;
+		TreeNode* tmp = new TreeNode(AST_node_counter, "assignment_expression_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
 		outputReduction("assignment_expression : conditional_expression");}
 	| unary_expression assignment_operator assignment_expression {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "assignment_expression_"+to_string(AST_node_counter),3);
@@ -1297,7 +1354,10 @@ assignment_operator
 
 conditional_expression
 	: logical_or_expression {
-		$<tnode>$ = $<tnode>1;
+		TreeNode* tmp = new TreeNode(AST_node_counter, "conditional_expression_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
 		outputReduction("conditional_expression : logical_or_expression");}
 	| logical_or_expression QUESTION_MARK_tok expression COLON_tok conditional_expression {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "assignment_expression_"+to_string(AST_node_counter),3);
@@ -1311,13 +1371,19 @@ conditional_expression
 
 constant_expression
 	: conditional_expression {
-		$<tnode>$ = $<tnode>1;
+		TreeNode* tmp = new TreeNode(AST_node_counter, "constant_expression_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
 		outputReduction("constant_expression : conditional_expression");}
 	;
 
 logical_or_expression
 	: logical_and_expression {
-		$<tnode>$ = $<tnode>1;
+		TreeNode* tmp = new TreeNode(AST_node_counter, "logical_or_expression_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
 		outputReduction("logical_or_expression : logical_and_expression");}
 	| logical_or_expression OR_OP_tok logical_and_expression {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "logical_or_expression_"+to_string(AST_node_counter),2);
@@ -1330,7 +1396,10 @@ logical_or_expression
 
 logical_and_expression
 	: inclusive_or_expression {
-		$<tnode>$ = $<tnode>1;
+		TreeNode* tmp = new TreeNode(AST_node_counter, "logical_and_expression_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
 		outputReduction("logical_and_expression : inclusive_or_expression");}
 	| logical_and_expression AND_OP_tok inclusive_or_expression {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "logical_and_expression_"+to_string(AST_node_counter),2);
@@ -1343,7 +1412,10 @@ logical_and_expression
 
 inclusive_or_expression
 	: exclusive_or_expression {
-		$<tnode>$ = $<tnode>1;
+		TreeNode* tmp = new TreeNode(AST_node_counter, "inclusive_or_expression"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
 		outputReduction("inclusive_or_expression : exclusive_or_expression");}
 	| inclusive_or_expression BAR_tok exclusive_or_expression {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "inclusive_or_expression"+to_string(AST_node_counter),2);
@@ -1356,7 +1428,10 @@ inclusive_or_expression
 
 exclusive_or_expression
 	: and_expression {
-		$<tnode>$ = $<tnode>1;
+		TreeNode* tmp = new TreeNode(AST_node_counter, "exclusive_or_expression_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
 		outputReduction("exclusive_or_expression : and_expression ");}
 	| exclusive_or_expression CARET_tok and_expression {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "exclusive_or_expression_"+to_string(AST_node_counter),2);
@@ -1369,7 +1444,10 @@ exclusive_or_expression
 
 and_expression
 	: equality_expression {
-		$<tnode>$ = $<tnode>1;
+		TreeNode* tmp = new TreeNode(AST_node_counter, "and_expression_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
 		outputReduction("and_expression : equality_expression");}
 	| and_expression AMP_tok equality_expression {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "and_expression_"+to_string(AST_node_counter),2);
@@ -1382,7 +1460,10 @@ and_expression
 
 equality_expression
 	: relational_expression {
-		$<tnode>$ = $<tnode>1;
+		TreeNode* tmp = new TreeNode(AST_node_counter, "equality_expression_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
 		outputReduction("equality_expression : relational_expression");}
 	| equality_expression EQ_OP_tok relational_expression {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "equality_expression_"+to_string(AST_node_counter),2);
@@ -1402,7 +1483,10 @@ equality_expression
 
 relational_expression
 	: shift_expression {
-		$<tnode>$ = $<tnode>1;
+		TreeNode* tmp = new TreeNode(AST_node_counter, "relational_expression_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
 		outputReduction("relational_expression : shift_expression");}
 	| relational_expression LT_tok shift_expression {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "relational_expression_"+to_string(AST_node_counter),2);
@@ -1436,7 +1520,10 @@ relational_expression
 
 shift_expression
 	: additive_expression {
-		$<tnode>$ = $<tnode>1;
+		TreeNode* tmp = new TreeNode(AST_node_counter, "shift_expression_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
 		outputReduction("shift_expression : additive_expression");}
 	| shift_expression LEFT_OP_tok additive_expression {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "shift_expression_"+to_string(AST_node_counter),2);
@@ -1456,7 +1543,10 @@ shift_expression
 
 additive_expression
 	: multiplicative_expression {
-		$<tnode>$ = $<tnode>1;
+		TreeNode* tmp = new TreeNode(AST_node_counter, "additive_expression_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
 		outputReduction("additive_expression : multiplicative_expression");}
 	| additive_expression PLUS_tok multiplicative_expression {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "additive_expression_"+to_string(AST_node_counter),2);
@@ -1476,7 +1566,10 @@ additive_expression
 
 multiplicative_expression
 	: cast_expression {
-		$<tnode>$ = $<tnode>1;
+		TreeNode* tmp = new TreeNode(AST_node_counter, "multiplicative_expression_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
 		outputReduction("multiplicative_expression : cast_expression");}
 	| multiplicative_expression STAR_tok cast_expression {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "multiplicative_expression_"+to_string(AST_node_counter),2);
@@ -1503,7 +1596,10 @@ multiplicative_expression
 
 cast_expression
 	: unary_expression {
-		$<tnode>$ = $<tnode>1;
+		TreeNode* tmp = new TreeNode(AST_node_counter, "cast_expression_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
 		outputReduction("cast_expression : unary_expression");}
 	| OPEN_PAREN_tok type_name CLOSE_PAREN_tok cast_expression {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "cast_expression_"+to_string(AST_node_counter),2);
@@ -1516,7 +1612,10 @@ cast_expression
 
 unary_expression
 	: postfix_expression {
-		$<tnode>$ = $<tnode>1;
+		TreeNode* tmp = new TreeNode(AST_node_counter, "unary_expression_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
 		outputReduction("unary_expression : postfix_expression");}
 	| INC_OP_tok unary_expression {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "unary_expression_"+to_string(AST_node_counter),1);
@@ -1586,7 +1685,10 @@ unary_operator
 
 postfix_expression
 	: primary_expression {
-		$<tnode>$ = $<tnode>1;
+		TreeNode* tmp = new TreeNode(AST_node_counter, "postfix_expression_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
 		outputReduction("postfix_expression : primary_expression");}
 	| postfix_expression OPEN_BRACKET_tok expression CLOSE_BRACKET_tok {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "postfix_expression_"+to_string(AST_node_counter),2);
@@ -1638,13 +1740,22 @@ postfix_expression
 
 primary_expression
 	: identifier {
-		$<tnode>$ = $<tnode>1;
+		TreeNode* tmp = new TreeNode(AST_node_counter, "primary_expression_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
 		outputReduction("primary_expression : identifier");}
 	| constant {
-		$<tnode>$ = $<tnode>1;
+		TreeNode* tmp = new TreeNode(AST_node_counter, "primary_expression_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
 		outputReduction("primary_expression : constant");}
 	| string {
-		$<tnode>$ = $<tnode>1;
+		TreeNode* tmp = new TreeNode(AST_node_counter, "primary_expression_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
 		outputReduction("primary_expression : string");}
 	| OPEN_PAREN_tok expression CLOSE_PAREN_tok {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "primary_expression_"+to_string(AST_node_counter),1);
@@ -1656,7 +1767,10 @@ primary_expression
 
 argument_expression_list
 	: assignment_expression {
-		$<tnode>$ = $<tnode>1;
+		TreeNode* tmp = new TreeNode(AST_node_counter, "argument_expression_list_"+to_string(AST_node_counter),1);
+		++AST_node_counter;
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
 		outputReduction("argument_expression_list : assignment_expression");}
 	| argument_expression_list COMMA_tok assignment_expression {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "argument_expression_list_"+to_string(AST_node_counter),2);
@@ -1669,26 +1783,17 @@ argument_expression_list
 
 constant
 	: INTEGER_CONSTANT_tok {
-		int ticket = Variable_counter;
-		DataNode* tmp = new DataNode(AST_node_counter, "string_"+to_string(AST_node_counter),ticket);
-		tmp->storeInt(yylval.lint);
-		++Variable_counter;
+		TreeNode* tmp = new TreeNode(AST_node_counter, "constant"+to_string(AST_node_counter),0);
 		++AST_node_counter;
 		$<tnode>$ = tmp;
 		outputReduction("constant : INTEGER_CONSTANT_tok");}
 	| CHARACTER_CONSTANT_tok {
-		int ticket = Variable_counter;
-		DataNode* tmp = new DataNode(AST_node_counter, "string_"+to_string(AST_node_counter),ticket);
-		tmp->storeChar(yylval.lchar);
-		++Variable_counter;
+		TreeNode* tmp = new TreeNode(AST_node_counter, "constant"+to_string(AST_node_counter),0);
 		++AST_node_counter;
 		$<tnode>$ = tmp;
 		outputReduction("constant : CHARACTER_CONSTANT_tok");}
 	| FLOATING_CONSTANT_tok {
-		int ticket = Variable_counter;
-		DataNode* tmp = new DataNode(AST_node_counter, "string_"+to_string(AST_node_counter),ticket);
-		tmp->storeDouble(yylval.ldoub);
-		++Variable_counter;
+		TreeNode* tmp = new TreeNode(AST_node_counter, "constant"+to_string(AST_node_counter),0);
 		++AST_node_counter;
 		$<tnode>$ = tmp;
 		outputReduction("constant : FLOATING_CONSTANT_tok");}
@@ -1712,10 +1817,7 @@ string
 
 identifier
 	: ID_tok {
-		int ticket = Variable_counter;
-		DataNode* tmp = new DataNode(AST_node_counter, "identifier_"+to_string(AST_node_counter),ticket);
-		tmp->storeString((char*)yylval.lnode->name.c_str());
-		++Variable_counter;
+		TreeNode* tmp = new TreeNode(AST_node_counter, "identifier_"+to_string(AST_node_counter),0);
 		++AST_node_counter;
 		$<tnode>$ = tmp;
 		outputReduction("identifier : ID_tok");}

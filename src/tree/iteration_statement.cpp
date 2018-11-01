@@ -2,9 +2,11 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-30 22:43:27
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-10-31 00:01:20
+* @Last Modified time: 2018-10-31 16:41:09
 */
 #include "iteration_statement.h"
+
+using namespace std;
 
 Iter_statement::Iter_statement(int TreeNodeNumber,string TreeNodeProductionName,int TicketOne,int TicketTwo,bool doType):TreeNode(TreeNodeNumber,TreeNodeProductionName,4)
 {
@@ -18,6 +20,7 @@ Iter_statement::~Iter_statement()
 }
 void Iter_statement::traverse_to_file(FILE* fileout)
 {
+	cout<<"Iter_statement"<<endl;
 	string doRep;
 	if (dotype)
 	{
