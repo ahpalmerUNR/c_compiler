@@ -1,7 +1,1 @@
-int foo();
-
-int i;
-
-int foo() {
-	int j;
-}
+int a = 5+4;
