@@ -289,76 +289,118 @@ declaration_specifiers
 
 storage_class_specifier
 	: AUTO_tok {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "storage_class_specifier"+to_string(AST_node_counter),0);
+		int ticket = Variable_counter;
+		DataNode* tmp = new DataNode(AST_node_counter, "storage_class_specifier_"+to_string(AST_node_counter),ticket);
+		++Variable_counter;
 		++AST_node_counter;
+		tmp->setTypeSpecifier(AUTO_TYPE_NODE);
 		$<tnode>$ = tmp;
 		outputReduction("storage_class_specifier : AUTO_tok");}
 	| REGISTER_tok {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "storage_class_specifier"+to_string(AST_node_counter),0);
+		int ticket = Variable_counter;
+		DataNode* tmp = new DataNode(AST_node_counter, "storage_class_specifier_"+to_string(AST_node_counter),ticket);
+		++Variable_counter;
 		++AST_node_counter;
+		tmp->setTypeSpecifier(REGISTER_TYPE_NODE);
 		$<tnode>$ = tmp;
 		outputReduction("storage_class_specifier : REGISTER_tok");}
 	| STATIC_tok {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "storage_class_specifier"+to_string(AST_node_counter),0);
+		int ticket = Variable_counter;
+		DataNode* tmp = new DataNode(AST_node_counter, "storage_class_specifier_"+to_string(AST_node_counter),ticket);
+		++Variable_counter;
 		++AST_node_counter;
+		tmp->setTypeSpecifier(STATIC_TYPE_NODE);
 		$<tnode>$ = tmp;
 		outputReduction("storage_class_specifier : STATIC_tok");}
 	| EXTERN_tok {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "storage_class_specifier"+to_string(AST_node_counter),0);
+		int ticket = Variable_counter;
+		DataNode* tmp = new DataNode(AST_node_counter, "storage_class_specifier_"+to_string(AST_node_counter),ticket);
+		++Variable_counter;
 		++AST_node_counter;
+		tmp->setTypeSpecifier(EXTERN_TYPE_NODE);
 		$<tnode>$ = tmp;
 		outputReduction("storage_class_specifier : EXTERN_tok");}
 	| TYPEDEF_tok {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "storage_class_specifier"+to_string(AST_node_counter),0);
+		int ticket = Variable_counter;
+		DataNode* tmp = new DataNode(AST_node_counter, "storage_class_specifier_"+to_string(AST_node_counter),ticket);
+		++Variable_counter;
 		++AST_node_counter;
+		tmp->setTypeSpecifier(TYPEDEF_TYPE_NODE);
 		$<tnode>$ = tmp;
 		outputReduction("storage_class_specifier : TYPEDEF_tok");}
 	;
 
 type_specifier
 	: VOID_tok {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),0);
+		int ticket = Variable_counter;
+		DataNode* tmp = new DataNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),ticket);
+		++Variable_counter;
 		++AST_node_counter;
+		tmp->setTypeSpecifier(VOID_TYPE_NODE);
 		$<tnode>$ = tmp;
 		outputReduction("type_specifier : VOID_tok");}
 	| CHAR_tok {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),0);
+		int ticket = Variable_counter;
+		DataNode* tmp = new DataNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),ticket);
+		++Variable_counter;
 		++AST_node_counter;
+		tmp->setTypeSpecifier(CHAR_TYPE_NODE);
 		$<tnode>$ = tmp;
 		outputReduction("type_specifier : CHAR_tok");}
 	| SHORT_tok { 
-		TreeNode* tmp = new TreeNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),0);
+		int ticket = Variable_counter;
+		DataNode* tmp = new DataNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),ticket);
+		++Variable_counter;
 		++AST_node_counter;
+		tmp->setTypeSpecifier(SHORT_TYPE_NODE);
 		$<tnode>$ = tmp;
 		outputReduction("type_specifier : SHORT_tok");}
 	| INT_tok { 
-		TreeNode* tmp = new TreeNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),0);
+		int ticket = Variable_counter;
+		DataNode* tmp = new DataNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),ticket);
+		++Variable_counter;
 		++AST_node_counter;
+		tmp->setTypeSpecifier(INT_TYPE_NODE);
 		$<tnode>$ = tmp;
 		outputReduction("type_specifier : INT_tok");}
 	| LONG_tok { 
-		TreeNode* tmp = new TreeNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),0);
+		int ticket = Variable_counter;
+		DataNode* tmp = new DataNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),ticket);
+		++Variable_counter;
 		++AST_node_counter;
+		tmp->setTypeSpecifier(LONG_TYPE_NODE);
 		$<tnode>$ = tmp;
 		outputReduction("type_specifier : LONG_tok");}
 	| FLOAT_tok { 
-		TreeNode* tmp = new TreeNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),0);
+		int ticket = Variable_counter;
+		DataNode* tmp = new DataNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),ticket);
+		++Variable_counter;
 		++AST_node_counter;
+		tmp->setTypeSpecifier(FLOAT_TYPE_NODE);
 		$<tnode>$ = tmp;
 		outputReduction("type_specifier : FLOAT_tok");}
 	| DOUBLE_tok { 
-		TreeNode* tmp = new TreeNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),0);
+		int ticket = Variable_counter;
+		DataNode* tmp = new DataNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),ticket);
+		++Variable_counter;
 		++AST_node_counter;
+		tmp->setTypeSpecifier(DOUBLE_TYPE_NODE);
 		$<tnode>$ = tmp;
 		outputReduction("type_specifier : DOUBLE_tok");}
 	| SIGNED_tok { 
-		TreeNode* tmp = new TreeNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),0);
+		int ticket = Variable_counter;
+		DataNode* tmp = new DataNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),ticket);
+		++Variable_counter;
 		++AST_node_counter;
+		tmp->setTypeSpecifier(SIGNED_TYPE_NODE);
 		$<tnode>$ = tmp;
 		outputReduction("type_specifier : SIGNED_tok");}
 	| UNSIGNED_tok { 
-		TreeNode* tmp = new TreeNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),0);
+		int ticket = Variable_counter;
+		DataNode* tmp = new DataNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),ticket);
+		++Variable_counter;
 		++AST_node_counter;
+		tmp->setTypeSpecifier(UNSIGNED_TYPE_NODE);
 		$<tnode>$ = tmp;
 		outputReduction("type_specifier : UNSIGNED_tok");}
 	| struct_or_union_specifier { 
@@ -367,26 +409,40 @@ type_specifier
 		$<tnode>$ = tmp;
 		outputReduction("type_specifier : struct_or_union_specifier");}
 	| ENUM_tok { 
-		TreeNode* tmp = new TreeNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),0);
+		int ticket = Variable_counter;
+		DataNode* tmp = new DataNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),ticket);
+		++Variable_counter;
 		++AST_node_counter;
+		tmp->setTypeSpecifier(ENUM_TYPE_NODE);
 		$<tnode>$ = tmp;
 		outputReduction("type_specifier : ENUM_tok");}
 	| TYPEDEF_NAME_tok { 
-		TreeNode* tmp = new TreeNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),0);
+		int ticket = Variable_counter;
+		DataNode* tmp = new DataNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),ticket);
+		++Variable_counter;
 		++AST_node_counter;
+		tmp->storeString(yylval.lstr);
+		tmp->setTypeSpecifier(TYPEDEF_NAME_TYPE_NODE);
+		tmp->notData();
 		$<tnode>$ = tmp;
 		outputReduction("type_specifier : TYPEDEF_NAME_tok");}
 	;
 
 type_qualifier
 	: CONST_tok {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "type_qualifier_"+to_string(AST_node_counter),0);
+		int ticket = Variable_counter;
+		DataNode* tmp = new DataNode(AST_node_counter, "type_qualifier_"+to_string(AST_node_counter),ticket);
+		++Variable_counter;
 		++AST_node_counter;
+		tmp->setTypeSpecifier(CONST_TYPE_NODE);
 		$<tnode>$ = tmp;
 		outputReduction("type_qualifier : CONST_tok");}
 	| VOLATILE_tok {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "type_qualifier_"+to_string(AST_node_counter),0);
+		int ticket = Variable_counter;
+		DataNode* tmp = new DataNode(AST_node_counter, "type_qualifier_"+to_string(AST_node_counter),ticket);
+		++Variable_counter;
 		++AST_node_counter;
+		tmp->setTypeSpecifier(VOLATILE_TYPE_NODE);
 		$<tnode>$ = tmp;
 		outputReduction("type_qualifier : VOLATILE_tok");}
 	;
@@ -418,13 +474,19 @@ struct_or_union_specifier
 
 struct_or_union
 	: STRUCT_tok {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "struct_or_union_"+to_string(AST_node_counter),0);
+		int ticket = Variable_counter;
+		DataNode* tmp = new DataNode(AST_node_counter, "struct_or_union_"+to_string(AST_node_counter),ticket);
+		++Variable_counter;
 		++AST_node_counter;
+		tmp->setTypeSpecifier(STRUCT_TYPE_NODE);
 		$<tnode>$ = tmp;
 		outputReduction("struct_or_union : STRUCT_tok");}
 	| UNION_tok {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "struct_or_union_"+to_string(AST_node_counter),0);
+		int ticket = Variable_counter;
+		DataNode* tmp = new DataNode(AST_node_counter, "struct_or_union_"+to_string(AST_node_counter),ticket);
+		++Variable_counter;
 		++AST_node_counter;
+		tmp->setTypeSpecifier(UNION_TYPE_NODE);
 		$<tnode>$ = tmp;
 		outputReduction("struct_or_union : UNION_tok");}
 	;
@@ -674,8 +736,11 @@ direct_declarator
 
 pointer
 	: STAR_tok {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "pointer_"+to_string(AST_node_counter),0);
+		int ticket = Variable_counter;
+		DataNode* tmp = new DataNode(AST_node_counter, "pointer_"+to_string(AST_node_counter),ticket);
+		++Variable_counter;
 		++AST_node_counter;
+		tmp->setTypeSpecifier(POINTER_TYPE_NODE);
 		$<tnode>$ = tmp;
 		outputReduction("pointer : STAR_tok");}
 	| STAR_tok type_qualifier_list {

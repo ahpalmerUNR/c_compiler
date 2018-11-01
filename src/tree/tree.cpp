@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-27 14:10:44
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-10-31 17:12:08
+* @Last Modified time: 2018-11-01 11:35:17
 */
 #include "tree.h"
 
@@ -24,9 +24,10 @@ TreeNode::~TreeNode()
 
 void TreeNode::traverse_to_file(FILE* fileout)
 {
-	// cout<<"TreeNode "<<TreeNodeName.c_str()<<endl;
+	
 	for (int i = 0; i < numberChildren; ++i)
 	{
+		cout<<"TreeNode "<<TreeNodeName<<endl;
 		fprintf(fileout, "\t%s -> %s;\n", TreeNodeName.c_str(),children[i]->TreeNodeName.c_str());
 		children[i]->traverse_to_file(fileout);
 	}

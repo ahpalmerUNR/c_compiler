@@ -1,3 +1,40 @@
+testCases/nodeClassTest.c PARSER Time::1541098011:2055	 Line: 1	type_specifier : INT_tok
+testCases/nodeClassTest.c PARSER Time::1541098011:2099	 Line: 1	declaration_specifiers : type_specifier
+testCases/nodeClassTest.c PARSER Time::1541098011:2116	 Line: 1	identifier : ID_tok
+testCases/nodeClassTest.c PARSER Time::1541098011:2125	 Line: 1	direct_declarator : identifier
+testCases/nodeClassTest.c PARSER Time::1541098011:2143	 Line: 1	direct_declarator : direct_declarator OPEN_PAREN_tok CLOSE_PAREN_tok
 
-int a  = 4 + 5 ;
+int main()
 
+testCases/nodeClassTest.c PARSER Time::1541098011:2178	 Line: 2	declarator : direct_declarator
+
+{
+
+testCases/nodeClassTest.c PARSER Time::1541098011:2202	 Line: 3	constant : INTEGER_CONSTANT_tok
+testCases/nodeClassTest.c PARSER Time::1541098011:2213	 Line: 3	primary_expression : constant
+testCases/nodeClassTest.c PARSER Time::1541098011:2222	 Line: 3	postfix_expression : primary_expression
+testCases/nodeClassTest.c PARSER Time::1541098011:2238	 Line: 3	unary_expression : postfix_expression
+testCases/nodeClassTest.c PARSER Time::1541098011:2248	 Line: 3	cast_expression : unary_expression
+testCases/nodeClassTest.c PARSER Time::1541098011:2261	 Line: 3	multiplicative_expression : cast_expression
+testCases/nodeClassTest.c PARSER Time::1541098011:2271	 Line: 3	additive_expression : multiplicative_expression
+testCases/nodeClassTest.c PARSER Time::1541098011:2284	 Line: 3	shift_expression : additive_expression
+testCases/nodeClassTest.c PARSER Time::1541098011:2294	 Line: 3	relational_expression : shift_expression
+testCases/nodeClassTest.c PARSER Time::1541098011:2307	 Line: 3	equality_expression : relational_expression
+testCases/nodeClassTest.c PARSER Time::1541098011:2317	 Line: 3	and_expression : equality_expression
+testCases/nodeClassTest.c PARSER Time::1541098011:2331	 Line: 3	exclusive_or_expression : and_expression 
+testCases/nodeClassTest.c PARSER Time::1541098011:2340	 Line: 3	inclusive_or_expression : exclusive_or_expression
+testCases/nodeClassTest.c PARSER Time::1541098011:2351	 Line: 3	logical_and_expression : inclusive_or_expression
+testCases/nodeClassTest.c PARSER Time::1541098011:2364	 Line: 3	logical_or_expression : logical_and_expression
+testCases/nodeClassTest.c PARSER Time::1541098011:2378	 Line: 3	conditional_expression : logical_or_expression
+testCases/nodeClassTest.c PARSER Time::1541098011:2392	 Line: 3	assignment_expression : conditional_expression
+testCases/nodeClassTest.c PARSER Time::1541098011:2411	 Line: 3	expression : assignment_expression
+testCases/nodeClassTest.c PARSER Time::1541098011:2427	 Line: 3	jump_statement : RETURN_tok expression SEMI_tok
+testCases/nodeClassTest.c PARSER Time::1541098011:2445	 Line: 3	statement : jump_statement
+testCases/nodeClassTest.c PARSER Time::1541098011:2460	 Line: 3	statement_list : statement
+
+	return 0;
+
+testCases/nodeClassTest.c PARSER Time::1541098011:2485	 Line: 4	compound_statement : OPEN_BRACE_tok statement_list CLOSE_BRACE_tok
+testCases/nodeClassTest.c PARSER Time::1541098011:2502	 Line: 4	function_definition : declaration_specifiers declarator compound_statement
+testCases/nodeClassTest.c PARSER Time::1541098011:2517	 Line: 4	external_declaration : function_definition
+testCases/nodeClassTest.c PARSER Time::1541098011:2531	 Line: 4	translation_unit : external_declaration
