@@ -1,15 +1,13 @@
-Zach
--------
-Wiki
-column num added to symbol table
+ToDo:
+symbolTable function scope correctly
+symbolTable value assignment
+type checking
+iterative node type
+other special node types
 
+I see it as there are 3 kinds of work to be done
+symbol table updating
+symmantic args/logic checking
+AST node creation
 
-Andrew
--------
-ReadMe.txt
-float check
-make test cases and outputs
-
-
-
-
+symmantic args/logic checking and AST node creation overlap to varying degrees based on the type of node. It is probably better to split the work so that we have sections of productions where one person will do both symmantic checking and AST node creation at the same time. 

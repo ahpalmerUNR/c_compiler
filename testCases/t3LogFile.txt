@@ -1,0 +1,17 @@
+ERROR: testCases/t3.c:Line: 26 Column: 12 syntax error
+	char beta;
+------------^ 
+
+rtastic Line: 9 Column: 6 Type: 0
+Level: 0 Key: i Line: 7 Column: 6 Type: 0
+Level: 0 Key: listical Line: 9 Column: 33 Type: 0
+Level: 0 Key: main Line: 13 Column: 5 Type: 0
+Level: 1 Key: a Line: 18 Column: 13 Type: 0
+Level: 1 Key: one Line: 15 Column: 12 Type: 0
+Level: 1 Key: three Line: 20 Column: 12 Type: 0
+Level: 1 Key: two Line: 16 Column: 12 Type: 0
+Level: 2 Key: four Line: 23 Column: 19 Type: 0
+
+
+SYMBOL TABLE ABOVE
+

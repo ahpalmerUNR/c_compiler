@@ -2,9 +2,11 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-09-28 12:11:57
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-10-18 13:51:44
+* @Last Modified time: 2018-10-29 12:18:28
 */
 #include "symboltable.h"
+#include <stdio.h>
+
 
 
 SymbolTable::SymbolTable()
@@ -26,6 +28,7 @@ Node* SymbolTable::insert(string tokenKey, int lN, int cN, DataType t,int*errorc
 		d.lineNumber = lN;
 		d.colNumber = cN;
 		d.type = t;
+		d.name = tokenKey;
 		stack[currentLevel].insert(pair<string,Node>(tokenKey,d));
 		return searchTop(tokenKey);
 
@@ -147,24 +150,31 @@ Node* SymbolTable::searchTop(string key)
 		return NULL;
 	}
 }
-void SymbolTable::writeToFile(char const *fileName)
+void SymbolTable::writeToFile(FILE* stream)
 {
-	ofstream stream;
-	stream.open(fileName,fstream::app);
+	//char const *fileName)
+	string text;
+	// ofstream stream;
+	// stream.open(fileName,fstream::app);
 	int count = 0;
-	stream<<"SYMBOL TABLE DUMP\n"<<endl;
+	fprintf(stream, "SYMBOL TABLE DUMP\n");
 	// Iterate through symbol table and dump contents to file
 	for(vector<map<string, Node> >::iterator it = stack.begin(); it != stack.end(); ++it)
 	{
 		for(map<string, Node>::iterator i = it->begin(); i != it->end(); ++i)
 		{
-			stream << "Level: " << count << " Key: " << i->first << " ";
+			text = i->first;
+			fprintf(stream, "Level: %d Key: %s ",count,text.c_str());
+			// stream << "Level: " << count << " Key: " << i->first << " ";
+			// cout <<"HERE"<< i->first << endl;
+			// cout<<endl;
 			i->second.output(stream);
 		}
 		count++;
 	}
-	stream<<"\n\nSYMBOL TABLE ABOVE"<<endl<<endl;
-	stream.close();
+	fprintf(stream, "\n\nSYMBOL TABLE ABOVE\n\n");
+	// stream<<"\n\nSYMBOL TABLE ABOVE"<<endl<<endl;
+	// stream.close();
 }
 void SymbolTable::printCurrentScope()
 {

@@ -16,9 +16,9 @@
 
 */
 
-testCases/t4.c SCANNER Time::1539899726:2589	 Line: 7	char ==> CHAR_tok
-testCases/t4.c SCANNER Time::1539899726:2633	 Line: 7	i ==> ID_tok
-testCases/t4.c SCANNER Time::1539899726:2658	 Line: 7	; ==> SEMI_tok
+testCases/t4.c SCANNER Time::1539936608:2245	 Line: 7	char ==> CHAR_tok
+testCases/t4.c SCANNER Time::1539936608:2350	 Line: 7	i ==> ID_tok
+testCases/t4.c SCANNER Time::1539936608:2581	 Line: 7	; ==> SEMI_tok
 
 char i ;
 
@@ -28,48 +28,48 @@ char i ;
 
 
 
-testCases/t4.c SCANNER Time::1539899726:2712	 Line: 10	int ==> INT_tok
-testCases/t4.c SCANNER Time::1539899726:2738	 Line: 10	main ==> ID_tok
-testCases/t4.c SCANNER Time::1539899726:2764	 Line: 10	( ==> OPEN_PAREN_tok
-testCases/t4.c SCANNER Time::1539899726:2771	 Line: 10	int ==> INT_tok
-testCases/t4.c SCANNER Time::1539899726:2794	 Line: 10	argc ==> ID_tok
-testCases/t4.c SCANNER Time::1539899726:2824	 Line: 10	, ==> COMMA_tok
-testCases/t4.c SCANNER Time::1539899726:2853	 Line: 10	char ==> CHAR_tok
-testCases/t4.c SCANNER Time::1539899726:2867	 Line: 10	* ==> STAR_tok
-testCases/t4.c SCANNER Time::1539899726:2882	 Line: 10	* ==> STAR_tok
-testCases/t4.c SCANNER Time::1539899726:2902	 Line: 10	argv ==> ID_tok
-testCases/t4.c SCANNER Time::1539899726:2934	 Line: 10	) ==> CLOSE_PAREN_tok
+testCases/t4.c SCANNER Time::1539936608:2928	 Line: 10	int ==> INT_tok
+testCases/t4.c SCANNER Time::1539936608:3068	 Line: 10	main ==> ID_tok
+testCases/t4.c SCANNER Time::1539936608:3252	 Line: 10	( ==> OPEN_PAREN_tok
+testCases/t4.c SCANNER Time::1539936608:3284	 Line: 10	int ==> INT_tok
+testCases/t4.c SCANNER Time::1539936608:3379	 Line: 10	argc ==> ID_tok
+testCases/t4.c SCANNER Time::1539936608:3596	 Line: 10	, ==> COMMA_tok
+testCases/t4.c SCANNER Time::1539936608:3812	 Line: 10	char ==> CHAR_tok
+testCases/t4.c SCANNER Time::1539936608:3903	 Line: 10	* ==> STAR_tok
+testCases/t4.c SCANNER Time::1539936608:4031	 Line: 10	* ==> STAR_tok
+testCases/t4.c SCANNER Time::1539936608:4092	 Line: 10	argv ==> ID_tok
+testCases/t4.c SCANNER Time::1539936608:4397	 Line: 10	) ==> CLOSE_PAREN_tok
 
 int main(int argc, char**argv)
 
-testCases/t4.c SCANNER Time::1539899726:2985	 Line: 11	{ ==> OPEN_BRACE_tok
+testCases/t4.c SCANNER Time::1539936608:4833	 Line: 11	{ ==> OPEN_BRACE_tok
 
 {
 
-testCases/t4.c SCANNER Time::1539899726:3001	 Line: 12	int ==> INT_tok
-testCases/t4.c SCANNER Time::1539899726:3092	 Line: 12	j ==> ID_tok
-testCases/t4.c SCANNER Time::1539899726:3122	 Line: 12	= ==> EQUAL_tok
-testCases/t4.c SCANNER Time::1539899726:3139	 Line: 12	7 ==> INTEGER_CONSTANT_tok
-testCases/t4.c SCANNER Time::1539899726:3167	 Line: 12	; ==> SEMI_tok
+testCases/t4.c SCANNER Time::1539936608:4926	 Line: 12	int ==> INT_tok
+testCases/t4.c SCANNER Time::1539936608:5085	 Line: 12	j ==> ID_tok
+testCases/t4.c SCANNER Time::1539936608:5301	 Line: 12	= ==> EQUAL_tok
+testCases/t4.c SCANNER Time::1539936608:5404	 Line: 12	7 ==> INTEGER_CONSTANT_tok
+testCases/t4.c SCANNER Time::1539936608:5638	 Line: 12	; ==> SEMI_tok
 
 	int j = 7;
 
-testCases/t4.c SCANNER Time::1539899726:3344	 Line: 13	int ==> INT_tok
+testCases/t4.c SCANNER Time::1539936608:7653	 Line: 13	int ==> INT_tok
 
 	int j;
 
-testCases/t4.c SCANNER Time::1539899726:3403	 Line: 13	j ==> ID_tok
-testCases/t4.c SCANNER Time::1539899726:3428	 Line: 13	; ==> SEMI_tok
+testCases/t4.c SCANNER Time::1539936608:7928	 Line: 13	j ==> ID_tok
+testCases/t4.c SCANNER Time::1539936608:8293	 Line: 13	; ==> SEMI_tok
 
 	int j;
 
 
 	!!D 
 
-testCases/t4.c SCANNER Time::1539899726:3587	 Line: 15	return ==> RETURN_tok
-testCases/t4.c SCANNER Time::1539899726:3599	 Line: 15	0 ==> INTEGER_CONSTANT_tok
-testCases/t4.c SCANNER Time::1539899726:3627	 Line: 15	; ==> SEMI_tok
+testCases/t4.c SCANNER Time::1539936608:9210	 Line: 15	return ==> RETURN_tok
+testCases/t4.c SCANNER Time::1539936608:9297	 Line: 15	0 ==> INTEGER_CONSTANT_tok
+testCases/t4.c SCANNER Time::1539936608:9606	 Line: 15	; ==> SEMI_tok
 
 	return 0;
 
-testCases/t4.c SCANNER Time::1539899726:3782	 Line: 16	} ==> CLOSE_BRACE_tok
+testCases/t4.c SCANNER Time::1539936608:11667	 Line: 16	} ==> CLOSE_BRACE_tok

@@ -1,0 +1,79 @@
+ERROR: testCases/t1.c:Line: 18 Column: 22 Syntax Error: Int Value Out Of Range.
+	int i_error = 2147483650;
+----------------------^ 
+
+ERROR: testCases/t1.c:Line: 19 Column: 22 Syntax Error: Int Value Out Of Range.
+	int j_error = -2147483650;
+----------------------^ 
+
+ERROR: testCases/t1.c:Line: 20 Column: 12 Identifier length too large. Max character length 31.
+	int Charcter_length_too_large_for_language_and_should_casuse_error = 1;
+------------^ 
+
+ERROR: testCases/t1.c:Line: 34 Column: 28 Syntax Error: Float Value Out Of Range.
+	float out_pos_max = 3.4E+39;
+----------------------------^ 
+
+ERROR: testCases/t1.c:Line: 35 Column: 28 Syntax Error: Float Value Out Of Range.
+	float out_pos_min = 1.2E-39;
+----------------------------^ 
+
+ERROR: testCases/t1.c:Line: 36 Column: 28 Syntax Error: Float Value Out Of Range.
+	float out_neg_max = -3.4E+39;
+----------------------------^ 
+
+ERROR: testCases/t1.c:Line: 37 Column: 28 Syntax Error: Float Value Out Of Range.
+	float out_neg_min = -1.2E-39;
+----------------------------^ 
+
+ERROR: testCases/t1.c:Line: 40 Column: 14 Conflicts with variable in current scope on line : 17
+	float d = 1.2E-122;
+--------------^ 
+
+ERROR: testCases/t1.c:Line: 40 Column: 18 Syntax Error: Float Value Out Of Range.
+	float d = 1.2E-122;
+------------------^ 
+
+ERROR: testCases/t1.c:Line: 41 Column: 18 Syntax Error: Float Value Out Of Range.
+	float s = -12.3e+220;
+------------------^ 
+
+ERROR: testCases/t1.c:Line: 62 Column: 25 Hex character out of range.
+	char hex_error = '\x8F';
+-------------------------^ 
+
+ERROR: testCases/t1.c:Line: 63 Column: 25 Octal character out of range.
+	char oct_error = '\200';
+-------------------------^ 
+
+ERROR: testCases/t1.c:Line: 64 Column: 26 Hex character error.
+	char hex_error2 = '\xkF';
+--------------------------^ 
+
+ERROR: testCases/t1.c:Line: 65 Column: 26 Octal character error.
+	char oct_error2 = '\128';
+--------------------------^ 
+
+13 Type: 0
+Level: 1 Key: oct_error2 Line: 65 Column: 13 Type: 0
+Level: 1 Key: octint Line: 24 Column: 12 Type: 0
+Level: 1 Key: out_neg_max Line: 36 Column: 14 Type: 0
+Level: 1 Key: out_neg_min Line: 37 Column: 14 Type: 0
+Level: 1 Key: out_pos_max Line: 34 Column: 14 Type: 0
+Level: 1 Key: out_pos_min Line: 35 Column: 14 Type: 0
+Level: 1 Key: p Line: 28 Column: 14 Type: 0
+Level: 1 Key: pos_max Line: 30 Column: 14 Type: 0
+Level: 1 Key: pos_min Line: 31 Column: 14 Type: 0
+Level: 1 Key: question Line: 55 Column: 13 Type: 0
+Level: 1 Key: rcha Line: 51 Column: 13 Type: 0
+Level: 1 Key: s Line: 41 Column: 14 Type: 0
+Level: 1 Key: singlQuote Line: 56 Column: 13 Type: 0
+Level: 1 Key: slash Line: 54 Column: 13 Type: 0
+Level: 1 Key: tab Line: 48 Column: 13 Type: 0
+Level: 1 Key: taco Line: 46 Column: 13 Type: 0
+Level: 1 Key: vert Line: 49 Column: 13 Type: 0
+Level: 2 Key: j Line: 75 Column: 19 Type: 0
+
+
+SYMBOL TABLE ABOVE
+

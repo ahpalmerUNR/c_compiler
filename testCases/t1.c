@@ -2,8 +2,10 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-03 22:57:09
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-10-14 13:40:48
+* @Last Modified time: 2018-10-19 00:37:49
 */
+void printf();
+
 int main()
 {
 	//Line Comment
@@ -18,11 +20,21 @@ int main()
 	int Charcter_length_too_large_for_language_and_should_casuse_error = 1;
 	int i = 2147483620;
 	int j = -2147483620;
+	int hexint = 0xfaa923fl;
+	int octint = 022332775u;
 	
 	!!D
 
 	float p = 1.44;
 	float k = -2.43;
+	float pos_max = 3.4E+38;
+	float pos_min = 1.2E-38;
+	float neg_max = -3.4E+38;
+	float neg_min = -1.2E-38;
+	float out_pos_max = 3.4E+39;
+	float out_pos_min = 1.2E-39;
+	float out_neg_max = -3.4E+39;
+	float out_neg_min = -1.2E-39;
 	float m = 12.4232223323222;
 	float n = -123.12233221133;
 	float d = 1.2E-122;
@@ -52,7 +64,7 @@ int main()
 	char hex_error2 = '\xkF';
 	char oct_error2 = '\128';
 	
-	
+
 
 	int o = 44;
 

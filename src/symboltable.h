@@ -38,10 +38,12 @@ struct Node {
 	int colNumber;
 	enum DataType type;
 	int ntype = 1;
+	string name;
 	//output node information to a file
-	void output(ofstream &stream)
+	void output(FILE* stream)//ofstream &stream)
 	{
-		stream << "Line: " << lineNumber << " Column: " << colNumber << " Type: " << type << endl;
+		fprintf(stream, "Line: %d Column: %d Type: %d\n", lineNumber,colNumber,type);
+		// stream << "Line: " << lineNumber << " Column: " << colNumber << " Type: " << type << endl;
 	};
 	// output node information to terminal
 	void print()
@@ -57,7 +59,7 @@ public:
 	SymbolTable();
 
 	//Insert a node with the parameters specified, return new node or previous node
-	Node* insert(string tokenKey, int lN, int cN, DataType t,int*errorcode);
+	Node* insert(string tokenKey, int lN, int cN, DataType t,int*errorcode);  
 	
 	//Insert a node that was premade, return new node or previous node
 	Node* insert(string tokenKey, Node d);
@@ -69,7 +71,7 @@ public:
 	Node* searchTop(string key);
 
 	// Dump the symbol table to the file
-	void writeToFile(char const *);
+	void writeToFile(FILE*); 
 	
 	// Print the current scope for debugging purposes
 	void printCurrentScope();

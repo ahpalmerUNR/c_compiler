@@ -1,0 +1,2 @@
+dot -Tps [directory]/[file].gv -o [directory]/[outfile].ps
+dot -Tpng [directory]/[file].gv -o [directory]/[outfile].png
