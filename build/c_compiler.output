@@ -1,26 +1,6 @@
-Nonterminals useless in grammar
-
-   enum_specifier
-   enumerator_list
-   enumerator
-
-
 Terminals unused in grammar
 
    ERROR_tok
-
-
-Rules useless in grammar
-
-  224 enum_specifier: ENUM_tok OPEN_BRACE_tok enumerator_list CLOSE_BRACE_tok
-  225               | ENUM_tok identifier OPEN_BRACE_tok enumerator_list CLOSE_BRACE_tok
-  226               | ENUM_tok identifier
-
-  227 enumerator_list: enumerator
-  228                | enumerator_list COMMA_tok enumerator
-
-  229 enumerator: identifier
-  230           | identifier EQUAL_tok constant_expression
 
 
 Grammar

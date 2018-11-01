@@ -3,8 +3,8 @@ CPP=g++
 CFLAGS=-std=c99
 CPPFLAGS = -std=c++11
 LEX=flex
-OBJ= c_compiler.tab.hpp lex.yy.o symboltable.o tree.o  -lfl
-BUILDOBJ= build/c_compiler.tab.hpp lex.yy.o symboltable.o tree.o -lfl
+OBJ= c_compiler.tab.hpp lex.yy.o symboltable.o tree.o  -ll # Don't commit this
+BUILDOBJ= build/c_compiler.tab.hpp lex.yy.o symboltable.o tree.o -ll # Don't commit this
 NODES= labelNode.o emptyNode.o iteration_statement.o
 YACC=bison
 YFLAGS=-d -v -t

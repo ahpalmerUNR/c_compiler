@@ -1,0 +1,4 @@
+ERROR: testCases/tmp/tmp.c:Line: 5 Column: 5 Conflicts with variable in current scope on line : 1
+int foo() {
+-----^ 
+

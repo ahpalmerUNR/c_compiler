@@ -1,24 +1,7 @@
-
 int foo();
-
-
-
-
 
 int i;
 
-
-
-
-
 int foo() {
-
-
-int foo() {
-
-
 	int j;
-
-
 }
-

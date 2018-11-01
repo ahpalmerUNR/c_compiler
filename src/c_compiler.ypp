@@ -170,7 +170,7 @@ external_declaration
 		tmp->assignChild(0,$<tnode>1);
 		$<tnode>$ = tmp;
 		outputReduction("external_declaration : function_definition");}
-	|  declaration {
+	| declaration {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "external_declaration_"+to_string(AST_node_counter),1);
 		++AST_node_counter;
 		tmp->assignChild(0,$<tnode>1);
@@ -553,6 +553,7 @@ struct_declarator
 		outputReduction("struct_declarator : declarator COLON_tok constant_expression");}
 	;
 
+/*
 enum_specifier
 	: ENUM_tok OPEN_BRACE_tok enumerator_list CLOSE_BRACE_tok {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "enum_specifier_"+to_string(AST_node_counter),1);
@@ -606,6 +607,7 @@ enumerator
 		$<tnode>$ = tmp;
 		outputReduction("enumerator : identifier EQUAL_tok constant_expression");}
 	;
+*/
 
 declarator
 	: direct_declarator {
