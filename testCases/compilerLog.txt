@@ -1,0 +1,14 @@
+ERROR: testCases/symbolTable/t1.c:Line: 11 Column: 5 Conflicts with variable in current scope on line : 8
+int i;
+-----^ 
+
+SYMBOL TABLE DUMP
+Level: 0 Key: foo Line: 14 Column: 5 Type: 0
+Level: 0 Key: i Line: 8 Column: 5 Type: 0
+Level: 1 Key: foo Line: 18 Column: 5 Type: 0
+Level: 2 Key: i Line: 18 Column: 13 Type: 0
+Level: 3 Key: i Line: 20 Column: 12 Type: 0
+
+
+SYMBOL TABLE ABOVE
+

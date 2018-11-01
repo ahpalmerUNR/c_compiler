@@ -1,0 +1,66 @@
+
+/**
+
+
+ * @file t1.c
+
+
+ * @author Nathan Yocum
+
+
+ * @brief Tests for the symbol table insertion and lookup
+
+
+ */
+
+
+
+
+
+// Declare a variable in global scope
+
+
+int i;
+
+
+
+
+
+// Expected: Throw an error for redeclaration
+
+
+int i;
+
+
+int i;
+
+
+
+
+
+// Prototype a function
+
+
+int foo(int);
+
+
+
+
+
+// Define the function - lookup that the function was defined and not declare f
+
+// Expected: Throw a warning for shadowing (int i should be in global scope and
+
+int foo(int i) {
+
+
+	// Expected: Throw a warning for shadowing (maybe two warnings since it's bein
+
+	int i;
+
+
+	!!D
+
+
+}
+

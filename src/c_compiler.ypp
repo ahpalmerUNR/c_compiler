@@ -22,6 +22,13 @@
 	time_t time_time;
 	clock_t clock_time;
 
+	/**
+	 * SymbolTable and variables to manipulate the insertion to symbol table
+	 */
+	SymbolTable s;
+	bool popAtEndOfStatement = false;
+
+
 	int levels[5];
 	
 	
@@ -29,7 +36,6 @@
 	int AST_node_counter;
 	int Label_counter;
 	int Variable_counter;
-	
 	
 	void outputReduction(const char *s);
 
@@ -657,11 +663,12 @@ direct_declarator
 		tmp->assignChild(0,$<tnode>1);
 		$<tnode>$ = tmp;
 		outputReduction("direct_declarator : direct_declarator OPEN_PAREN_tok CLOSE_PAREN_tok");}
-	| direct_declarator OPEN_PAREN_tok parameter_type_list CLOSE_PAREN_tok {
+	| direct_declarator OPEN_PAREN_tok {s.pushEmptyBST();} parameter_type_list CLOSE_PAREN_tok {
+		popAtEndOfStatement = true;
 		TreeNode* tmp = new TreeNode(AST_node_counter, "direct_declarator_"+to_string(AST_node_counter),2);
 		++AST_node_counter;
 		tmp->assignChild(0,$<tnode>1);
-		tmp->assignChild(1,$<tnode>3);
+		tmp->assignChild(1,$<tnode>4);
 		$<tnode>$ = tmp;
 		outputReduction("direct_declarator : direct_declarator OPEN_PAREN_tok parameter_type_list CLOSE_PAREN_tok");}
 	| direct_declarator OPEN_PAREN_tok identifier_list CLOSE_PAREN_tok {
@@ -1831,7 +1838,6 @@ int c_line_lex_debug_level;
 int c_line_symbol_table_debug;
 int c_line_yacc_debug_level;
 
-SymbolTable s;
 //logName = "compilerLog.txt";
 
 extern char yytext[];
