@@ -12,7 +12,7 @@ DataNode::~DataNode()
 
 void DataNode::traverse_to_file(FILE* fileout) 
 {
-	cout<<"dataNode "<<TreeNodeName.c_str()<<endl;
+	// cout<<"dataNode "<<TreeNodeName.c_str()<<endl;
 	char* typePrint;
 	switch(dType)
 	{

@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-30 22:43:27
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-10-31 16:41:09
+* @Last Modified time: 2018-10-31 17:11:51
 */
 #include "iteration_statement.h"
 
@@ -20,7 +20,7 @@ Iter_statement::~Iter_statement()
 }
 void Iter_statement::traverse_to_file(FILE* fileout)
 {
-	cout<<"Iter_statement"<<endl;
+	// cout<<"Iter_statement"<<endl;
 	string doRep;
 	if (dotype)
 	{
