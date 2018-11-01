@@ -1,4 +1,6 @@
-int main()
+void main()
 {
-	return 0;
+	int a;
+	
+	a = 5 + 3;	
 }
