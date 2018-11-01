@@ -1,6 +1,20 @@
+int;
+
 void main()
 {
-	int a;
+	int a = 4;
 	
-	a = 5 + 3;	
+	if(a == 3)
+	{
+		
+	}
+	
+	if(a == 4)
+	{
+		
+	}
+	else
+	{
+		
+	}
 }
