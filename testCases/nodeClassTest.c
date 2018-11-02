@@ -1,9 +1,12 @@
 int main()
 {
-	int i;
-	for (i = 0; i < 3; ++i)
-	{
-		/* code */
-	}
+	int k;
+	
+	
+	goto i;
+	
+	i:
+		break;
+	
 	return 0;
 }

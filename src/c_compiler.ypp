@@ -8,6 +8,7 @@
 	#include "../src/tree/emptyNode.h"
 	#include "../src/tree/iteration_statement.h"
 	#include "../src/tree/dataNode.h"
+	#include "../src/tree/jumpNode.h"
 
 	#define MAX_LINE_LENGTH 500
 	FILE *out_log;
@@ -1191,28 +1192,38 @@ iteration_statement
 jump_statement
 	: GOTO_tok {insert_lookup = 0;} identifier SEMI_tok {
 		insert_lookup = 1;
-		TreeNode* tmp = new TreeNode(AST_node_counter, "jump_statement_"+to_string(AST_node_counter),1);
+		int ticket = Label_counter;
+		JumpNode* tmp = new JumpNode(AST_node_counter, "jump_statement_"+to_string(AST_node_counter),ticket,0);
+		++Label_counter;
 		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>2);
+		tmp->assignChild(0,$<tnode>3);
 		$<tnode>$ = tmp;
 		outputReduction("jump_statement : GOTO_tok identifier SEMI_tok");}
 	| CONTINUE_tok SEMI_tok {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "jump_statement_"+to_string(AST_node_counter),0);
+		int ticket = Label_counter;
+		JumpNode* tmp = new JumpNode(AST_node_counter, "jump_statement_"+to_string(AST_node_counter),ticket,1);
+		++Label_counter;
 		++AST_node_counter;
 		$<tnode>$ = tmp;
 		outputReduction("jump_statement : CONTINUE_tok SEMI_tok");}
 	| BREAK_tok SEMI_tok {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "jump_statement_"+to_string(AST_node_counter),0);
+		int ticket = Label_counter;
+		JumpNode* tmp = new JumpNode(AST_node_counter, "jump_statement_"+to_string(AST_node_counter),ticket,2);
+		++Label_counter;
 		++AST_node_counter;
 		$<tnode>$ = tmp;
 		outputReduction("jump_statement : BREAK_tok SEMI_tok");}
 	| RETURN_tok SEMI_tok {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "jump_statement_"+to_string(AST_node_counter),0);
+		int ticket = Label_counter;
+		JumpNode* tmp = new JumpNode(AST_node_counter, "jump_statement_"+to_string(AST_node_counter),ticket,3);
+		++Label_counter;
 		++AST_node_counter;
 		$<tnode>$ = tmp;
 		outputReduction("jump_statement : RETURN_tok SEMI_tok");}
 	| RETURN_tok expression SEMI_tok {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "jump_statement_"+to_string(AST_node_counter),1);
+		int ticket = Label_counter;
+		JumpNode* tmp = new JumpNode(AST_node_counter, "jump_statement_"+to_string(AST_node_counter),ticket,4);
+		++Label_counter;
 		++AST_node_counter;
 		tmp->assignChild(0,$<tnode>2);
 		$<tnode>$ = tmp;
