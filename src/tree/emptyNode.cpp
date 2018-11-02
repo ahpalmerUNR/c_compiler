@@ -2,11 +2,9 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-30 20:57:28
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-10-31 17:11:45
+* @Last Modified time: 2018-11-01 19:47:54
 */
 #include "emptyNode.h"
-
-using namespace std;
 
 EmptyNode::EmptyNode(int TreeNodeNum, string TreeNodeProductionName):TreeNode(TreeNodeNum,TreeNodeProductionName,0)
 {

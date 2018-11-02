@@ -46,6 +46,7 @@ public:
 	virtual void ast_to_3ac(FILE*);
 	virtual void assignChild(int childIndex, TreeNode* child);
 	virtual int getDataType(char *){}
+	virtual int returnTicket(){}
 protected:
 	int TreeNodeNumber;
 	//type
@@ -60,6 +61,7 @@ public:
 	Tree();
 	~Tree();
 	void tree_to_gv(string fileName);
+	void tree_to_3ac(string fileName);
 	void set_root(TreeNode* new_root);
 private:
 	TreeNode* root;

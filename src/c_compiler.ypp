@@ -9,6 +9,7 @@
 	#include "../src/tree/iteration_statement.h"
 	#include "../src/tree/dataNode.h"
 	#include "../src/tree/jumpNode.h"
+	#include "../src/tree/selectionNode.h"
 
 	#define MAX_LINE_LENGTH 500
 	FILE *out_log;
@@ -1001,14 +1002,24 @@ statement_list
 
 selection_statement
 	: IF_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement %prec THEN  {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "selection_statement_"+to_string(AST_node_counter),2);
+		int ticket1 = Label_counter;
+		++Label_counter;
+		int ticket2 = Label_counter;
+		SelectionNode* tmp = new SelectionNode(AST_node_counter, "selection_statement_"+to_string(AST_node_counter),2,false,ticket1,ticket2,-1);
+		++Label_counter;
 		++AST_node_counter;
 		tmp->assignChild(0,$<tnode>3);
 		tmp->assignChild(1,$<tnode>5);
 		$<tnode>$ = tmp;
 		outputReduction("selection_statement : IF_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement");}
 	| IF_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement ELSE_tok statement {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "selection_statement_"+to_string(AST_node_counter),3);
+		int ticket1 = Label_counter;
+		++Label_counter;
+		int ticket2 = Label_counter;
+		++Label_counter;
+		int ticket3 = Label_counter;
+		SelectionNode* tmp = new SelectionNode(AST_node_counter, "selection_statement_"+to_string(AST_node_counter),3,false,ticket1,ticket2,ticket3);
+		++Label_counter;
 		++AST_node_counter;
 		tmp->assignChild(0,$<tnode>3);
 		tmp->assignChild(1,$<tnode>5);
@@ -1016,7 +1027,11 @@ selection_statement
 		$<tnode>$ = tmp;
 		outputReduction("selection_statement : IF_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement ELSE_tok statement");}
 	| SWITCH_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "selection_statement_"+to_string(AST_node_counter),2);
+		int ticket1 = Label_counter;
+		++Label_counter;
+		int ticket2 = Label_counter;
+		SelectionNode* tmp = new SelectionNode(AST_node_counter, "selection_statement_"+to_string(AST_node_counter),2,true,ticket1,ticket2,-1);
+		++Label_counter;
 		++AST_node_counter;
 		tmp->assignChild(0,$<tnode>3);
 		tmp->assignChild(1,$<tnode>5);
@@ -1912,6 +1927,7 @@ int main(int argc, char **argv)
 	yyparse();
 
 	AST.tree_to_gv("graphs/default.gv");
+	AST.tree_to_3ac("build/3ac.txt");
 	//while((tok = yylex()))
 	//{
 	

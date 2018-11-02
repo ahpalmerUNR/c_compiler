@@ -2,11 +2,9 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-31 11:34:10
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-01 18:02:08
+* @Last Modified time: 2018-11-01 19:48:13
 */
 #include "jumpNode.h"
-
-using namespace std;
 
 JumpNode::JumpNode(int TreeNodeNum, string TreeNodeProductionName, int jumpTicket,int jumpType):TreeNode(TreeNodeNum,TreeNodeProductionName,1)
 {
@@ -117,12 +115,26 @@ void JumpNode::ast_to_3ac(FILE* fileout)
 			}
 			else
 			{
-				jumpCounter = ch1->lineNumber;
+				// jumpCounter = ch1->lineNumber;
 			}
 
-			fprintf(fileout, "BR\t\t\t%d\n", jumpCounter);
+			fprintf(fileout, "ENDPROC\n");
 			break;
 		case 4:
+			key = "return";
+			ch1 = astTable.searchAll(key.c_str(),&a);
+			if (ch1 ==NULL)
+			{
+				printf("Warning: jump return node does not have reference in symbolTable.\n");
+			}
+			else
+			{
+				// jumpCounter = ch1->lineNumber;
+				ticketNumber = ch1->colNumber;
+			}
+			children[0]->ast_to_3ac(fileout);
+			fprintf(fileout, "ADDR\t%d\t\t%d\n", ticketNumber,children[0]->returnTicket());
+			fprintf(fileout, "ENDPROC\n");
 			break;
 	}
 }

@@ -1,4 +1,4 @@
-#include"dataNode.h"
+#include "dataNode.h"
 
 DataNode::DataNode(int nodeNumber, string nodeName, int ticket) : TreeNode(nodeNumber,nodeName,0)
 {

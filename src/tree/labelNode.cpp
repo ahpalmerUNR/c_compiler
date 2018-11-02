@@ -2,11 +2,9 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-30 15:47:00
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-01 16:11:23
+* @Last Modified time: 2018-11-01 19:48:23
 */
 #include "labelNode.h"
-
-using namespace std;
 
 LabelNode::LabelNode(int TreeNodeNum, string TreeNodeProductionName, int jumpTicket):TreeNode(TreeNodeNum,TreeNodeProductionName,2)
 {
