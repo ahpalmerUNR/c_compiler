@@ -1,255 +1,57 @@
 digraph AST {
-	translation_unit_168 -> translation_unit_30;
-	translation_unit_30 -> translation_unit_21;
-	translation_unit_21 -> translation_unit_12;
-	translation_unit_12 -> translation_unit_3;
-	translation_unit_3 -> declaration_2;
-	declaration_2 -> type_specifier_0;
+	translation_unit_34 -> function_definition_33;
+	function_definition_33 -> type_specifier_0;
 	type_specifier_0 [label="int"]
-	declaration_2 -> identifier_1;
-	identifier_1 [label="maxSize"]
-	translation_unit_12 -> function_definition_11;
-	function_definition_11 -> type_specifier_4;
-	type_specifier_4 [label="void"]
-	function_definition_11 -> direct_declarator_9;
-	direct_declarator_9 -> identifier_5;
-	identifier_5 [label="sendInt"]
-	direct_declarator_9 -> parameter_declaration_8;
-	parameter_declaration_8 -> type_specifier_6;
-	type_specifier_6 [label="int"]
-	parameter_declaration_8 -> identifier_7;
-	identifier_7 [label="a"]
-	function_definition_11 -> compound_statement_10;
-	translation_unit_21 -> function_definition_20;
-	function_definition_20 -> type_specifier_13;
-	type_specifier_13 [label="void"]
-	function_definition_20 -> direct_declarator_18;
-	direct_declarator_18 -> identifier_14;
-	identifier_14 [label="sendFloat"]
-	direct_declarator_18 -> parameter_declaration_17;
-	parameter_declaration_17 -> type_specifier_15;
-	type_specifier_15 [label="float"]
-	parameter_declaration_17 -> identifier_16;
-	identifier_16 [label="taa"]
-	function_definition_20 -> compound_statement_19;
-	translation_unit_30 -> function_definition_29;
-	function_definition_29 -> type_specifier_22;
-	type_specifier_22 [label="void"]
-	function_definition_29 -> direct_declarator_27;
-	direct_declarator_27 -> identifier_23;
-	identifier_23 [label="sendChar"]
-	direct_declarator_27 -> parameter_declaration_26;
-	parameter_declaration_26 -> type_specifier_24;
-	type_specifier_24 [label="char"]
-	parameter_declaration_26 -> identifier_25;
-	identifier_25 [label="ca"]
-	function_definition_29 -> compound_statement_28;
-	translation_unit_168 -> function_definition_167;
-	function_definition_167 -> type_specifier_31;
-	type_specifier_31 [label="int"]
-	function_definition_167 -> direct_declarator_33;
-	direct_declarator_33 -> identifier_32;
-	identifier_32 [label="main"]
-	function_definition_167 -> compound_statement_166;
-	compound_statement_166 -> declaration_list_60;
-	declaration_list_60 -> declaration_list_54;
-	declaration_list_54 -> declaration_list_48;
-	declaration_list_48 -> declaration_list_44;
-	declaration_list_44 -> declaration_36;
-	declaration_36 -> type_specifier_34;
-	type_specifier_34 [label="int"]
-	declaration_36 -> identifier_35;
-	identifier_35 [label="i"]
-	declaration_list_44 -> declaration_43;
-	declaration_43 -> declaration_specifiers_39;
-	declaration_specifiers_39 -> type_qualifier_37;
-	type_qualifier_37 [label="const"]
-	declaration_specifiers_39 -> type_specifier_38;
-	type_specifier_38 [label="float"]
-	declaration_43 -> init_declarator_42;
-	init_declarator_42 -> identifier_40;
-	identifier_40 [label="num"]
-	init_declarator_42 -> constant41;
-	declaration_list_48 -> declaration_47;
-	declaration_47 -> type_specifier_45;
-	type_specifier_45 [label="char"]
-	declaration_47 -> identifier_46;
-	identifier_46 [label="niceChar"]
-	declaration_list_54 -> declaration_53;
-	declaration_53 -> type_specifier_49;
-	type_specifier_49 [label="int"]
-	declaration_53 -> init_declarator_52;
-	init_declarator_52 -> identifier_50;
-	identifier_50 [label="p"]
-	init_declarator_52 -> constant_51;
-	constant_51 [label="0"]
-	declaration_list_60 -> declaration_59;
-	declaration_59 -> type_specifier_55;
-	type_specifier_55 [label="int"]
-	declaration_59 -> direct_declarator_58;
-	direct_declarator_58 -> identifier_56;
-	identifier_56 [label="k"]
-	direct_declarator_58 -> constant_57;
-	constant_57 [label="4"]
-	compound_statement_166 -> statement_list_165;
-	statement_list_165 -> statement_list_162;
-	statement_list_162 -> statement_list_158;
-	statement_list_158 -> statement_list_152;
-	statement_list_152 -> statement_list_141;
-	statement_list_141 -> statement_list_133;
-	statement_list_133 -> statement_list_119;
-	statement_list_119 -> statement_list_115;
-	statement_list_115 -> statement_list_110;
-	statement_list_110 -> statement_list_95;
-	statement_list_95 -> statement_list_82;
-	statement_list_82 -> statement_list_71;
-	statement_list_71 -> assignment_expression_64;
-	assignment_expression_64 -> identifier_61;
-	identifier_61 [label="maxSize"]
-	assignment_expression_64 -> assignment_operator_62;
-	assignment_expression_64 -> constant_63;
-	constant_63 [label="100"]
-	statement_list_71 -> assignment_expression_70;
-	assignment_expression_70 -> postfix_expression_67;
-	postfix_expression_67 -> identifier_65;
-	identifier_65 [label="k"]
-	postfix_expression_67 -> constant_66;
-	constant_66 [label="0"]
-	assignment_expression_70 -> assignment_operator_68;
-	assignment_expression_70 -> constant_69;
-	constant_69 [label="25"]
-	statement_list_82 -> assignment_expression_81;
-	assignment_expression_81 -> postfix_expression_74;
-	postfix_expression_74 -> identifier_72;
-	identifier_72 [label="k"]
-	postfix_expression_74 -> constant_73;
-	constant_73 [label="1"]
-	assignment_expression_81 -> assignment_operator_75;
-	assignment_expression_81 -> multiplicative_expression_80;
-	multiplicative_expression_80 -> constant_76;
-	constant_76 [label="2"]
-	multiplicative_expression_80 -> postfix_expression_79;
-	postfix_expression_79 -> identifier_77;
-	identifier_77 [label="k"]
-	postfix_expression_79 -> constant_78;
-	constant_78 [label="0"]
-	statement_list_95 -> assignment_expression_94;
-	assignment_expression_94 -> postfix_expression_85;
-	postfix_expression_85 -> identifier_83;
-	identifier_83 [label="k"]
-	postfix_expression_85 -> constant_84;
-	constant_84 [label="2"]
-	assignment_expression_94 -> assignment_operator_86;
-	assignment_expression_94 -> additive_expression_93;
-	additive_expression_93 -> postfix_expression_89;
-	postfix_expression_89 -> identifier_87;
-	identifier_87 [label="k"]
-	postfix_expression_89 -> constant_88;
-	constant_88 [label="1"]
-	additive_expression_93 -> postfix_expression_92;
-	postfix_expression_92 -> identifier_90;
-	identifier_90 [label="k"]
-	postfix_expression_92 -> constant_91;
-	constant_91 [label="0"]
-	statement_list_110 -> assignment_expression_109;
-	assignment_expression_109 -> postfix_expression_98;
-	postfix_expression_98 -> identifier_96;
-	identifier_96 [label="k"]
-	postfix_expression_98 -> constant_97;
-	constant_97 [label="3"]
-	assignment_expression_109 -> assignment_operator_99;
-	assignment_expression_109 -> additive_expression_108;
-	additive_expression_108 -> multiplicative_expression_104;
-	multiplicative_expression_104 -> constant_100;
-	constant_100 [label="5"]
-	multiplicative_expression_104 -> postfix_expression_103;
-	postfix_expression_103 -> identifier_101;
-	identifier_101 [label="k"]
-	postfix_expression_103 -> constant_102;
-	constant_102 [label="0"]
-	additive_expression_108 -> postfix_expression_107;
-	postfix_expression_107 -> identifier_105;
-	identifier_105 [label="k"]
-	postfix_expression_107 -> constant_106;
-	constant_106 [label="0"]
-	statement_list_115 -> assignment_expression_114;
-	assignment_expression_114 -> identifier_111;
-	identifier_111 [label="niceChar"]
-	assignment_expression_114 -> assignment_operator_112;
-	assignment_expression_114 -> constant_113;
-	constant_113 [label="a"]
-	statement_list_119 -> postfix_expression_118;
-	postfix_expression_118 -> identifier_116;
-	identifier_116 [label="sendInt"]
-	postfix_expression_118 -> identifier_117;
-	identifier_117 [label="i"]
-	statement_list_133 -> iteration_statement_132;
-iteration_statement_132 [shape=house,label="for type
-iteration",color=firebrick1]
-	iteration_statement_132 -> assignment_expression_123;
-	assignment_expression_123 -> identifier_120;
-	identifier_120 [label="p"]
-	assignment_expression_123 -> assignment_operator_121;
-	assignment_expression_123 -> constant_122;
-	constant_122 [label="5"]
-	iteration_statement_132 -> relational_expression_126;
-	relational_expression_126 -> identifier_124;
-	identifier_124 [label="p"]
-	relational_expression_126 -> identifier_125;
-	identifier_125 [label="maxSize"]
-	iteration_statement_132 -> unary_expression_128;
-	unary_expression_128 -> identifier_127;
-	identifier_127 [label="p"]
-	iteration_statement_132 -> postfix_expression_131;
-	postfix_expression_131 -> identifier_129;
-	identifier_129 [label="sendInt"]
-	postfix_expression_131 -> identifier_130;
-	identifier_130 [label="p"]
-	statement_list_141 -> selection_statement_140;
-	selection_statement_140 [shape=diamond,color=green,label="if"]
-	selection_statement_140 -> equality_expression_136;
-	equality_expression_136 -> identifier_134;
-	identifier_134 [label="maxSize"]
-	equality_expression_136 -> constant_135;
-	constant_135 [label="100"]
-	selection_statement_140 -> postfix_expression_139;
-	postfix_expression_139 -> identifier_137;
-	identifier_137 [label="sendFloat"]
-	postfix_expression_139 -> identifier_138;
-	identifier_138 [label="num"]
-	statement_list_152 -> iteration_statement_151;
-iteration_statement_151 [shape=house,label="for type
-iteration",color=firebrick1]
-	iteration_statement_151 -> empty_149;
-empty_149 [style=filled,color=indigo,fontcolor=white]
-	iteration_statement_151 -> relational_expression_144;
-	relational_expression_144 -> identifier_142;
-	identifier_142 [label="p"]
-	relational_expression_144 -> constant_143;
-	constant_143 [label="1"]
-	iteration_statement_151 -> empty_150;
-empty_150 [style=filled,color=indigo,fontcolor=white]
-	iteration_statement_151 -> assignment_expression_148;
-	assignment_expression_148 -> identifier_145;
-	identifier_145 [label="p"]
-	assignment_expression_148 -> assignment_operator_146;
-	assignment_expression_148 -> constant_147;
-	constant_147 [label="1"]
-	statement_list_158 -> postfix_expression_157;
-	postfix_expression_157 -> identifier_153;
-	identifier_153 [label="sendInt"]
-	postfix_expression_157 -> postfix_expression_156;
-	postfix_expression_156 -> identifier_154;
-	identifier_154 [label="k"]
-	postfix_expression_156 -> constant_155;
-	constant_155 [label="3"]
-	statement_list_162 -> postfix_expression_161;
-	postfix_expression_161 -> identifier_159;
-	identifier_159 [label="sendChar"]
-	postfix_expression_161 -> identifier_160;
-	identifier_160 [label="niceChar"]
-	statement_list_165 -> jump_statement_164;
-	jump_statement_164 [shape = triangle,color=purple,label="return expr"]
-	jump_statement_164 -> constant_163;
-	constant_163 [label="0"]
+	function_definition_33 -> direct_declarator_2;
+	direct_declarator_2 -> identifier_1;
+	identifier_1 [label="main"]
+	function_definition_33 -> compound_statement_32;
+	compound_statement_32 -> declaration_5;
+	declaration_5 -> type_specifier_3;
+	type_specifier_3 [label="int"]
+	declaration_5 -> identifier_4;
+	identifier_4 [label="i"]
+	compound_statement_32 -> statement_list_31;
+	statement_list_31 -> statement_list_28;
+	statement_list_28 -> statement_list_17;
+	statement_list_17 -> selection_statement_10;
+	selection_statement_10 [shape=hexagon,color=green,label="switch"]
+	selection_statement_10 -> constant_6;
+	constant_6 [label="1"]
+	selection_statement_10 -> labeled_statement_9;
+	labeled_statement_9 [shape = box,color=blue,label="Label"]
+	labeled_statement_9 -> constant_7;
+	constant_7 [label="2"]
+	labeled_statement_9 -> jump_statement_8;
+	jump_statement_8 [shape = triangle,color=purple,label="break"]
+	statement_list_17 -> selection_statement_16;
+	selection_statement_16 [shape=diamond,color=green,label="if"]
+	selection_statement_16 -> constant_11;
+	constant_11 [label="1"]
+	selection_statement_16 -> assignment_expression_15;
+	assignment_expression_15 -> identifier_12;
+	identifier_12 [label="i"]
+	assignment_expression_15 -> assignment_operator_13;
+	assignment_expression_15 -> constant_14;
+	constant_14 [label="3"]
+	statement_list_28 -> selection_statement_27;
+	selection_statement_27 [shape=diamond,color=green,label="if else"]
+	selection_statement_27 -> identifier_18;
+	identifier_18 [label="i"]
+	selection_statement_27 -> assignment_expression_22;
+	assignment_expression_22 -> identifier_19;
+	identifier_19 [label="i"]
+	assignment_expression_22 -> assignment_operator_20;
+	assignment_expression_22 -> constant_21;
+	constant_21 [label="2"]
+	selection_statement_27 -> assignment_expression_26;
+	assignment_expression_26 -> identifier_23;
+	identifier_23 [label="i"]
+	assignment_expression_26 -> assignment_operator_24;
+	assignment_expression_26 -> constant_25;
+	constant_25 [label="1"]
+	statement_list_31 -> jump_statement_30;
+	jump_statement_30 [shape = triangle,color=purple,label="return expr"]
+	jump_statement_30 -> constant_29;
+	constant_29 [label="0"]
 }
