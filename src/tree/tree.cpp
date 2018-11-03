@@ -2,11 +2,9 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-27 14:10:44
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-10-31 17:12:08
+* @Last Modified time: 2018-11-01 21:01:44
 */
 #include "tree.h"
-
-using namespace std;
 
 TreeNode::TreeNode(int TreeNodeNum,string TreeNodeProductionName,int numberOfChildren)
 {
@@ -24,9 +22,10 @@ TreeNode::~TreeNode()
 
 void TreeNode::traverse_to_file(FILE* fileout)
 {
-	// cout<<"TreeNode "<<TreeNodeName.c_str()<<endl;
+	
 	for (int i = 0; i < numberChildren; ++i)
 	{
+		// cout<<"TreeNode "<<TreeNodeName<<endl;
 		fprintf(fileout, "\t%s -> %s;\n", TreeNodeName.c_str(),children[i]->TreeNodeName.c_str());
 		children[i]->traverse_to_file(fileout);
 	}
@@ -62,6 +61,14 @@ void Tree::tree_to_gv(string fileName)
 	fprintf(printFile, "digraph AST {\n");
 	root->traverse_to_file(printFile);
 	fprintf(printFile, "}\n");
+	fclose(printFile);
+}
+
+void Tree::tree_to_3ac(string fileName)
+{
+	FILE* printFile;
+	printFile = fopen(fileName.c_str(),"w");
+	root->ast_to_3ac(printFile);
 	fclose(printFile);
 }
 

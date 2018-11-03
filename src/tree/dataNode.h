@@ -25,12 +25,16 @@ public:
 	void storeDouble(double d);
 	void storeString(char *s);
 	void storeChar(char c);
+	void setTypeSpecifier(nodeDataType typeSpec);
+	int getDataType(char * representation);//representation returned uses max buffer 500 characters.
+	void notData();
 
 protected:
 
 	int ticketNumber;
 	nodeDataType dType;
 	Data data;
+	bool isData;
 
 };
 

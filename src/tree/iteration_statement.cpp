@@ -2,11 +2,9 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-30 22:43:27
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-10-31 17:11:51
+* @Last Modified time: 2018-11-01 19:47:49
 */
 #include "iteration_statement.h"
-
-using namespace std;
 
 Iter_statement::Iter_statement(int TreeNodeNumber,string TreeNodeProductionName,int TicketOne,int TicketTwo,bool doType):TreeNode(TreeNodeNumber,TreeNodeProductionName,4)
 {

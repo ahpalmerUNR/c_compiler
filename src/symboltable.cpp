@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-09-28 12:11:57
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-10-29 12:18:28
+* @Last Modified time: 2018-11-01 16:04:22
 */
 #include "symboltable.h"
 #include <stdio.h>
@@ -52,6 +52,7 @@ Node* SymbolTable::insert(string tokenKey, int lN, int cN, DataType t,int*errorc
 			d.colNumber = cN;
 			d.type = t;
 			stack[currentLevel].insert(pair<string,Node>(tokenKey,d));
+			*errorcode = 2;
 			return searchTop(tokenKey);
 
 		}

@@ -1,67 +1,57 @@
 digraph AST {
-	translation_unit_62 -> translation_unit_34;
-	translation_unit_34 -> external_declaration_33;
-	external_declaration_33 -> declaration_32;
-	declaration_32 -> declaration_specifiers_1;
-	declaration_specifiers_1 -> type_specifier_0;
-	declaration_32 -> init_declarator_list_31;
-	init_declarator_list_31 -> init_declarator_30;
-	init_declarator_30 -> declarator_4;
-	declarator_4 -> direct_declarator_3;
-	direct_declarator_3 -> identifier_2;
-	init_declarator_30 -> initializer_29;
-	initializer_29 -> assignment_expression_28;
-	assignment_expression_28 -> conditional_expression_27;
-	conditional_expression_27 -> logical_or_expression_26;
-	logical_or_expression_26 -> logical_and_expression_25;
-	logical_and_expression_25 -> inclusive_or_expression24;
-	inclusive_or_expression24 -> exclusive_or_expression_23;
-	exclusive_or_expression_23 -> and_expression_22;
-	and_expression_22 -> equality_expression_21;
-	equality_expression_21 -> relational_expression_20;
-	relational_expression_20 -> shift_expression_19;
-	shift_expression_19 -> additive_expression_18;
-	additive_expression_18 -> additive_expression_11;
-	additive_expression_11 -> multiplicative_expression_10;
-	multiplicative_expression_10 -> cast_expression_9;
-	cast_expression_9 -> unary_expression_8;
-	unary_expression_8 -> postfix_expression_7;
-	postfix_expression_7 -> primary_expression_6;
-	primary_expression_6 -> constant_5;
-	constant_5 [label="4"]
-	additive_expression_18 -> multiplicative_expression_17;
-	multiplicative_expression_17 -> cast_expression_16;
-	cast_expression_16 -> unary_expression_15;
-	unary_expression_15 -> postfix_expression_14;
-	postfix_expression_14 -> primary_expression_13;
-	primary_expression_13 -> constant_12;
-	constant_12 [label="5"]
-	translation_unit_62 -> external_declaration_61;
-	external_declaration_61 -> declaration_60;
-	declaration_60 -> declaration_specifiers_36;
-	declaration_specifiers_36 -> type_specifier_35;
-	declaration_60 -> init_declarator_list_59;
-	init_declarator_list_59 -> init_declarator_58;
-	init_declarator_58 -> declarator_39;
-	declarator_39 -> direct_declarator_38;
-	direct_declarator_38 -> identifier_37;
-	init_declarator_58 -> initializer_57;
-	initializer_57 -> assignment_expression_56;
-	assignment_expression_56 -> conditional_expression_55;
-	conditional_expression_55 -> logical_or_expression_54;
-	logical_or_expression_54 -> logical_and_expression_53;
-	logical_and_expression_53 -> inclusive_or_expression52;
-	inclusive_or_expression52 -> exclusive_or_expression_51;
-	exclusive_or_expression_51 -> and_expression_50;
-	and_expression_50 -> equality_expression_49;
-	equality_expression_49 -> relational_expression_48;
-	relational_expression_48 -> shift_expression_47;
-	shift_expression_47 -> additive_expression_46;
-	additive_expression_46 -> multiplicative_expression_45;
-	multiplicative_expression_45 -> cast_expression_44;
-	cast_expression_44 -> unary_expression_43;
-	unary_expression_43 -> postfix_expression_42;
-	postfix_expression_42 -> primary_expression_41;
-	primary_expression_41 -> constant_40;
-	constant_40 [label="c"]
+	translation_unit_34 -> function_definition_33;
+	function_definition_33 -> type_specifier_0;
+	type_specifier_0 [label="int"]
+	function_definition_33 -> direct_declarator_2;
+	direct_declarator_2 -> identifier_1;
+	identifier_1 [label="main"]
+	function_definition_33 -> compound_statement_32;
+	compound_statement_32 -> declaration_5;
+	declaration_5 -> type_specifier_3;
+	type_specifier_3 [label="int"]
+	declaration_5 -> identifier_4;
+	identifier_4 [label="i"]
+	compound_statement_32 -> statement_list_31;
+	statement_list_31 -> statement_list_28;
+	statement_list_28 -> statement_list_17;
+	statement_list_17 -> selection_statement_10;
+	selection_statement_10 [shape=hexagon,color=green,label="switch"]
+	selection_statement_10 -> constant_6;
+	constant_6 [label="1"]
+	selection_statement_10 -> labeled_statement_9;
+	labeled_statement_9 [shape = box,color=blue,label="Label"]
+	labeled_statement_9 -> constant_7;
+	constant_7 [label="2"]
+	labeled_statement_9 -> jump_statement_8;
+	jump_statement_8 [shape = triangle,color=purple,label="break"]
+	statement_list_17 -> selection_statement_16;
+	selection_statement_16 [shape=diamond,color=green,label="if"]
+	selection_statement_16 -> constant_11;
+	constant_11 [label="1"]
+	selection_statement_16 -> assignment_expression_15;
+	assignment_expression_15 -> identifier_12;
+	identifier_12 [label="i"]
+	assignment_expression_15 -> assignment_operator_13;
+	assignment_expression_15 -> constant_14;
+	constant_14 [label="3"]
+	statement_list_28 -> selection_statement_27;
+	selection_statement_27 [shape=diamond,color=green,label="if else"]
+	selection_statement_27 -> identifier_18;
+	identifier_18 [label="i"]
+	selection_statement_27 -> assignment_expression_22;
+	assignment_expression_22 -> identifier_19;
+	identifier_19 [label="i"]
+	assignment_expression_22 -> assignment_operator_20;
+	assignment_expression_22 -> constant_21;
+	constant_21 [label="2"]
+	selection_statement_27 -> assignment_expression_26;
+	assignment_expression_26 -> identifier_23;
+	identifier_23 [label="i"]
+	assignment_expression_26 -> assignment_operator_24;
+	assignment_expression_26 -> constant_25;
+	constant_25 [label="1"]
+	statement_list_31 -> jump_statement_30;
+	jump_statement_30 [shape = triangle,color=purple,label="return expr"]
+	jump_statement_30 -> constant_29;
+	constant_29 [label="0"]
 }
