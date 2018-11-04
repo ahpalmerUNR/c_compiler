@@ -8,7 +8,7 @@ int main()
 	}
 	if (1)
 	{
-		i = 3;
+		i = i + 3;
 	}
 	if(i)
 	{

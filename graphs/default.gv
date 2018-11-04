@@ -1,20 +1,20 @@
 digraph AST {
-	translation_unit_34 -> function_definition_33;
-	function_definition_33 -> type_specifier_0;
+	translation_unit_36 -> function_definition_35;
+	function_definition_35 -> type_specifier_0;
 	type_specifier_0 [label="int"]
-	function_definition_33 -> direct_declarator_2;
+	function_definition_35 -> direct_declarator_2;
 	direct_declarator_2 -> identifier_1;
 	identifier_1 [label="main"]
-	function_definition_33 -> compound_statement_32;
-	compound_statement_32 -> declaration_5;
+	function_definition_35 -> compound_statement_34;
+	compound_statement_34 -> declaration_5;
 	declaration_5 -> type_specifier_3;
 	type_specifier_3 [label="int"]
 	declaration_5 -> identifier_4;
 	identifier_4 [label="i"]
-	compound_statement_32 -> statement_list_31;
-	statement_list_31 -> statement_list_28;
-	statement_list_28 -> statement_list_17;
-	statement_list_17 -> selection_statement_10;
+	compound_statement_34 -> statement_list_33;
+	statement_list_33 -> statement_list_30;
+	statement_list_30 -> statement_list_19;
+	statement_list_19 -> selection_statement_10;
 	selection_statement_10 [shape=hexagon,color=green,label="switch"]
 	selection_statement_10 -> constant_6;
 	constant_6 [label="1"]
@@ -24,34 +24,37 @@ digraph AST {
 	constant_7 [label="2"]
 	labeled_statement_9 -> jump_statement_8;
 	jump_statement_8 [shape = triangle,color=purple,label="break"]
-	statement_list_17 -> selection_statement_16;
-	selection_statement_16 [shape=diamond,color=green,label="if"]
-	selection_statement_16 -> constant_11;
+	statement_list_19 -> selection_statement_18;
+	selection_statement_18 [shape=diamond,color=green,label="if"]
+	selection_statement_18 -> constant_11;
 	constant_11 [label="1"]
-	selection_statement_16 -> assignment_expression_15;
-	assignment_expression_15 -> identifier_12;
+	selection_statement_18 -> assignment_expression_17;
+	assignment_expression_17 -> identifier_12;
 	identifier_12 [label="i"]
-	assignment_expression_15 -> assignment_operator_13;
-	assignment_expression_15 -> constant_14;
-	constant_14 [label="3"]
-	statement_list_28 -> selection_statement_27;
-	selection_statement_27 [shape=diamond,color=green,label="if else"]
-	selection_statement_27 -> identifier_18;
-	identifier_18 [label="i"]
-	selection_statement_27 -> assignment_expression_22;
-	assignment_expression_22 -> identifier_19;
-	identifier_19 [label="i"]
-	assignment_expression_22 -> assignment_operator_20;
-	assignment_expression_22 -> constant_21;
-	constant_21 [label="2"]
-	selection_statement_27 -> assignment_expression_26;
-	assignment_expression_26 -> identifier_23;
-	identifier_23 [label="i"]
-	assignment_expression_26 -> assignment_operator_24;
-	assignment_expression_26 -> constant_25;
-	constant_25 [label="1"]
-	statement_list_31 -> jump_statement_30;
-	jump_statement_30 [shape = triangle,color=purple,label="return expr"]
-	jump_statement_30 -> constant_29;
-	constant_29 [label="0"]
+	assignment_expression_17 -> assignment_operator_13;
+	assignment_expression_17 -> additive_expression_16;
+	additive_expression_16 -> identifier_14;
+	identifier_14 [label="i"]
+	additive_expression_16 -> constant_15;
+	constant_15 [label="3"]
+	statement_list_30 -> selection_statement_29;
+	selection_statement_29 [shape=diamond,color=green,label="if else"]
+	selection_statement_29 -> identifier_20;
+	identifier_20 [label="i"]
+	selection_statement_29 -> assignment_expression_24;
+	assignment_expression_24 -> identifier_21;
+	identifier_21 [label="i"]
+	assignment_expression_24 -> assignment_operator_22;
+	assignment_expression_24 -> constant_23;
+	constant_23 [label="2"]
+	selection_statement_29 -> assignment_expression_28;
+	assignment_expression_28 -> identifier_25;
+	identifier_25 [label="i"]
+	assignment_expression_28 -> assignment_operator_26;
+	assignment_expression_28 -> constant_27;
+	constant_27 [label="1"]
+	statement_list_33 -> jump_statement_32;
+	jump_statement_32 [shape = triangle,color=purple,label="return expr"]
+	jump_statement_32 -> constant_31;
+	constant_31 [label="0"]
 }

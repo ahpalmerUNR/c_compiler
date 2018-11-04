@@ -396,7 +396,7 @@ type_specifier
 	| struct_or_union_specifier { 
 		TreeNode* tmp = new TreeNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),0);
 		++AST_node_counter;
-		$<tnode>$ = tmp;
+		$<tnode>$ = $<tnode>1;
 		outputReduction("type_specifier : struct_or_union_specifier");}
 	| ENUM_tok { 
 		int ticket = Variable_counter;
