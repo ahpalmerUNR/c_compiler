@@ -36,6 +36,13 @@ enum nodeDataType {
 	TYPEDEF_TYPE_NODE,
 	ID_TYPE_NODE
 	};
+enum OperatorType {
+	ADD_OP,
+	SUB_OP,
+	MULT_OP,
+	DIV_OP,
+	MOD_OP,
+	};
 
 class TreeNode
 {

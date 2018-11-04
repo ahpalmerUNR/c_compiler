@@ -26,15 +26,18 @@ public:
 	void storeString(char *s);
 	void storeChar(char c);
 	void setTypeSpecifier(nodeDataType typeSpec);
+	void setOperator(OperatorType typeSpec);
 	int getDataType(char * representation);//representation returned uses max buffer 500 characters.
 	void notData();
-
+	void setNumberChildren(int);
 protected:
 
 	int ticketNumber;
 	nodeDataType dType;
+	OperatorType oType;
 	Data data;
 	bool isData;
+	bool isOperatorNode;
 
 };
 

@@ -10,6 +10,7 @@
 	#include "../src/tree/dataNode.h"
 	#include "../src/tree/jumpNode.h"
 	#include "../src/tree/selectionNode.h"
+	#include "../src/tree/operatorNode.h"
 
 	#define MAX_LINE_LENGTH 500
 	FILE *out_log;
@@ -45,6 +46,9 @@
 	void yyerror(char const *msg);
 
 	int yylex();
+
+	TreeNode* createOperatorDataNode(OperatorType opType, TreeNode *leftChil, TreeNode* rightChild);
+	nodeDataType determineDataType(TreeNode *leftChil, TreeNode *rightChild);
 
 %}
 %define parse.error verbose
@@ -1504,18 +1508,10 @@ additive_expression
 		$<tnode>$ = $<tnode>1;
 		outputReduction("additive_expression : multiplicative_expression");}
 	| additive_expression PLUS_tok multiplicative_expression {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "additive_expression_"+to_string(AST_node_counter),2);
-		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>1);
-		tmp->assignChild(1,$<tnode>3);
-		$<tnode>$ = tmp;
+		$<tnode>$ = createOperatorDataNode(ADD_OP, $<tnode>1,$<tnode>3);
 		outputReduction("additive_expression : additive_expression PLUS_tok multiplicative_expression");}
 	| additive_expression MINUS_tok multiplicative_expression {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "additive_expression_"+to_string(AST_node_counter),2);
-		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>1);
-		tmp->assignChild(1,$<tnode>3);
-		$<tnode>$ = tmp;
+		$<tnode>$ = createOperatorDataNode(SUB_OP, $<tnode>1,$<tnode>3);
 		outputReduction("additive_expression : additive_expression MINUS_tok multiplicative_expression");}
 	;
 
@@ -1524,25 +1520,14 @@ multiplicative_expression
 		$<tnode>$ = $<tnode>1;
 		outputReduction("multiplicative_expression : cast_expression");}
 	| multiplicative_expression STAR_tok cast_expression {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "multiplicative_expression_"+to_string(AST_node_counter),2);
-		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>1);
-		tmp->assignChild(1,$<tnode>3);
-		$<tnode>$ = tmp;
+		$<tnode>$ = createOperatorDataNode(MULT_OP, $<tnode>1,$<tnode>3);				
 		outputReduction("multiplicative_expression : multiplicative_expression STAR_tok cast_expression");}
 	| multiplicative_expression DIV_tok cast_expression {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "multiplicative_expression_"+to_string(AST_node_counter),2);
-		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>1);
-		tmp->assignChild(1,$<tnode>3);
-		$<tnode>$ = tmp;
+		// Might need to cast if data types of children different
+		$<tnode>$ = createOperatorDataNode(DIV_OP, $<tnode>1,$<tnode>3);		
 		outputReduction("multiplicative_expression : multiplicative_expression DIV_tok cast_expression");}
 	| multiplicative_expression PERCENT_tok cast_expression {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "multiplicative_expression_"+to_string(AST_node_counter),2);
-		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>1);
-		tmp->assignChild(1,$<tnode>3);
-		$<tnode>$ = tmp;
+		$<tnode>$ = createOperatorDataNode(MOD_OP, $<tnode>1,$<tnode>3);		
 		outputReduction("multiplicative_expression : multiplicative_expression PERCENT_tok cast_expression");}
 	;
 
@@ -1564,23 +1549,20 @@ unary_expression
 		$<tnode>$ = $<tnode>1;
 		outputReduction("unary_expression : postfix_expression");}
 	| INC_OP_tok unary_expression {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "unary_expression_"+to_string(AST_node_counter),1);
+		OperatorNode* tmp = new OperatorNode(AST_node_counter, "unary_expression_"+to_string(AST_node_counter), INC_op, 1);
 		++AST_node_counter;
 		tmp->assignChild(0,$<tnode>2);
 		$<tnode>$ = tmp;
 		outputReduction("unary_expression : INC_OP_tok unary_expression");}
 	| DEC_OP_tok unary_expression {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "unary_expression_"+to_string(AST_node_counter),1);
+		OperatorNode* tmp = new OperatorNode(AST_node_counter, "unary_expression_"+to_string(AST_node_counter), DEC_op, 1);
 		++AST_node_counter;
 		tmp->assignChild(0,$<tnode>2);
 		$<tnode>$ = tmp;
 		outputReduction("unary_expression : DEC_OP_tok unary_expression");}
 	| unary_operator cast_expression {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "unary_expression_"+to_string(AST_node_counter),2);
-		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>1);
-		tmp->assignChild(1,$<tnode>2);
-		$<tnode>$ = tmp;
+		$<tnode>$ = $<tnode>1;
+		$<tnode>$->assignChild(0,$<tnode>2);
 		outputReduction("unary_expression : unary_operator cast_expression");}
 	| SIZEOF_tok unary_expression {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "unary_expression_"+to_string(AST_node_counter),1);
@@ -1598,32 +1580,32 @@ unary_expression
 
 unary_operator
 	: AMP_tok {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "unary_operator_"+to_string(AST_node_counter),0);
+		OperatorNode* tmp = new OperatorNode(AST_node_counter, "unary_operator_"+to_string(AST_node_counter), AMP_op,1);
 		++AST_node_counter;
 		$<tnode>$ = tmp;
 		outputReduction("unary_operator : AMP_tok");}
 	| STAR_tok {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "unary_operator_"+to_string(AST_node_counter),0);
+		OperatorNode* tmp = new OperatorNode(AST_node_counter, "unary_operator_"+to_string(AST_node_counter), STAR_op,1);
 		++AST_node_counter;
 		$<tnode>$ = tmp;
 		outputReduction("unary_operator : STAR_tok");}
 	| PLUS_tok {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "unary_operator_"+to_string(AST_node_counter),0);
+		OperatorNode* tmp = new OperatorNode(AST_node_counter, "unary_operator_"+to_string(AST_node_counter), PLUS_op,1);
 		++AST_node_counter;
 		$<tnode>$ = tmp;
 		outputReduction("unary_operator : PLUS_tok");}
 	| MINUS_tok {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "unary_operator_"+to_string(AST_node_counter),0);
+		OperatorNode* tmp = new OperatorNode(AST_node_counter, "unary_operator_"+to_string(AST_node_counter), MINUS_op,1);
 		++AST_node_counter;
 		$<tnode>$ = tmp;
 		outputReduction("unary_operator : MINUS_tok");}
 	| TILDA_tok {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "unary_operator_"+to_string(AST_node_counter),0);
+		OperatorNode* tmp = new OperatorNode(AST_node_counter, "unary_operator_"+to_string(AST_node_counter), TILDA_op,1);
 		++AST_node_counter;
 		$<tnode>$ = tmp;
 		outputReduction("unary_operator : TILDA_tok");}
 	| NOT_tok {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "unary_operator_"+to_string(AST_node_counter),0);
+		OperatorNode* tmp = new OperatorNode(AST_node_counter, "unary_operator_"+to_string(AST_node_counter), NOT_op,1);
 		++AST_node_counter;
 		$<tnode>$ = tmp;
 		outputReduction("unary_operator : NOT_tok");}
@@ -1730,7 +1712,10 @@ constant
 		$<tnode>$ = tmp;
 		outputReduction("constant : CHARACTER_CONSTANT_tok");}
 	| FLOATING_CONSTANT_tok {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "constant"+to_string(AST_node_counter),0);
+		int ticket = Variable_counter;
+		DataNode* tmp = new DataNode(AST_node_counter, "constant_"+to_string(AST_node_counter),ticket);
+		tmp->storeDouble(yylval.ldoub);
+		++Variable_counter;
 		++AST_node_counter;
 		$<tnode>$ = tmp;
 		outputReduction("constant : FLOATING_CONSTANT_tok");}
@@ -1988,6 +1973,36 @@ void yyerror(char const *msg)
 	}
 	fprintf(out_log,"^ \n\n");
 }
+TreeNode* createOperatorDataNode(OperatorType opType, TreeNode *leftChild, TreeNode* rightChild)
+{
+		int ticket = Variable_counter;
+		DataNode* tmp = new DataNode(AST_node_counter, "unary_expression_"+to_string(AST_node_counter),ticket);
+		tmp->setOperator(opType);
+		tmp->notData();
+		tmp->setNumberChildren(2);
+		++AST_node_counter;
+		++Variable_counter;
+		tmp->assignChild(0, leftChild);
+		tmp->assignChild(1, rightChild);
+		// Type checking
+		char wat[500];
+		nodeDataType left = nodeDataType(leftChild->getDataType(wat));
+		nodeDataType right = nodeDataType(rightChild->getDataType(wat));
+		if(left == right)
+		{
+			if(left == FLOAT_TYPE_NODE && opType == MOD_OP)
+				yyerror("Invalid operands to %");
+			tmp->setTypeSpecifier(left);
+		}
+		else
+		{
+			if(opType == MOD_OP)
+				yyerror("Invalid operands to %");
+			tmp->setTypeSpecifier(DOUBLE_TYPE_NODE);
+		}
+		return tmp;
+}
+
 
 void outputReduction(const char *production)
 {	
