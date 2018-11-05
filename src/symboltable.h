@@ -34,22 +34,20 @@ enum NType{
 };
 // Information about the symbol - add more data types in it as necessary
 struct Node {
+	Node();
+	Node(const Node&);
+	void print();
+	void output(FILE*);
+
 	int lineNumber;
 	int colNumber;
 	enum DataType type;
+	// Vector containing the types of the node
+	vector<string> types;
 	int ntype = 1;
 	string name;
-	//output node information to a file
-	void output(FILE* stream)//ofstream &stream)
-	{
-		fprintf(stream, "Line: %d Column: %d Type: %d\n", lineNumber,colNumber,type);
-		// stream << "Line: " << lineNumber << " Column: " << colNumber << " Type: " << type << endl;
-	};
-	// output node information to terminal
-	void print()
-	{
-		cout << "Line: " << lineNumber << " Column: " << colNumber << " Type: " << type << endl;
-	};
+	// Contains the params of node (if it is a function)
+	vector<string> params;
 };
 class SymbolTable {
 

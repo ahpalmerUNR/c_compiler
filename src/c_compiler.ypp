@@ -1,8 +1,9 @@
 %{
-	#include "../src/symboltable.h"	
 	#include <time.h>
 	#include <stdio.h>
 	#include <stdlib.h>
+	#include <memory>
+	#include "../src/symboltable.h"	
 	#include "../src/tree/tree.h"
 	#include "../src/tree/labelNode.h"
 	#include "../src/tree/emptyNode.h"
@@ -29,16 +30,20 @@
 	 */
 	SymbolTable s;
 	bool popAtEndOfStatement = false;
-
+	bool popTwice = false;
 
 	int levels[5];
 
 	extern char yytext[];
+	extern string id;
 	
 	Tree AST;
 	int AST_node_counter;
 	int Label_counter;
 	int Variable_counter;
+
+	unique_ptr<Node> variableToInsert(new Node());
+	unique_ptr<Node> functionToInsert(new Node());
 
 	void outputReduction(const char *s);
 
@@ -176,7 +181,10 @@ external_declaration
 	: function_definition {
 		$<tnode>$ = $<tnode>1;
 		outputReduction("external_declaration : function_definition");}
-	|  declaration {
+	| declaration {
+		if (functionToInsert->name != "") {
+			s.insert(functionToInsert->name, *functionToInsert);
+		}
 		$<tnode>$ = $<tnode>1;
 		outputReduction("external_declaration : declaration");}
 	;
@@ -218,12 +226,22 @@ function_definition
 
 declaration
 	: declaration_specifiers SEMI_tok {
+		if (popAtEndOfStatement) {
+			s.popBST();
+			popAtEndOfStatement = false;
+		}
+
 		TreeNode* tmp = new TreeNode(AST_node_counter, "declaration_"+to_string(AST_node_counter),1);
 		++AST_node_counter;
 		tmp->assignChild(0,$<tnode>1);
 		$<tnode>$ = tmp;
 		outputReduction("declaration : declaration_specifiers SEMI_tok");}
 	| declaration_specifiers init_declarator_list SEMI_tok {
+		if (popAtEndOfStatement) {
+			s.popBST();
+			popAtEndOfStatement = false;
+		}
+
 		TreeNode* tmp = new TreeNode(AST_node_counter, "declaration_"+to_string(AST_node_counter),2);
 		++AST_node_counter;
 		tmp->assignChild(0,$<tnode>1);
@@ -637,6 +655,11 @@ enumerator
 
 declarator
 	: direct_declarator {
+		if (insert_lookup == 0) {
+			if (variableToInsert->name != "") {
+				s.insert(variableToInsert->name, *variableToInsert);
+			}
+		}
 		$<tnode>$ = $<tnode>1;
 		outputReduction("declarator : direct_declarator");}
 	| pointer direct_declarator {
@@ -671,28 +694,32 @@ direct_declarator
 		tmp->assignChild(1,$<tnode>3);
 		$<tnode>$ = tmp;
 		outputReduction("direct_declarator : direct_declarator OPEN_BRACKET_tok constant_expression CLOSE_BRACKET_tok");}
-	| direct_declarator OPEN_PAREN_tok CLOSE_PAREN_tok {
+	| direct_declarator getTypes OPEN_PAREN_tok CLOSE_PAREN_tok {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "direct_declarator_"+to_string(AST_node_counter),1);
 		++AST_node_counter;
 		tmp->assignChild(0,$<tnode>1);
 		$<tnode>$ = tmp;
 		outputReduction("direct_declarator : direct_declarator OPEN_PAREN_tok CLOSE_PAREN_tok");}
-	| direct_declarator OPEN_PAREN_tok {s.pushEmptyBST();} parameter_type_list CLOSE_PAREN_tok {
-		popAtEndOfStatement = true;
+	| direct_declarator getTypes OPEN_PAREN_tok parameter_type_list CLOSE_PAREN_tok {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "direct_declarator_"+to_string(AST_node_counter),2);
 		++AST_node_counter;
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>4);
 		$<tnode>$ = tmp;
 		outputReduction("direct_declarator : direct_declarator OPEN_PAREN_tok parameter_type_list CLOSE_PAREN_tok");}
-	| direct_declarator OPEN_PAREN_tok identifier_list CLOSE_PAREN_tok {
+	| direct_declarator getTypes OPEN_PAREN_tok identifier_list CLOSE_PAREN_tok {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "direct_declarator_"+to_string(AST_node_counter),2);
 		++AST_node_counter;
 		tmp->assignChild(0,$<tnode>1);
-		tmp->assignChild(1,$<tnode>3);
+		tmp->assignChild(1,$<tnode>4);
 		$<tnode>$ = tmp;
 		outputReduction("direct_declarator : direct_declarator OPEN_PAREN_tok identifier_list CLOSE_PAREN_tok");}
 	;
+
+getTypes
+	:	{
+			
+		}
 
 pointer
 	: STAR_tok {
@@ -738,13 +765,15 @@ type_qualifier_list
 	;
 
 parameter_type_list
-	: parameter_list {
-		$<tnode>$ = $<tnode>1;
+	: push parameter_list {
+		// variableToInsert.reset(new Node());
+		$<tnode>$ = $<tnode>2;
 		outputReduction("parameter_type_list : parameter_list");}
-	| parameter_list COMMA_tok ELIPSIS_tok {
+	| push parameter_list COMMA_tok ELIPSIS_tok {
+		// variableToInsert.reset(new Node());
 		TreeNode* tmp = new TreeNode(AST_node_counter, "parameter_type_list_"+to_string(AST_node_counter),1);
 		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(0,$<tnode>2);
 		$<tnode>$ = tmp;
 		outputReduction("parameter_type_list : parameter_list COMMA_tok ELIPSIS_tok");}
 	;
@@ -764,6 +793,9 @@ parameter_list
 
 parameter_declaration
 	: declaration_specifiers declarator {
+		// variableToInsert.reset(new Node());
+		popTwice = true;
+
 		TreeNode* tmp = new TreeNode(AST_node_counter, "parameter_declaration_"+to_string(AST_node_counter),2);
 		++AST_node_counter;
 		tmp->assignChild(0,$<tnode>1);
@@ -771,6 +803,8 @@ parameter_declaration
 		$<tnode>$ = tmp;
 		outputReduction("parameter_declaration : declaration_specifiers declarator");}
 	| declaration_specifiers {
+		popAtEndOfStatement = true; // I don't know about this...
+
 		$<tnode>$ = $<tnode>1;
 		outputReduction("parameter_declaration : declaration_specifiers");}
 	| declaration_specifiers abstract_declarator {
@@ -976,23 +1010,36 @@ expression_statement
 		outputReduction("expression_statement : expression SEMI_tok");}
 	;
 
+push
+	:	{ s.pushEmptyBST(); }
+	;
+
+pop
+	:	{
+			s.popBST();
+			if (popTwice) {
+				s.popBST();
+				popTwice = false;
+			}
+		}
+
 compound_statement
-	: OPEN_BRACE_tok CLOSE_BRACE_tok {
+	: push OPEN_BRACE_tok CLOSE_BRACE_tok pop {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "compound_statement_"+to_string(AST_node_counter),0);
 		++AST_node_counter;
 		$<tnode>$ = tmp;
 		outputReduction("compound_statement : OPEN_BRACE_tok CLOSE_BRACE_tok");}
-	| OPEN_BRACE_tok statement_list CLOSE_BRACE_tok {
-		$<tnode>$ = $<tnode>2;
+	| push OPEN_BRACE_tok statement_list CLOSE_BRACE_tok pop {
+		$<tnode>$ = $<tnode>3;
 		outputReduction("compound_statement : OPEN_BRACE_tok statement_list CLOSE_BRACE_tok");}
-	| OPEN_BRACE_tok  declaration_list  CLOSE_BRACE_tok {
-		$<tnode>$ = $<tnode>2;
+	| push OPEN_BRACE_tok  declaration_list  CLOSE_BRACE_tok {
+		$<tnode>$ = $<tnode>3;
 		outputReduction("compound_statement : OPEN_BRACE_tok declaration_list CLOSE_BRACE_tok");}
-	| OPEN_BRACE_tok  declaration_list  statement_list CLOSE_BRACE_tok {
+	| push OPEN_BRACE_tok  declaration_list  statement_list CLOSE_BRACE_tok pop {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "compound_statement_"+to_string(AST_node_counter),2);
 		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>2);
-		tmp->assignChild(1,$<tnode>3);
+		tmp->assignChild(0,$<tnode>3);
+		tmp->assignChild(1,$<tnode>4);
 		$<tnode>$ = tmp;
 		outputReduction("compound_statement : OPEN_BRACE_tok declaration_list statement_list CLOSE_BRACE_tok");}
 	;
@@ -1754,10 +1801,14 @@ string
 
 identifier
 	: ID_tok {
+		variableToInsert->name = id;
+
 		int ticket = Variable_counter;
 		DataNode* tmp = new DataNode(AST_node_counter, "identifier_"+to_string(AST_node_counter),ticket);
-		tmp->storeString((char*)yylval.lnode->name.c_str());
-		tmp->setTypeSpecifier(ID_TYPE_NODE);
+		if (yylval.lnode != NULL) {
+			tmp->storeString((char*)yylval.lnode->name.c_str());
+			tmp->setTypeSpecifier(ID_TYPE_NODE);
+		}
 		++Variable_counter;
 		++AST_node_counter;
 		$<tnode>$ = tmp;

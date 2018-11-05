@@ -7,7 +7,60 @@
 #include "symboltable.h"
 #include <stdio.h>
 
+Node::Node()
+{
 
+}
+
+Node::Node(const Node& n)
+{
+	lineNumber = n.lineNumber;
+	colNumber = n.colNumber;
+	for (const string type : n.types) {
+		types.push_back(type);
+	}
+	ntype = n.ntype;
+	name = n.name;
+	for (const string param : n.params) {
+		params.push_back(param);
+	}
+}
+
+void Node::print()
+{
+	cout << "line: " << lineNumber << " col: " << colNumber;
+	cout << " types: ";
+	for (const string type : types) {
+		cout << type << " ";
+	}
+	cout << "(node) key: " << name;
+	if (params.size()) {
+		cout << "Params: (";
+		for (const string param : params) {
+			cout << param << " ";
+		}
+		cout << ")";
+	}
+	cout << endl;
+}
+
+
+void Node::output(FILE* stream)
+{
+	fprintf(stream, "line: %d, col: %d, types: ", lineNumber, colNumber);
+	for (const string type : types) {
+		fprintf(stream, "%s ", type.c_str());
+	}
+	fprintf(stream, "(node) key: %s", name.c_str());
+	if (params.size()) {
+		fprintf(stream," Params: (");
+		for (const string param : params) {
+			fprintf(stream, "%s ", param.c_str());
+		}
+		fprintf(stream, ")");
+	}
+	fprintf(stream, "\n");
+}
 
 SymbolTable::SymbolTable()
 {
@@ -27,7 +80,7 @@ Node* SymbolTable::insert(string tokenKey, int lN, int cN, DataType t,int*errorc
 		Node d;
 		d.lineNumber = lN;
 		d.colNumber = cN;
-		d.type = t;
+		// d.type = t;
 		d.name = tokenKey;
 		stack[currentLevel].insert(pair<string,Node>(tokenKey,d));
 		return searchTop(tokenKey);
@@ -58,8 +111,8 @@ Node* SymbolTable::insert(string tokenKey, int lN, int cN, DataType t,int*errorc
 		}
 		return prevDecl;
 	}
-
 }
+
 Node* SymbolTable::insert(string tokenKey, Node d)
 {
 	int location;

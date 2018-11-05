@@ -41,6 +41,8 @@ extern clock_t clock_time;
 
 extern int* levels;
 
+string id;
+
 int send_token(char const* token_name,int token);
 void white();
 void character();
@@ -688,8 +690,11 @@ int id_token()
 	else
 	{
 		//printf("\n\nID NOT FOUND AND NOW ADDING\n");
-		yylval.lnode = s.insert(yytext,line,column,INT_TYPE,&errorcode);
+		// yylval.lnode = s.insert(yytext,line,column,INT_TYPE,&errorcode);
 		
+		id = yytext;
+		id += '\0';
+
 		if(errorcode==1)
 		{
 			char buff[200];
