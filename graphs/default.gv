@@ -1,76 +1,92 @@
 digraph AST {
-	translation_unit_41 -> function_definition_40;
-	function_definition_40 -> type_specifier_0;
+	translation_unit_51 -> function_definition_50;
+	function_definition_50 -> type_specifier_0;
 	type_specifier_0 [label="int"]
-	function_definition_40 -> direct_declarator_2;
+	function_definition_50 -> direct_declarator_2;
 	direct_declarator_2 -> identifier_1;
 	identifier_1 [label="ID: main"]
-	function_definition_40 -> compound_statement_39;
-	compound_statement_39 -> declaration_17;
-	declaration_17 -> type_specifier_3;
-	type_specifier_3 [label="int"]
-	declaration_17 -> init_declarator_16;
-	init_declarator_16 -> identifier_4;
-	identifier_4 [label="ID: i"]
-	init_declarator_16 -> unary_expression_15;
-	unary_expression_15 [label="Float:  Left - Right"]
-	unary_expression_15 -> unary_expression_9;
-	unary_expression_9 [label="Float:  Left + Right"]
-	unary_expression_9 -> constant_5;
-	constant_5 [label="Int: 4"]
-	unary_expression_9 -> unary_expression_8;
-	unary_expression_8 [label="Float:  Left * Right"]
-	unary_expression_8 -> constant_6;
-	constant_6 [label="Int: 5"]
-	unary_expression_8 -> constant_7;
-	constant_7 [label="Float: 0.000000"]
-	unary_expression_15 -> unary_expression_14;
-	unary_expression_14 [label="Int:  Left % Right"]
-	unary_expression_14 -> unary_expression_12;
-	unary_expression_12 [label="Int:  Left / Right"]
-	unary_expression_12 -> constant_10;
-	constant_10 [label="Int: 2"]
-	unary_expression_12 -> constant_11;
+	function_definition_50 -> compound_statement_49;
+	compound_statement_49 -> declaration_list_23;
+	declaration_list_23 -> declaration_7;
+	declaration_7 -> declaration_specifiers_5;
+	declaration_specifiers_5 -> type_specifier_3;
+	type_specifier_3 [label="long"]
+	declaration_specifiers_5 -> type_specifier_4;
+	type_specifier_4 [label="int"]
+	declaration_7 -> identifier_6;
+	identifier_6 [label="ID: j"]
+	declaration_list_23 -> declaration_22;
+	declaration_22 -> type_specifier_8;
+	type_specifier_8 [label="int"]
+	declaration_22 -> init_declarator_21;
+	init_declarator_21 -> identifier_9;
+	identifier_9 [label="ID: i"]
+	init_declarator_21 -> unary_expression_20;
+	unary_expression_20 [label="Float:  Left - Right"]
+	unary_expression_20 -> unary_expression_14;
+	unary_expression_14 [label="Float:  Left + Right"]
+	unary_expression_14 -> constant_10;
+	constant_10 [label="Int: 4"]
+	unary_expression_14 -> unary_expression_13;
+	unary_expression_13 [label="Float:  Left * Right"]
+	unary_expression_13 -> constant_11;
 	constant_11 [label="Int: 5"]
-	unary_expression_14 -> constant_13;
-	constant_13 [label="Int: 3"]
-	compound_statement_39 -> statement_list_38;
-	statement_list_38 -> statement_list_34;
-	statement_list_34 -> statement_list_30;
-	statement_list_30 -> assignment_expression_26;
-	assignment_expression_26 [label="Int:  Left = Right"]
-	assignment_expression_26 -> identifier_18;
-	identifier_18 [label="ID: i"]
-	assignment_expression_26 -> unary_expression_25;
-	unary_expression_25 [label="Float:  Left + Right"]
-	unary_expression_25 -> unary_expression_21;
-	unary_expression_21 [label="Float:  Left - Right"]
-	unary_expression_21 -> constant_19;
-	constant_19 [label="Int: 10"]
-	unary_expression_21 -> constant_20;
-	constant_20 [label="Float: 0.000000"]
-	unary_expression_25 -> unary_expression_24;
-	unary_expression_24 [label="Float:  Left * Right"]
-	unary_expression_24 -> constant_22;
-	constant_22 [label="Float: 0.000000"]
-	unary_expression_24 -> identifier_23;
-	identifier_23 [label="ID: i"]
-	statement_list_30 -> assignment_expression_29;
-	assignment_expression_29 [label="Int:  Left += Right"]
-	assignment_expression_29 -> identifier_27;
-	identifier_27 [label="ID: i"]
-	assignment_expression_29 -> constant_28;
-	constant_28 [label="Int: 5"]
-	statement_list_34 -> assignment_expression_33;
-	assignment_expression_33 [label="Int:  Left -= Right"]
-	assignment_expression_33 -> identifier_31;
-	identifier_31 [label="ID: i"]
-	assignment_expression_33 -> constant_32;
-	constant_32 [label="Int: 5"]
-	statement_list_38 -> assignment_expression_37;
-	assignment_expression_37 [label="Int:  Left <<= Right"]
-	assignment_expression_37 -> identifier_35;
-	identifier_35 [label="ID: i"]
-	assignment_expression_37 -> constant_36;
-	constant_36 [label="Int: 5"]
+	unary_expression_13 -> constant_12;
+	constant_12 [label="Float: 3.500000"]
+	unary_expression_20 -> unary_expression_19;
+	unary_expression_19 [label="Float:  Left % Right"]
+	unary_expression_19 -> unary_expression_17;
+	unary_expression_17 [label="Int:  Left / Right"]
+	unary_expression_17 -> constant_15;
+	constant_15 [label="Int: 2"]
+	unary_expression_17 -> constant_16;
+	constant_16 [label="Int: 5"]
+	unary_expression_19 -> constant_18;
+	constant_18 [label="Float: 3.000000"]
+	compound_statement_49 -> statement_list_48;
+	statement_list_48 -> statement_list_44;
+	statement_list_44 -> statement_list_40;
+	statement_list_40 -> statement_list_36;
+	statement_list_36 -> assignment_expression_32;
+	assignment_expression_32 [label="Int:  Left = Right"]
+	assignment_expression_32 -> identifier_24;
+	identifier_24 [label="ID: i"]
+	assignment_expression_32 -> unary_expression_31;
+	unary_expression_31 [label="Float:  Left + Right"]
+	unary_expression_31 -> unary_expression_27;
+	unary_expression_27 [label="Float:  Left - Right"]
+	unary_expression_27 -> constant_25;
+	constant_25 [label="Int: 10"]
+	unary_expression_27 -> constant_26;
+	constant_26 [label="Float: 2.000000"]
+	unary_expression_31 -> unary_expression_30;
+	unary_expression_30 [label="Float:  Left * Right"]
+	unary_expression_30 -> constant_28;
+	constant_28 [label="Float: 5.500000"]
+	unary_expression_30 -> identifier_29;
+	identifier_29 [label="ID: i"]
+	statement_list_36 -> assignment_expression_35;
+	assignment_expression_35 [label="Int:  Left = Right"]
+	assignment_expression_35 -> constant_33;
+	constant_33 [label="Int: 5"]
+	assignment_expression_35 -> constant_34;
+	constant_34 [label="Int: 6"]
+	statement_list_40 -> assignment_expression_39;
+	assignment_expression_39 [label="Int:  Left += Right"]
+	assignment_expression_39 -> identifier_37;
+	identifier_37 [label="ID: i"]
+	assignment_expression_39 -> constant_38;
+	constant_38 [label="Int: 5"]
+	statement_list_44 -> assignment_expression_43;
+	assignment_expression_43 [label="Int:  Left -= Right"]
+	assignment_expression_43 -> identifier_41;
+	identifier_41 [label="ID: i"]
+	assignment_expression_43 -> constant_42;
+	constant_42 [label="Int: 5"]
+	statement_list_48 -> assignment_expression_47;
+	assignment_expression_47 [label="Int:  Left <<= Right"]
+	assignment_expression_47 -> identifier_45;
+	identifier_45 [label="ID: i"]
+	assignment_expression_47 -> constant_46;
+	constant_46 [label="Int: 5"]
 }

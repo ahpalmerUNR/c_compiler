@@ -1942,7 +1942,7 @@ void yyerror(char const *msg)
 	fseek(errorText,offset,SEEK_SET);
 	printf("ERROR: %s:Line: %d Column: %d %s\n",file_name,line,column,msg);
 	printf("%s",tmp);
-	for(int i = column; i>0;i--)
+	for(int i = column-1; i>0;i--)
 	{
 		printf("-");
 	}
@@ -1951,7 +1951,7 @@ void yyerror(char const *msg)
 	
 	fprintf(out_log,"ERROR: %s:Line: %d Column: %d %s\n",file_name,line,column,msg);
 	fprintf(out_log,"%s",tmp);
-	for(int i = column; i>0;i--)
+	for(int i = column-1; i>0;i--)
 	{
 		fprintf(out_log,"-");
 	}

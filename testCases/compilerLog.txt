@@ -1,0 +1,8 @@
+ERROR: testCases/expressionTest.c:Line: 4 Column: 42 Invalid operands to %
+	int i = 4 + 5 * 3.5 - 2 / 5 % 3.0;
+-----------------------------------------^ 
+
+ERROR: testCases/expressionTest.c:Line: 6 Column: 14 lvalue required as left operand of assignment
+	5 = 6;
+-------------^ 
+

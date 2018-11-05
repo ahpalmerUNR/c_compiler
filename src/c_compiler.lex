@@ -627,6 +627,8 @@ void check_float()
 	{
 		print_error("Syntax Error: Float Value Out Of Range.");
 	}
+
+	yylval.ldoub = result;
 	//print_error("Float Value Too Large.");
 }
 
