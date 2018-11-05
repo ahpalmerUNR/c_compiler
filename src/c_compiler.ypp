@@ -11,6 +11,7 @@
 	#include "../src/tree/jumpNode.h"
 	#include "../src/tree/selectionNode.h"
 	#include "../src/tree/operatorNode.h"
+	#include "../src/tree/assignmentNode.h"
 
 	#define MAX_LINE_LENGTH 500
 	FILE *out_log;
@@ -149,6 +150,7 @@
 	double ldoub;
 	class Node* lnode;
 	class TreeNode* tnode;
+	int aType;
 	
 }
 
@@ -1277,70 +1279,52 @@ assignment_expression
 		$<tnode>$ = $<tnode>1;
 		outputReduction("assignment_expression : conditional_expression");}
 	| unary_expression assignment_operator assignment_expression {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "assignment_expression_"+to_string(AST_node_counter),3);
+		AssignmentNode *tmp = new AssignmentNode(AST_node_counter, "assignment_expression_"+to_string(AST_node_counter),Variable_counter,2);
 		++AST_node_counter;
+		++Variable_counter;
+		char pointless[500];
+		if($<tnode>1->getDataType(pointless) != ID_TYPE_NODE)
+			yyerror("lvalue required as left operand of assignment");
 		tmp->assignChild(0,$<tnode>1);
-		tmp->assignChild(1,$<tnode>2);
-		tmp->assignChild(2,$<tnode>3);
+		tmp->setAssignType(AssignType($<aType>2));
+		tmp->assignChild(1,$<tnode>3);
 		$<tnode>$ = tmp;
 		outputReduction("assignment_expression : unary_expression assignment_operator assignment_expression");}
 	;
 
 assignment_operator
 	: EQUAL_tok {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "assignment_operator_"+to_string(AST_node_counter),0);
-		++AST_node_counter;
-		$<tnode>$ = tmp;
+		$<aType>$ = EQUAL_ASSIGN;
 		outputReduction("assignment_operator : EQUAL_tok");}
 	| MULT_ASSIGN_tok {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "assignment_operator_"+to_string(AST_node_counter),0);
-		++AST_node_counter;
-		$<tnode>$ = tmp;
+		$<aType>$ = MULT_ASSIGN;
 		outputReduction("assignment_operator : MULT_ASSIGN_tok");}
 	| DIV_ASSIGN_tok {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "assignment_operator_"+to_string(AST_node_counter),0);
-		++AST_node_counter;
-		$<tnode>$ = tmp;
+		$<aType>$ = DIV_ASSIGN;
 		outputReduction("assignment_operator : DIV_ASSIGN_tok");}
 	| MOD_ASSIGN_tok {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "assignment_operator_"+to_string(AST_node_counter),0);
-		++AST_node_counter;
-		$<tnode>$ = tmp;
+		$<aType>$ = MOD_ASSIGN;
 		outputReduction("assignment_operator : MOD_ASSIGN_tok");}
 	| ADD_ASSIGN_tok {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "assignment_operator_"+to_string(AST_node_counter),0);
-		++AST_node_counter;
-		$<tnode>$ = tmp;
+		$<aType>$ = ADD_ASSIGN;
 		outputReduction("assignment_operator : ADD_ASSIGN_tok ");}
 	| SUB_ASSIGN_tok {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "assignment_operator_"+to_string(AST_node_counter),0);
-		++AST_node_counter;
-		$<tnode>$ = tmp;
+		$<aType>$ = SUB_ASSIGN;
 		outputReduction("assignment_operator : SUB_ASSIGN_tok");}
 	| LEFT_ASSIGN_tok {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "assignment_operator_"+to_string(AST_node_counter),0);
-		++AST_node_counter;
-		$<tnode>$ = tmp;
+		$<aType>$ = LEFT_ASSIGN;
 		outputReduction("assignment_operator : LEFT_ASSIGN_tok");}
 	| RIGHT_ASSIGN_tok {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "assignment_operator_"+to_string(AST_node_counter),0);
-		++AST_node_counter;
-		$<tnode>$ = tmp;
+		$<aType>$ = DIV_ASSIGN;
 		outputReduction("assignment_operator : RIGHT_ASSIGN_tok");}
 	| AND_ASSIGN_tok {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "assignment_operator_"+to_string(AST_node_counter),0);
-		++AST_node_counter;
-		$<tnode>$ = tmp;
+		$<aType>$ = AND_ASSIGN;
 		outputReduction("assignment_operator : AND_ASSIGN_tok");}
 	| XOR_ASSIGN_tok {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "assignment_operator_"+to_string(AST_node_counter),0);
-		++AST_node_counter;
-		$<tnode>$ = tmp;
+		$<aType>$ = XOR_ASSIGN;
 		outputReduction("assignment_operator : XOR_ASSIGN_tok");}
 	| OR_ASSIGN_tok {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "assignment_operator_"+to_string(AST_node_counter),0);
-		++AST_node_counter;
-		$<tnode>$ = tmp;
+		$<aType>$ = OR_ASSIGN;
 		outputReduction("assignment_operator : OR_ASSIGN_tok");}
 	;
 

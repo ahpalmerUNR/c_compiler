@@ -1,4 +1,0 @@
-ERROR: testCases/expressionTest.c:Line: 3 Column: 40 Invalid operands to %
-	int i = 4 + 5 * 3 - 2 / 5 % 3.0;
-----------------------------------------^ 
-

@@ -41,7 +41,20 @@ enum OperatorType {
 	SUB_OP,
 	MULT_OP,
 	DIV_OP,
-	MOD_OP,
+	MOD_OP
+	};
+enum AssignType {
+	EQUAL_ASSIGN,
+	ADD_ASSIGN,
+	SUB_ASSIGN,
+	MULT_ASSIGN,
+	DIV_ASSIGN,
+	MOD_ASSIGN,
+	LEFT_ASSIGN,
+	RIGHT_ASSIGN,
+	AND_ASSIGN,
+	XOR_ASSIGN,
+	OR_ASSIGN
 	};
 
 class TreeNode
