@@ -12,6 +12,7 @@
 	#include "../src/tree/selectionNode.h"
 	#include "../src/tree/operatorNode.h"
 	#include "../src/tree/assignmentNode.h"
+	#include "../src/tree/relationNode.h"
 
 	#define MAX_LINE_LENGTH 500
 	FILE *out_log;
@@ -49,7 +50,8 @@
 	int yylex();
 
 	TreeNode* createOperatorDataNode(OperatorType opType, TreeNode *leftChil, TreeNode* rightChild);
-	nodeDataType determineDataType(TreeNode *leftChil, TreeNode *rightChild);
+	TreeNode* createRelationNode(OperatorType opType, TreeNode *leftChild, TreeNode *rightChild);
+	nodeDataType typeCheck(OperatorType opType,TreeNode *leftChild, TreeNode *rightChild);
 
 %}
 %define parse.error verbose
@@ -1418,18 +1420,10 @@ equality_expression
 		$<tnode>$ = $<tnode>1;
 		outputReduction("equality_expression : relational_expression");}
 	| equality_expression EQ_OP_tok relational_expression {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "equality_expression_"+to_string(AST_node_counter),2);
-		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>1);
-		tmp->assignChild(1,$<tnode>3);
-		$<tnode>$ = tmp;
+		$<tnode>$ = createRelationNode(EQ_OP, $<tnode>1, $<tnode>3);
 		outputReduction("equality_expression : equality_expression EQ_OP_tok relational_expression");}
 	| equality_expression NE_OP_tok relational_expression {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "equality_expression_"+to_string(AST_node_counter),2);
-		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>1);
-		tmp->assignChild(1,$<tnode>3);
-		$<tnode>$ = tmp;
+		$<tnode>$ = createRelationNode(NE_OP, $<tnode>1, $<tnode>3);
 		outputReduction("equality_expression : equality_expression NE_OP_tok relational_expression");}
 	;
 
@@ -1438,32 +1432,16 @@ relational_expression
 		$<tnode>$ = $<tnode>1;
 		outputReduction("relational_expression : shift_expression");}
 	| relational_expression LT_tok shift_expression {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "relational_expression_"+to_string(AST_node_counter),2);
-		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>1);
-		tmp->assignChild(1,$<tnode>3);
-		$<tnode>$ = tmp;
+		$<tnode>$ = createRelationNode(LT_OP, $<tnode>1, $<tnode>3);
 		outputReduction("relational_expression : relational_expression LT_tok shift_expression");}
 	| relational_expression GT_tok shift_expression {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "relational_expression_"+to_string(AST_node_counter),2);
-		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>1);
-		tmp->assignChild(1,$<tnode>3);
-		$<tnode>$ = tmp;
+		$<tnode>$ = createRelationNode(GT_OP, $<tnode>1, $<tnode>3);
 		outputReduction("relational_expression : relational_expression GT_tok shift_expression");}
 	| relational_expression LE_OP_tok shift_expression {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "relational_expression_"+to_string(AST_node_counter),2);
-		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>1);
-		tmp->assignChild(1,$<tnode>3);
-		$<tnode>$ = tmp;
+		$<tnode>$ = createRelationNode(LE_OP, $<tnode>1, $<tnode>3);
 		outputReduction("relational_expression : relational_expression LE_OP_tok shift_expression");}
 	| relational_expression GE_OP_tok shift_expression {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "relational_expression_"+to_string(AST_node_counter),2);
-		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>1);
-		tmp->assignChild(1,$<tnode>3);
-		$<tnode>$ = tmp;
+		$<tnode>$ = createRelationNode(GE_OP, $<tnode>1, $<tnode>3);
 		outputReduction("relational_expression : relational_expression GE_OP_tok shift_expression");}
 	;
 
@@ -1966,9 +1944,26 @@ TreeNode* createOperatorDataNode(OperatorType opType, TreeNode *leftChild, TreeN
 		tmp->setNumberChildren(2);
 		++AST_node_counter;
 		++Variable_counter;
+		tmp->setTypeSpecifier(typeCheck(opType, leftChild, rightChild));
 		tmp->assignChild(0, leftChild);
 		tmp->assignChild(1, rightChild);
-		// Type checking
+		return tmp;
+}
+TreeNode* createRelationNode(OperatorType opType, TreeNode *leftChild, TreeNode *rightChild)
+{
+		int ticket = Variable_counter;
+		RelationNode* tmp = new RelationNode(AST_node_counter, "equality_expression_"+to_string(AST_node_counter),ticket);
+		++AST_node_counter;
+		++Variable_counter;
+		tmp->setOperator(opType);
+		tmp->setTypeSpecifier(typeCheck(opType, leftChild, rightChild));
+		tmp->assignChild(0,leftChild);
+		tmp->assignChild(1,rightChild);
+		return tmp;
+}
+
+nodeDataType typeCheck(OperatorType opType, TreeNode *leftChild, TreeNode *rightChild)
+{
 		char wat[500];
 		nodeDataType left = nodeDataType(leftChild->getDataType(wat));
 		nodeDataType right = nodeDataType(rightChild->getDataType(wat));
@@ -1976,18 +1971,15 @@ TreeNode* createOperatorDataNode(OperatorType opType, TreeNode *leftChild, TreeN
 		{
 			if(left == FLOAT_TYPE_NODE && opType == MOD_OP)
 				yyerror("Invalid operands to %");
-			tmp->setTypeSpecifier(left);
+			return left;
 		}
 		else
 		{
 			if(opType == MOD_OP)
 				yyerror("Invalid operands to %");
-			tmp->setTypeSpecifier(DOUBLE_TYPE_NODE);
+			return DOUBLE_TYPE_NODE;
 		}
-		return tmp;
 }
-
-
 void outputReduction(const char *production)
 {	
 	//fprintf(out_log, "%s", s);

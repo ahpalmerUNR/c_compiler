@@ -41,7 +41,14 @@ enum OperatorType {
 	SUB_OP,
 	MULT_OP,
 	DIV_OP,
-	MOD_OP
+	MOD_OP,
+	EQ_OP,
+	NE_OP,
+	GT_OP,
+	GE_OP,
+	LT_OP,
+	LE_OP,
+	
 	};
 enum AssignType {
 	EQUAL_ASSIGN,
