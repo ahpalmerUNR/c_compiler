@@ -6,7 +6,7 @@
 class FunctionNode:public TreeNode
 {
 public:
-	FunctionNode(int TreeNodeNum, string TreeNodeProductionName, );
+	FunctionNode(int TreeNodeNum, string TreeNodeProductionName,int jumpticket1,int jumpticket2, int jumpticket3, int jumpticket4, int variableticket);
 	~FunctionNode();
 	
 	void traverse_to_file(FILE* fileout);
@@ -16,6 +16,12 @@ public:
 	
 protected:
 	vector<nodeDataType> freturnType;
+	int variableTick;
+	int jumpTick1;
+	int jumpTick2;
+	int jumpTick3;
+	int jumpTick4;
+	vector<vector<nodeDataType>> functionArgs;
 	
 };
 
