@@ -4,7 +4,7 @@
  * @brief Test that a simple function lookup works
  */
 
-void foo(int i);
-void foo(int i) {
+void foo(signed int, int);
+void foo(signed int i, int j) {
 	!!D
 }

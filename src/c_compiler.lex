@@ -42,6 +42,8 @@ extern clock_t clock_time;
 extern int* levels;
 
 string id;
+int idLine;
+int idCol;
 
 int send_token(char const* token_name,int token);
 void white();

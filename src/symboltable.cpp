@@ -7,6 +7,58 @@
 #include "symboltable.h"
 #include <stdio.h>
 
+string getDataType(nodeDataType type)
+{
+	switch (type) {
+		case INT_TYPE_NODE:
+			return("int");
+		case DOUBLE_TYPE_NODE:
+			return("double");
+		case CHAR_TYPE_NODE:
+			return("char");
+		case VOID_TYPE_NODE:
+			return("void");
+		case POINTER_TYPE_NODE:
+			return("*");
+		case SHORT_TYPE_NODE:
+			return("short");
+		case LONG_TYPE_NODE:
+			return("long");
+		case FLOAT_TYPE_NODE:
+			return("float");
+		case SIGNED_TYPE_NODE:
+			return("signed");
+		case UNSIGNED_TYPE_NODE:
+			return("unsigned");
+		case STRUCT_TYPE_NODE:
+			return("struct");
+		case UNION_TYPE_NODE:
+			return("union");
+		case ENUM_TYPE_NODE:
+			return("enum");
+		case TYPEDEF_NAME_TYPE_NODE:
+			return("typedef");
+		case CONST_TYPE_NODE:
+			return("const");
+		case VOLATILE_TYPE_NODE:
+			return("volatile");
+		case AUTO_TYPE_NODE:
+			return("auto");
+		case REGISTER_TYPE_NODE:
+			return("register");
+		case STATIC_TYPE_NODE:
+			return("static");
+		case EXTERN_TYPE_NODE:
+			return("extern");
+		case TYPEDEF_TYPE_NODE:
+			return("typedef");
+		case ID_TYPE_NODE:
+			return("id");
+		default:
+			return("ERROR");
+	}
+}
+
 Node::Node()
 {
 
@@ -16,13 +68,14 @@ Node::Node(const Node& n)
 {
 	lineNumber = n.lineNumber;
 	colNumber = n.colNumber;
-	for (const string type : n.types) {
+	for (const nodeDataType type : n.types) {
 		types.push_back(type);
 	}
+
 	ntype = n.ntype;
 	name = n.name;
-	for (const string param : n.params) {
-		params.push_back(param);
+	for (const vector<nodeDataType> paramVector : n.params) {
+		params.push_back(paramVector);
 	}
 }
 
@@ -30,14 +83,17 @@ void Node::print()
 {
 	cout << "line: " << lineNumber << " col: " << colNumber;
 	cout << " types: ";
-	for (const string type : types) {
-		cout << type << " ";
+	for (const nodeDataType type : types) {
+		cout << getDataType(type) << " ";
 	}
 	cout << "(node) key: " << name;
 	if (params.size()) {
 		cout << "Params: (";
-		for (const string param : params) {
-			cout << param << " ";
+		for (const vector<nodeDataType> paramVector : params) {
+			for (const nodeDataType param : paramVector) {
+				cout << getDataType(param) << " ";
+			}
+			cout << ", ";
 		}
 		cout << ")";
 	}
@@ -47,15 +103,19 @@ void Node::print()
 
 void Node::output(FILE* stream)
 {
-	fprintf(stream, "line: %d, col: %d, types: ", lineNumber, colNumber);
-	for (const string type : types) {
-		fprintf(stream, "%s ", type.c_str());
+	fprintf(stream, "Line: %d, Col: %d, Types: ", lineNumber, colNumber);
+	for (const nodeDataType type : types) {
+		fprintf(stream, "%s ", getDataType(type).c_str());
 	}
-	fprintf(stream, "(node) key: %s", name.c_str());
+	// If debugging -- to check if symTab and node keys line up.
+	// fprintf(stream, "(Node) Key: %s", name.c_str());
 	if (params.size()) {
 		fprintf(stream," Params: (");
-		for (const string param : params) {
-			fprintf(stream, "%s ", param.c_str());
+		for (const vector<nodeDataType> paramVector : params) {
+			for (const nodeDataType param : paramVector) {
+				fprintf(stream, "%s ", getDataType(param).c_str());
+			}
+			fprintf(stream, ", ");
 		}
 		fprintf(stream, ")");
 	}

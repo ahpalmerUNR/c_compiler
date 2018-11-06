@@ -3,6 +3,12 @@
   "editor.insertSpaces": false,
   "files.associations": {
     "*.lex": "lex",
-    "iostream": "cpp"
+    "iostream": "cpp",
+    "array": "cpp",
+    "istream": "cpp",
+    "ostream": "cpp",
+    "type_traits": "cpp",
+    "tuple": "cpp",
+    "utility": "cpp"
   },
 }

@@ -28,6 +28,35 @@ using namespace std;
 enum DataType {
 	INT_TYPE, FLOAT_TYPE, DOUBLE_TYPE, CHAR_TYPE, VOID_TYPE
 };
+
+enum nodeDataType { 
+	INT_TYPE_NODE,
+	DOUBLE_TYPE_NODE,
+	CHAR_TYPE_NODE,
+	VOID_TYPE_NODE,
+	POINTER_TYPE_NODE,
+	SHORT_TYPE_NODE,
+	LONG_TYPE_NODE,
+	FLOAT_TYPE_NODE,
+	SIGNED_TYPE_NODE,
+	UNSIGNED_TYPE_NODE,
+	STRUCT_TYPE_NODE,
+	UNION_TYPE_NODE,
+	ENUM_TYPE_NODE,
+	TYPEDEF_NAME_TYPE_NODE,
+	CONST_TYPE_NODE,
+	VOLATILE_TYPE_NODE,
+	STRING_TYPE_NODE,
+	AUTO_TYPE_NODE,
+	REGISTER_TYPE_NODE,
+	STATIC_TYPE_NODE,
+	EXTERN_TYPE_NODE,
+	TYPEDEF_TYPE_NODE,
+	ID_TYPE_NODE
+};
+
+string getDataType(nodeDataType);
+
 // To store if the declaration is Id, enum or, typedef
 enum NType{
 	ID, ENUMERATION_CONSTANT, TYPEDEF_NAME
@@ -43,11 +72,11 @@ struct Node {
 	int colNumber;
 	enum DataType type;
 	// Vector containing the types of the node
-	vector<string> types;
+	vector<nodeDataType> types;
 	int ntype = 1;
 	string name;
 	// Contains the params of node (if it is a function)
-	vector<string> params;
+	vector<vector<nodeDataType>> params;
 };
 class SymbolTable {
 

@@ -45,6 +45,9 @@
 	unique_ptr<Node> variableToInsert(new Node());
 	unique_ptr<Node> functionToInsert(new Node());
 
+	extern int column;
+	extern int line;
+
 	void outputReduction(const char *s);
 
 	void yyerror(char const *msg);
@@ -150,7 +153,6 @@
 	double ldoub;
 	class Node* lnode;
 	class TreeNode* tnode;
-	
 }
 
 %right THEN
@@ -185,6 +187,10 @@ external_declaration
 		if (functionToInsert->name != "") {
 			s.insert(functionToInsert->name, *functionToInsert);
 		}
+		functionToInsert.reset(new Node());
+		variableToInsert.reset(new Node());
+		variableToInsert->lineNumber = line;
+		variableToInsert->colNumber = column;
 		$<tnode>$ = $<tnode>1;
 		outputReduction("external_declaration : declaration");}
 	;
@@ -340,6 +346,8 @@ storage_class_specifier
 
 type_specifier
 	: VOID_tok {
+		variableToInsert->types.push_back(VOID_TYPE_NODE);
+
 		int ticket = Variable_counter;
 		DataNode* tmp = new DataNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),ticket);
 		++Variable_counter;
@@ -348,6 +356,8 @@ type_specifier
 		$<tnode>$ = tmp;
 		outputReduction("type_specifier : VOID_tok");}
 	| CHAR_tok {
+		variableToInsert->types.push_back(CHAR_TYPE_NODE);
+
 		int ticket = Variable_counter;
 		DataNode* tmp = new DataNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),ticket);
 		++Variable_counter;
@@ -356,6 +366,8 @@ type_specifier
 		$<tnode>$ = tmp;
 		outputReduction("type_specifier : CHAR_tok");}
 	| SHORT_tok { 
+		variableToInsert->types.push_back(SHORT_TYPE_NODE);
+
 		int ticket = Variable_counter;
 		DataNode* tmp = new DataNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),ticket);
 		++Variable_counter;
@@ -363,7 +375,9 @@ type_specifier
 		tmp->setTypeSpecifier(SHORT_TYPE_NODE);
 		$<tnode>$ = tmp;
 		outputReduction("type_specifier : SHORT_tok");}
-	| INT_tok { 
+	| INT_tok {
+		variableToInsert->types.push_back(INT_TYPE_NODE);
+
 		int ticket = Variable_counter;
 		DataNode* tmp = new DataNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),ticket);
 		++Variable_counter;
@@ -371,7 +385,9 @@ type_specifier
 		tmp->setTypeSpecifier(INT_TYPE_NODE);
 		$<tnode>$ = tmp;
 		outputReduction("type_specifier : INT_tok");}
-	| LONG_tok { 
+	| LONG_tok {
+		variableToInsert->types.push_back(LONG_TYPE_NODE);
+
 		int ticket = Variable_counter;
 		DataNode* tmp = new DataNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),ticket);
 		++Variable_counter;
@@ -379,7 +395,9 @@ type_specifier
 		tmp->setTypeSpecifier(LONG_TYPE_NODE);
 		$<tnode>$ = tmp;
 		outputReduction("type_specifier : LONG_tok");}
-	| FLOAT_tok { 
+	| FLOAT_tok {
+		variableToInsert->types.push_back(FLOAT_TYPE_NODE);
+
 		int ticket = Variable_counter;
 		DataNode* tmp = new DataNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),ticket);
 		++Variable_counter;
@@ -387,7 +405,9 @@ type_specifier
 		tmp->setTypeSpecifier(FLOAT_TYPE_NODE);
 		$<tnode>$ = tmp;
 		outputReduction("type_specifier : FLOAT_tok");}
-	| DOUBLE_tok { 
+	| DOUBLE_tok {
+		variableToInsert->types.push_back(DOUBLE_TYPE_NODE);
+
 		int ticket = Variable_counter;
 		DataNode* tmp = new DataNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),ticket);
 		++Variable_counter;
@@ -395,7 +415,9 @@ type_specifier
 		tmp->setTypeSpecifier(DOUBLE_TYPE_NODE);
 		$<tnode>$ = tmp;
 		outputReduction("type_specifier : DOUBLE_tok");}
-	| SIGNED_tok { 
+	| SIGNED_tok {
+		variableToInsert->types.push_back(SIGNED_TYPE_NODE);
+
 		int ticket = Variable_counter;
 		DataNode* tmp = new DataNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),ticket);
 		++Variable_counter;
@@ -403,7 +425,9 @@ type_specifier
 		tmp->setTypeSpecifier(SIGNED_TYPE_NODE);
 		$<tnode>$ = tmp;
 		outputReduction("type_specifier : SIGNED_tok");}
-	| UNSIGNED_tok { 
+	| UNSIGNED_tok {
+		variableToInsert->types.push_back(UNSIGNED_TYPE_NODE);
+
 		int ticket = Variable_counter;
 		DataNode* tmp = new DataNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),ticket);
 		++Variable_counter;
@@ -417,6 +441,8 @@ type_specifier
 		$<tnode>$ = $<tnode>1;
 		outputReduction("type_specifier : struct_or_union_specifier");}
 	| ENUM_tok { 
+		variableToInsert->types.push_back(ENUM_TYPE_NODE);
+
 		int ticket = Variable_counter;
 		DataNode* tmp = new DataNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),ticket);
 		++Variable_counter;
@@ -424,7 +450,9 @@ type_specifier
 		tmp->setTypeSpecifier(ENUM_TYPE_NODE);
 		$<tnode>$ = tmp;
 		outputReduction("type_specifier : ENUM_tok");}
-	| TYPEDEF_NAME_tok { 
+	| TYPEDEF_NAME_tok {
+		variableToInsert->types.push_back(TYPEDEF_TYPE_NODE);
+
 		int ticket = Variable_counter;
 		DataNode* tmp = new DataNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),ticket);
 		++Variable_counter;
@@ -438,6 +466,8 @@ type_specifier
 
 type_qualifier
 	: CONST_tok {
+		variableToInsert->types.push_back(CONST_TYPE_NODE);
+
 		int ticket = Variable_counter;
 		DataNode* tmp = new DataNode(AST_node_counter, "type_qualifier_"+to_string(AST_node_counter),ticket);
 		++Variable_counter;
@@ -446,6 +476,8 @@ type_qualifier
 		$<tnode>$ = tmp;
 		outputReduction("type_qualifier : CONST_tok");}
 	| VOLATILE_tok {
+		variableToInsert->types.push_back(VOLATILE_TYPE_NODE);
+
 		int ticket = Variable_counter;
 		DataNode* tmp = new DataNode(AST_node_counter, "type_qualifier_"+to_string(AST_node_counter),ticket);
 		++Variable_counter;
@@ -718,7 +750,10 @@ direct_declarator
 
 getTypes
 	:	{
-			
+			functionToInsert.reset(new Node(*variableToInsert));
+			variableToInsert.reset(new Node());
+			variableToInsert->lineNumber = line;
+			variableToInsert->colNumber = column;
 		}
 
 pointer
@@ -766,11 +801,15 @@ type_qualifier_list
 
 parameter_type_list
 	: push parameter_list {
-		// variableToInsert.reset(new Node());
+		variableToInsert.reset(new Node());
+		variableToInsert->lineNumber = line;
+		variableToInsert->colNumber = column;
 		$<tnode>$ = $<tnode>2;
 		outputReduction("parameter_type_list : parameter_list");}
 	| push parameter_list COMMA_tok ELIPSIS_tok {
-		// variableToInsert.reset(new Node());
+		variableToInsert.reset(new Node());
+		variableToInsert->lineNumber = line;
+		variableToInsert->colNumber = column;
 		TreeNode* tmp = new TreeNode(AST_node_counter, "parameter_type_list_"+to_string(AST_node_counter),1);
 		++AST_node_counter;
 		tmp->assignChild(0,$<tnode>2);
@@ -793,7 +832,11 @@ parameter_list
 
 parameter_declaration
 	: declaration_specifiers declarator {
-		// variableToInsert.reset(new Node());
+		functionToInsert->params.push_back(variableToInsert->types);
+
+		variableToInsert.reset(new Node());
+		variableToInsert->lineNumber = line;
+		variableToInsert->colNumber = column;
 		popTwice = true;
 
 		TreeNode* tmp = new TreeNode(AST_node_counter, "parameter_declaration_"+to_string(AST_node_counter),2);
@@ -803,11 +846,17 @@ parameter_declaration
 		$<tnode>$ = tmp;
 		outputReduction("parameter_declaration : declaration_specifiers declarator");}
 	| declaration_specifiers {
-		popAtEndOfStatement = true; // I don't know about this...
+		functionToInsert->params.push_back(variableToInsert->types);
+		popAtEndOfStatement = true;
+		variableToInsert.reset(new Node());
+		variableToInsert->lineNumber = line;
+		variableToInsert->colNumber = column;
 
 		$<tnode>$ = $<tnode>1;
 		outputReduction("parameter_declaration : declaration_specifiers");}
 	| declaration_specifiers abstract_declarator {
+		functionToInsert->params.push_back(variableToInsert->types);
+
 		TreeNode* tmp = new TreeNode(AST_node_counter, "parameter_declaration_"+to_string(AST_node_counter),2);
 		++AST_node_counter;
 		tmp->assignChild(0,$<tnode>1);
@@ -1802,6 +1851,8 @@ string
 identifier
 	: ID_tok {
 		variableToInsert->name = id;
+		variableToInsert->lineNumber = line;
+		variableToInsert->colNumber = column;
 
 		int ticket = Variable_counter;
 		DataNode* tmp = new DataNode(AST_node_counter, "identifier_"+to_string(AST_node_counter),ticket);
@@ -1817,7 +1868,6 @@ identifier
 %%
 
 #include <stdio.h>
-//#include "symboltable.h"
 int lex_debug_level;
 int symbol_table_debug;
 int yacc_debug_level;
@@ -1825,13 +1875,9 @@ int c_line_lex_debug_level;
 int c_line_symbol_table_debug;
 int c_line_yacc_debug_level;
 
-//SymbolTable s;
 SymbolTable astTable;
 //logName = "compilerLog.txt";
 
-
-extern int column;
-extern int line;
 extern FILE* yyin;
 
 
@@ -2001,20 +2047,6 @@ int main(int argc, char **argv)
 	fclose(tokenFile);
 	return 0;	
 }
-
-//int main(int argc, char **argv)
-//{
-//	if(argc >=2)
-//	{
-//		if (atoi(argv[1])>=1){
-//			yydebug = atoi(argv[1]);
-//			printf("Debug level set %d\n",yydebug);
-//		}
-//	}
-//	
-//	yyparse();
-//	return 0;
-//}
 
 void yyerror(char const *msg)
 {
