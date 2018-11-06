@@ -13,6 +13,7 @@
 	#include "../src/tree/operatorNode.h"
 	#include "../src/tree/assignmentNode.h"
 	#include "../src/tree/relationNode.h"
+	#include "../src/tree/castNode.h"
 
 	#define MAX_LINE_LENGTH 500
 	FILE *out_log;
@@ -1498,11 +1499,11 @@ cast_expression
 		$<tnode>$ = $<tnode>1;
 		outputReduction("cast_expression : unary_expression");}
 	| OPEN_PAREN_tok type_name CLOSE_PAREN_tok cast_expression {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "cast_expression_"+to_string(AST_node_counter),2);
+		CastNode *tmp = new CastNode(AST_node_counter, "cast_expression" + to_string(AST_node_counter),Variable_counter);
 		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>2);
-		tmp->assignChild(1,$<tnode>4);
-		$<tnode>$ = tmp;
+		++Variable_counter;
+		tmp->assignChild(0,$<tnode>4);
+		$<tnode>$ = tmp; 
 		outputReduction("cast_expression : OPEN_PAREN_tok type_name CLOSE_PAREN_tok cast_expression");}
 	;
 
@@ -1969,15 +1970,48 @@ nodeDataType typeCheck(OperatorType opType, TreeNode *leftChild, TreeNode *right
 		nodeDataType right = nodeDataType(rightChild->getDataType(wat));
 		if(left == right)
 		{
-			if(left == FLOAT_TYPE_NODE && opType == MOD_OP)
+			if(left == DOUBLE_TYPE_NODE && opType == MOD_OP)
 				yyerror("Invalid operands to %");
 			return left;
 		}
 		else
 		{
-			if(opType == MOD_OP)
+
+			CastNode *tmp = new CastNode(AST_node_counter, "implicit_cast_"+to_string(AST_node_counter), Variable_counter);
+			++Variable_counter;
+			++AST_node_counter;
+			if(opType == MOD_OP && (left == DOUBLE_TYPE_NODE || right == DOUBLE_TYPE_NODE))
+			{
 				yyerror("Invalid operands to %");
-			return DOUBLE_TYPE_NODE;
+			}
+			if(left == DOUBLE_TYPE_NODE)
+			{
+				tmp->setTypeSpecifier(DOUBLE_TYPE_NODE);
+				tmp->assignChild(0,rightChild);
+				rightChild = tmp;
+				return left;
+			}
+			else if(right == DOUBLE_TYPE_NODE)
+			{
+				tmp->setTypeSpecifier(DOUBLE_TYPE_NODE);
+				tmp->assignChild(0,t);
+				leftChild = tmp;
+				return right;
+			}
+			else if(left == INT_TYPE_NODE)
+			{
+				tmp->setTypeSpecifier(INT_TYPE_NODE);
+				tmp->assignChild(0,rightChild);	
+				rightChild = tmp;		
+				return left;
+			}
+			else if(right == INT_TYPE_NODE)
+			{
+				tmp->setTypeSpecifier(INT_TYPE_NODE);
+				tmp->assignChild(0,leftChild);
+				leftChild = tmp;
+				return right;
+			}
 		}
 }
 void outputReduction(const char *production)

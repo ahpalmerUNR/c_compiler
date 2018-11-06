@@ -1,61 +1,24 @@
 digraph AST {
-	translation_unit_35 -> function_definition_34;
-	function_definition_34 -> type_specifier_0;
+	translation_unit_14 -> function_definition_13;
+	function_definition_13 -> type_specifier_0;
 	type_specifier_0 [label="int"]
-	function_definition_34 -> direct_declarator_2;
+	function_definition_13 -> direct_declarator_2;
 	direct_declarator_2 -> identifier_1;
 	identifier_1 [label="ID: main"]
-	function_definition_34 -> compound_statement_33;
-	compound_statement_33 -> declaration_list_27;
-	declaration_list_27 -> declaration_list_11;
-	declaration_list_11 -> declaration_7;
-	declaration_7 -> declaration_specifiers_5;
-	declaration_specifiers_5 -> type_specifier_3;
-	type_specifier_3 [label="long"]
-	declaration_specifiers_5 -> type_specifier_4;
-	type_specifier_4 [label="int"]
-	declaration_7 -> identifier_6;
-	identifier_6 [label="ID: j"]
-	declaration_list_11 -> declaration_10;
-	declaration_10 -> type_specifier_8;
-	type_specifier_8 [label="int"]
-	declaration_10 -> identifier_9;
-	identifier_9 [label="ID: k"]
-	declaration_list_27 -> declaration_26;
-	declaration_26 -> type_specifier_12;
-	type_specifier_12 [label="int"]
-	declaration_26 -> init_declarator_25;
-	init_declarator_25 -> identifier_13;
-	identifier_13 [label="ID: i"]
-	init_declarator_25 -> unary_expression_24;
-	unary_expression_24 [label="Float:  Left - Right"]
-	unary_expression_24 -> unary_expression_18;
-	unary_expression_18 [label="Float:  Left + Right"]
-	unary_expression_18 -> constant_14;
-	constant_14 [label="Int: 4"]
-	unary_expression_18 -> unary_expression_17;
-	unary_expression_17 [label="Float:  Left * Right"]
-	unary_expression_17 -> constant_15;
-	constant_15 [label="Int: 5"]
-	unary_expression_17 -> constant_16;
-	constant_16 [label="Float: 3.500000"]
-	unary_expression_24 -> unary_expression_23;
-	unary_expression_23 [label="Int:  Left % Right"]
-	unary_expression_23 -> unary_expression_21;
-	unary_expression_21 [label="Int:  Left / Right"]
-	unary_expression_21 -> constant_19;
-	constant_19 [label="Int: 2"]
-	unary_expression_21 -> constant_20;
-	constant_20 [label="Int: 5"]
-	unary_expression_23 -> constant_22;
-	constant_22 [label="Int: 3"]
-	compound_statement_33 -> selection_statement_32;
-	selection_statement_32 [shape=diamond,color=green,label="if"]
-	selection_statement_32 -> equality_expression_30;
-	equality_expression_30 [label="Float:  Left == Right"]
-	equality_expression_30 -> constant_28;
-	constant_28 [label="Float: 5.050000"]
-	equality_expression_30 -> constant_29;
-	constant_29 [label="Float: 5.050000"]
-	selection_statement_32 -> compound_statement_31;
+	function_definition_13 -> compound_statement_12;
+	compound_statement_12 -> declaration_5;
+	declaration_5 -> type_specifier_3;
+	type_specifier_3 [label="int"]
+	declaration_5 -> identifier_4;
+	identifier_4 [label="ID: i"]
+	compound_statement_12 -> assignment_expression_11;
+	assignment_expression_11 [label="Int:  Left = Right"]
+	assignment_expression_11 -> identifier_6;
+	identifier_6 [label="ID: i"]
+	assignment_expression_11 -> unary_expression_9;
+	unary_expression_9 [label="Float:  Left + Right"]
+	unary_expression_9 -> constant_7;
+	constant_7 [label="Int: 1"]
+	unary_expression_9 -> constant_8;
+	constant_8 [label="Float: 5.000000"]
 }
