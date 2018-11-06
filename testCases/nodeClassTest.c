@@ -1,6 +1,9 @@
 int main()
 {
 	int i;
+	i++;
+	++i;
+	i(2,3,4);
 	switch(1)
 	{
 		case 2:

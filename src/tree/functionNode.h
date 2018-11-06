@@ -22,6 +22,7 @@ protected:
 	int jumpTick3;
 	int jumpTick4;
 	vector<vector<nodeDataType>> functionArgs;
+	string functName;
 	
 };
 
