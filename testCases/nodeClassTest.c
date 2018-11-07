@@ -1,3 +1,5 @@
+printc(){}
+
 int main()
 {
 	int i;

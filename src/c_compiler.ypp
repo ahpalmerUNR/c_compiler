@@ -15,6 +15,7 @@
 	#include "../src/tree/assignmentNode.h"
 	#include "../src/tree/relationNode.h"
 	#include "../src/tree/castNode.h"
+	#include "../src/tree/functionNode.h"
 
 	#define MAX_LINE_LENGTH 500
 	FILE *out_log;
@@ -209,35 +210,59 @@ external_declaration
 
 function_definition
 	: declarator compound_statement {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "function_definition_"+to_string(AST_node_counter),2);
+		int ticket = Variable_counter;
+		++Variable_counter;
+		EmptyNode* blank1 = new EmptyNode(AST_node_counter,"empty_"+to_string(AST_node_counter));
 		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>1);
-		tmp->assignChild(1,$<tnode>2);
+		EmptyNode* blank2 = new EmptyNode(AST_node_counter,"empty_"+to_string(AST_node_counter));
+		++AST_node_counter;
+		FunctionNode* tmp = new FunctionNode(AST_node_counter, "function_definition_"+to_string(AST_node_counter),ticket);
+		++AST_node_counter;
+		tmp->assignChild(0,blank1);
+		tmp->assignChild(1,$<tnode>1);
+		tmp->assignChild(2,blank2);
+		tmp->assignChild(3,$<tnode>2);
+		tmp->errorCheck();
 		$<tnode>$ = tmp;
 		outputReduction("function_definition : declarator compound_statement");}
 	| declarator   declaration_list {insert_lookup=1;}  compound_statement {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "function_definition_"+to_string(AST_node_counter),3);
+		int ticket = Variable_counter;
+		++Variable_counter;
+		EmptyNode* blank1 = new EmptyNode(AST_node_counter,"empty_"+to_string(AST_node_counter));
 		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>1);
-		tmp->assignChild(1,$<tnode>2);
-		tmp->assignChild(2,$<tnode>4);
+		FunctionNode* tmp = new FunctionNode(AST_node_counter, "function_definition_"+to_string(AST_node_counter),ticket);
+		++AST_node_counter;
+		tmp->assignChild(0,blank1);
+		tmp->assignChild(1,$<tnode>1);
+		tmp->assignChild(2,$<tnode>2);
+		tmp->assignChild(3,$<tnode>4);
+		tmp->errorCheck();
 		$<tnode>$ = tmp;
 		outputReduction("function_definition : declarator declaration_list compound_statement");}
 	| declaration_specifiers declarator compound_statement {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "function_definition_"+to_string(AST_node_counter),3);
+		int ticket = Variable_counter;
+		++Variable_counter;
+		EmptyNode* blank1 = new EmptyNode(AST_node_counter,"empty_"+to_string(AST_node_counter));
+		++AST_node_counter;
+		FunctionNode* tmp = new FunctionNode(AST_node_counter, "function_definition_"+to_string(AST_node_counter),ticket);
 		++AST_node_counter;
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>2);
-		tmp->assignChild(2,$<tnode>3);
+		tmp->assignChild(2,blank1);
+		tmp->assignChild(3,$<tnode>3);
+		tmp->errorCheck();
 		$<tnode>$ = tmp;
 		outputReduction("function_definition : declaration_specifiers declarator compound_statement");}
 	| declaration_specifiers declarator   declaration_list {insert_lookup=1;} compound_statement {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "function_definition_"+to_string(AST_node_counter),4);
+		int ticket = Variable_counter;
+		++Variable_counter;
+		FunctionNode* tmp = new FunctionNode(AST_node_counter, "function_definition_"+to_string(AST_node_counter),ticket);
 		++AST_node_counter;
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>2);
 		tmp->assignChild(2,$<tnode>3);
 		tmp->assignChild(3,$<tnode>5);
+		tmp->errorCheck();
 		$<tnode>$ = tmp;
 		outputReduction("function_definition : declaration_specifiers declarator declaration_list compound_statement");}
 	;
@@ -734,7 +759,7 @@ direct_declarator
 		TreeNode* tmp = new TreeNode(AST_node_counter, "direct_declarator_"+to_string(AST_node_counter),1);
 		++AST_node_counter;
 		tmp->assignChild(0,$<tnode>1);
-		$<tnode>$ = tmp;
+		$<tnode>$ = $<tnode>1;
 		outputReduction("direct_declarator : direct_declarator OPEN_PAREN_tok CLOSE_PAREN_tok");}
 	| direct_declarator getTypes OPEN_PAREN_tok parameter_type_list CLOSE_PAREN_tok {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "direct_declarator_"+to_string(AST_node_counter),2);
@@ -1819,6 +1844,7 @@ identifier
 		int ticket = Variable_counter;
 		DataNode* tmp = new DataNode(AST_node_counter, "identifier_"+to_string(AST_node_counter),ticket);
 		if (yylval.lnode != NULL) {
+			printf("%s\n",yylval.lnode->name.c_str());
 			tmp->storeString((char*)yylval.lnode->name.c_str());
 			tmp->setTypeSpecifier(ID_TYPE_NODE);
 		}

@@ -52,7 +52,8 @@ enum nodeDataType {
 	STATIC_TYPE_NODE,
 	EXTERN_TYPE_NODE,
 	TYPEDEF_TYPE_NODE,
-	ID_TYPE_NODE
+	ID_TYPE_NODE,
+	EMPTY_TYPE_NODE
 };
 
 string getDataType(nodeDataType);

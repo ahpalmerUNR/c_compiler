@@ -10,6 +10,7 @@
 using namespace std;
 
 extern SymbolTable astTable;
+extern void yyerror(char const * msg);
 
 
 enum OperatorType {

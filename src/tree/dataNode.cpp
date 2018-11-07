@@ -9,7 +9,10 @@ DataNode::DataNode(int nodeNumber, string nodeName, int ticket) : TreeNode(nodeN
 
 DataNode::~DataNode()
 {
-
+ if (dType == ID_TYPE_NODE || dType == STRING_TYPE_NODE)
+ {
+ 	delete data.dstr;
+ }
 }
 
 void DataNode::traverse_to_file(FILE* fileout) 
@@ -195,7 +198,8 @@ void DataNode::storeDouble(double d)
 }
 void DataNode::storeString(char *s)
 {
-	data.dstr = s;
+	data.dstr = new char [500];
+	snprintf(data.dstr,500,"%s",s);
 	dType = STRING_TYPE_NODE;
 	isData = true;
 }
@@ -233,7 +237,8 @@ int DataNode::getDataType(char * representation)
 				snprintf(representation, 500,"%s",data.dstr);
 				break;
 			case ID_TYPE_NODE:
-				snprintf(representation, 500,"%s",data.dstr);	
+				snprintf(representation, 500,"%s",data.dstr);
+				printf("%s\n", data.dstr);	
 		}
 	}
 	return dType;
