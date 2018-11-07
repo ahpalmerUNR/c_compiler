@@ -663,6 +663,7 @@ int id_token()
 		{
 			print_error("Variable not declared in this scope.");
 			return(send_token("ERROR_tok",ERROR_tok));
+
 		}
 		else if(pointsTo->ntype == 1)
 		{
@@ -697,7 +698,6 @@ int id_token()
 		//printf("\n\nID NOT FOUND AND NOW ADDING\n");
 		
 		id = yytext;
-		id += '\0';
 		
 		yylval.lnode = variableToInsert.get();
 		variableToInsert->name = id;

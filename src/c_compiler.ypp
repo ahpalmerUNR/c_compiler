@@ -750,6 +750,7 @@ getTypes
 
 pointer
 	: STAR_tok {
+		variableToInsert->types.push_back(POINTER_TYPE_NODE);
 		int ticket = Variable_counter;
 		DataNode* tmp = new DataNode(AST_node_counter, "pointer_"+to_string(AST_node_counter),ticket);
 		++Variable_counter;
@@ -758,18 +759,24 @@ pointer
 		$<tnode>$ = tmp;
 		outputReduction("pointer : STAR_tok");}
 	| STAR_tok type_qualifier_list {
+		variableToInsert->types.push_back(POINTER_TYPE_NODE);
+
 		TreeNode* tmp = new TreeNode(AST_node_counter, "pointer_"+to_string(AST_node_counter),1);
 		++AST_node_counter;
 		tmp->assignChild(0,$<tnode>2);
 		$<tnode>$ = tmp;
 		outputReduction("pointer : STAR_tok type_qualifier_list");}
 	| STAR_tok pointer {
+		variableToInsert->types.push_back(POINTER_TYPE_NODE);
+
 		TreeNode* tmp = new TreeNode(AST_node_counter, "pointer_"+to_string(AST_node_counter),1);
 		++AST_node_counter;
 		tmp->assignChild(0,$<tnode>2);
 		$<tnode>$ = tmp;
 		outputReduction("pointer : STAR_tok pointer");}
 	| STAR_tok type_qualifier_list pointer {
+		variableToInsert->types.push_back(POINTER_TYPE_NODE);
+
 		TreeNode* tmp = new TreeNode(AST_node_counter, "pointer_"+to_string(AST_node_counter),2);
 		++AST_node_counter;
 		tmp->assignChild(0,$<tnode>2);
