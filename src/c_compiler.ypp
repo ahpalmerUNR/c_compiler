@@ -1356,13 +1356,13 @@ expression
 		outputReduction("expression : assignment_expression");}
 	| expression COMMA_tok assignment_expression {
 		DataNode* tmp = new DataNode(AST_node_counter, "expresion_"+to_string(AST_node_counter),$<tnode>3->returnTicket());
-		tmp->setOperator(COMMA_op);
+		tmp->setOperator(COMMA_OP);
 		tmp->notData();
 		tmp->setNumberChildren(2);
 		++AST_node_counter;
 		tmp->setTypeSpecifier(typeCheck(COMMA_OP, $<tnode>1, $<tnode>3));
-		tmp->assignChild(0, leftChild);
-		tmp->assignChild(1, rightChild);
+		tmp->assignChild(0, $<tnode>1);
+		tmp->assignChild(1, $<tnode>3);
 		outputReduction("expression : expression COMMA_tok assignment_expression");}
 	;
 
@@ -1425,7 +1425,7 @@ conditional_expression
 		$<tnode>$ = $<tnode>1;
 		outputReduction("conditional_expression : logical_or_expression");}
 	| logical_or_expression QUESTION_MARK_tok expression COLON_tok conditional_expression {
-		DataNode* tmp = new TreeNode(AST_node_counter, "conditional_expression_"+to_string(AST_node_counter),Variable_counter);
+		DataNode* tmp = new DataNode(AST_node_counter, "conditional_expression_"+to_string(AST_node_counter),Variable_counter);
 		++AST_node_counter;
 		++Variable_counter;
 		tmp->setOperator(QUESTION_OP);
@@ -1449,7 +1449,7 @@ logical_or_expression
 		$<tnode>$ = $<tnode>1;
 		outputReduction("logical_or_expression : logical_and_expression");}
 	| logical_or_expression OR_OP_tok logical_and_expression {
-		DataNode* tmp = new TreeNode(AST_node_counter, "conditional_expression_"+to_string(AST_node_counter),Variable_counter);
+		DataNode* tmp = new DataNode(AST_node_counter, "conditional_expression_"+to_string(AST_node_counter),Variable_counter);
 		++AST_node_counter;
 		++Variable_counter;
 		tmp->setOperator(OR_OP);
@@ -1466,7 +1466,7 @@ logical_and_expression
 		$<tnode>$ = $<tnode>1;
 		outputReduction("logical_and_expression : inclusive_or_expression");}
 	| logical_and_expression AND_OP_tok inclusive_or_expression {
-		DataNode* tmp = new TreeNode(AST_node_counter, "conditional_expression_"+to_string(AST_node_counter),Variable_counter);
+		DataNode* tmp = new DataNode(AST_node_counter, "conditional_expression_"+to_string(AST_node_counter),Variable_counter);
 		++AST_node_counter;
 		++Variable_counter;
 		tmp->setOperator(AND_OP);
@@ -1483,7 +1483,7 @@ inclusive_or_expression
 		$<tnode>$ = $<tnode>1;
 		outputReduction("inclusive_or_expression : exclusive_or_expression");}
 	| inclusive_or_expression BAR_tok exclusive_or_expression {
-		DataNode* tmp = new TreeNode(AST_node_counter, "conditional_expression_"+to_string(AST_node_counter),Variable_counter);
+		DataNode* tmp = new DataNode(AST_node_counter, "conditional_expression_"+to_string(AST_node_counter),Variable_counter);
 		++AST_node_counter;
 		++Variable_counter;
 		tmp->setOperator(BAR_OP);
@@ -1500,7 +1500,7 @@ exclusive_or_expression
 		$<tnode>$ = $<tnode>1;
 		outputReduction("exclusive_or_expression : and_expression ");}
 	| exclusive_or_expression CARET_tok and_expression {
-		DataNode* tmp = new TreeNode(AST_node_counter, "conditional_expression_"+to_string(AST_node_counter),Variable_counter);
+		DataNode* tmp = new DataNode(AST_node_counter, "conditional_expression_"+to_string(AST_node_counter),Variable_counter);
 		++AST_node_counter;
 		++Variable_counter;
 		tmp->setOperator(CARET_OP);
@@ -1517,7 +1517,7 @@ and_expression
 		$<tnode>$ = $<tnode>1;
 		outputReduction("and_expression : equality_expression");}
 	| and_expression AMP_tok equality_expression {
-		DataNode* tmp = new TreeNode(AST_node_counter, "conditional_expression_"+to_string(AST_node_counter),Variable_counter);
+		DataNode* tmp = new DataNode(AST_node_counter, "conditional_expression_"+to_string(AST_node_counter),Variable_counter);
 		++AST_node_counter;
 		++Variable_counter;
 		tmp->setOperator(AMP_OP);
@@ -2091,7 +2091,7 @@ nodeDataType typeCheck(OperatorType opType, TreeNode *leftChild, TreeNode *right
 			else if(right == DOUBLE_TYPE_NODE)
 			{
 				tmp->setTypeSpecifier(DOUBLE_TYPE_NODE);
-				tmp->assignChild(0,t);
+				tmp->assignChild(0,leftChild);
 				leftChild = tmp;
 				return right;
 			}
