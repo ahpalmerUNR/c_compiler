@@ -30,6 +30,7 @@ public:
 	int getDataType(char * representation);//representation returned uses max buffer 500 characters.
 	void notData();
 	void setNumberChildren(int);
+	void setSymbolNode(Node *n);
 protected:
 
 	int ticketNumber;
@@ -38,7 +39,7 @@ protected:
 	Data data;
 	bool isData;
 	bool isOperatorNode;
-
+	Node *symbolTableNode;
 };
 
 #endif

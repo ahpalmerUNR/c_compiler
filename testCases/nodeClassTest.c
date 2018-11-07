@@ -1,6 +1,11 @@
+printc(){}
+
 int main()
 {
 	int i;
+	i++;
+	++i;
+	i(2,3,4);
 	switch(1)
 	{
 		case 2:
@@ -8,7 +13,7 @@ int main()
 	}
 	if (1)
 	{
-		i = 3;
+		i = i + 3;
 	}
 	if(i)
 	{
