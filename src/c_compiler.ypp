@@ -1,8 +1,9 @@
 %{
-	#include "../src/symboltable.h"	
 	#include <time.h>
 	#include <stdio.h>
 	#include <stdlib.h>
+	#include <memory>
+	#include "../src/symboltable.h"	
 	#include "../src/tree/tree.h"
 	#include "../src/tree/labelNode.h"
 	#include "../src/tree/emptyNode.h"
@@ -14,6 +15,7 @@
 	#include "../src/tree/assignmentNode.h"
 	#include "../src/tree/relationNode.h"
 	#include "../src/tree/castNode.h"
+	#include "../src/tree/functionNode.h"
 
 	#define MAX_LINE_LENGTH 500
 	FILE *out_log;
@@ -32,8 +34,7 @@
 	 * SymbolTable and variables to manipulate the insertion to symbol table
 	 */
 	SymbolTable s;
-	bool popAtEndOfStatement = false;
-
+	bool pushedParamsIntoSymTab = false;
 
 	int levels[5];
 
@@ -43,6 +44,12 @@
 	int AST_node_counter;
 	int Label_counter;
 	int Variable_counter;
+
+	unique_ptr<Node> variableToInsert(new Node());
+	unique_ptr<Node> functionToInsert(new Node());
+
+	extern int column;
+	extern int line;
 
 	void outputReduction(const char *s);
 
@@ -154,8 +161,9 @@
 	double ldoub;
 	class Node* lnode;
 	class TreeNode* tnode;
+
 	int aType;
-	
+
 }
 
 %right THEN
@@ -184,56 +192,97 @@ translation_unit
 
 external_declaration
 	: function_definition {
+		if (pushedParamsIntoSymTab) {
+			s.popBST();
+			pushedParamsIntoSymTab = false;
+		}
 		$<tnode>$ = $<tnode>1;
 		outputReduction("external_declaration : function_definition");}
-	|  declaration {
+	| declaration {
+		if (insert_lookup == 0) {
+			if (functionToInsert->name != "") {
+				s.insert(functionToInsert->name, *functionToInsert);
+			}
+		}
+		functionToInsert.reset(new Node());
 		$<tnode>$ = $<tnode>1;
 		outputReduction("external_declaration : declaration");}
 	;
 
 function_definition
 	: declarator compound_statement {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "function_definition_"+to_string(AST_node_counter),2);
+		int ticket = Variable_counter;
+		++Variable_counter;
+		EmptyNode* blank1 = new EmptyNode(AST_node_counter,"empty_"+to_string(AST_node_counter));
 		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>1);
-		tmp->assignChild(1,$<tnode>2);
+		EmptyNode* blank2 = new EmptyNode(AST_node_counter,"empty_"+to_string(AST_node_counter));
+		++AST_node_counter;
+		FunctionNode* tmp = new FunctionNode(AST_node_counter, "function_definition_"+to_string(AST_node_counter),ticket);
+		++AST_node_counter;
+		tmp->assignChild(0,blank1);
+		tmp->assignChild(1,$<tnode>1);
+		tmp->assignChild(2,blank2);
+		tmp->assignChild(3,$<tnode>2);
+		tmp->errorCheck();
 		$<tnode>$ = tmp;
 		outputReduction("function_definition : declarator compound_statement");}
 	| declarator   declaration_list {insert_lookup=1;}  compound_statement {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "function_definition_"+to_string(AST_node_counter),3);
+		int ticket = Variable_counter;
+		++Variable_counter;
+		EmptyNode* blank1 = new EmptyNode(AST_node_counter,"empty_"+to_string(AST_node_counter));
 		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>1);
-		tmp->assignChild(1,$<tnode>2);
-		tmp->assignChild(2,$<tnode>4);
+		FunctionNode* tmp = new FunctionNode(AST_node_counter, "function_definition_"+to_string(AST_node_counter),ticket);
+		++AST_node_counter;
+		tmp->assignChild(0,blank1);
+		tmp->assignChild(1,$<tnode>1);
+		tmp->assignChild(2,$<tnode>2);
+		tmp->assignChild(3,$<tnode>4);
+		tmp->errorCheck();
 		$<tnode>$ = tmp;
 		outputReduction("function_definition : declarator declaration_list compound_statement");}
 	| declaration_specifiers declarator compound_statement {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "function_definition_"+to_string(AST_node_counter),3);
+		int ticket = Variable_counter;
+		++Variable_counter;
+		EmptyNode* blank1 = new EmptyNode(AST_node_counter,"empty_"+to_string(AST_node_counter));
+		++AST_node_counter;
+		FunctionNode* tmp = new FunctionNode(AST_node_counter, "function_definition_"+to_string(AST_node_counter),ticket);
 		++AST_node_counter;
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>2);
-		tmp->assignChild(2,$<tnode>3);
+		tmp->assignChild(2,blank1);
+		tmp->assignChild(3,$<tnode>3);
+		tmp->errorCheck();
 		$<tnode>$ = tmp;
 		outputReduction("function_definition : declaration_specifiers declarator compound_statement");}
 	| declaration_specifiers declarator   declaration_list {insert_lookup=1;} compound_statement {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "function_definition_"+to_string(AST_node_counter),4);
+		int ticket = Variable_counter;
+		++Variable_counter;
+		FunctionNode* tmp = new FunctionNode(AST_node_counter, "function_definition_"+to_string(AST_node_counter),ticket);
 		++AST_node_counter;
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>2);
 		tmp->assignChild(2,$<tnode>3);
 		tmp->assignChild(3,$<tnode>5);
+		tmp->errorCheck();
 		$<tnode>$ = tmp;
 		outputReduction("function_definition : declaration_specifiers declarator declaration_list compound_statement");}
 	;
 
 declaration
 	: declaration_specifiers SEMI_tok {
+
 		TreeNode* tmp = new TreeNode(AST_node_counter, "declaration_"+to_string(AST_node_counter),1);
 		++AST_node_counter;
 		tmp->assignChild(0,$<tnode>1);
 		$<tnode>$ = tmp;
 		outputReduction("declaration : declaration_specifiers SEMI_tok");}
 	| declaration_specifiers init_declarator_list SEMI_tok {
+		if (insert_lookup == 0) {
+			if (variableToInsert->name != "") {
+				s.insert(variableToInsert->name, *variableToInsert);
+			}
+		}
+
 		TreeNode* tmp = new TreeNode(AST_node_counter, "declaration_"+to_string(AST_node_counter),2);
 		++AST_node_counter;
 		tmp->assignChild(0,$<tnode>1);
@@ -332,6 +381,8 @@ storage_class_specifier
 
 type_specifier
 	: VOID_tok {
+		variableToInsert->types.push_back(VOID_TYPE_NODE);
+
 		int ticket = Variable_counter;
 		DataNode* tmp = new DataNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),ticket);
 		++Variable_counter;
@@ -340,6 +391,8 @@ type_specifier
 		$<tnode>$ = tmp;
 		outputReduction("type_specifier : VOID_tok");}
 	| CHAR_tok {
+		variableToInsert->types.push_back(CHAR_TYPE_NODE);
+
 		int ticket = Variable_counter;
 		DataNode* tmp = new DataNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),ticket);
 		++Variable_counter;
@@ -348,6 +401,8 @@ type_specifier
 		$<tnode>$ = tmp;
 		outputReduction("type_specifier : CHAR_tok");}
 	| SHORT_tok { 
+		variableToInsert->types.push_back(SHORT_TYPE_NODE);
+
 		int ticket = Variable_counter;
 		DataNode* tmp = new DataNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),ticket);
 		++Variable_counter;
@@ -355,7 +410,9 @@ type_specifier
 		tmp->setTypeSpecifier(SHORT_TYPE_NODE);
 		$<tnode>$ = tmp;
 		outputReduction("type_specifier : SHORT_tok");}
-	| INT_tok { 
+	| INT_tok {
+		variableToInsert->types.push_back(INT_TYPE_NODE);
+
 		int ticket = Variable_counter;
 		DataNode* tmp = new DataNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),ticket);
 		++Variable_counter;
@@ -363,7 +420,9 @@ type_specifier
 		tmp->setTypeSpecifier(INT_TYPE_NODE);
 		$<tnode>$ = tmp;
 		outputReduction("type_specifier : INT_tok");}
-	| LONG_tok { 
+	| LONG_tok {
+		variableToInsert->types.push_back(LONG_TYPE_NODE);
+
 		int ticket = Variable_counter;
 		DataNode* tmp = new DataNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),ticket);
 		++Variable_counter;
@@ -371,7 +430,9 @@ type_specifier
 		tmp->setTypeSpecifier(LONG_TYPE_NODE);
 		$<tnode>$ = tmp;
 		outputReduction("type_specifier : LONG_tok");}
-	| FLOAT_tok { 
+	| FLOAT_tok {
+		variableToInsert->types.push_back(FLOAT_TYPE_NODE);
+
 		int ticket = Variable_counter;
 		DataNode* tmp = new DataNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),ticket);
 		++Variable_counter;
@@ -379,7 +440,9 @@ type_specifier
 		tmp->setTypeSpecifier(FLOAT_TYPE_NODE);
 		$<tnode>$ = tmp;
 		outputReduction("type_specifier : FLOAT_tok");}
-	| DOUBLE_tok { 
+	| DOUBLE_tok {
+		variableToInsert->types.push_back(DOUBLE_TYPE_NODE);
+
 		int ticket = Variable_counter;
 		DataNode* tmp = new DataNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),ticket);
 		++Variable_counter;
@@ -387,7 +450,9 @@ type_specifier
 		tmp->setTypeSpecifier(DOUBLE_TYPE_NODE);
 		$<tnode>$ = tmp;
 		outputReduction("type_specifier : DOUBLE_tok");}
-	| SIGNED_tok { 
+	| SIGNED_tok {
+		variableToInsert->types.push_back(SIGNED_TYPE_NODE);
+
 		int ticket = Variable_counter;
 		DataNode* tmp = new DataNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),ticket);
 		++Variable_counter;
@@ -395,7 +460,9 @@ type_specifier
 		tmp->setTypeSpecifier(SIGNED_TYPE_NODE);
 		$<tnode>$ = tmp;
 		outputReduction("type_specifier : SIGNED_tok");}
-	| UNSIGNED_tok { 
+	| UNSIGNED_tok {
+		variableToInsert->types.push_back(UNSIGNED_TYPE_NODE);
+
 		int ticket = Variable_counter;
 		DataNode* tmp = new DataNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),ticket);
 		++Variable_counter;
@@ -406,9 +473,11 @@ type_specifier
 	| struct_or_union_specifier { 
 		TreeNode* tmp = new TreeNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),0);
 		++AST_node_counter;
-		$<tnode>$ = tmp;
+		$<tnode>$ = $<tnode>1;
 		outputReduction("type_specifier : struct_or_union_specifier");}
 	| ENUM_tok { 
+		variableToInsert->types.push_back(ENUM_TYPE_NODE);
+
 		int ticket = Variable_counter;
 		DataNode* tmp = new DataNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),ticket);
 		++Variable_counter;
@@ -416,7 +485,9 @@ type_specifier
 		tmp->setTypeSpecifier(ENUM_TYPE_NODE);
 		$<tnode>$ = tmp;
 		outputReduction("type_specifier : ENUM_tok");}
-	| TYPEDEF_NAME_tok { 
+	| TYPEDEF_NAME_tok {
+		variableToInsert->types.push_back(TYPEDEF_TYPE_NODE);
+
 		int ticket = Variable_counter;
 		DataNode* tmp = new DataNode(AST_node_counter, "type_specifier_"+to_string(AST_node_counter),ticket);
 		++Variable_counter;
@@ -430,6 +501,8 @@ type_specifier
 
 type_qualifier
 	: CONST_tok {
+		variableToInsert->types.push_back(CONST_TYPE_NODE);
+
 		int ticket = Variable_counter;
 		DataNode* tmp = new DataNode(AST_node_counter, "type_qualifier_"+to_string(AST_node_counter),ticket);
 		++Variable_counter;
@@ -438,6 +511,8 @@ type_qualifier
 		$<tnode>$ = tmp;
 		outputReduction("type_qualifier : CONST_tok");}
 	| VOLATILE_tok {
+		variableToInsert->types.push_back(VOLATILE_TYPE_NODE);
+
 		int ticket = Variable_counter;
 		DataNode* tmp = new DataNode(AST_node_counter, "type_qualifier_"+to_string(AST_node_counter),ticket);
 		++Variable_counter;
@@ -681,31 +756,37 @@ direct_declarator
 		tmp->assignChild(1,$<tnode>3);
 		$<tnode>$ = tmp;
 		outputReduction("direct_declarator : direct_declarator OPEN_BRACKET_tok constant_expression CLOSE_BRACKET_tok");}
-	| direct_declarator OPEN_PAREN_tok CLOSE_PAREN_tok {
+	| direct_declarator getTypes OPEN_PAREN_tok CLOSE_PAREN_tok {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "direct_declarator_"+to_string(AST_node_counter),1);
 		++AST_node_counter;
 		tmp->assignChild(0,$<tnode>1);
-		$<tnode>$ = tmp;
+		$<tnode>$ = $<tnode>1;
 		outputReduction("direct_declarator : direct_declarator OPEN_PAREN_tok CLOSE_PAREN_tok");}
-	| direct_declarator OPEN_PAREN_tok {s.pushEmptyBST();} parameter_type_list CLOSE_PAREN_tok {
-		popAtEndOfStatement = true;
+	| direct_declarator getTypes OPEN_PAREN_tok parameter_type_list CLOSE_PAREN_tok {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "direct_declarator_"+to_string(AST_node_counter),2);
 		++AST_node_counter;
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>4);
 		$<tnode>$ = tmp;
 		outputReduction("direct_declarator : direct_declarator OPEN_PAREN_tok parameter_type_list CLOSE_PAREN_tok");}
-	| direct_declarator OPEN_PAREN_tok identifier_list CLOSE_PAREN_tok {
+	| direct_declarator getTypes OPEN_PAREN_tok identifier_list CLOSE_PAREN_tok {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "direct_declarator_"+to_string(AST_node_counter),2);
 		++AST_node_counter;
 		tmp->assignChild(0,$<tnode>1);
-		tmp->assignChild(1,$<tnode>3);
+		tmp->assignChild(1,$<tnode>4);
 		$<tnode>$ = tmp;
 		outputReduction("direct_declarator : direct_declarator OPEN_PAREN_tok identifier_list CLOSE_PAREN_tok");}
 	;
 
+getTypes
+	:	{
+			functionToInsert.reset(new Node(*variableToInsert));
+			variableToInsert.reset(new Node());
+		}
+
 pointer
 	: STAR_tok {
+		variableToInsert->types.push_back(POINTER_TYPE_NODE);
 		int ticket = Variable_counter;
 		DataNode* tmp = new DataNode(AST_node_counter, "pointer_"+to_string(AST_node_counter),ticket);
 		++Variable_counter;
@@ -714,18 +795,24 @@ pointer
 		$<tnode>$ = tmp;
 		outputReduction("pointer : STAR_tok");}
 	| STAR_tok type_qualifier_list {
+		variableToInsert->types.push_back(POINTER_TYPE_NODE);
+
 		TreeNode* tmp = new TreeNode(AST_node_counter, "pointer_"+to_string(AST_node_counter),1);
 		++AST_node_counter;
 		tmp->assignChild(0,$<tnode>2);
 		$<tnode>$ = tmp;
 		outputReduction("pointer : STAR_tok type_qualifier_list");}
 	| STAR_tok pointer {
+		variableToInsert->types.push_back(POINTER_TYPE_NODE);
+
 		TreeNode* tmp = new TreeNode(AST_node_counter, "pointer_"+to_string(AST_node_counter),1);
 		++AST_node_counter;
 		tmp->assignChild(0,$<tnode>2);
 		$<tnode>$ = tmp;
 		outputReduction("pointer : STAR_tok pointer");}
 	| STAR_tok type_qualifier_list pointer {
+		variableToInsert->types.push_back(POINTER_TYPE_NODE);
+
 		TreeNode* tmp = new TreeNode(AST_node_counter, "pointer_"+to_string(AST_node_counter),2);
 		++AST_node_counter;
 		tmp->assignChild(0,$<tnode>2);
@@ -774,6 +861,15 @@ parameter_list
 
 parameter_declaration
 	: declaration_specifiers declarator {
+		if (!pushedParamsIntoSymTab) {
+			pushedParamsIntoSymTab = true;
+			s.pushEmptyBST();
+		}
+		s.insert(variableToInsert->name, *variableToInsert);
+		functionToInsert->params.push_back(variableToInsert->types);
+		variableToInsert.reset(new Node());
+
+
 		TreeNode* tmp = new TreeNode(AST_node_counter, "parameter_declaration_"+to_string(AST_node_counter),2);
 		++AST_node_counter;
 		tmp->assignChild(0,$<tnode>1);
@@ -781,9 +877,15 @@ parameter_declaration
 		$<tnode>$ = tmp;
 		outputReduction("parameter_declaration : declaration_specifiers declarator");}
 	| declaration_specifiers {
+		functionToInsert->params.push_back(variableToInsert->types);
+		variableToInsert.reset(new Node());
+
 		$<tnode>$ = $<tnode>1;
 		outputReduction("parameter_declaration : declaration_specifiers");}
 	| declaration_specifiers abstract_declarator {
+		functionToInsert->params.push_back(variableToInsert->types);
+		variableToInsert.reset(new Node());
+
 		TreeNode* tmp = new TreeNode(AST_node_counter, "parameter_declaration_"+to_string(AST_node_counter),2);
 		++AST_node_counter;
 		tmp->assignChild(0,$<tnode>1);
@@ -986,23 +1088,32 @@ expression_statement
 		outputReduction("expression_statement : expression SEMI_tok");}
 	;
 
+push
+	:	{ s.pushEmptyBST(); }
+	;
+
+pop
+	:	{
+			s.popBST();
+		}
+
 compound_statement
-	: OPEN_BRACE_tok CLOSE_BRACE_tok {
+	: push OPEN_BRACE_tok CLOSE_BRACE_tok pop {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "compound_statement_"+to_string(AST_node_counter),0);
 		++AST_node_counter;
 		$<tnode>$ = tmp;
 		outputReduction("compound_statement : OPEN_BRACE_tok CLOSE_BRACE_tok");}
-	| OPEN_BRACE_tok statement_list CLOSE_BRACE_tok {
-		$<tnode>$ = $<tnode>2;
+	| push OPEN_BRACE_tok statement_list CLOSE_BRACE_tok pop {
+		$<tnode>$ = $<tnode>3;
 		outputReduction("compound_statement : OPEN_BRACE_tok statement_list CLOSE_BRACE_tok");}
-	| OPEN_BRACE_tok  declaration_list  CLOSE_BRACE_tok {
-		$<tnode>$ = $<tnode>2;
+	| push OPEN_BRACE_tok  declaration_list  CLOSE_BRACE_tok {
+		$<tnode>$ = $<tnode>3;
 		outputReduction("compound_statement : OPEN_BRACE_tok declaration_list CLOSE_BRACE_tok");}
-	| OPEN_BRACE_tok  declaration_list  statement_list CLOSE_BRACE_tok {
+	| push OPEN_BRACE_tok  declaration_list  statement_list CLOSE_BRACE_tok pop {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "compound_statement_"+to_string(AST_node_counter),2);
 		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>2);
-		tmp->assignChild(1,$<tnode>3);
+		tmp->assignChild(0,$<tnode>3);
+		tmp->assignChild(1,$<tnode>4);
 		$<tnode>$ = tmp;
 		outputReduction("compound_statement : OPEN_BRACE_tok declaration_list statement_list CLOSE_BRACE_tok");}
 	;
@@ -1749,10 +1860,14 @@ string
 
 identifier
 	: ID_tok {
+
 		int ticket = Variable_counter;
 		DataNode* tmp = new DataNode(AST_node_counter, "identifier_"+to_string(AST_node_counter),ticket);
-		tmp->storeString((char*)yylval.lnode->name.c_str());
-		tmp->setTypeSpecifier(ID_TYPE_NODE);
+		if (yylval.lnode != NULL) {
+			printf("%s\n",yylval.lnode->name.c_str());
+			tmp->storeString((char*)yylval.lnode->name.c_str());
+			tmp->setTypeSpecifier(ID_TYPE_NODE);
+		}
 		++Variable_counter;
 		++AST_node_counter;
 		$<tnode>$ = tmp;
@@ -1761,7 +1876,6 @@ identifier
 %%
 
 #include <stdio.h>
-//#include "symboltable.h"
 int lex_debug_level;
 int symbol_table_debug;
 int yacc_debug_level;
@@ -1769,13 +1883,9 @@ int c_line_lex_debug_level;
 int c_line_symbol_table_debug;
 int c_line_yacc_debug_level;
 
-//SymbolTable s;
 SymbolTable astTable;
 //logName = "compilerLog.txt";
 
-
-extern int column;
-extern int line;
 extern FILE* yyin;
 
 
@@ -1945,20 +2055,6 @@ int main(int argc, char **argv)
 	fclose(tokenFile);
 	return 0;	
 }
-
-//int main(int argc, char **argv)
-//{
-//	if(argc >=2)
-//	{
-//		if (atoi(argv[1])>=1){
-//			yydebug = atoi(argv[1]);
-//			printf("Debug level set %d\n",yydebug);
-//		}
-//	}
-//	
-//	yyparse();
-//	return 0;
-//}
 
 void yyerror(char const *msg)
 {
