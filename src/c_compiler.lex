@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
+#include <memory>
 #include "../build/c_compiler.tab.hpp"
 #include "../src/symboltable.h"
 
@@ -41,6 +42,9 @@ extern clock_t clock_time;
 
 extern int* levels;
 
+int idLine;
+int idCol;
+
 int send_token(char const* token_name,int token);
 void white();
 void character();
@@ -53,6 +57,8 @@ void set_debug_level();
 void check_int();
 int id_token();
 void check_float();
+
+extern unique_ptr<Node> variableToInsert; 
 %}
 
 /************************************************************************/
@@ -170,9 +176,9 @@ mult_line_comment	"/*"([^*]|\*+[^*/])*"*/"
 			
 ")"			{return(send_token("CLOSE_PAREN_tok",CLOSE_PAREN_tok));}
 			
-"{"			{s.pushEmptyBST();return(send_token("OPEN_BRACE_tok",OPEN_BRACE_tok));}
+"{"			{return(send_token("OPEN_BRACE_tok",OPEN_BRACE_tok));}
 			
-"}"			{s.popBST();return(send_token("CLOSE_BRACE_tok",CLOSE_BRACE_tok));}
+"}"			{return(send_token("CLOSE_BRACE_tok",CLOSE_BRACE_tok));}
 
 "?"			{return(send_token("QUESTION_MARK_tok",QUESTION_MARK_tok));}
 			
@@ -656,6 +662,7 @@ int id_token()
 		{
 			print_error("Variable not declared in this scope.");
 			return(send_token("ERROR_tok",ERROR_tok));
+
 		}
 		else if(pointsTo->ntype == 1)
 		{
@@ -688,8 +695,12 @@ int id_token()
 	else
 	{
 		//printf("\n\nID NOT FOUND AND NOW ADDING\n");
-		yylval.lnode = s.insert(yytext,line,column,INT_TYPE,&errorcode);
-		
+				
+		yylval.lnode = variableToInsert.get();
+		variableToInsert->name = yytext;
+		variableToInsert->lineNumber = line;
+		variableToInsert->colNumber = column;
+
 		if(errorcode==1)
 		{
 			char buff[200];

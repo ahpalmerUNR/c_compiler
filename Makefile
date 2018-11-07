@@ -23,7 +23,7 @@ lex.yy.o: flex_out symboltable.o
 flex_out: src/symboltable.h
 	$(LEX) --outfile=build/lex.yy.c src/c_compiler.lex src/symboltable.h
 	
-symboltable.o: src/symboltable.h
+symboltable.o: src/symboltable.cpp src/symboltable.h
 	$(CPP) $(CPPFLAGS) -c src/symboltable.cpp
 
 tree.o: src/tree/tree.cpp src/tree/tree.h
