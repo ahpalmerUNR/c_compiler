@@ -1,29 +1,20 @@
 digraph AST {
-	translation_unit_18 -> translation_unit_5;
-	translation_unit_5 -> declaration_4;
-	declaration_4 -> type_specifier_0;
-	type_specifier_0 [label="int"]
-	declaration_4 -> init_declarator_3;
-	init_declarator_3 -> identifier_1;
-	identifier_1 [label="à/÷qU"]
-	init_declarator_3 -> constant_2;
-	constant_2 [label="5"]
-	translation_unit_18 -> function_definition_17;
-	function_definition_17 -> type_specifier_6;
-	type_specifier_6 [label="int"]
-	function_definition_17 -> direct_declarator_8;
-	direct_declarator_8 -> identifier_7;
-	identifier_7 [label="à/÷qU"]
-	function_definition_17 -> compound_statement_16;
-	compound_statement_16 -> declaration_11;
-	declaration_11 -> type_specifier_9;
-	type_specifier_9 [label="int"]
-	declaration_11 -> identifier_10;
-	identifier_10 [label="t"]
-	compound_statement_16 -> assignment_expression_15;
-	assignment_expression_15 -> identifier_12;
-	identifier_12 [label="t"]
-	assignment_expression_15 -> assignment_operator_13;
-	assignment_expression_15 -> constant_14;
-	constant_14 [label="6"]
+	translation_unit_12 -> translation_unit_4;
+	translation_unit_4 -> declaration_3;
+	declaration_3 -> type_specifier_0;
+	type_specifier_0 [label="void"]
+	declaration_3 -> direct_declarator_2;
+	direct_declarator_2 -> identifier_1;
+	identifier_1 [label="foo"]
+	translation_unit_12 -> function_definition_11;
+	function_definition_11 -> type_specifier_5;
+	type_specifier_5 [label="void"]
+	function_definition_11 -> direct_declarator_7;
+	direct_declarator_7 -> identifier_6;
+	identifier_6 [label="foo"]
+	function_definition_11 -> declaration_10;
+	declaration_10 -> type_specifier_8;
+	type_specifier_8 [label="int"]
+	declaration_10 -> identifier_9;
+	identifier_9 [label="k"]
 }

@@ -8,7 +8,7 @@ DataNode::DataNode(int nodeNumber, string nodeName, int ticket) : TreeNode(nodeN
 
 DataNode::~DataNode()
 {
-
+	free(data.dstr);
 }
 
 void DataNode::traverse_to_file(FILE* fileout) 
@@ -136,7 +136,8 @@ void DataNode::storeDouble(double d)
 }
 void DataNode::storeString(char *s)
 {
-	data.dstr = s;
+	data.dstr = (char*) malloc(sizeof(s)+sizeof(char));
+	strcpy(data.dstr, s);
 	dType = STRING_TYPE_NODE;
 	isData = true;
 }

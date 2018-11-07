@@ -2,6 +2,7 @@
 #define TREE
 
 #include <string>
+#include <string.h>
 #include <stdio.h>
 #include <vector>
 #include <iostream>

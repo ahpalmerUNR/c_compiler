@@ -11,6 +11,7 @@
 	#include "../src/tree/dataNode.h"
 	#include "../src/tree/jumpNode.h"
 	#include "../src/tree/selectionNode.h"
+	// #include "../src/tree/typeNode.h"
 
 	#define MAX_LINE_LENGTH 500
 	FILE *out_log;
@@ -1842,7 +1843,8 @@ identifier
 		int ticket = Variable_counter;
 		DataNode* tmp = new DataNode(AST_node_counter, "identifier_"+to_string(AST_node_counter),ticket);
 		if (yylval.lnode != NULL) {
-			tmp->storeString((char*)yylval.lnode->name.c_str());
+			cout << variableToInsert->name << endl;
+			tmp->storeString((char*) variableToInsert->name.c_str());
 			tmp->setTypeSpecifier(ID_TYPE_NODE);
 		}
 		++Variable_counter;

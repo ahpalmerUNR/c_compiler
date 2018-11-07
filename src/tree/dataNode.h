@@ -8,7 +8,7 @@ union Data
 	int dint;
 	char dchar;
 	char *dstr;
-	double ddoub;	
+	double ddoub;
 };
 
 class DataNode : public TreeNode {

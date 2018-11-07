@@ -3,9 +3,7 @@
  * @author Nathan Yocum
  * @brief Test that a simple function lookup works
  */
-int t = 5;
-int main() {
-	int t;
-	t = 6;
+void foo();
+void foo() {
+	int k;
 }
-!!D
