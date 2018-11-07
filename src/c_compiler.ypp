@@ -1269,11 +1269,14 @@ expression
 		$<tnode>$ = $<tnode>1;
 		outputReduction("expression : assignment_expression");}
 	| expression COMMA_tok assignment_expression {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "expression_"+to_string(AST_node_counter),2);
+		DataNode* tmp = new DataNode(AST_node_counter, "expresion_"+to_string(AST_node_counter),$<tnode>3->returnTicket());
+		tmp->setOperator(COMMA_op);
+		tmp->notData();
+		tmp->setNumberChildren(2);
 		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>1);
-		tmp->assignChild(1,$<tnode>3);
-		$<tnode>$ = tmp;
+		tmp->setTypeSpecifier(typeCheck(COMMA_OP, $<tnode>1, $<tnode>3));
+		tmp->assignChild(0, leftChild);
+		tmp->assignChild(1, rightChild);
 		outputReduction("expression : expression COMMA_tok assignment_expression");}
 	;
 
@@ -1336,8 +1339,12 @@ conditional_expression
 		$<tnode>$ = $<tnode>1;
 		outputReduction("conditional_expression : logical_or_expression");}
 	| logical_or_expression QUESTION_MARK_tok expression COLON_tok conditional_expression {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "assignment_expression_"+to_string(AST_node_counter),3);
+		DataNode* tmp = new TreeNode(AST_node_counter, "conditional_expression_"+to_string(AST_node_counter),Variable_counter);
 		++AST_node_counter;
+		++Variable_counter;
+		tmp->setOperator(QUESTION_OP);
+		tmp->setTypeSpecifier(INT_TYPE_NODE);
+		tmp->setNumberChildren(3);
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>3);
 		tmp->assignChild(2,$<tnode>5);
@@ -1356,8 +1363,12 @@ logical_or_expression
 		$<tnode>$ = $<tnode>1;
 		outputReduction("logical_or_expression : logical_and_expression");}
 	| logical_or_expression OR_OP_tok logical_and_expression {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "logical_or_expression_"+to_string(AST_node_counter),2);
+		DataNode* tmp = new TreeNode(AST_node_counter, "conditional_expression_"+to_string(AST_node_counter),Variable_counter);
 		++AST_node_counter;
+		++Variable_counter;
+		tmp->setOperator(OR_OP);
+		tmp->setTypeSpecifier(INT_TYPE_NODE);
+		tmp->setNumberChildren(2);
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>3);
 		$<tnode>$ = tmp;
@@ -1369,8 +1380,12 @@ logical_and_expression
 		$<tnode>$ = $<tnode>1;
 		outputReduction("logical_and_expression : inclusive_or_expression");}
 	| logical_and_expression AND_OP_tok inclusive_or_expression {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "logical_and_expression_"+to_string(AST_node_counter),2);
+		DataNode* tmp = new TreeNode(AST_node_counter, "conditional_expression_"+to_string(AST_node_counter),Variable_counter);
 		++AST_node_counter;
+		++Variable_counter;
+		tmp->setOperator(AND_OP);
+		tmp->setTypeSpecifier(INT_TYPE_NODE);
+		tmp->setNumberChildren(2);
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>3);
 		$<tnode>$ = tmp;
@@ -1382,8 +1397,12 @@ inclusive_or_expression
 		$<tnode>$ = $<tnode>1;
 		outputReduction("inclusive_or_expression : exclusive_or_expression");}
 	| inclusive_or_expression BAR_tok exclusive_or_expression {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "inclusive_or_expression"+to_string(AST_node_counter),2);
+		DataNode* tmp = new TreeNode(AST_node_counter, "conditional_expression_"+to_string(AST_node_counter),Variable_counter);
 		++AST_node_counter;
+		++Variable_counter;
+		tmp->setOperator(BAR_OP);
+		tmp->setTypeSpecifier(INT_TYPE_NODE);
+		tmp->setNumberChildren(2);
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>3);
 		$<tnode>$ = tmp;
@@ -1395,8 +1414,12 @@ exclusive_or_expression
 		$<tnode>$ = $<tnode>1;
 		outputReduction("exclusive_or_expression : and_expression ");}
 	| exclusive_or_expression CARET_tok and_expression {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "exclusive_or_expression_"+to_string(AST_node_counter),2);
+		DataNode* tmp = new TreeNode(AST_node_counter, "conditional_expression_"+to_string(AST_node_counter),Variable_counter);
 		++AST_node_counter;
+		++Variable_counter;
+		tmp->setOperator(CARET_OP);
+		tmp->setTypeSpecifier(INT_TYPE_NODE);
+		tmp->setNumberChildren(2);
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>3);
 		$<tnode>$ = tmp;
@@ -1408,8 +1431,12 @@ and_expression
 		$<tnode>$ = $<tnode>1;
 		outputReduction("and_expression : equality_expression");}
 	| and_expression AMP_tok equality_expression {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "and_expression_"+to_string(AST_node_counter),2);
+		DataNode* tmp = new TreeNode(AST_node_counter, "conditional_expression_"+to_string(AST_node_counter),Variable_counter);
 		++AST_node_counter;
+		++Variable_counter;
+		tmp->setOperator(AMP_OP);
+		tmp->setTypeSpecifier(INT_TYPE_NODE);
+		tmp->setNumberChildren(2);
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>3);
 		$<tnode>$ = tmp;

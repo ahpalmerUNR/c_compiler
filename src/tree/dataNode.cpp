@@ -141,6 +141,27 @@ void DataNode::traverse_to_file(FILE* fileout)
 			case MOD_OP:
 				snprintf(operatorPrint, 500,"Left %% Right");
 				break;
+			case COMMA_OP:
+				snprintf(operatorPrint, 500,"Left , Right");
+				break;
+			case QUESTION_OP:
+				snprintf(operatorPrint, 500,"Left ? Middle : Right");
+				break;
+			case OR_OP:
+				snprintf(operatorPrint, 500,"Left || Right");
+				break;
+			case AND_OP:
+				snprintf(operatorPrint, 500,"Left && Right");
+				break;
+			case BAR_OP:
+				snprintf(operatorPrint, 500,"Left | Right");
+				break;
+			case CARET_OP:
+				snprintf(operatorPrint, 500,"Left ^ Right");
+				break;
+			case AMP_OP:
+				snprintf(operatorPrint, 500,"Left & Right");
+				break;
 		}
 	}
 	if(isOperatorNode)

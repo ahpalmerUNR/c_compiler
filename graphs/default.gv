@@ -1,24 +1,38 @@
 digraph AST {
-	translation_unit_14 -> function_definition_13;
-	function_definition_13 -> type_specifier_0;
+	translation_unit_22 -> function_definition_21;
+	function_definition_21 -> type_specifier_0;
 	type_specifier_0 [label="int"]
-	function_definition_13 -> direct_declarator_2;
+	function_definition_21 -> direct_declarator_2;
 	direct_declarator_2 -> identifier_1;
 	identifier_1 [label="ID: main"]
-	function_definition_13 -> compound_statement_12;
-	compound_statement_12 -> declaration_5;
+	function_definition_21 -> compound_statement_20;
+	compound_statement_20 -> declaration_5;
 	declaration_5 -> type_specifier_3;
 	type_specifier_3 [label="int"]
 	declaration_5 -> identifier_4;
 	identifier_4 [label="ID: i"]
-	compound_statement_12 -> assignment_expression_11;
-	assignment_expression_11 [label="Int:  Left = Right"]
-	assignment_expression_11 -> identifier_6;
+	compound_statement_20 -> statement_list_19;
+	statement_list_19 -> statement_list_13;
+	statement_list_13 -> assignment_expression_10;
+	assignment_expression_10 [label="Int:  Left = Right"]
+	assignment_expression_10 -> identifier_6;
 	identifier_6 [label="ID: i"]
-	assignment_expression_11 -> unary_expression_9;
+	assignment_expression_10 -> unary_expression_9;
 	unary_expression_9 [label="Float:  Left + Right"]
 	unary_expression_9 -> constant_7;
 	constant_7 [label="Int: 1"]
 	unary_expression_9 -> constant_8;
 	constant_8 [label="Float: 5.000000"]
+	statement_list_13 -> postfix_expression_12;
+	postfix_expression_12 -> identifier_11;
+	identifier_11 [label="ID: i"]
+	statement_list_19 -> assignment_expression_18;
+	assignment_expression_18 [label="Int:  Left = Right"]
+	assignment_expression_18 -> identifier_14;
+	identifier_14 [label="ID: i"]
+	assignment_expression_18 -> cast_expression_17;
+	cast_expression_17 -> type_specifier_15;
+	type_specifier_15 [label="char"]
+	cast_expression_17 -> identifier_16;
+	identifier_16 [label="ID: i"]
 }

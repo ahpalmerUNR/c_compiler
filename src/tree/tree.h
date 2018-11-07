@@ -48,7 +48,13 @@ enum OperatorType {
 	GE_OP,
 	LT_OP,
 	LE_OP,
-	
+	COMMA_OP,
+	QUESTION_OP,
+	OR_OP,
+	AND_OP,
+	BAR_OP,
+	CARET_OP,
+	AMP_OP	
 	};
 enum AssignType {
 	EQUAL_ASSIGN,
