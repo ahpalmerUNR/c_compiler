@@ -61,7 +61,8 @@
 
 	TreeNode* createOperatorDataNode(OperatorType opType, TreeNode *leftChil, TreeNode* rightChild);
 	TreeNode* createRelationNode(OperatorType opType, TreeNode *leftChild, TreeNode *rightChild);
-	nodeDataType typeCheck(OperatorType opType,TreeNode *leftChild, TreeNode *rightChild);
+	nodeDataType typeCheck(OperatorType opType,TreeNode **leftChild, TreeNode **rightChild);
+	void implicitCastWarning(nodeDataType t1, nodeDataType t2);
 
 %}
 %define parse.error verbose
@@ -1387,7 +1388,7 @@ expression
 		tmp->notData();
 		tmp->setNumberChildren(2);
 		++AST_node_counter;
-		tmp->setTypeSpecifier(typeCheck(COMMA_OP, $<tnode>1, $<tnode>3));
+		tmp->setTypeSpecifier(typeCheck(COMMA_OP, &$<tnode>1, &$<tnode>3));
 		tmp->assignChild(0, $<tnode>1);
 		tmp->assignChild(1, $<tnode>3);
 		outputReduction("expression : expression COMMA_tok assignment_expression");}
@@ -1402,10 +1403,25 @@ assignment_expression
 		++AST_node_counter;
 		++Variable_counter;
 		char pointless[500];
-		if($<tnode>1->getDataType(pointless) != ID_TYPE_NODE)
+		nodeDataType left, right;
+		//Actually have to get the data type from the symbol table
+		left = nodeDataType($<tnode>1->getDataType(pointless));
+		right = nodeDataType($<tnode>3->getDataType(pointless));
+		if(left != ID_TYPE_NODE)
 			yyerror("lvalue required as left operand of assignment");
-		tmp->assignChild(0,$<tnode>1);
 		tmp->setAssignType(AssignType($<aType>2));
+		/*
+		if(right == ID_TYPE_NODE)
+		{
+			//Get rights actual type
+		}
+		// Get lefts actual type
+		if(left != right)
+		{
+			//cast right to left
+		}
+		*/
+		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>3);
 		$<tnode>$ = tmp;
 		outputReduction("assignment_expression : unary_expression assignment_operator assignment_expression");}
@@ -1789,11 +1805,15 @@ argument_expression_list
 		$<tnode>$ = $<tnode>1;
 		outputReduction("argument_expression_list : assignment_expression");}
 	| argument_expression_list COMMA_tok assignment_expression {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "argument_expression_list_"+to_string(AST_node_counter),2);
+		DataNode* tmp = new DataNode(AST_node_counter, "argument_expression_list_"+to_string(AST_node_counter),Variable_counter);
+		tmp->setOperator(COMMA_OP);
+		tmp->notData();
+		tmp->setNumberChildren(2);
 		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>1);
-		tmp->assignChild(1,$<tnode>3);
-		$<tnode>$ = tmp;
+		++Variable_counter;
+		tmp->setTypeSpecifier(typeCheck(COMMA_OP, &$<tnode>1, &$<tnode>3));
+		tmp->assignChild(0, $<tnode>1);
+		tmp->assignChild(1, $<tnode>3);
 		outputReduction("argument_expression_list : argument_expression_list COMMA_tok assignment_expression");}
 	;
 
@@ -2068,13 +2088,14 @@ void yyerror(char const *msg)
 TreeNode* createOperatorDataNode(OperatorType opType, TreeNode *leftChild, TreeNode* rightChild)
 {
 		int ticket = Variable_counter;
-		DataNode* tmp = new DataNode(AST_node_counter, "unary_expression_"+to_string(AST_node_counter),ticket);
+		DataNode* tmp = new DataNode(AST_node_counter, "operator_expression_"+to_string(AST_node_counter),ticket);
 		tmp->setOperator(opType);
 		tmp->notData();
 		tmp->setNumberChildren(2);
 		++AST_node_counter;
 		++Variable_counter;
-		tmp->setTypeSpecifier(typeCheck(opType, leftChild, rightChild));
+		tmp->setTypeSpecifier(typeCheck(opType, &leftChild, &rightChild));
+		cout << leftChild->returnTicket() << endl;
 		tmp->assignChild(0, leftChild);
 		tmp->assignChild(1, rightChild);
 		return tmp;
@@ -2086,17 +2107,17 @@ TreeNode* createRelationNode(OperatorType opType, TreeNode *leftChild, TreeNode 
 		++AST_node_counter;
 		++Variable_counter;
 		tmp->setOperator(opType);
-		tmp->setTypeSpecifier(typeCheck(opType, leftChild, rightChild));
+		tmp->setTypeSpecifier(typeCheck(opType, &leftChild, &rightChild));
 		tmp->assignChild(0,leftChild);
 		tmp->assignChild(1,rightChild);
 		return tmp;
 }
 
-nodeDataType typeCheck(OperatorType opType, TreeNode *leftChild, TreeNode *rightChild)
+nodeDataType typeCheck(OperatorType opType, TreeNode **leftChild, TreeNode **rightChild)
 {
 		char wat[500];
-		nodeDataType left = nodeDataType(leftChild->getDataType(wat));
-		nodeDataType right = nodeDataType(rightChild->getDataType(wat));
+		nodeDataType left = nodeDataType((*leftChild)->getDataType(wat));
+		nodeDataType right = nodeDataType((*rightChild)->getDataType(wat));
 		if(left == right)
 		{
 			if(left == DOUBLE_TYPE_NODE && opType == MOD_OP)
@@ -2105,7 +2126,7 @@ nodeDataType typeCheck(OperatorType opType, TreeNode *leftChild, TreeNode *right
 		}
 		else
 		{
-
+			implicitCastWarning(left,right);
 			CastNode *tmp = new CastNode(AST_node_counter, "implicit_cast_"+to_string(AST_node_counter), Variable_counter);
 			++Variable_counter;
 			++AST_node_counter;
@@ -2116,32 +2137,72 @@ nodeDataType typeCheck(OperatorType opType, TreeNode *leftChild, TreeNode *right
 			if(left == DOUBLE_TYPE_NODE)
 			{
 				tmp->setTypeSpecifier(DOUBLE_TYPE_NODE);
-				tmp->assignChild(0,rightChild);
-				rightChild = tmp;
+				tmp->assignChild(0,*rightChild);
+				*rightChild = tmp;
 				return left;
 			}
 			else if(right == DOUBLE_TYPE_NODE)
 			{
 				tmp->setTypeSpecifier(DOUBLE_TYPE_NODE);
-				tmp->assignChild(0,leftChild);
-				leftChild = tmp;
+				tmp->assignChild(0,*leftChild);
+				*leftChild = tmp;
 				return right;
 			}
 			else if(left == INT_TYPE_NODE)
 			{
 				tmp->setTypeSpecifier(INT_TYPE_NODE);
-				tmp->assignChild(0,rightChild);	
-				rightChild = tmp;		
+				tmp->assignChild(0,*rightChild);	
+				*rightChild = tmp;		
 				return left;
 			}
 			else if(right == INT_TYPE_NODE)
 			{
 				tmp->setTypeSpecifier(INT_TYPE_NODE);
-				tmp->assignChild(0,leftChild);
-				leftChild = tmp;
+				tmp->assignChild(0,*leftChild);
+				*leftChild = tmp;
 				return right;
 			}
 		}
+}
+void implicitCastWarning(nodeDataType t1, nodeDataType t2)
+{
+	char t1Print[500];
+	char t2Print[500];
+	switch(t1)
+	{
+		case CHAR_TYPE_NODE:
+			snprintf(t1Print, 500,"Char");
+			break;
+		case INT_TYPE_NODE:
+			snprintf(t1Print, 500,"Int");
+			break;
+		case DOUBLE_TYPE_NODE:
+			snprintf(t1Print, 500,"Float");
+			break;
+	}
+	switch(t2)
+	{
+		case CHAR_TYPE_NODE:
+			snprintf(t2Print, 500,"Char");
+			break;
+		case INT_TYPE_NODE:
+			snprintf(t2Print, 500,"Int");
+			break;
+		case DOUBLE_TYPE_NODE:
+			snprintf(t2Print, 500,"Float");
+			break;
+	}
+	char tmp[MAX_LINE_LENGTH];
+	long int offset = ftell(errorText);
+	fgets(tmp,sizeof tmp, errorText);
+	fseek(errorText,offset,SEEK_SET);
+	printf("Warning: %s:Line: %d Column: %d implicit cast of types %s and %s\n",file_name,line,column,t1Print,t2Print);
+	printf("%s",tmp);
+	for(int i = column-1; i>0;i--)
+	{
+		printf("-");
+	}
+	printf("^ \n\n");
 }
 void outputReduction(const char *production)
 {	
