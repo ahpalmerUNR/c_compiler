@@ -34,7 +34,6 @@
 	int levels[5];
 
 	extern char yytext[];
-	extern string id;
 	
 	Tree AST;
 	int AST_node_counter;

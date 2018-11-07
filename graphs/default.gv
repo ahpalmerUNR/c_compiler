@@ -5,7 +5,7 @@ digraph AST {
 	type_specifier_0 [label="int"]
 	declaration_4 -> init_declarator_3;
 	init_declarator_3 -> identifier_1;
-	identifier_1 [label="àÙæ2V"]
+	identifier_1 [label="à/÷qU"]
 	init_declarator_3 -> constant_2;
 	constant_2 [label="5"]
 	translation_unit_18 -> function_definition_17;
@@ -13,7 +13,7 @@ digraph AST {
 	type_specifier_6 [label="int"]
 	function_definition_17 -> direct_declarator_8;
 	direct_declarator_8 -> identifier_7;
-	identifier_7 [label="àÙæ2V"]
+	identifier_7 [label="à/÷qU"]
 	function_definition_17 -> compound_statement_16;
 	compound_statement_16 -> declaration_11;
 	declaration_11 -> type_specifier_9;

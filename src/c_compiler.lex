@@ -42,7 +42,6 @@ extern clock_t clock_time;
 
 extern int* levels;
 
-string id;
 int idLine;
 int idCol;
 
@@ -696,11 +695,9 @@ int id_token()
 	else
 	{
 		//printf("\n\nID NOT FOUND AND NOW ADDING\n");
-		
-		id = yytext;
-		
+				
 		yylval.lnode = variableToInsert.get();
-		variableToInsert->name = id;
+		variableToInsert->name = yytext;
 		variableToInsert->lineNumber = line;
 		variableToInsert->colNumber = column;
 
