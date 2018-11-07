@@ -4,6 +4,7 @@ DataNode::DataNode(int nodeNumber, string nodeName, int ticket) : TreeNode(nodeN
 {
 	ticketNumber = ticket;
 	isData = false;
+	isOperatorNode = false;
 }
 
 DataNode::~DataNode()
@@ -14,29 +15,29 @@ DataNode::~DataNode()
 void DataNode::traverse_to_file(FILE* fileout) 
 {
 	char typePrint[500];
-	
+	char operatorPrint[500];
 	if (isData)
 	{
 		switch(dType)
 		{
 			case CHAR_TYPE_NODE:
-				snprintf(typePrint, 500,"%c",data.dchar);
+				snprintf(typePrint, 500,"Char: %c",data.dchar);
 				break;
 			case INT_TYPE_NODE:
-				snprintf(typePrint, 500,"%d",data.dint);
+				snprintf(typePrint, 500,"Int: %d",data.dint);
 				break;
 			case DOUBLE_TYPE_NODE:
-				snprintf(typePrint, 500,"%f",data.ddoub);
+				snprintf(typePrint, 500,"Float: %f",data.ddoub);
 				break;
 			case STRING_TYPE_NODE:
-				snprintf(typePrint, 500,"%s",data.dstr);
+				snprintf(typePrint, 500,"String: %s",data.dstr);
 				break;
 			case ID_TYPE_NODE:
-				snprintf(typePrint, 500,"%s",data.dstr);
+				snprintf(typePrint, 500,"ID: %s",data.dstr);
 			
 		}
 	}
-	else
+	else if (!isOperatorNode)
 	{
 		switch(dType)
 		{
@@ -108,8 +109,66 @@ void DataNode::traverse_to_file(FILE* fileout)
 				break;
 		}
 	}
-	// cout<<"Data Node "<<TreeNodeName<<endl;
-	fprintf(fileout, "\t%s [label=\"%s\"]\n", TreeNodeName.c_str(),typePrint);
+	else
+	{
+		switch(dType)
+		{
+			case CHAR_TYPE_NODE:
+				snprintf(typePrint, 500,"Char: ");
+				break;
+			case INT_TYPE_NODE:
+				snprintf(typePrint, 500,"Int: ");
+				break;
+			case DOUBLE_TYPE_NODE:
+				snprintf(typePrint, 500,"Float: ");
+				break;
+			
+		}
+		switch(oType)
+		{
+			case ADD_OP:
+				snprintf(operatorPrint, 500,"Left + Right");
+				break;
+			case SUB_OP:
+				snprintf(operatorPrint, 500,"Left - Right");
+				break;
+			case MULT_OP:
+				snprintf(operatorPrint, 500,"Left * Right");
+				break;
+			case DIV_OP:
+				snprintf(operatorPrint, 500,"Left / Right");
+				break;
+			case MOD_OP:
+				snprintf(operatorPrint, 500,"Left %% Right");
+				break;
+			case COMMA_OP:
+				snprintf(operatorPrint, 500,"Left , Right");
+				break;
+			case QUESTION_OP:
+				snprintf(operatorPrint, 500,"Left ? Middle : Right");
+				break;
+			case OR_OP:
+				snprintf(operatorPrint, 500,"Left || Right");
+				break;
+			case AND_OP:
+				snprintf(operatorPrint, 500,"Left && Right");
+				break;
+			case BAR_OP:
+				snprintf(operatorPrint, 500,"Left | Right");
+				break;
+			case CARET_OP:
+				snprintf(operatorPrint, 500,"Left ^ Right");
+				break;
+			case AMP_OP:
+				snprintf(operatorPrint, 500,"Left & Right");
+				break;
+		}
+	}
+	if(isOperatorNode)
+		fprintf(fileout, "\t%s [label=\"%s %s\"]\n", TreeNodeName.c_str(),typePrint, operatorPrint);
+	else
+		fprintf(fileout, "\t%s [label=\"%s\"]\n", TreeNodeName.c_str(),typePrint);
+	TreeNode::traverse_to_file(fileout);
 }
 void DataNode::ast_to_3ac(FILE* fileout)
 {
@@ -150,7 +209,11 @@ void DataNode::setTypeSpecifier(nodeDataType typeSpec)
 {
 	dType = typeSpec;
 }
-	
+	void DataNode::setOperator(OperatorType operatorSpec)
+{
+	oType = operatorSpec;
+	isOperatorNode = true;
+}
 int DataNode::getDataType(char * representation)
 {
 	if (isData)
@@ -170,8 +233,7 @@ int DataNode::getDataType(char * representation)
 				snprintf(representation, 500,"%s",data.dstr);
 				break;
 			case ID_TYPE_NODE:
-				snprintf(representation, 500,"%s",data.dstr);
-			
+				snprintf(representation, 500,"%s",data.dstr);	
 		}
 	}
 	return dType;
@@ -181,3 +243,11 @@ void DataNode::notData()
 {
 	isData = false;
 }
+
+void DataNode::setNumberChildren(int numberOfChildren)
+{
+	numberChildren = numberOfChildren;
+	children.resize(numberOfChildren);
+}
+
+
