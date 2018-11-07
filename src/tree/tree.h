@@ -32,6 +32,7 @@ enum OperatorType {
 	CARET_OP,
 	AMP_OP	
 	};
+	
 enum AssignType {
 	EQUAL_ASSIGN,
 	ADD_ASSIGN,
