@@ -1692,11 +1692,15 @@ argument_expression_list
 		$<tnode>$ = $<tnode>1;
 		outputReduction("argument_expression_list : assignment_expression");}
 	| argument_expression_list COMMA_tok assignment_expression {
-		TreeNode* tmp = new TreeNode(AST_node_counter, "argument_expression_list_"+to_string(AST_node_counter),2);
+		DataNode* tmp = new DataNode(AST_node_counter, "argument_expression_list_"+to_string(AST_node_counter),Variable_counter);
+		tmp->setOperator(COMMA_OP);
+		tmp->notData();
+		tmp->setNumberChildren(2);
 		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>1);
-		tmp->assignChild(1,$<tnode>3);
-		$<tnode>$ = tmp;
+		++Variable_counter;
+		tmp->setTypeSpecifier(typeCheck(COMMA_OP, &$<tnode>1, &$<tnode>3));
+		tmp->assignChild(0, $<tnode>1);
+		tmp->assignChild(1, $<tnode>3);
 		outputReduction("argument_expression_list : argument_expression_list COMMA_tok assignment_expression");}
 	;
 

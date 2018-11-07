@@ -1,5 +1,5 @@
 digraph AST {
-	translation_unit_70 -> translation_unit_16;
+	translation_unit_78 -> translation_unit_16;
 	translation_unit_16 -> function_definition_15;
 	function_definition_15 -> type_specifier_0;
 	type_specifier_0 [label="int"]
@@ -24,14 +24,14 @@ digraph AST {
 	parameter_declaration_11 -> identifier_10;
 	identifier_10 [label="ID: t"]
 	function_definition_15 -> compound_statement_14;
-	translation_unit_70 -> function_definition_69;
-	function_definition_69 -> type_specifier_17;
+	translation_unit_78 -> function_definition_77;
+	function_definition_77 -> type_specifier_17;
 	type_specifier_17 [label="int"]
-	function_definition_69 -> direct_declarator_19;
+	function_definition_77 -> direct_declarator_19;
 	direct_declarator_19 -> identifier_18;
 	identifier_18 [label="ID: main"]
-	function_definition_69 -> compound_statement_68;
-	compound_statement_68 -> declaration_list_39;
+	function_definition_77 -> compound_statement_76;
+	compound_statement_76 -> declaration_list_39;
 	declaration_list_39 -> declaration_22;
 	declaration_22 -> type_specifier_20;
 	type_specifier_20 [label="int"]
@@ -61,8 +61,9 @@ digraph AST {
 	constant_32 [label="Int: 4"]
 	initializer_list_35 -> constant_34;
 	constant_34 [label="Int: 5"]
-	compound_statement_68 -> statement_list_67;
-	statement_list_67 -> statement_list_61;
+	compound_statement_76 -> statement_list_75;
+	statement_list_75 -> statement_list_69;
+	statement_list_69 -> statement_list_61;
 	statement_list_61 -> statement_list_58;
 	statement_list_58 -> statement_list_52;
 	statement_list_52 -> assignment_expression_45;
@@ -102,12 +103,17 @@ digraph AST {
 	statement_list_61 -> postfix_expression_60;
 	postfix_expression_60 -> identifier_59;
 	identifier_59 [label="ID: i"]
-	statement_list_67 -> assignment_expression_66;
-	assignment_expression_66 [label="Int:  Left = Right"]
-	assignment_expression_66 -> identifier_62;
-	identifier_62 [label="ID: i"]
-	assignment_expression_66 -> cast_expression65;
-	cast_expression65 [label="Cast(Int)"]
-	cast_expression65 -> identifier_64;
-	identifier_64 [label="ID: i"]
+	statement_list_69 -> postfix_expression_68;
+	postfix_expression_68 -> identifier_62;
+	identifier_62 [label="ID: q"]
+	postfix_expression_68 -> constant_63;
+	constant_63 [label="Int: 2"]
+	statement_list_75 -> assignment_expression_74;
+	assignment_expression_74 [label="Int:  Left = Right"]
+	assignment_expression_74 -> identifier_70;
+	identifier_70 [label="ID: i"]
+	assignment_expression_74 -> cast_expression73;
+	cast_expression73 [label="Cast(Int)"]
+	cast_expression73 -> identifier_72;
+	identifier_72 [label="ID: i"]
 }
