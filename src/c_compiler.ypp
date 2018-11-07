@@ -29,8 +29,7 @@
 	 * SymbolTable and variables to manipulate the insertion to symbol table
 	 */
 	SymbolTable s;
-	bool popAtEndOfStatement = false;
-	bool popTwice = false;
+	bool pushedParamsIntoSymTab = false;
 
 	int levels[5];
 
@@ -181,16 +180,19 @@ translation_unit
 
 external_declaration
 	: function_definition {
+		if (pushedParamsIntoSymTab) {
+			s.popBST();
+			pushedParamsIntoSymTab = false;
+		}
 		$<tnode>$ = $<tnode>1;
 		outputReduction("external_declaration : function_definition");}
 	| declaration {
-		if (functionToInsert->name != "") {
-			s.insert(functionToInsert->name, *functionToInsert);
+		if (insert_lookup == 0) {
+			if (functionToInsert->name != "") {
+				s.insert(functionToInsert->name, *functionToInsert);
+			}
 		}
 		functionToInsert.reset(new Node());
-		variableToInsert.reset(new Node());
-		variableToInsert->lineNumber = line;
-		variableToInsert->colNumber = column;
 		$<tnode>$ = $<tnode>1;
 		outputReduction("external_declaration : declaration");}
 	;
@@ -232,10 +234,6 @@ function_definition
 
 declaration
 	: declaration_specifiers SEMI_tok {
-		if (popAtEndOfStatement) {
-			s.popBST();
-			popAtEndOfStatement = false;
-		}
 
 		TreeNode* tmp = new TreeNode(AST_node_counter, "declaration_"+to_string(AST_node_counter),1);
 		++AST_node_counter;
@@ -243,9 +241,10 @@ declaration
 		$<tnode>$ = tmp;
 		outputReduction("declaration : declaration_specifiers SEMI_tok");}
 	| declaration_specifiers init_declarator_list SEMI_tok {
-		if (popAtEndOfStatement) {
-			s.popBST();
-			popAtEndOfStatement = false;
+		if (insert_lookup == 0) {
+			if (variableToInsert->name != "") {
+				s.insert(variableToInsert->name, *variableToInsert);
+			}
 		}
 
 		TreeNode* tmp = new TreeNode(AST_node_counter, "declaration_"+to_string(AST_node_counter),2);
@@ -687,11 +686,6 @@ enumerator
 
 declarator
 	: direct_declarator {
-		if (insert_lookup == 0) {
-			if (variableToInsert->name != "") {
-				s.insert(variableToInsert->name, *variableToInsert);
-			}
-		}
 		$<tnode>$ = $<tnode>1;
 		outputReduction("declarator : direct_declarator");}
 	| pointer direct_declarator {
@@ -752,8 +746,6 @@ getTypes
 	:	{
 			functionToInsert.reset(new Node(*variableToInsert));
 			variableToInsert.reset(new Node());
-			variableToInsert->lineNumber = line;
-			variableToInsert->colNumber = column;
 		}
 
 pointer
@@ -800,19 +792,13 @@ type_qualifier_list
 	;
 
 parameter_type_list
-	: push parameter_list {
-		variableToInsert.reset(new Node());
-		variableToInsert->lineNumber = line;
-		variableToInsert->colNumber = column;
-		$<tnode>$ = $<tnode>2;
+	: parameter_list {
+		$<tnode>$ = $<tnode>1;
 		outputReduction("parameter_type_list : parameter_list");}
-	| push parameter_list COMMA_tok ELIPSIS_tok {
-		variableToInsert.reset(new Node());
-		variableToInsert->lineNumber = line;
-		variableToInsert->colNumber = column;
+	| parameter_list COMMA_tok ELIPSIS_tok {
 		TreeNode* tmp = new TreeNode(AST_node_counter, "parameter_type_list_"+to_string(AST_node_counter),1);
 		++AST_node_counter;
-		tmp->assignChild(0,$<tnode>2);
+		tmp->assignChild(0,$<tnode>1);
 		$<tnode>$ = tmp;
 		outputReduction("parameter_type_list : parameter_list COMMA_tok ELIPSIS_tok");}
 	;
@@ -832,12 +818,14 @@ parameter_list
 
 parameter_declaration
 	: declaration_specifiers declarator {
+		if (!pushedParamsIntoSymTab) {
+			pushedParamsIntoSymTab = true;
+			s.pushEmptyBST();
+		}
+		s.insert(variableToInsert->name, *variableToInsert);
 		functionToInsert->params.push_back(variableToInsert->types);
-
 		variableToInsert.reset(new Node());
-		variableToInsert->lineNumber = line;
-		variableToInsert->colNumber = column;
-		popTwice = true;
+
 
 		TreeNode* tmp = new TreeNode(AST_node_counter, "parameter_declaration_"+to_string(AST_node_counter),2);
 		++AST_node_counter;
@@ -847,15 +835,13 @@ parameter_declaration
 		outputReduction("parameter_declaration : declaration_specifiers declarator");}
 	| declaration_specifiers {
 		functionToInsert->params.push_back(variableToInsert->types);
-		popAtEndOfStatement = true;
 		variableToInsert.reset(new Node());
-		variableToInsert->lineNumber = line;
-		variableToInsert->colNumber = column;
 
 		$<tnode>$ = $<tnode>1;
 		outputReduction("parameter_declaration : declaration_specifiers");}
 	| declaration_specifiers abstract_declarator {
 		functionToInsert->params.push_back(variableToInsert->types);
+		variableToInsert.reset(new Node());
 
 		TreeNode* tmp = new TreeNode(AST_node_counter, "parameter_declaration_"+to_string(AST_node_counter),2);
 		++AST_node_counter;
@@ -1066,10 +1052,6 @@ push
 pop
 	:	{
 			s.popBST();
-			if (popTwice) {
-				s.popBST();
-				popTwice = false;
-			}
 		}
 
 compound_statement
@@ -1850,9 +1832,6 @@ string
 
 identifier
 	: ID_tok {
-		variableToInsert->name = id;
-		variableToInsert->lineNumber = line;
-		variableToInsert->colNumber = column;
 
 		int ticket = Variable_counter;
 		DataNode* tmp = new DataNode(AST_node_counter, "identifier_"+to_string(AST_node_counter),ticket);

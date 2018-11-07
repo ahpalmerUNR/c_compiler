@@ -6,3 +6,4 @@
 
 int foo(int);
 int foo(char* c);
+!!D

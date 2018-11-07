@@ -1,38 +1,19 @@
 digraph AST {
-	translation_unit_24 -> translation_unit_9;
-	translation_unit_9 -> declaration_8;
-	declaration_8 -> type_specifier_0;
+	translation_unit_11 -> translation_unit_5;
+	translation_unit_5 -> declaration_4;
+	declaration_4 -> type_specifier_0;
 	type_specifier_0 [label="void"]
-	declaration_8 -> direct_declarator_7;
-	direct_declarator_7 -> identifier_1;
-	identifier_1 [label="int"]
-	direct_declarator_7 -> parameter_list_6;
-	parameter_list_6 -> declaration_specifiers_4;
-	declaration_specifiers_4 -> type_specifier_2;
-	type_specifier_2 [label="signed"]
-	declaration_specifiers_4 -> type_specifier_3;
-	type_specifier_3 [label="int"]
-	parameter_list_6 -> type_specifier_5;
-	type_specifier_5 [label="int"]
-	translation_unit_24 -> function_definition_23;
-	function_definition_23 -> type_specifier_10;
-	type_specifier_10 [label="void"]
-	function_definition_23 -> direct_declarator_21;
-	direct_declarator_21 -> identifier_11;
-	identifier_11 [label="int"]
-	direct_declarator_21 -> parameter_list_20;
-	parameter_list_20 -> parameter_declaration_16;
-	parameter_declaration_16 -> declaration_specifiers_14;
-	declaration_specifiers_14 -> type_specifier_12;
-	type_specifier_12 [label="signed"]
-	declaration_specifiers_14 -> type_specifier_13;
-	type_specifier_13 [label="int"]
-	parameter_declaration_16 -> identifier_15;
-	identifier_15 [label="int"]
-	parameter_list_20 -> parameter_declaration_19;
-	parameter_declaration_19 -> type_specifier_17;
-	type_specifier_17 [label="int"]
-	parameter_declaration_19 -> identifier_18;
-	identifier_18 [label="int"]
-	function_definition_23 -> compound_statement_22;
+	declaration_4 -> direct_declarator_3;
+	direct_declarator_3 -> identifier_1;
+	identifier_1 [label=""]
+	direct_declarator_3 -> type_specifier_2;
+	type_specifier_2 [label="int"]
+	translation_unit_11 -> declaration_10;
+	declaration_10 -> type_specifier_6;
+	type_specifier_6 [label="void"]
+	declaration_10 -> direct_declarator_9;
+	direct_declarator_9 -> identifier_7;
+	identifier_7 [label=""]
+	direct_declarator_9 -> type_specifier_8;
+	type_specifier_8 [label="int"]
 }

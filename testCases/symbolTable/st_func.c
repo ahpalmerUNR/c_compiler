@@ -3,8 +3,14 @@
  * @author Nathan Yocum
  * @brief Test that a simple function lookup works
  */
+void foo(int);
+void bar(int);
 
-void foo(signed int, int);
-void foo(signed int i, int j) {
-	!!D
+void foo(int a) {
+	int b;
+	b = 6;
+}
+
+void bar(int b) {
+	
 }

@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
+#include <memory>
 #include "../build/c_compiler.tab.hpp"
 #include "../src/symboltable.h"
 
@@ -57,6 +58,8 @@ void set_debug_level();
 void check_int();
 int id_token();
 void check_float();
+
+extern unique_ptr<Node> variableToInsert; 
 %}
 
 /************************************************************************/
@@ -174,9 +177,9 @@ mult_line_comment	"/*"([^*]|\*+[^*/])*"*/"
 			
 ")"			{return(send_token("CLOSE_PAREN_tok",CLOSE_PAREN_tok));}
 			
-"{"			{s.pushEmptyBST();return(send_token("OPEN_BRACE_tok",OPEN_BRACE_tok));}
+"{"			{return(send_token("OPEN_BRACE_tok",OPEN_BRACE_tok));}
 			
-"}"			{s.popBST();return(send_token("CLOSE_BRACE_tok",CLOSE_BRACE_tok));}
+"}"			{return(send_token("CLOSE_BRACE_tok",CLOSE_BRACE_tok));}
 
 "?"			{return(send_token("QUESTION_MARK_tok",QUESTION_MARK_tok));}
 			
@@ -692,10 +695,14 @@ int id_token()
 	else
 	{
 		//printf("\n\nID NOT FOUND AND NOW ADDING\n");
-		// yylval.lnode = s.insert(yytext,line,column,INT_TYPE,&errorcode);
 		
 		id = yytext;
 		id += '\0';
+		
+		yylval.lnode = variableToInsert.get();
+		variableToInsert->name = id;
+		variableToInsert->lineNumber = line;
+		variableToInsert->colNumber = column;
 
 		if(errorcode==1)
 		{
