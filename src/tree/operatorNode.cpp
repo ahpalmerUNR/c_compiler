@@ -1,6 +1,6 @@
 #include "operatorNode.h"
 
-OperatorNode::OperatorNode(int nodeNumber, string nodeName, OperatorType2 t, int numChildren) : TreeNode(nodeNumber,nodeName,numChildren)
+OperatorNode::OperatorNode(int nodeNumber, string nodeName, OperatorType2 t, int numChildren,int line,int col, string source) : TreeNode(nodeNumber,nodeName,numChildren,line,col,source)
 {
 	oType = t;
 }

@@ -1,6 +1,6 @@
 #include"relationNode.h"
 
-RelationNode::RelationNode(int nodeNumber, string nodeName, int ticket) : TreeNode(nodeNumber,nodeName,2)
+RelationNode::RelationNode(int nodeNumber, string nodeName, int ticket,int line,int col, string source) : TreeNode(nodeNumber,nodeName,2,line,col,source)
 {
 	ticketNumber = ticket;
 }

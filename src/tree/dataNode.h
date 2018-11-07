@@ -13,7 +13,7 @@ union Data
 
 class DataNode : public TreeNode {
 public:	
-	DataNode(int nodeNumber, string nodeName, int ticket);
+	DataNode(int nodeNumber, string nodeName, int ticket,int line,int col, string source);
 	~DataNode();
 
 	void traverse_to_file(FILE*);

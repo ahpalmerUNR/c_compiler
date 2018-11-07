@@ -2,11 +2,11 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-30 22:43:27
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-01 19:47:49
+* @Last Modified time: 2018-11-07 13:25:44
 */
 #include "iteration_statement.h"
 
-Iter_statement::Iter_statement(int TreeNodeNumber,string TreeNodeProductionName,int TicketOne,int TicketTwo,bool doType):TreeNode(TreeNodeNumber,TreeNodeProductionName,4)
+Iter_statement::Iter_statement(int TreeNodeNumber,string TreeNodeProductionName,int TicketOne,int TicketTwo,bool doType,int line,int col, string source):TreeNode(TreeNodeNumber,TreeNodeProductionName,4,line,col,source)
 {
 	jumpCounterOne = TicketOne;
 	jumpCounterTwo = TicketTwo;

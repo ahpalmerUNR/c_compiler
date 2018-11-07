@@ -2,11 +2,11 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-31 11:34:10
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-01 19:48:13
+* @Last Modified time: 2018-11-07 13:26:41
 */
 #include "jumpNode.h"
 
-JumpNode::JumpNode(int TreeNodeNum, string TreeNodeProductionName, int jumpTicket,int jumpType):TreeNode(TreeNodeNum,TreeNodeProductionName,1)
+JumpNode::JumpNode(int TreeNodeNum, string TreeNodeProductionName, int jumpTicket,int jumpType,int line,int col, string source):TreeNode(TreeNodeNum,TreeNodeProductionName,1,line,col,source)
 {
 	jumpCounter = jumpTicket;
 	jtype = jumpType;

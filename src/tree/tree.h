@@ -12,6 +12,10 @@ using namespace std;
 
 extern SymbolTable astTable;
 extern void yyerror(char const * msg);
+extern FILE* errorText;
+extern FILE* out_log;
+extern int MAX_LINE_LENGTH;
+extern char* file_name;
 
 
 enum OperatorType {
@@ -52,16 +56,20 @@ enum AssignType {
 class TreeNode
 {
 public:
-	TreeNode(int TreeNodeNum,string TreeNodeProductionName,int numberOfChildren);
+	TreeNode(int TreeNodeNum,string TreeNodeProductionName,int numberOfChildren,int line,int col, string source);
 	~TreeNode();
 	virtual void traverse_to_file(FILE*);
 	virtual void ast_to_3ac(FILE*);
 	virtual void assignChild(int childIndex, TreeNode* child);
 	virtual int getDataType(char *){}
 	virtual int returnTicket(){}
+	virtual void errorCheck(const char * str);
 protected:
 	int TreeNodeNumber;
 	//type
+	int lineNum;
+	int colNum;
+	string sourceCode;
 	string TreeNodeName;
 	int numberChildren;
 	vector<TreeNode*> children;

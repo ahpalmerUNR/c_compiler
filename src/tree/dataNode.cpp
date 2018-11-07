@@ -1,6 +1,6 @@
 #include "dataNode.h"
 
-DataNode::DataNode(int nodeNumber, string nodeName, int ticket) : TreeNode(nodeNumber,nodeName,0)
+DataNode::DataNode(int nodeNumber, string nodeName, int ticket,int line,int col, string source) : TreeNode(nodeNumber,nodeName,0,line,col,source)
 {
 	ticketNumber = ticket;
 	isData = false;

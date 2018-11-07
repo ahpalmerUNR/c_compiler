@@ -5,7 +5,7 @@
 
 class TypeNode : public TreeNode {
 public:
-	TypeNode(int, string, int);
+	TypeNode(int, string, int,int line,int col, string source);
 	~TypeNode();
 
 	void traverse_to_file(FILE*);

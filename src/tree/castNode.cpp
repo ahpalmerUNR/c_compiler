@@ -1,7 +1,7 @@
 
 #include "castNode.h"
 
-CastNode::CastNode(int nodeNumber, string nodeName, int ticket): TreeNode(nodeNumber,nodeName,1)
+CastNode::CastNode(int nodeNumber, string nodeName, int ticket,int line,int col, string source): TreeNode(nodeNumber,nodeName,1,line,col,source)
 {
 	ticketNumber = ticket;
 }

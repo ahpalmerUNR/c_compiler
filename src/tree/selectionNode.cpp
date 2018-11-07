@@ -2,11 +2,11 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-31 11:49:36
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-01 21:04:51
+* @Last Modified time: 2018-11-07 13:28:11
 */
 #include "selectionNode.h"
 
-SelectionNode::SelectionNode(int TreeNodeNum, string TreeNodeProductionName,int numChildren,bool isaSwitch, int jumpTicket1,int jumpTicket2,int jumpTicket3):TreeNode(TreeNodeNumber,TreeNodeProductionName,numChildren)
+SelectionNode::SelectionNode(int TreeNodeNum, string TreeNodeProductionName,int numChildren,bool isaSwitch, int jumpTicket1,int jumpTicket2,int jumpTicket3,int line,int col, string source):TreeNode(TreeNodeNumber,TreeNodeProductionName,numChildren,line,col,source)
 {
 	jticket1 = jumpTicket1;
 	jticket2 = jumpTicket2;

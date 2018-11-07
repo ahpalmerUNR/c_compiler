@@ -6,7 +6,7 @@
 class Iter_statement: public TreeNode
 {
 public:
-	Iter_statement(int TreeNodeNumber,string TreeNodeProductionName,int TicketOne,int TicketTwo,bool doType);
+	Iter_statement(int TreeNodeNumber,string TreeNodeProductionName,int TicketOne,int TicketTwo,bool doType,int line,int col, string source);
 	~Iter_statement();
 	void traverse_to_file(FILE*);
 	void ast_to_3ac(FILE*);
