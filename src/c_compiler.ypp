@@ -272,7 +272,7 @@ declaration
 		tmp->assignChild(1,$<tnode>2);
 		char buffer[500];
 		vector<int> types = tmp->getType();
-		$<tnode>2->setidDataTypes(tmp->parseTypes());
+		tmp->parseTypes();
 		$<tnode>$ = tmp;
 		outputReduction("declaration : declaration_specifiers init_declarator_list SEMI_tok");}
 
@@ -1555,7 +1555,11 @@ identifier
 			if(insert_lookup == 0)
 				tmp->storeString((char*)variableToInsert->name.c_str());
 			else
+			{
+				int q;
 				tmp->storeString((char*)yylval.lnode->name.c_str());
+				tmp->setidDataTypes(s.searchAll(yylval.lnode->name,&q)->types);
+			}
 			tmp->setTypeSpecifier(ID_TYPE_NODE);
 		}
 		$<tnode>$ = tmp;

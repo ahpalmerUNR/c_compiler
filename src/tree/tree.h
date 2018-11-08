@@ -74,7 +74,7 @@ public:
 	virtual nodeDataType getidDataType(){};
 	virtual int getDataType(char *){ return -1; }
 	virtual vector<int> getTypes();
-	virtual void setidDataTypes(vector<nodeDataType> types){};
+	virtual void setidDataTypes(int types){};
 	virtual int returnTicket(){}
 	virtual void errorCheck(const char * str);
 protected:

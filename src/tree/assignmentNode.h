@@ -16,6 +16,7 @@ public:
 	void setTypeSpecifier(nodeDataType typeSpec);
 	void setAssignType(AssignType typeSpec);
 	void errorCheck();
+	void implicitCastWarning(nodeDataType t1, nodeDataType t2);
 protected:
 
 	int ticketNumber;
