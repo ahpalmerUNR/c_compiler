@@ -17,7 +17,6 @@ protected:
 	// parseTypes parse types in children, return types of variables
 	vector<nodeDataType> parseTypes();
 	int ticketNumber;
-	vector<int> types;
 	int numChildrenTypes;
 };
 

@@ -64,6 +64,14 @@ void TreeNode::errorCheck(const char * str)
 	fprintf(out_log,"^ \n\n");
 }
 
+vector<int> TreeNode::getTypes()
+{
+	char buffer[500];
+	vector<int> type;
+	type.push_back(getDataType(buffer));
+	return type;
+}
+
 Tree::Tree()
 {
 	
