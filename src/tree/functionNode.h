@@ -6,7 +6,7 @@
 class FunctionNode:public TreeNode
 {
 public:
-	FunctionNode(int TreeNodeNum, string TreeNodeProductionName, int variableticket,int line,int col, string source);
+	FunctionNode( string TreeNodeProductionName);
 	~FunctionNode();
 	
 	void traverse_to_file(FILE* fileout);

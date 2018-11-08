@@ -2,14 +2,16 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-30 22:43:27
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-07 13:25:44
+* @Last Modified time: 2018-11-07 15:58:20
 */
 #include "iteration_statement.h"
 
-Iter_statement::Iter_statement(int TreeNodeNumber,string TreeNodeProductionName,int TicketOne,int TicketTwo,bool doType,int line,int col, string source):TreeNode(TreeNodeNumber,TreeNodeProductionName,4,line,col,source)
+Iter_statement::Iter_statement(string TreeNodeProductionName,bool doType):TreeNode(TreeNodeProductionName,4)
 {
-	jumpCounterOne = TicketOne;
-	jumpCounterTwo = TicketTwo;
+	jumpCounterOne = Label_counter;
+	++Label_counter;
+	jumpCounterTwo = Label_counter;
+	++Label_counter;
 	dotype = doType;
 }
 Iter_statement::~Iter_statement()

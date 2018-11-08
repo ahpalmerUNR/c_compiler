@@ -14,10 +14,10 @@
  * @param nodeName 
  * @param ticket 
  */
-TypeNode::TypeNode(int nodeNumber, string nodeName, int ticket,int line,int col, string source) : TreeNode(nodeNumber,nodeName,0,line,col,source)
+TypeNode::TypeNode(string nodeName) : TreeNode(nodeName,0)
 {
-	ticketNumber = ticket;
-	TreeNodeName = nodeName;
+	ticketNumber = Variable_counter;
+	++Variable_counter;
 }
 
 /**

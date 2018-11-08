@@ -1,8 +1,9 @@
 #include"assignmentNode.h"
 
-AssignmentNode::AssignmentNode(int nodeNumber, string nodeName, int ticket, int numberOfChildren,int line,int col, string source) : TreeNode(nodeNumber,nodeName,numberOfChildren,line,col,source)
+AssignmentNode::AssignmentNode(string nodeName, int numberOfChildren) : TreeNode(nodeName,numberOfChildren)
 {
-	ticketNumber = ticket;
+	ticketNumber = Variable_counter;
+	++Variable_counter;
 }
 AssignmentNode::~AssignmentNode()
 {

@@ -4,7 +4,7 @@
 #include "tree.h"
 class RelationNode : public TreeNode {
 public:	
-	RelationNode(int nodeNumber, string nodeName, int ticket,int line,int col, string source);
+	RelationNode( string nodeName);
 	~RelationNode();
 
 	void traverse_to_file(FILE*);

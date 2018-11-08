@@ -2,13 +2,14 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-30 15:47:00
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-07 13:27:03
+* @Last Modified time: 2018-11-07 16:00:26
 */
 #include "labelNode.h"
 
-LabelNode::LabelNode(int TreeNodeNum, string TreeNodeProductionName, int jumpTicket,int line,int col, string source):TreeNode(TreeNodeNum,TreeNodeProductionName,2,line,col,source)
+LabelNode::LabelNode( string TreeNodeProductionName):TreeNode(TreeNodeProductionName,2)
 {
-	jumpCounter = jumpTicket;
+	jumpCounter = Label_counter;
+	++Label_counter;
 	
 	
 }

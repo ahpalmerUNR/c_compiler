@@ -1,8 +1,10 @@
 #include "dataNode.h"
 
-DataNode::DataNode(int nodeNumber, string nodeName, int ticket,int line,int col, string source) : TreeNode(nodeNumber,nodeName,0,line,col,source)
+DataNode::DataNode(string nodeName) : TreeNode(nodeName,0)
 {
-	ticketNumber = ticket;
+
+	ticketNumber = Variable_counter;
+	++Variable_counter;
 	isData = false;
 	isOperatorNode = false;
 }

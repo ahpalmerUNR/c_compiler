@@ -2,20 +2,17 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-27 14:10:44
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-07 13:22:06
+* @Last Modified time: 2018-11-07 15:47:59
 */
 #include "tree.h"
 
-TreeNode::TreeNode(int TreeNodeNum,string TreeNodeProductionName,int numberOfChildren, int line,int col, string source)
+TreeNode::TreeNode(string TreeNodeProductionName,int numberOfChildren)
 {
-	TreeNodeNumber = TreeNodeNum;
+	TreeNodeNumber = AST_node_counter;
+	++AST_node_counter;
 	numberChildren = numberOfChildren;
-	TreeNodeName = TreeNodeProductionName;
+	TreeNodeName = TreeNodeProductionName + to_string(TreeNodeNumber);
 	children.resize(numberChildren);
-	lineNum = line;
-	colNum = col;
-	sourceCode.assign(source);
-	
 }
 
 TreeNode::~TreeNode()

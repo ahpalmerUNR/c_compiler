@@ -16,7 +16,9 @@ extern FILE* errorText;
 extern FILE* out_log;
 extern int MAX_LINE_LENGTH;
 extern char* file_name;
-
+extern int AST_node_counter;
+extern int Label_counter;
+extern int Variable_counter;
 
 enum OperatorType {
 	ADD_OP,
@@ -53,10 +55,16 @@ enum AssignType {
 	OR_ASSIGN
 	};
 
+struct ErrorReport{
+	int line;
+	int col;
+	string source;
+};
+
 class TreeNode
 {
 public:
-	TreeNode(int TreeNodeNum,string TreeNodeProductionName,int numberOfChildren,int line,int col, string source);
+	TreeNode(string TreeNodeProductionName,int numberOfChildren);
 	~TreeNode();
 	virtual void traverse_to_file(FILE*);
 	virtual void ast_to_3ac(FILE*);

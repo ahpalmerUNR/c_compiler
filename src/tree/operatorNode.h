@@ -7,7 +7,7 @@ enum OperatorType2{AMP_op, STAR_op, PLUS_op, MINUS_op, TILDA_op, NOT_op, INC_op,
 
 class OperatorNode : public TreeNode {
 public:	
-	OperatorNode(int nodeNumber, string nodeName, OperatorType2 t, int numChildren,int line,int col, string source);
+	OperatorNode(string nodeName, OperatorType2 t, int numChildren);
 	~OperatorNode();
 
 	void traverse_to_file(FILE*);

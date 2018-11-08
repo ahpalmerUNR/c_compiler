@@ -1,8 +1,9 @@
 #include"relationNode.h"
 
-RelationNode::RelationNode(int nodeNumber, string nodeName, int ticket,int line,int col, string source) : TreeNode(nodeNumber,nodeName,2,line,col,source)
+RelationNode::RelationNode( string nodeName) : TreeNode(nodeName,2)
 {
-	ticketNumber = ticket;
+	ticketNumber = Variable_counter;
+	++Variable_counter;
 }
 
 RelationNode::~RelationNode()

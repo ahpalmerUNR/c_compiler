@@ -2,15 +2,16 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-11-05 15:44:49
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-07 13:26:13
+* @Last Modified time: 2018-11-07 15:56:42
 */
 #include "functionNode.h"
 
 using namespace std;
 
-FunctionNode::FunctionNode(int TreeNodeNum, string TreeNodeProductionName, int variableticket,int line,int col, string source):TreeNode(TreeNodeNum,TreeNodeProductionName,4,line,col,source)
+FunctionNode::FunctionNode(string TreeNodeProductionName):TreeNode(TreeNodeProductionName,4)
 {
-	variableTick = variableticket;
+	variableTick = Variable_counter;
+	++Variable_counter;
 }
 
 FunctionNode::~FunctionNode()
