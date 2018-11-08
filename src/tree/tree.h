@@ -55,10 +55,18 @@ enum AssignType {
 	OR_ASSIGN
 	};
 
+struct sourceLine
+{
+	int lineNum;
+	string codeLine;
+};
+
 struct ErrorReport{
-	int line;
-	int col;
-	string source;
+	int lineStart;
+	int lineEnd;
+	int colStart;
+	int colEnd;
+	vector<sourceLine> source;
 };
 
 class TreeNode
@@ -75,9 +83,7 @@ public:
 protected:
 	int TreeNodeNumber;
 	//type
-	int lineNum;
-	int colNum;
-	string sourceCode;
+	vector<ErrorReport> forErrors;
 	string TreeNodeName;
 	int numberChildren;
 	vector<TreeNode*> children;
