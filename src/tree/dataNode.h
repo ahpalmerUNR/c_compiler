@@ -33,7 +33,6 @@ public:
 	void setNumberChildren(int);
 	void errorCheck();
 	void implicitCastWarning(nodeDataType t1, nodeDataType t2);
-	nodeDataType getidDataType();
 protected:
 
 	int ticketNumber;
@@ -42,6 +41,8 @@ protected:
 	Data data;
 	bool isData;
 	bool isOperatorNode;
+	bool isArray;
+	int arrayOffset;
 	vector<nodeDataType> idDataTypes;
 };
 

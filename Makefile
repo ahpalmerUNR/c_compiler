@@ -5,7 +5,7 @@ CPPFLAGS = -std=c++11
 LEX=flex
 OBJ= c_compiler.tab.hpp lex.yy.o symboltable.o tree.o  -lfl
 BUILDOBJ= build/c_compiler.tab.hpp lex.yy.o symboltable.o tree.o -lfl
-NODES= labelNode.o emptyNode.o iteration_statement.o dataNode.o jumpNode.o selectionNode.o operatorNode.o assignmentNode.o relationNode.o castNode.o functionNode.o typeNode.o
+NODES= labelNode.o emptyNode.o iteration_statement.o dataNode.o jumpNode.o selectionNode.o operatorNode.o assignmentNode.o relationNode.o castNode.o functionNode.o typeNode.o declarationSpecNode.o
 YACC=bison
 YFLAGS=-d -v -t
 
@@ -64,6 +64,9 @@ functionNode.o: src/tree/functionNode.cpp src/tree/functionNode.h src/tree/tree.
 
 typeNode.o: src/tree/typeNode.cpp src/tree/typeNode.h src/tree/tree.h
 	$(CPP) $(CPPFLAGS) -c src/tree/typeNode.cpp
+
+declarationSpecNode.o: src/tree/declarationSpecNode.cpp src/tree/declarationSpecNode.h src/tree/tree.h
+	$(CPP) $(CPPFLAGS) -c src/tree/declarationSpecNode.cpp
 
 clean:
 	-rm -f build/lex.yy.* build/c_compiler.tab.* build/*.o build/*.s build/c_compiler build/c_compiler.output 

@@ -5,4 +5,5 @@
  */
 
 // Expected: Throw an error for signed unsigned.
-signed unsigned float a;
+long long int i;
+// !!D
