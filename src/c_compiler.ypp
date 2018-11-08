@@ -259,6 +259,7 @@ declaration
 		$<tnode>$ = tmp;
 		outputReduction("declaration : declaration_specifiers SEMI_tok");}
 	| declaration_specifiers init_declarator_list SEMI_tok {
+		// Todo: Change to type nodes
 		if (insert_lookup == 0) {
 			if (variableToInsert->name != "") {
 				s.insert(variableToInsert->name, *variableToInsert);

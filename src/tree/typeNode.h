@@ -11,11 +11,10 @@ public:
 	void traverse_to_file(FILE*);
 	void ast_to_3ac(FILE*);
 
+	vector<nodeDataType> getType();
+protected:
 	// parseTypes parse types in children, return types of variables
 	vector<nodeDataType> parseTypes();
-	void typeNodeError();
-
-protected:
 	int ticketNumber;
 };
 

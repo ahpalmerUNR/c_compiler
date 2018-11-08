@@ -62,12 +62,3 @@ vector<nodeDataType> TypeNode::parseTypes()
 	cout << children.size() << endl;
 	cout << "(a)" << endl;
 }
-
-/**
- * @brief Called to throw error in types TODO
- * 
- */
-void TypeNode::typeNodeError()
-{
-
-}

@@ -72,6 +72,7 @@ struct Node {
 	int lineNumber;
 	int colNumber;
 	enum DataType type;
+	bool isFunction;
 	// Vector containing the types of the node
 	vector<nodeDataType> types;
 	int ntype = 1;

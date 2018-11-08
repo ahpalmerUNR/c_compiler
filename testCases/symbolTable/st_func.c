@@ -4,6 +4,8 @@
  * @brief Test that a simple function lookup works
  */
 void foo();
+
 void foo() {
-	int k;
+	double int k;
+	!!D
 }
