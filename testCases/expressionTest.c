@@ -2,6 +2,9 @@
 int main()
 {
 	int i;
-	int j[5] = {1,2,3,4,5};
-	j[1] = 3
+	double j;
+
+	i = 5.0;
+	j = 1;
+	i = j;
 }

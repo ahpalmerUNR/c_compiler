@@ -272,7 +272,7 @@ declaration
 		tmp->assignChild(1,$<tnode>2);
 		char buffer[500];
 		vector<int> types = tmp->getType();
-		tmp->parseTypes();
+		$<tnode>2->setidDataTypes(tmp->parseTypes());
 		$<tnode>$ = tmp;
 		outputReduction("declaration : declaration_specifiers init_declarator_list SEMI_tok");}
 
@@ -1552,7 +1552,10 @@ identifier
 	: ID_tok {
 		DataNode* tmp = new DataNode("identifier_");
 		if (yylval.lnode != NULL) {
-			tmp->storeString((char*)variableToInsert->name.c_str());
+			if(insert_lookup == 0)
+				tmp->storeString((char*)variableToInsert->name.c_str());
+			else
+				tmp->storeString((char*)yylval.lnode->name.c_str());
 			tmp->setTypeSpecifier(ID_TYPE_NODE);
 		}
 		$<tnode>$ = tmp;

@@ -7,7 +7,6 @@ DataNode::DataNode(string nodeName) : TreeNode(nodeName,0)
 	++Variable_counter;
 	isData = false;
 	isOperatorNode = false;
-	idDataTypes.push_back(INT_TYPE_NODE);
 }
 
 DataNode::~DataNode()
@@ -39,7 +38,7 @@ void DataNode::traverse_to_file(FILE* fileout)
 				snprintf(typePrint, 500,"String: %s",data.dstr);
 				break;
 			case ID_TYPE_NODE:
-				snprintf(typePrint, 500,"ID: %s",data.dstr);
+				snprintf(typePrint, 500,"ID: %d %s",getidDataType(), data.dstr);
 			
 		}
 	}
@@ -213,7 +212,10 @@ nodeDataType DataNode::getidDataType()
 {
 	return idDataTypes[0];
 }
-
+void DataNode::setidDataTypes(vector<nodeDataType> types)
+{
+	idDataTypes = types;
+}
 int DataNode::returnTicket()
 {
 	return ticketNumber;

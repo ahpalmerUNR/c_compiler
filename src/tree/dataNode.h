@@ -33,6 +33,8 @@ public:
 	void setNumberChildren(int);
 	void errorCheck();
 	void implicitCastWarning(nodeDataType t1, nodeDataType t2);
+	void setidDataTypes(vector<nodeDataType>);
+	nodeDataType getidDataType();
 protected:
 
 	int ticketNumber;

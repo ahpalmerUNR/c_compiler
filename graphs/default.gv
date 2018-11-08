@@ -1,0 +1,46 @@
+digraph AST {
+	translation_unit_25 -> function_definition_24;
+	function_definition_24 [shape=doubleoctagon,color=red,label="main"]
+	function_definition_24 -> type_specifier_0;
+	type_specifier_0 [label="int"]
+	function_definition_24 -> identifier_1;
+	identifier_1 [label="ID: 0 main"]
+	function_definition_24 -> empty_23;
+	empty_23 [style=filled,color=indigo,fontcolor=white]
+	function_definition_24 -> compound_statement_22;
+	compound_statement_22 -> declaration_list_9;
+	declaration_list_9 -> declaration_5;
+	declaration_5 [label="declaration_5"]
+	declaration_5 -> type_specifier_3;
+	type_specifier_3 [label="int"]
+	declaration_5 -> identifier_4;
+	identifier_4 [label="ID: 0 i"]
+	declaration_list_9 -> declaration_8;
+	declaration_8 [label="declaration_8"]
+	declaration_8 -> type_specifier_6;
+	type_specifier_6 [label="float"]
+	declaration_8 -> identifier_7;
+	identifier_7 [label="ID: 0 j"]
+	compound_statement_22 -> statement_list_21;
+	statement_list_21 -> statement_list_17;
+	statement_list_17 -> assignment_expression_12;
+	assignment_expression_12 [label="Int:  Left = Right"]
+	assignment_expression_12 -> identifier_10;
+	identifier_10 [label="ID: 0 i"]
+	assignment_expression_12 -> Implicit_Cast13;
+	Implicit_Cast13 [label="Cast(Int)"]
+	Implicit_Cast13 -> constant_11;
+	constant_11 [label="Float: 5.000000"]
+	statement_list_17 -> assignment_expression_16;
+	assignment_expression_16 [label="Int:  Left = Right"]
+	assignment_expression_16 -> identifier_14;
+	identifier_14 [label="ID: 0 j"]
+	assignment_expression_16 -> constant_15;
+	constant_15 [label="Int: 1"]
+	statement_list_21 -> assignment_expression_20;
+	assignment_expression_20 [label="Int:  Left = Right"]
+	assignment_expression_20 -> identifier_18;
+	identifier_18 [label="ID: 0 i"]
+	assignment_expression_20 -> identifier_19;
+	identifier_19 [label="ID: 0 j"]
+}
