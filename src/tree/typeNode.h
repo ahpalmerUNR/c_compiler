@@ -12,9 +12,9 @@ public:
 	void ast_to_3ac(FILE*);
 
 	vector<int> getType();
+	vector<nodeDataType> parseTypes();
 protected:
 	// parseTypes parse types in children, return types of variables
-	vector<nodeDataType> parseTypes();
 	int ticketNumber;
 	int numChildrenTypes;
 };

@@ -272,9 +272,7 @@ declaration
 		tmp->assignChild(1,$<tnode>2);
 		char buffer[500];
 		vector<int> types = tmp->getType();
-		for (const int t : types) {
-			cout << t <<  ": " << getDataTypeString(static_cast<nodeDataType>(t)) << endl;
-		}
+		tmp->parseTypes();
 		$<tnode>$ = tmp;
 		outputReduction("declaration : declaration_specifiers init_declarator_list SEMI_tok");}
 

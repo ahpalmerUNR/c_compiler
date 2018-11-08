@@ -1,16 +1,332 @@
 digraph AST {
-	translation_unit_7 -> declaration_6;
-	declaration_6 [label="declaration_6"]
-	declaration_6 -> declaration_specifiers_4;
-	declaration_specifiers_4 [label="declaration_specifiers_4"]
-	declaration_specifiers_4 -> type_specifier_0;
-	type_specifier_0 [label="long"]
-	declaration_specifiers_4 -> declaration_specifiers_3;
-	declaration_specifiers_3 [label="declaration_specifiers_3"]
-	declaration_specifiers_3 -> type_specifier_1;
-	type_specifier_1 [label="long"]
-	declaration_specifiers_3 -> type_specifier_2;
-	type_specifier_2 [label="int"]
-	declaration_6 -> identifier_5;
-	identifier_5 [label="ID: i"]
+	translation_unit_179 -> translation_unit_173;
+	translation_unit_173 -> translation_unit_169;
+	translation_unit_169 -> translation_unit_165;
+	translation_unit_165 -> translation_unit_155;
+	translation_unit_155 -> translation_unit_147;
+	translation_unit_147 -> translation_unit_137;
+	translation_unit_137 -> translation_unit_129;
+	translation_unit_129 -> translation_unit_121;
+	translation_unit_121 -> translation_unit_115;
+	translation_unit_115 -> translation_unit_107;
+	translation_unit_107 -> translation_unit_101;
+	translation_unit_101 -> translation_unit_93;
+	translation_unit_93 -> translation_unit_87;
+	translation_unit_87 -> translation_unit_81;
+	translation_unit_81 -> translation_unit_77;
+	translation_unit_77 -> translation_unit_71;
+	translation_unit_71 -> translation_unit_67;
+	translation_unit_67 -> translation_unit_61;
+	translation_unit_61 -> translation_unit_57;
+	translation_unit_57 -> translation_unit_53;
+	translation_unit_53 -> translation_unit_45;
+	translation_unit_45 -> translation_unit_39;
+	translation_unit_39 -> translation_unit_31;
+	translation_unit_31 -> translation_unit_25;
+	translation_unit_25 -> translation_unit_19;
+	translation_unit_19 -> translation_unit_15;
+	translation_unit_15 -> translation_unit_9;
+	translation_unit_9 -> translation_unit_3;
+	translation_unit_3 -> declaration_2;
+	declaration_2 [label="declaration_2"]
+	declaration_2 -> type_specifier_0;
+	type_specifier_0 [label="char"]
+	declaration_2 -> identifier_1;
+	identifier_1 [label="ID: a"]
+	translation_unit_9 -> declaration_8;
+	declaration_8 [label="declaration_8"]
+	declaration_8 -> declaration_specifiers_6;
+	declaration_specifiers_6 [label="declaration_specifiers_6"]
+	declaration_specifiers_6 -> type_specifier_4;
+	type_specifier_4 [label="signed"]
+	declaration_specifiers_6 -> type_specifier_5;
+	type_specifier_5 [label="char"]
+	declaration_8 -> identifier_7;
+	identifier_7 [label="ID: b"]
+	translation_unit_15 -> declaration_14;
+	declaration_14 [label="declaration_14"]
+	declaration_14 -> declaration_specifiers_12;
+	declaration_specifiers_12 [label="declaration_specifiers_12"]
+	declaration_specifiers_12 -> type_specifier_10;
+	type_specifier_10 [label="unsigned"]
+	declaration_specifiers_12 -> type_specifier_11;
+	type_specifier_11 [label="char"]
+	declaration_14 -> identifier_13;
+	identifier_13 [label="ID: c"]
+	translation_unit_19 -> declaration_18;
+	declaration_18 [label="declaration_18"]
+	declaration_18 -> type_specifier_16;
+	type_specifier_16 [label="short"]
+	declaration_18 -> identifier_17;
+	identifier_17 [label="ID: d"]
+	translation_unit_25 -> declaration_24;
+	declaration_24 [label="declaration_24"]
+	declaration_24 -> declaration_specifiers_22;
+	declaration_specifiers_22 [label="declaration_specifiers_22"]
+	declaration_specifiers_22 -> type_specifier_20;
+	type_specifier_20 [label="short"]
+	declaration_specifiers_22 -> type_specifier_21;
+	type_specifier_21 [label="int"]
+	declaration_24 -> identifier_23;
+	identifier_23 [label="ID: e"]
+	translation_unit_31 -> declaration_30;
+	declaration_30 [label="declaration_30"]
+	declaration_30 -> declaration_specifiers_28;
+	declaration_specifiers_28 [label="declaration_specifiers_28"]
+	declaration_specifiers_28 -> type_specifier_26;
+	type_specifier_26 [label="signed"]
+	declaration_specifiers_28 -> type_specifier_27;
+	type_specifier_27 [label="short"]
+	declaration_30 -> identifier_29;
+	identifier_29 [label="ID: f"]
+	translation_unit_39 -> declaration_38;
+	declaration_38 [label="declaration_38"]
+	declaration_38 -> declaration_specifiers_36;
+	declaration_specifiers_36 [label="declaration_specifiers_36"]
+	declaration_specifiers_36 -> type_specifier_32;
+	type_specifier_32 [label="signed"]
+	declaration_specifiers_36 -> declaration_specifiers_35;
+	declaration_specifiers_35 [label="declaration_specifiers_35"]
+	declaration_specifiers_35 -> type_specifier_33;
+	type_specifier_33 [label="short"]
+	declaration_specifiers_35 -> type_specifier_34;
+	type_specifier_34 [label="int"]
+	declaration_38 -> identifier_37;
+	identifier_37 [label="ID: g"]
+	translation_unit_45 -> declaration_44;
+	declaration_44 [label="declaration_44"]
+	declaration_44 -> declaration_specifiers_42;
+	declaration_specifiers_42 [label="declaration_specifiers_42"]
+	declaration_specifiers_42 -> type_specifier_40;
+	type_specifier_40 [label="unsigned"]
+	declaration_specifiers_42 -> type_specifier_41;
+	type_specifier_41 [label="short"]
+	declaration_44 -> identifier_43;
+	identifier_43 [label="ID: h"]
+	translation_unit_53 -> declaration_52;
+	declaration_52 [label="declaration_52"]
+	declaration_52 -> declaration_specifiers_50;
+	declaration_specifiers_50 [label="declaration_specifiers_50"]
+	declaration_specifiers_50 -> type_specifier_46;
+	type_specifier_46 [label="unsigned"]
+	declaration_specifiers_50 -> declaration_specifiers_49;
+	declaration_specifiers_49 [label="declaration_specifiers_49"]
+	declaration_specifiers_49 -> type_specifier_47;
+	type_specifier_47 [label="short"]
+	declaration_specifiers_49 -> type_specifier_48;
+	type_specifier_48 [label="int"]
+	declaration_52 -> identifier_51;
+	identifier_51 [label="ID: i"]
+	translation_unit_57 -> declaration_56;
+	declaration_56 [label="declaration_56"]
+	declaration_56 -> type_specifier_54;
+	type_specifier_54 [label="int"]
+	declaration_56 -> identifier_55;
+	identifier_55 [label="ID: j"]
+	translation_unit_61 -> declaration_60;
+	declaration_60 [label="declaration_60"]
+	declaration_60 -> type_specifier_58;
+	type_specifier_58 [label="signed"]
+	declaration_60 -> identifier_59;
+	identifier_59 [label="ID: k"]
+	translation_unit_67 -> declaration_66;
+	declaration_66 [label="declaration_66"]
+	declaration_66 -> declaration_specifiers_64;
+	declaration_specifiers_64 [label="declaration_specifiers_64"]
+	declaration_specifiers_64 -> type_specifier_62;
+	type_specifier_62 [label="signed"]
+	declaration_specifiers_64 -> type_specifier_63;
+	type_specifier_63 [label="int"]
+	declaration_66 -> identifier_65;
+	identifier_65 [label="ID: l"]
+	translation_unit_71 -> declaration_70;
+	declaration_70 [label="declaration_70"]
+	declaration_70 -> type_specifier_68;
+	type_specifier_68 [label="unsigned"]
+	declaration_70 -> identifier_69;
+	identifier_69 [label="ID: m"]
+	translation_unit_77 -> declaration_76;
+	declaration_76 [label="declaration_76"]
+	declaration_76 -> declaration_specifiers_74;
+	declaration_specifiers_74 [label="declaration_specifiers_74"]
+	declaration_specifiers_74 -> type_specifier_72;
+	type_specifier_72 [label="unsigned"]
+	declaration_specifiers_74 -> type_specifier_73;
+	type_specifier_73 [label="int"]
+	declaration_76 -> identifier_75;
+	identifier_75 [label="ID: n"]
+	translation_unit_81 -> declaration_80;
+	declaration_80 [label="declaration_80"]
+	declaration_80 -> type_specifier_78;
+	type_specifier_78 [label="long"]
+	declaration_80 -> identifier_79;
+	identifier_79 [label="ID: o"]
+	translation_unit_87 -> declaration_86;
+	declaration_86 [label="declaration_86"]
+	declaration_86 -> declaration_specifiers_84;
+	declaration_specifiers_84 [label="declaration_specifiers_84"]
+	declaration_specifiers_84 -> type_specifier_82;
+	type_specifier_82 [label="long"]
+	declaration_specifiers_84 -> type_specifier_83;
+	type_specifier_83 [label="int"]
+	declaration_86 -> identifier_85;
+	identifier_85 [label="ID: p"]
+	translation_unit_93 -> declaration_92;
+	declaration_92 [label="declaration_92"]
+	declaration_92 -> declaration_specifiers_90;
+	declaration_specifiers_90 [label="declaration_specifiers_90"]
+	declaration_specifiers_90 -> type_specifier_88;
+	type_specifier_88 [label="signed"]
+	declaration_specifiers_90 -> type_specifier_89;
+	type_specifier_89 [label="long"]
+	declaration_92 -> identifier_91;
+	identifier_91 [label="ID: q"]
+	translation_unit_101 -> declaration_100;
+	declaration_100 [label="declaration_100"]
+	declaration_100 -> declaration_specifiers_98;
+	declaration_specifiers_98 [label="declaration_specifiers_98"]
+	declaration_specifiers_98 -> type_specifier_94;
+	type_specifier_94 [label="signed"]
+	declaration_specifiers_98 -> declaration_specifiers_97;
+	declaration_specifiers_97 [label="declaration_specifiers_97"]
+	declaration_specifiers_97 -> type_specifier_95;
+	type_specifier_95 [label="long"]
+	declaration_specifiers_97 -> type_specifier_96;
+	type_specifier_96 [label="int"]
+	declaration_100 -> identifier_99;
+	identifier_99 [label="ID: r"]
+	translation_unit_107 -> declaration_106;
+	declaration_106 [label="declaration_106"]
+	declaration_106 -> declaration_specifiers_104;
+	declaration_specifiers_104 [label="declaration_specifiers_104"]
+	declaration_specifiers_104 -> type_specifier_102;
+	type_specifier_102 [label="unsigned"]
+	declaration_specifiers_104 -> type_specifier_103;
+	type_specifier_103 [label="long"]
+	declaration_106 -> identifier_105;
+	identifier_105 [label="ID: s"]
+	translation_unit_115 -> declaration_114;
+	declaration_114 [label="declaration_114"]
+	declaration_114 -> declaration_specifiers_112;
+	declaration_specifiers_112 [label="declaration_specifiers_112"]
+	declaration_specifiers_112 -> type_specifier_108;
+	type_specifier_108 [label="unsigned"]
+	declaration_specifiers_112 -> declaration_specifiers_111;
+	declaration_specifiers_111 [label="declaration_specifiers_111"]
+	declaration_specifiers_111 -> type_specifier_109;
+	type_specifier_109 [label="long"]
+	declaration_specifiers_111 -> type_specifier_110;
+	type_specifier_110 [label="int"]
+	declaration_114 -> identifier_113;
+	identifier_113 [label="ID: t"]
+	translation_unit_121 -> declaration_120;
+	declaration_120 [label="declaration_120"]
+	declaration_120 -> declaration_specifiers_118;
+	declaration_specifiers_118 [label="declaration_specifiers_118"]
+	declaration_specifiers_118 -> type_specifier_116;
+	type_specifier_116 [label="long"]
+	declaration_specifiers_118 -> type_specifier_117;
+	type_specifier_117 [label="long"]
+	declaration_120 -> identifier_119;
+	identifier_119 [label="ID: u"]
+	translation_unit_129 -> declaration_128;
+	declaration_128 [label="declaration_128"]
+	declaration_128 -> declaration_specifiers_126;
+	declaration_specifiers_126 [label="declaration_specifiers_126"]
+	declaration_specifiers_126 -> type_specifier_122;
+	type_specifier_122 [label="long"]
+	declaration_specifiers_126 -> declaration_specifiers_125;
+	declaration_specifiers_125 [label="declaration_specifiers_125"]
+	declaration_specifiers_125 -> type_specifier_123;
+	type_specifier_123 [label="long"]
+	declaration_specifiers_125 -> type_specifier_124;
+	type_specifier_124 [label="int"]
+	declaration_128 -> identifier_127;
+	identifier_127 [label="ID: v"]
+	translation_unit_137 -> declaration_136;
+	declaration_136 [label="declaration_136"]
+	declaration_136 -> declaration_specifiers_134;
+	declaration_specifiers_134 [label="declaration_specifiers_134"]
+	declaration_specifiers_134 -> type_specifier_130;
+	type_specifier_130 [label="signed"]
+	declaration_specifiers_134 -> declaration_specifiers_133;
+	declaration_specifiers_133 [label="declaration_specifiers_133"]
+	declaration_specifiers_133 -> type_specifier_131;
+	type_specifier_131 [label="long"]
+	declaration_specifiers_133 -> type_specifier_132;
+	type_specifier_132 [label="long"]
+	declaration_136 -> identifier_135;
+	identifier_135 [label="ID: w"]
+	translation_unit_147 -> declaration_146;
+	declaration_146 [label="declaration_146"]
+	declaration_146 -> declaration_specifiers_144;
+	declaration_specifiers_144 [label="declaration_specifiers_144"]
+	declaration_specifiers_144 -> type_specifier_138;
+	type_specifier_138 [label="signed"]
+	declaration_specifiers_144 -> declaration_specifiers_143;
+	declaration_specifiers_143 [label="declaration_specifiers_143"]
+	declaration_specifiers_143 -> type_specifier_139;
+	type_specifier_139 [label="long"]
+	declaration_specifiers_143 -> declaration_specifiers_142;
+	declaration_specifiers_142 [label="declaration_specifiers_142"]
+	declaration_specifiers_142 -> type_specifier_140;
+	type_specifier_140 [label="long"]
+	declaration_specifiers_142 -> type_specifier_141;
+	type_specifier_141 [label="int"]
+	declaration_146 -> identifier_145;
+	identifier_145 [label="ID: x"]
+	translation_unit_155 -> declaration_154;
+	declaration_154 [label="declaration_154"]
+	declaration_154 -> declaration_specifiers_152;
+	declaration_specifiers_152 [label="declaration_specifiers_152"]
+	declaration_specifiers_152 -> type_specifier_148;
+	type_specifier_148 [label="unsigned"]
+	declaration_specifiers_152 -> declaration_specifiers_151;
+	declaration_specifiers_151 [label="declaration_specifiers_151"]
+	declaration_specifiers_151 -> type_specifier_149;
+	type_specifier_149 [label="long"]
+	declaration_specifiers_151 -> type_specifier_150;
+	type_specifier_150 [label="long"]
+	declaration_154 -> identifier_153;
+	identifier_153 [label="ID: y"]
+	translation_unit_165 -> declaration_164;
+	declaration_164 [label="declaration_164"]
+	declaration_164 -> declaration_specifiers_162;
+	declaration_specifiers_162 [label="declaration_specifiers_162"]
+	declaration_specifiers_162 -> type_specifier_156;
+	type_specifier_156 [label="unsigned"]
+	declaration_specifiers_162 -> declaration_specifiers_161;
+	declaration_specifiers_161 [label="declaration_specifiers_161"]
+	declaration_specifiers_161 -> type_specifier_157;
+	type_specifier_157 [label="long"]
+	declaration_specifiers_161 -> declaration_specifiers_160;
+	declaration_specifiers_160 [label="declaration_specifiers_160"]
+	declaration_specifiers_160 -> type_specifier_158;
+	type_specifier_158 [label="long"]
+	declaration_specifiers_160 -> type_specifier_159;
+	type_specifier_159 [label="int"]
+	declaration_164 -> identifier_163;
+	identifier_163 [label="ID: z"]
+	translation_unit_169 -> declaration_168;
+	declaration_168 [label="declaration_168"]
+	declaration_168 -> type_specifier_166;
+	type_specifier_166 [label="float"]
+	declaration_168 -> identifier_167;
+	identifier_167 [label="ID: aa"]
+	translation_unit_173 -> declaration_172;
+	declaration_172 [label="declaration_172"]
+	declaration_172 -> type_specifier_170;
+	type_specifier_170 [label="double"]
+	declaration_172 -> identifier_171;
+	identifier_171 [label="ID: ba"]
+	translation_unit_179 -> declaration_178;
+	declaration_178 [label="declaration_178"]
+	declaration_178 -> declaration_specifiers_176;
+	declaration_specifiers_176 [label="declaration_specifiers_176"]
+	declaration_specifiers_176 -> type_specifier_174;
+	type_specifier_174 [label="long"]
+	declaration_specifiers_176 -> type_specifier_175;
+	type_specifier_175 [label="double"]
+	declaration_178 -> identifier_177;
+	identifier_177 [label="ID: ca"]
 }
