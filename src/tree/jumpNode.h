@@ -12,7 +12,7 @@ class JumpNode: public TreeNode
 	//3->return;
 	//4->return expr ;
 public:
-	JumpNode(int TreeNodeNum, string TreeNodeProductionName,int jumpTicket, int jumpType);//jumpType for productions 0 to 4 range
+	JumpNode(string TreeNodeProductionName, int jumpType);//jumpType for productions 0 to 4 range
 	~JumpNode();
 	
 	void traverse_to_file(FILE*);

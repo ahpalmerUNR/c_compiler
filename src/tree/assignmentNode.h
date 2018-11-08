@@ -5,7 +5,7 @@
 
 class AssignmentNode : public TreeNode {
 public:	
-	AssignmentNode(int nodeNumber, string nodeName, int ticket, int numberOfChildren);
+	AssignmentNode(string nodeName, int numberOfChildren);
 	~AssignmentNode();
 
 	void traverse_to_file(FILE*);

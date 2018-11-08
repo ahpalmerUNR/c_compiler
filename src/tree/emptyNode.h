@@ -7,7 +7,7 @@
 class EmptyNode: public TreeNode
 {
 public:
-	EmptyNode(int TreeNodeNum, string TreeNodeProductionName);
+	EmptyNode(string TreeNodeProductionName);
 	~EmptyNode();
 	void traverse_to_file(FILE*);
 	int getDataType(char *);

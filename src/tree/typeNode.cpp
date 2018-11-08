@@ -14,9 +14,10 @@
  * @param nodeName 
  * @param ticket 
  */
-TypeNode::TypeNode(int nodeNumber, string nodeName, int ticket) : TreeNode(nodeNumber,nodeName,0)
+TypeNode::TypeNode(string nodeName) : TreeNode(nodeName,0)
 {
-
+	ticketNumber = Variable_counter;
+	++Variable_counter;
 }
 
 /**
@@ -35,7 +36,9 @@ TypeNode::~TypeNode()
  */
 void TypeNode::traverse_to_file (FILE* fileout)
 {
-
+	char typePrint[500];
+	snprintf(typePrint, 500, "decl");
+	fprintf(fileout, "\t%s [label=\"%s\"]\n", TreeNodeName.c_str(),typePrint);
 }
 
 /**
@@ -54,16 +57,17 @@ void TypeNode::ast_to_3ac (FILE* fileout)
  * 
  * @return vector<nodeDataType> 
  */
-vector<nodeDataType> parseTypes()
+vector<nodeDataType> TypeNode::parseTypes()
 {
-
+	cout << children.size() << endl;
+	cout << "(a)" << endl;
 }
 
 /**
  * @brief Called to throw error in types TODO
  * 
  */
-void typeNodeError()
+void TypeNode::typeNodeError()
 {
 
 }

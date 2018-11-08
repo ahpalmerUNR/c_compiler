@@ -2,11 +2,11 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-30 20:57:28
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-06 22:51:49
+* @Last Modified time: 2018-11-07 15:55:33
 */
 #include "emptyNode.h"
 
-EmptyNode::EmptyNode(int TreeNodeNum, string TreeNodeProductionName):TreeNode(TreeNodeNum,TreeNodeProductionName,0)
+EmptyNode::EmptyNode(string TreeNodeProductionName):TreeNode(TreeNodeProductionName,0)
 {
 	dType = EMPTY_TYPE_NODE;
 }

@@ -4,7 +4,8 @@
 #include "tree.h"
 
 class TypeNode : public TreeNode {
-	TypeNode(int, string, int);
+public:
+	TypeNode(string);
 	~TypeNode();
 
 	void traverse_to_file(FILE*);
@@ -13,6 +14,9 @@ class TypeNode : public TreeNode {
 	// parseTypes parse types in children, return types of variables
 	vector<nodeDataType> parseTypes();
 	void typeNodeError();
-}
+
+protected:
+	int ticketNumber;
+};
 
 #endif // TYPE_NODE

@@ -2,17 +2,17 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-27 14:10:44
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-01 21:01:44
+* @Last Modified time: 2018-11-07 15:47:59
 */
 #include "tree.h"
 
-TreeNode::TreeNode(int TreeNodeNum,string TreeNodeProductionName,int numberOfChildren)
+TreeNode::TreeNode(string TreeNodeProductionName,int numberOfChildren)
 {
-	TreeNodeNumber = TreeNodeNum;
+	TreeNodeNumber = AST_node_counter;
+	++AST_node_counter;
 	numberChildren = numberOfChildren;
-	TreeNodeName = TreeNodeProductionName;
+	TreeNodeName = TreeNodeProductionName + to_string(TreeNodeNumber);
 	children.resize(numberChildren);
-	
 }
 
 TreeNode::~TreeNode()
@@ -42,6 +42,26 @@ void TreeNode::ast_to_3ac(FILE* fileout)
 void TreeNode::assignChild(int childIndex, TreeNode* child)
 {
 	children[childIndex] = child;
+}
+
+void TreeNode::errorCheck(const char * str)
+{
+	printf("Symantic Issue: %s:Line: %d Column: %d %s\n",file_name,lineNum,colNum,str);
+	printf("%s",sourceCode.c_str());
+	for(int i = colNum-1; i>0;i--)
+	{
+		printf("-");
+	}
+	printf("^ \n\n");
+	fprintf(stderr,"%s\n",str);
+	
+	fprintf(out_log,"Symantic Issue: %s:Line: %d Column: %d %s\n",file_name,lineNum,colNum,str);
+	fprintf(out_log,"%s",sourceCode.c_str());
+	for(int i = colNum-1; i>0;i--)
+	{
+		fprintf(out_log,"-");
+	}
+	fprintf(out_log,"^ \n\n");
 }
 
 Tree::Tree()

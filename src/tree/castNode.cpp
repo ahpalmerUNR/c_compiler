@@ -1,9 +1,10 @@
 
 #include "castNode.h"
 
-CastNode::CastNode(int nodeNumber, string nodeName, int ticket): TreeNode(nodeNumber,nodeName,1)
+CastNode::CastNode(string nodeName): TreeNode(nodeName,1)
 {
-	ticketNumber = ticket;
+	ticketNumber = Variable_counter;
+	++Variable_counter;
 }
 
 CastNode::~CastNode()

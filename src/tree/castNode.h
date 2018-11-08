@@ -5,7 +5,7 @@
 
 class CastNode : public TreeNode {
 public:	
-	CastNode(int nodeNumber, string nodeName, int ticket);
+	CastNode(string nodeName);
 	~CastNode();
 
 	void traverse_to_file(FILE*);
