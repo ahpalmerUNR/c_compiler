@@ -1,18 +1,22 @@
 #include "dataNode.h"
 
-DataNode::DataNode(int nodeNumber, string nodeName, int ticket) : TreeNode(nodeNumber,nodeName,0)
+DataNode::DataNode(string nodeName) : TreeNode(nodeName,0)
 {
-	ticketNumber = ticket;
+
+	ticketNumber = Variable_counter;
+	++Variable_counter;
 	isData = false;
 	isOperatorNode = false;
 }
 
 DataNode::~DataNode()
 {
+
  if (dType == ID_TYPE_NODE || dType == STRING_TYPE_NODE)
  {
  	delete data.dstr;
  }
+
 }
 
 void DataNode::traverse_to_file(FILE* fileout) 
@@ -198,8 +202,10 @@ void DataNode::storeDouble(double d)
 }
 void DataNode::storeString(char *s)
 {
+
 	data.dstr = new char [500];
 	snprintf(data.dstr,500,"%s",s);
+
 	dType = STRING_TYPE_NODE;
 	isData = true;
 }
@@ -254,5 +260,92 @@ void DataNode::setNumberChildren(int numberOfChildren)
 	numberChildren = numberOfChildren;
 	children.resize(numberOfChildren);
 }
+void DataNode::errorCheck()
+{
+		char wat[500];
+		TreeNode *leftChild = children[0];
+		TreeNode *rightChild = children[1];
+		nodeDataType left = nodeDataType(leftChild->getDataType(wat));
+		nodeDataType right = nodeDataType(rightChild->getDataType(wat));
+		if(left == right)
+		{
+			if(left == DOUBLE_TYPE_NODE && oType == MOD_OP)
+				yyerror("Invalid operands to %");
+			setTypeSpecifier(left);
+		}
+		else
+		{
+			implicitCastWarning(left,right);
+			CastNode *tmp = new CastNode("Implicit Cast");
+			//++Variable_counter;
+			//++AST_node_counter;
+			if(oType == MOD_OP && (left == DOUBLE_TYPE_NODE || right == DOUBLE_TYPE_NODE))
+			{
+				TreeNode::errorCheck("Invalid operands to %");
+			}
+			if(left == DOUBLE_TYPE_NODE)
+			{
+				tmp->setTypeSpecifier(DOUBLE_TYPE_NODE);
+				tmp->assignChild(0,rightChild);
+				rightChild = tmp;
+				setTypeSpecifier(left);
+			}
+			else if(right == DOUBLE_TYPE_NODE)
+			{
+				tmp->setTypeSpecifier(DOUBLE_TYPE_NODE);
+				tmp->assignChild(0,leftChild);
+				leftChild = tmp;
+				setTypeSpecifier(right);
+			}
+			else if(left == INT_TYPE_NODE)
+			{
+				tmp->setTypeSpecifier(INT_TYPE_NODE);
+				tmp->assignChild(0,rightChild);	
+				rightChild = tmp;		
+				setTypeSpecifier(left);
+			}
+			else if(right == INT_TYPE_NODE)
+			{
+				tmp->setTypeSpecifier(INT_TYPE_NODE);
+				tmp->assignChild(0,leftChild);
+				leftChild = tmp;
+				setTypeSpecifier(right);
+			}
+		}
+}
 
+void DataNode::implicitCastWarning(nodeDataType t1, nodeDataType t2)
+{
+	char t1Print[500];
+	char t2Print[500];
+	switch(t1)
+	{
+		case CHAR_TYPE_NODE:
+			snprintf(t1Print, 500,"Char");
+			break;
+		case INT_TYPE_NODE:
+			snprintf(t1Print, 500,"Int");
+			break;
+		case DOUBLE_TYPE_NODE:
+			snprintf(t1Print, 500,"Float");
+			break;
+	}
+	switch(t2)
+	{
+		case CHAR_TYPE_NODE:
+			snprintf(t2Print, 500,"Char");
+			break;
+		case INT_TYPE_NODE:
+			snprintf(t2Print, 500,"Int");
+			break;
+		case DOUBLE_TYPE_NODE:
+			snprintf(t2Print, 500,"Float");
+			break;
+	}
+	string d = "Warning: implicit cast of types: ";
+	string one = t1Print;
+	string two = t2Print;
+	//TreeNode::errorCheck((d + one + " " + two).c_str());
+	yyerror((d + one + " " + two).c_str());
+}
 

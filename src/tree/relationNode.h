@@ -2,9 +2,10 @@
 #define RELATION_NODE
 
 #include "tree.h"
+#include "castNode.h"
 class RelationNode : public TreeNode {
 public:	
-	RelationNode(int nodeNumber, string nodeName, int ticket);
+	RelationNode( string nodeName);
 	~RelationNode();
 
 	void traverse_to_file(FILE*);
@@ -14,6 +15,8 @@ public:
 
 	void setOperator(OperatorType opSpec);
 	void setTypeSpecifier(nodeDataType typeSpec);
+	void errorCheck();
+	void implicitCastWarning(nodeDataType t1, nodeDataType t2);
 protected:
 
 	int ticketNumber;

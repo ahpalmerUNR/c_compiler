@@ -1,0 +1,50 @@
+digraph AST {
+	translation_unit_31 -> function_definition_30;
+	function_definition_30 [shape=doubleoctagon,color=red,label="main"]
+	function_definition_30 -> type_specifier_0;
+	type_specifier_0 [label="int"]
+	function_definition_30 -> identifier_1;
+	identifier_1 [label="ID: main"]
+	function_definition_30 -> empty_29;
+	empty_29 [style=filled,color=indigo,fontcolor=white]
+	function_definition_30 -> compound_statement_28;
+	compound_statement_28 -> declaration_list_22;
+	declaration_list_22 -> declaration_5;
+	declaration_5 -> type_specifier_3;
+	type_specifier_3 [label="int"]
+	declaration_5 -> identifier_4;
+	identifier_4 [label="ID: i"]
+	declaration_list_22 -> declaration_21;
+	declaration_21 -> type_specifier_6;
+	type_specifier_6 [label="int"]
+	declaration_21 -> init_declarator_20;
+	init_declarator_20 -> direct_declarator_9;
+	direct_declarator_9 -> identifier_7;
+	identifier_7 [label="ID: j"]
+	direct_declarator_9 -> constant_8;
+	constant_8 [label="Int: 5"]
+	init_declarator_20 -> initializer_19;
+	initializer_19 -> initializer_list_18;
+	initializer_list_18 -> initializer_list_16;
+	initializer_list_16 -> initializer_list_14;
+	initializer_list_14 -> initializer_list_12;
+	initializer_list_12 -> constant_10;
+	constant_10 [label="Int: 1"]
+	initializer_list_12 -> constant_11;
+	constant_11 [label="Int: 2"]
+	initializer_list_14 -> constant_13;
+	constant_13 [label="Int: 3"]
+	initializer_list_16 -> constant_15;
+	constant_15 [label="Int: 4"]
+	initializer_list_18 -> constant_17;
+	constant_17 [label="Int: 5"]
+	compound_statement_28 -> assignment_expression_27;
+	assignment_expression_27 [label="Int:  Left = Right"]
+	assignment_expression_27 -> postfix_expression_25;
+	postfix_expression_25 -> identifier_23;
+	identifier_23 [label="ID: j"]
+	postfix_expression_25 -> constant_24;
+	constant_24 [label="Int: 1"]
+	assignment_expression_27 -> constant_26;
+	constant_26 [label="Int: 3"]
+}

@@ -2,18 +2,19 @@
 #define DATA_NODE
 
 #include "tree.h"
+#include "castNode.h"
 
 union Data
 {
 	int dint;
 	char dchar;
 	char *dstr;
-	double ddoub;	
+	double ddoub;
 };
 
 class DataNode : public TreeNode {
 public:	
-	DataNode(int nodeNumber, string nodeName, int ticket);
+	DataNode(string nodeName);
 	~DataNode();
 
 	void traverse_to_file(FILE*);
@@ -30,7 +31,8 @@ public:
 	int getDataType(char * representation);//representation returned uses max buffer 500 characters.
 	void notData();
 	void setNumberChildren(int);
-	void setSymbolNode(Node *n);
+	void errorCheck();
+	void implicitCastWarning(nodeDataType t1, nodeDataType t2);
 protected:
 
 	int ticketNumber;
@@ -39,7 +41,7 @@ protected:
 	Data data;
 	bool isData;
 	bool isOperatorNode;
-	Node *symbolTableNode;
+	vector<nodeDataType> idDataTypes;
 };
 
 #endif
