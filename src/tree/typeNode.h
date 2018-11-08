@@ -5,17 +5,18 @@
 
 class TypeNode : public TreeNode {
 public:
-	TypeNode(string);
+	TypeNode(string, int);
 	~TypeNode();
 
 	void traverse_to_file(FILE*);
 	void ast_to_3ac(FILE*);
 
-	vector<nodeDataType> getType();
+	vector<int> getType();
 protected:
 	// parseTypes parse types in children, return types of variables
 	vector<nodeDataType> parseTypes();
 	int ticketNumber;
+	int numChildrenTypes;
 };
 
 #endif // TYPE_NODE

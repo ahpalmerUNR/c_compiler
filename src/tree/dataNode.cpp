@@ -11,12 +11,10 @@ DataNode::DataNode(string nodeName) : TreeNode(nodeName,0)
 
 DataNode::~DataNode()
 {
-
- if (dType == ID_TYPE_NODE || dType == STRING_TYPE_NODE)
- {
- 	delete data.dstr;
- }
-
+	if (dType == ID_TYPE_NODE || dType == STRING_TYPE_NODE)
+	{
+		delete data.dstr;
+	}
 }
 
 void DataNode::traverse_to_file(FILE* fileout) 

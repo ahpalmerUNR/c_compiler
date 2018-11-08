@@ -14,7 +14,7 @@
  * @param nodeName 
  * @param ticket 
  */
-TypeNode::TypeNode(string nodeName) : TreeNode(nodeName,0)
+TypeNode::TypeNode(string nodeName, int numChildren) : TreeNode(nodeName,numChildren)
 {
 	ticketNumber = Variable_counter;
 	++Variable_counter;
@@ -34,11 +34,12 @@ TypeNode::~TypeNode()
  * 
  * @param fileout 
  */
-void TypeNode::traverse_to_file (FILE* fileout)
+void TypeNode::traverse_to_file(FILE* fileout)
 {
 	char typePrint[500];
-	snprintf(typePrint, 500, "decl");
+	snprintf(typePrint, 500, "%s", TreeNodeName.c_str());
 	fprintf(fileout, "\t%s [label=\"%s\"]\n", TreeNodeName.c_str(),typePrint);
+	TreeNode::traverse_to_file(fileout);
 }
 
 /**
@@ -46,9 +47,23 @@ void TypeNode::traverse_to_file (FILE* fileout)
  * 
  * @param fileout 
  */
-void TypeNode::ast_to_3ac (FILE* fileout)
+void TypeNode::ast_to_3ac(FILE* fileout)
 {
 
+}
+
+/**
+ * @brief Walk down the tree and get the types used
+ * 
+ * @return vector<nodeDataType> 
+ */
+vector<int> TypeNode::getType()
+{
+	char buffer[500];
+	children[0]->getDataType(buffer);
+	types = children[0]->getTypes();
+	vector<nodeDataType> t = parseTypes();
+	return types;
 }
 
 /**
@@ -59,6 +74,10 @@ void TypeNode::ast_to_3ac (FILE* fileout)
  */
 vector<nodeDataType> TypeNode::parseTypes()
 {
-	cout << children.size() << endl;
-	cout << "(a)" << endl;
+	for (const int t : types) {
+		nodeDataType type = static_cast<nodeDataType>(t);
+		switch (type) {
+			
+		}
+	}
 }
