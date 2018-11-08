@@ -3,7 +3,7 @@
 
 #include "tree.h"
 #include "castNode.h"
-
+//error: array subscript is not an integer
 union Data
 {
 	int dint;
@@ -33,6 +33,7 @@ public:
 	void setNumberChildren(int);
 	void errorCheck();
 	void implicitCastWarning(nodeDataType t1, nodeDataType t2);
+	nodeDataType getidDataType();
 protected:
 
 	int ticketNumber;

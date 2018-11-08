@@ -7,6 +7,7 @@ DataNode::DataNode(string nodeName) : TreeNode(nodeName,0)
 	++Variable_counter;
 	isData = false;
 	isOperatorNode = false;
+	idDataTypes.push_back(INT_TYPE_NODE);
 }
 
 DataNode::~DataNode()
@@ -210,6 +211,11 @@ void DataNode::storeString(char *s)
 	isData = true;
 }
 
+nodeDataType DataNode::getidDataType()
+{
+	return idDataTypes[0];
+}
+
 int DataNode::returnTicket()
 {
 	return ticketNumber;
@@ -270,7 +276,7 @@ void DataNode::errorCheck()
 		if(left == right)
 		{
 			if(left == DOUBLE_TYPE_NODE && oType == MOD_OP)
-				yyerror("Invalid operands to %");
+				yyerror("ERROR: Invalid operands to %");
 			setTypeSpecifier(left);
 		}
 		else
@@ -281,7 +287,7 @@ void DataNode::errorCheck()
 			//++AST_node_counter;
 			if(oType == MOD_OP && (left == DOUBLE_TYPE_NODE || right == DOUBLE_TYPE_NODE))
 			{
-				TreeNode::errorCheck("Invalid operands to %");
+				TreeNode::errorCheck("ERROR: Invalid operands to %");
 			}
 			if(left == DOUBLE_TYPE_NODE)
 			{

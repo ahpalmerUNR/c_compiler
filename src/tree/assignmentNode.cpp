@@ -87,3 +87,32 @@ void AssignmentNode::setAssignType(AssignType assignSpec)
 {
 	aType = assignSpec;
 }
+
+void AssignmentNode::errorCheck()
+{
+		char pointless[500];
+		nodeDataType left, right;
+		//Actually have to get the data type from the symbol table
+		left = nodeDataType(children[0]->getDataType(pointless));
+		right = nodeDataType(children[1]->getDataType(pointless));
+		if(left != ID_TYPE_NODE)
+			yyerror("Error: lvalue required as left operand of assignment");
+		
+		left = children[0]->getidDataType();
+		if(right == ID_TYPE_NODE)
+		{
+			//Get rights actual type
+			right = children[1]->getidDataType();
+		}
+		
+		if(right != left)
+		{
+			CastNode *tmp = new CastNode("Implicit_Cast");
+			tmp->setTypeSpecifier(left);
+			tmp->assignChild(0,children[1]);
+			assignChild(1,tmp);
+			setTypeSpecifier(left);
+		}
+}
+
+

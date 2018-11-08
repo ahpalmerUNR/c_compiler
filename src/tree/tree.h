@@ -70,6 +70,7 @@ public:
 	virtual void ast_to_3ac(FILE*);
 	virtual void assignChild(int childIndex, TreeNode* child);
 	virtual int getDataType(char *){}
+	virtual nodeDataType getidDataType(){};
 	virtual int returnTicket(){}
 	virtual void errorCheck(const char * str);
 protected:

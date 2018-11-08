@@ -1,14 +1,14 @@
 digraph AST {
-	translation_unit_31 -> function_definition_30;
-	function_definition_30 [shape=doubleoctagon,color=red,label="main"]
-	function_definition_30 -> type_specifier_0;
+	translation_unit_30 -> function_definition_29;
+	function_definition_29 [shape=doubleoctagon,color=red,label="main"]
+	function_definition_29 -> type_specifier_0;
 	type_specifier_0 [label="int"]
-	function_definition_30 -> identifier_1;
+	function_definition_29 -> identifier_1;
 	identifier_1 [label="ID: main"]
-	function_definition_30 -> empty_29;
-	empty_29 [style=filled,color=indigo,fontcolor=white]
-	function_definition_30 -> compound_statement_28;
-	compound_statement_28 -> declaration_list_22;
+	function_definition_29 -> empty_28;
+	empty_28 [style=filled,color=indigo,fontcolor=white]
+	function_definition_29 -> compound_statement_27;
+	compound_statement_27 -> declaration_list_22;
 	declaration_list_22 -> declaration_5;
 	declaration_5 -> type_specifier_3;
 	type_specifier_3 [label="int"]
@@ -38,13 +38,12 @@ digraph AST {
 	constant_15 [label="Int: 4"]
 	initializer_list_18 -> constant_17;
 	constant_17 [label="Int: 5"]
-	compound_statement_28 -> assignment_expression_27;
-	assignment_expression_27 [label="Int:  Left = Right"]
-	assignment_expression_27 -> postfix_expression_25;
-	postfix_expression_25 -> identifier_23;
+	compound_statement_27 -> assignment_expression_25;
+	assignment_expression_25 [label="Int:  Left = Right"]
+	assignment_expression_25 -> identifier_23;
 	identifier_23 [label="ID: j"]
-	postfix_expression_25 -> constant_24;
-	constant_24 [label="Int: 1"]
-	assignment_expression_27 -> constant_26;
-	constant_26 [label="Int: 3"]
+	assignment_expression_25 -> Implicit_Cast26;
+	Implicit_Cast26 [label="Cast(Int)"]
+	Implicit_Cast26 -> constant_24;
+	constant_24 [label="Char: c"]
 }
