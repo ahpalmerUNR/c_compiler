@@ -2,7 +2,8 @@
 #define DATA_NODE
 
 #include "tree.h"
-
+#include "castNode.h"
+//error: array subscript is not an integer
 union Data
 {
 	int dint;
@@ -30,7 +31,10 @@ public:
 	int getDataType(char * representation);//representation returned uses max buffer 500 characters.
 	void notData();
 	void setNumberChildren(int);
-	void setSymbolNode(Node *n);
+	void errorCheck();
+	void implicitCastWarning(nodeDataType t1, nodeDataType t2);
+	void setidDataTypes(vector<nodeDataType>);
+	nodeDataType getidDataType();
 protected:
 
 	int ticketNumber;
@@ -39,7 +43,9 @@ protected:
 	Data data;
 	bool isData;
 	bool isOperatorNode;
-	Node *symbolTableNode;
+	bool isArray;
+	int arrayOffset;
+	vector<nodeDataType> idDataTypes;
 };
 
 #endif

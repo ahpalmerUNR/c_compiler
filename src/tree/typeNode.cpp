@@ -164,6 +164,5 @@ vector<nodeDataType> TypeNode::parseTypes()
 		yyerror("Too many types declared");
 		typesToUse = {};
 	}
-
 	return typesToUse;
 }

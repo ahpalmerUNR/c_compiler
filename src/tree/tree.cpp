@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-27 14:10:44
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-09 01:19:11
+* @Last Modified time: 2018-11-09 01:38:21
 */
 #include "tree.h"
 
@@ -61,8 +61,10 @@ void TreeNode::assignChild(int childIndex, TreeNode* child)
 	int pullInd;
 	char temp[500];
 	children[childIndex] = child;
+
 	forErrors.erase(forErrors.begin()+childIndex+1);
 	forErrors.insert(forErrors.begin()+childIndex+1,child->forErrors[0]);
+
 	
 	//skip for empty node types.
 	if (child->getDataType(temp)==EMPTY_TYPE_NODE)
@@ -140,6 +142,7 @@ void TreeNode::assignLine(int line,int colstart, int colend, FILE* errorT)
 	toAdd.lineEnd = line;
 	toAdd.colStart = colstart;
 	toAdd.colEnd = colend;
+
 	toAdd.source.emplace_back(pair);
 	forErrors.erase(forErrors.begin());
 	forErrors.emplace(forErrors.begin(),toAdd);
@@ -158,6 +161,7 @@ void TreeNode::errorCheck(const char * str)
 	// }
 	// printf("^ \n\n");
 	// fprintf(stderr,"%s\n",str);
+
 	
 	// fprintf(out_log,"Symantic Issue: %s:Line: %d Column: %d %s\n",file_name,lineNum,colNum,str);
 	// fprintf(out_log,"%s",sourceCode.c_str());
@@ -242,6 +246,7 @@ void TreeNode::errorCheck(const char * str)
 		fprintf(out_log,"\n\n");
 		
 	}
+
 }
 
 vector<int> TreeNode::getTypes()

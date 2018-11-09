@@ -404,7 +404,7 @@ type_specifier
 		$<tnode>$ = tmp;
 		outputReduction("type_specifier : LONG_tok");}
 	| FLOAT_tok {
-		variableToInsert->types.push_back(FLOAT_TYPE_NODE);
+		variableToInsert->types.push_back(DOUBLE_TYPE_NODE);
 
 		DataNode* tmp = new DataNode("type_specifier_");
 		tmp->setTypeSpecifier(FLOAT_TYPE_NODE);
@@ -681,9 +681,16 @@ direct_declarator
 		$<tnode>$ = tmp;
 		outputReduction("direct_declarator : direct_declarator OPEN_BRACKET_tok CLOSE_BRACKET_tok");}
 	| direct_declarator OPEN_BRACKET_tok constant_expression CLOSE_BRACKET_tok {
-		TreeNode* tmp = new TreeNode("direct_declarator_",2);
+		DataNode* tmp = new DataNode("direct_declarator_");
+		tmp->setNumberChildren(2);
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>3);
+		//vector<nodeDataType> type;
+		//type.push_back($<tnode>1->getidDataType());
+		//tmp->setidDataTypes(type);
+		tmp->notData();
+		tmp->setOperator(BRACKET_OP);
+		tmp->setTypeSpecifier(ID_TYPE_NODE);
 		$<tnode>$ = tmp;
 		outputReduction("direct_declarator : direct_declarator OPEN_BRACKET_tok constant_expression CLOSE_BRACKET_tok");}
 	| direct_declarator getTypes OPEN_PAREN_tok CLOSE_PAREN_tok {
@@ -1177,7 +1184,8 @@ expression
 		tmp->setOperator(COMMA_OP);
 		tmp->notData();
 		tmp->setNumberChildren(2);
-		tmp->setTypeSpecifier(typeCheck(COMMA_OP, &$<tnode>1, &$<tnode>3));
+		tmp->errorCheck();
+		//tmp->setTypeSpecifier(typeCheck(COMMA_OP, &$<tnode>1, &$<tnode>3));
 		tmp->assignChild(0, $<tnode>1);
 		tmp->assignChild(1, $<tnode>3);
 		outputReduction("expression : expression COMMA_tok assignment_expression");}
@@ -1189,27 +1197,10 @@ assignment_expression
 		outputReduction("assignment_expression : conditional_expression");}
 	| unary_expression assignment_operator assignment_expression {
 		AssignmentNode *tmp = new AssignmentNode("assignment_expression_",2);
-		char pointless[500];
-		nodeDataType left, right;
-		//Actually have to get the data type from the symbol table
-		left = nodeDataType($<tnode>1->getDataType(pointless));
-		right = nodeDataType($<tnode>3->getDataType(pointless));
-		if(left != ID_TYPE_NODE)
-			yyerror("lvalue required as left operand of assignment");
 		tmp->setAssignType(AssignType($<aType>2));
-		/*
-		if(right == ID_TYPE_NODE)
-		{
-			//Get rights actual type
-		}
-		// Get lefts actual type
-		if(left != right)
-		{
-			//cast right to left
-		}
-		*/
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>3);
+		tmp->errorCheck();
 		$<tnode>$ = tmp;
 		outputReduction("assignment_expression : unary_expression assignment_operator assignment_expression");}
 	;
@@ -1502,9 +1493,17 @@ postfix_expression
 		$<tnode>$ = $<tnode>1;
 		outputReduction("postfix_expression : primary_expression");}
 	| postfix_expression OPEN_BRACKET_tok expression CLOSE_BRACKET_tok {
-		TreeNode* tmp = new TreeNode("postfix_expression_",2);
+		DataNode* tmp = new DataNode("postfix_expression_");
+		tmp->setNumberChildren(2);
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>3);
+		tmp->setTypeSpecifier(ID_TYPE_NODE);
+		tmp->setOperator(BRACKET_OP);
+		vector<nodeDataType> type;
+		//cout << "hereE" <<  $<tnode>1->getidDataType() << endl;
+		type.push_back($<tnode>1->getidDataType());
+		tmp->setidDataTypes(type);
+		tmp->notData();
 		$<tnode>$ = tmp;
 		outputReduction("postfix_expression : postfix_expression OPEN_BRACKET_tok expression CLOSE_BRACKET_tok");}
 	| postfix_expression OPEN_PAREN_tok CLOSE_PAREN_tok {
@@ -1513,9 +1512,17 @@ postfix_expression
 		$<tnode>$ = tmp;
 		outputReduction("postfix_expression : postfix_expression OPEN_PAREN_tok CLOSE_PAREN_tok");}
 	| postfix_expression OPEN_PAREN_tok argument_expression_list CLOSE_PAREN_tok {
-		TreeNode* tmp = new TreeNode("postfix_expression_",2);
+		DataNode* tmp = new DataNode("postfix_expression_");
+		tmp->setNumberChildren(2);
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>3);
+		tmp->setTypeSpecifier(ID_TYPE_NODE);
+		tmp->setOperator(PAREN_OP);
+		vector<nodeDataType> type;
+		//cout << "hereE" <<  $<tnode>1->getidDataType() << endl;
+		type.push_back($<tnode>1->getidDataType());
+		tmp->setidDataTypes(type);
+		tmp->notData();
 		$<tnode>$ = tmp;
 		outputReduction("postfix_expression : postfix_expression OPEN_PAREN_tok argument_expression_list CLOSE_PAREN_tok");}
 	| postfix_expression PERIOD_tok identifier {
@@ -1568,10 +1575,12 @@ argument_expression_list
 		tmp->setOperator(COMMA_OP);
 		tmp->notData();
 		tmp->setNumberChildren(2);
-		tmp->setTypeSpecifier(typeCheck(COMMA_OP, &$<tnode>1, &$<tnode>3));
-		tmp->printNode();
+
+
 		tmp->assignChild(0, $<tnode>1);
 		tmp->assignChild(1, $<tnode>3);
+		//tmp->errorCheck();
+		$<tnode>$ = tmp;
 		outputReduction("argument_expression_list : argument_expression_list COMMA_tok assignment_expression");}
 	;
 
@@ -1614,18 +1623,33 @@ identifier
 	: ID_tok {
 		DataNode* tmp = new DataNode("identifier_");
 		if (yylval.lnode != NULL) {
-<<<<<<< HEAD
 
 			/*printf("%s\n",yylval.lnode->name.c_str());
 			tmp->storeString((char*)yylval.lnode->name.c_str());
 			printf("%s\n",variableToInsert->name.c_str());*/
-=======
->>>>>>> origin/nate
-			tmp->storeString((char*)variableToInsert->name.c_str());
-			tmp->setTypeSpecifier(ID_TYPE_NODE);
+
+			if(insert_lookup == 0)
+				tmp->storeString((char*)variableToInsert->name.c_str());
+			else
+			{
+				int q;
+
+				Node *n = s.searchAll(yylval.lnode->name,&q);
+				if(n!=NULL)
+				{
+					tmp->storeString((char*)yylval.lnode->name.c_str());
+					tmp->setidDataTypes(n->types);
+					//cout << yylval.lnode->name << tmp->getidDataType() << endl;
+				}			
+			}
 		}
+		else
+		{	
+			tmp->storeString((char*)"error");
+			yyerror("Variable not declared before use");
+		}
+		tmp->setTypeSpecifier(ID_TYPE_NODE);
 		tmp->assignLine(line,column-size,column,errorText);
-		
 		$<tnode>$ = tmp;
 		outputReduction("identifier : ID_tok");}
 	;
@@ -1896,10 +1920,13 @@ TreeNode* createOperatorDataNode(OperatorType opType, TreeNode *leftChild, TreeN
 		tmp->setOperator(opType);
 		tmp->notData();
 		tmp->setNumberChildren(2);
-		tmp->setTypeSpecifier(typeCheck(opType, &leftChild, &rightChild));
+
+		//tmp->setTypeSpecifier(typeCheck(opType, &leftChild, &rightChild));
+
 		//cout << leftChild->returnTicket() << endl;
 		tmp->assignChild(0, leftChild);
 		tmp->assignChild(1, rightChild);
+		tmp->errorCheck();
 		return tmp;
 }
 TreeNode* createRelationNode(OperatorType opType, TreeNode *leftChild, TreeNode *rightChild)
@@ -1907,101 +1934,11 @@ TreeNode* createRelationNode(OperatorType opType, TreeNode *leftChild, TreeNode 
 
 		RelationNode* tmp = new RelationNode("equality_expression_");
 		tmp->setOperator(opType);
-		tmp->setTypeSpecifier(typeCheck(opType, &leftChild, &rightChild));
+		//tmp->setTypeSpecifier(typeCheck(opType, &leftChild, &rightChild));
 		tmp->assignChild(0,leftChild);
 		tmp->assignChild(1,rightChild);
+		tmp->errorCheck();
 		return tmp;
-}
-
-nodeDataType typeCheck(OperatorType opType, TreeNode **leftChild, TreeNode **rightChild)
-{
-		char wat[500];
-		nodeDataType left = nodeDataType((*leftChild)->getDataType(wat));
-		nodeDataType right = nodeDataType((*rightChild)->getDataType(wat));
-		if(left == right)
-		{
-			if(left == DOUBLE_TYPE_NODE && opType == MOD_OP)
-				yyerror("Invalid operands to %");
-			return left;
-		}
-		else
-		{
-			implicitCastWarning(left,right);
-			CastNode *tmp = new CastNode("implicit_cast_");
-
-			if(opType == MOD_OP && (left == DOUBLE_TYPE_NODE || right == DOUBLE_TYPE_NODE))
-			{
-				yyerror("Invalid operands to %");
-			}
-			if(left == DOUBLE_TYPE_NODE)
-			{
-				tmp->setTypeSpecifier(DOUBLE_TYPE_NODE);
-				tmp->assignChild(0,*rightChild);
-				*rightChild = tmp;
-				return left;
-			}
-			else if(right == DOUBLE_TYPE_NODE)
-			{
-				tmp->setTypeSpecifier(DOUBLE_TYPE_NODE);
-				tmp->assignChild(0,*leftChild);
-				*leftChild = tmp;
-				return right;
-			}
-			else if(left == INT_TYPE_NODE)
-			{
-				tmp->setTypeSpecifier(INT_TYPE_NODE);
-				tmp->assignChild(0,*rightChild);	
-				*rightChild = tmp;		
-				return left;
-			}
-			else if(right == INT_TYPE_NODE)
-			{
-				tmp->setTypeSpecifier(INT_TYPE_NODE);
-				tmp->assignChild(0,*leftChild);
-				*leftChild = tmp;
-				return right;
-			}
-		}
-}
-void implicitCastWarning(nodeDataType t1, nodeDataType t2)
-{
-	char t1Print[500];
-	char t2Print[500];
-	switch(t1)
-	{
-		case CHAR_TYPE_NODE:
-			snprintf(t1Print, 500,"Char");
-			break;
-		case INT_TYPE_NODE:
-			snprintf(t1Print, 500,"Int");
-			break;
-		case DOUBLE_TYPE_NODE:
-			snprintf(t1Print, 500,"Float");
-			break;
-	}
-	switch(t2)
-	{
-		case CHAR_TYPE_NODE:
-			snprintf(t2Print, 500,"Char");
-			break;
-		case INT_TYPE_NODE:
-			snprintf(t2Print, 500,"Int");
-			break;
-		case DOUBLE_TYPE_NODE:
-			snprintf(t2Print, 500,"Float");
-			break;
-	}
-	char tmp[MAX_LINE_LENGTH];
-	long int offset = ftell(errorText);
-	fgets(tmp,sizeof tmp, errorText);
-	fseek(errorText,offset,SEEK_SET);
-	printf("Warning: %s:Line: %d Column: %d implicit cast of types %s and %s\n",file_name,line,column,t1Print,t2Print);
-	printf("%s",tmp);
-	for(int i = column-1; i>0;i--)
-	{
-		printf("-");
-	}
-	printf("^ \n\n");
 }
 void outputReduction(const char *production)
 {	

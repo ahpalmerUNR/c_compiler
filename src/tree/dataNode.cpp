@@ -7,6 +7,7 @@ DataNode::DataNode(string nodeName) : TreeNode(nodeName,0)
 	++Variable_counter;
 	isData = false;
 	isOperatorNode = false;
+	//idDataTypes.push_back(INT_TYPE_NODE);
 }
 
 DataNode::~DataNode()
@@ -21,6 +22,8 @@ void DataNode::traverse_to_file(FILE* fileout)
 {
 	char typePrint[500];
 	char operatorPrint[500];
+	//cout << "here" << endl;
+	//cout << idDataTypes[0] << endl;
 	if (isData)
 	{
 		switch(dType)
@@ -38,8 +41,8 @@ void DataNode::traverse_to_file(FILE* fileout)
 				snprintf(typePrint, 500,"String: %s",data.dstr);
 				break;
 			case ID_TYPE_NODE:
-				snprintf(typePrint, 500,"ID: %s",data.dstr);
-			
+				snprintf(typePrint, 500,"ID: %s", data.dstr);
+				
 		}
 	}
 	else if (!isOperatorNode)
@@ -127,7 +130,8 @@ void DataNode::traverse_to_file(FILE* fileout)
 			case DOUBLE_TYPE_NODE:
 				snprintf(typePrint, 500,"Float: ");
 				break;
-			
+			default:
+				snprintf(typePrint, 500," ");
 		}
 		switch(oType)
 		{
@@ -148,6 +152,7 @@ void DataNode::traverse_to_file(FILE* fileout)
 				break;
 			case COMMA_OP:
 				snprintf(operatorPrint, 500,"Left , Right");
+				snprintf(typePrint, 500,"");
 				break;
 			case QUESTION_OP:
 				snprintf(operatorPrint, 500,"Left ? Middle : Right");
@@ -167,6 +172,12 @@ void DataNode::traverse_to_file(FILE* fileout)
 			case AMP_OP:
 				snprintf(operatorPrint, 500,"Left & Right");
 				break;
+			case BRACKET_OP:
+				snprintf(operatorPrint, 500,"Left[Right]");
+				break;
+			case PAREN_OP:
+				snprintf(operatorPrint, 500,"Left(Right)");
+				break;					
 		}
 	}
 	if(isOperatorNode)
@@ -208,6 +219,20 @@ void DataNode::storeString(char *s)
 	isData = true;
 }
 
+nodeDataType DataNode::getidDataType()
+{
+	//cout << "here " << idDataTypes.size() << endl;
+	for(int i = 0; i < idDataTypes.size(); i++)
+	{
+		if(idDataTypes[i] == (FLOAT_TYPE_NODE || INT_TYPE_NODE || CHAR_TYPE_NODE || DOUBLE_TYPE_NODE))
+				return idDataTypes[i];
+	}
+
+}
+void DataNode::setidDataTypes(vector<nodeDataType> types)
+{
+	idDataTypes = types;
+}
 int DataNode::returnTicket()
 {
 	return ticketNumber;
@@ -243,7 +268,9 @@ int DataNode::getDataType(char * representation)
 				break;
 			case ID_TYPE_NODE:
 				snprintf(representation, 500,"%s",data.dstr);
+
 				// printf("%s\n", data.dstr);	
+
 		}
 	}
 	return dType;
@@ -261,5 +288,94 @@ void DataNode::setNumberChildren(int numberOfChildren)
 	forErrors.resize(numberOfChildren+1);
 	// TreeNode::printNode();
 }
+void DataNode::errorCheck()
+{
+		char wat[500];
+		nodeDataType left = nodeDataType(children[0]->getDataType(wat));
+		nodeDataType right = nodeDataType(children[1]->getDataType(wat));
+		if(left == ID_TYPE_NODE)
+			left = children[0]->getidDataType();
+		if(right == ID_TYPE_NODE)
+			right = children[1]->getidDataType();
+		if(left == right)
+		{
+			if(left == DOUBLE_TYPE_NODE && oType == MOD_OP)
+				yyerror("ERROR: Invalid operands to %");
+			setTypeSpecifier(left);
+		}
+		else
+		{
+			implicitCastWarning(left,right);
+			CastNode *tmp = new CastNode("Implicit_Cast");
+			//++Variable_counter;
+			//++AST_node_counter;
+			if(oType == MOD_OP && (left == DOUBLE_TYPE_NODE || right == DOUBLE_TYPE_NODE))
+			{
+				TreeNode::errorCheck("ERROR: Invalid operands to %");
+			}
+			if(left == DOUBLE_TYPE_NODE || left ==  FLOAT_TYPE_NODE)
+			{
+				tmp->setTypeSpecifier(DOUBLE_TYPE_NODE);
+				tmp->assignChild(0,children[1]);
+				assignChild(1,tmp);
+				setTypeSpecifier(left);
+			}
+			else if(right == DOUBLE_TYPE_NODE || right == FLOAT_TYPE_NODE)
+			{
+				tmp->setTypeSpecifier(DOUBLE_TYPE_NODE);
+				tmp->assignChild(0,children[0]);
+				assignChild(0,tmp);
+				setTypeSpecifier(right);
+			}
+			else if(left == INT_TYPE_NODE)
+			{
+				tmp->setTypeSpecifier(INT_TYPE_NODE);
+				tmp->assignChild(0,children[1]);	
+				assignChild(1,tmp);
+				setTypeSpecifier(left);
+			}
+			else if(right == INT_TYPE_NODE)
+			{
+				tmp->setTypeSpecifier(INT_TYPE_NODE);
+				tmp->assignChild(0,children[0]);
+				assignChild(0,tmp);
+				setTypeSpecifier(right);
+			}
+		}
+}
 
+void DataNode::implicitCastWarning(nodeDataType t1, nodeDataType t2)
+{
+	char t1Print[500];
+	char t2Print[500];
+	switch(t1)
+	{
+		case CHAR_TYPE_NODE:
+			snprintf(t1Print, 500,"Char");
+			break;
+		case INT_TYPE_NODE:
+			snprintf(t1Print, 500,"Int");
+			break;
+		case DOUBLE_TYPE_NODE:
+			snprintf(t1Print, 500,"Float");
+			break;
+	}
+	switch(t2)
+	{
+		case CHAR_TYPE_NODE:
+			snprintf(t2Print, 500,"Char");
+			break;
+		case INT_TYPE_NODE:
+			snprintf(t2Print, 500,"Int");
+			break;
+		case DOUBLE_TYPE_NODE:
+			snprintf(t2Print, 500,"Float");
+			break;
+	}
+	string d = "Warning: implicit cast of types when performing operation: ";
+	string one = t1Print;
+	string two = t2Print;
+	//TreeNode::errorCheck((d + one + " " + two).c_str());
+	yyerror((d + one + " " + two).c_str());
+}
 

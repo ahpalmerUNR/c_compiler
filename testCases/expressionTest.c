@@ -1,16 +1,22 @@
-// Vector of types for argument expression list, warning on implicit casting
-int q(int l, int f, int t)
-{
+int q(int f, int j);
 
-}
 int main()
 {
+  float k[5][5];
+	int l[5];
 	int i;
-	int j[5] = {1,2,3,4,5};
-	i = 1 + 5.0;
+	k[1][2] = 5.0 + 1;
+	k[1][2] = 'c';
+	q(5,2,3);
+	/*int a[1];
+	char l;
+	signed int i;
+	double j;
+	k[0] = 1;
+	a[0] = 5.0;*/
+	i = 1.0 + 5;
 	i = 5 + 'c';
-	i = 'c' + 'c';
-	i++;
-	q(2,4,5);
-	i = (char) i; 
+	//i = 5 + 'c';
+	//i = j + l;
+	//j = i;
 }

@@ -2,7 +2,7 @@
 #define ASSIGNMENT_NODE
 
 #include "tree.h"
-
+#include "castNode.h"
 class AssignmentNode : public TreeNode {
 public:	
 	AssignmentNode(string nodeName, int numberOfChildren);
@@ -15,6 +15,8 @@ public:
 
 	void setTypeSpecifier(nodeDataType typeSpec);
 	void setAssignType(AssignType typeSpec);
+	void errorCheck();
+	void implicitCastWarning(nodeDataType t1, nodeDataType t2);
 protected:
 
 	int ticketNumber;

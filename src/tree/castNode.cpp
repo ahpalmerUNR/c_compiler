@@ -26,6 +26,12 @@ void CastNode::traverse_to_file(FILE* fileout)
 		case DOUBLE_TYPE_NODE:
 			snprintf(typePrint, 500,"Float");
 			break;
+		case FLOAT_TYPE_NODE:
+			snprintf(typePrint, 500,"Float");
+			break;
+		default:
+			snprintf(typePrint, 500,"Error probably with id");
+			break;
 	}
 	fprintf(fileout, "\t%s [label=\"Cast(%s)\"]\n", TreeNodeName.c_str(),typePrint);
 	TreeNode::traverse_to_file(fileout);
