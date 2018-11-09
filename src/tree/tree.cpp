@@ -150,7 +150,7 @@ vector<int> TreeNode::getTypes()
 {
 	char buffer[500];
 	vector<int> type;
-	type.push_back(getDataType(buffer));
+	// type.push_back(getDataType(buffer));
 	return type;
 }
 
