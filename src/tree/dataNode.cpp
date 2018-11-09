@@ -278,10 +278,12 @@ void DataNode::setNumberChildren(int numberOfChildren)
 void DataNode::errorCheck()
 {
 		char wat[500];
-		TreeNode *leftChild = children[0];
-		TreeNode *rightChild = children[1];
-		nodeDataType left = nodeDataType(leftChild->getDataType(wat));
-		nodeDataType right = nodeDataType(rightChild->getDataType(wat));
+		nodeDataType left = nodeDataType(children[0]->getDataType(wat));
+		nodeDataType right = nodeDataType(children[1]->getDataType(wat));
+		if(left == ID_TYPE_NODE)
+			left = children[0]->getidDataType();
+		if(right == ID_TYPE_NODE)
+			right = children[1]->getidDataType();
 		if(left == right)
 		{
 			if(left == DOUBLE_TYPE_NODE && oType == MOD_OP)
@@ -291,39 +293,39 @@ void DataNode::errorCheck()
 		else
 		{
 			implicitCastWarning(left,right);
-			CastNode *tmp = new CastNode("Implicit Cast");
+			CastNode *tmp = new CastNode("Implicit_Cast");
 			//++Variable_counter;
 			//++AST_node_counter;
 			if(oType == MOD_OP && (left == DOUBLE_TYPE_NODE || right == DOUBLE_TYPE_NODE))
 			{
 				TreeNode::errorCheck("ERROR: Invalid operands to %");
 			}
-			if(left == (DOUBLE_TYPE_NODE || FLOAT_TYPE_NODE))
+			if(left == DOUBLE_TYPE_NODE || left ==  FLOAT_TYPE_NODE)
 			{
 				tmp->setTypeSpecifier(DOUBLE_TYPE_NODE);
-				tmp->assignChild(0,rightChild);
-				rightChild = tmp;
+				tmp->assignChild(0,children[1]);
+				assignChild(1,tmp);
 				setTypeSpecifier(left);
 			}
-			else if(right == (DOUBLE_TYPE_NODE || FLOAT_TYPE_NODE))
+			else if(right == DOUBLE_TYPE_NODE || right == FLOAT_TYPE_NODE)
 			{
 				tmp->setTypeSpecifier(DOUBLE_TYPE_NODE);
-				tmp->assignChild(0,leftChild);
-				leftChild = tmp;
+				tmp->assignChild(0,children[0]);
+				assignChild(0,tmp);
 				setTypeSpecifier(right);
 			}
 			else if(left == INT_TYPE_NODE)
 			{
 				tmp->setTypeSpecifier(INT_TYPE_NODE);
-				tmp->assignChild(0,rightChild);	
-				rightChild = tmp;		
+				tmp->assignChild(0,children[1]);	
+				assignChild(1,tmp);
 				setTypeSpecifier(left);
 			}
 			else if(right == INT_TYPE_NODE)
 			{
 				tmp->setTypeSpecifier(INT_TYPE_NODE);
-				tmp->assignChild(0,leftChild);
-				leftChild = tmp;
+				tmp->assignChild(0,children[0]);
+				assignChild(0,tmp);
 				setTypeSpecifier(right);
 			}
 		}

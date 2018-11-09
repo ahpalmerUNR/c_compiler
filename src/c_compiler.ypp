@@ -1557,11 +1557,21 @@ identifier
 			else
 			{
 				int q;
-				tmp->storeString((char*)yylval.lnode->name.c_str());
-				tmp->setidDataTypes(s.searchAll(yylval.lnode->name,&q)->types);
+
+				Node *n = s.searchAll(yylval.lnode->name,&q);
+				if(n!=NULL)
+				{
+					tmp->storeString((char*)yylval.lnode->name.c_str());
+					tmp->setidDataTypes(n->types);
+				}			
 			}
-			tmp->setTypeSpecifier(ID_TYPE_NODE);
 		}
+		else
+		{	
+			tmp->storeString((char*)"error");
+			//yyerror("Variable not declared before use");
+		}
+		tmp->setTypeSpecifier(ID_TYPE_NODE);
 		$<tnode>$ = tmp;
 		outputReduction("identifier : ID_tok");}
 	;

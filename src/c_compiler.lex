@@ -662,8 +662,9 @@ int id_token()
 		//printf("\n\nID FOUND AND NOW ASSIGNING TYPE\n");
 		if(pointsTo == NULL)
 		{
+			yylval.lnode = pointsTo;
 			print_error("Variable not declared in this scope.");
-			return(send_token("ERROR_tok",ERROR_tok));
+			return(send_token("ERROR_tok",ID_tok));
 
 		}
 		else if(pointsTo->ntype == 1)
