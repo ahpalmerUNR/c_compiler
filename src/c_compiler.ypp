@@ -963,8 +963,11 @@ labeled_statement
 		outputReduction("labeled_statement : identifier COLON_tok statement");}
 	| CASE_tok constant_expression COLON_tok statement {
 		LabelNode* tmp = new LabelNode("labeled_statement_");
+		tmp->printNode();
 		tmp->assignChild(0,$<tnode>2);
+		tmp->printNode();
 		tmp->assignChild(1,$<tnode>4);
+		tmp->printNode();
 		$<tnode>$ = tmp;
 		outputReduction("labeled_statement : CASE_tok constant_expression COLON_tok statement");}
 	| DEFAULT_tok COLON_tok statement {
@@ -1158,14 +1161,17 @@ jump_statement
 		outputReduction("jump_statement : GOTO_tok identifier SEMI_tok");}
 	| CONTINUE_tok SEMI_tok {
 		JumpNode* tmp = new JumpNode("jump_statement_",1);
+		tmp->assignLine(line,column-9,column,errorText);
 		$<tnode>$ = tmp;
 		outputReduction("jump_statement : CONTINUE_tok SEMI_tok");}
 	| BREAK_tok SEMI_tok {
 		JumpNode* tmp = new JumpNode("jump_statement_",2);
+		tmp->assignLine(line,column-6,column,errorText);
 		$<tnode>$ = tmp;
 		outputReduction("jump_statement : BREAK_tok SEMI_tok");}
 	| RETURN_tok SEMI_tok {
 		JumpNode* tmp = new JumpNode("jump_statement_",3);
+		tmp->assignLine(line,column-7,column,errorText);
 		$<tnode>$ = tmp;
 		outputReduction("jump_statement : RETURN_tok SEMI_tok");}
 	| RETURN_tok expression SEMI_tok {
