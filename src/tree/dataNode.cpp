@@ -214,7 +214,12 @@ void DataNode::storeString(char *s)
 nodeDataType DataNode::getidDataType()
 {
 	//cout << "here " << idDataTypes.size() << endl;
-	return idDataTypes[idDataTypes.size() - 1];
+	for(int i = 0; i < idDataTypes.size(); i++)
+	{
+		if(idDataTypes[i] == (FLOAT_TYPE_NODE || INT_TYPE_NODE || CHAR_TYPE_NODE || DOUBLE_TYPE_NODE))
+				return idDataTypes[i];
+	}
+
 }
 void DataNode::setidDataTypes(vector<nodeDataType> types)
 {
@@ -293,14 +298,14 @@ void DataNode::errorCheck()
 			{
 				TreeNode::errorCheck("ERROR: Invalid operands to %");
 			}
-			if(left == DOUBLE_TYPE_NODE)
+			if(left == (DOUBLE_TYPE_NODE || FLOAT_TYPE_NODE))
 			{
 				tmp->setTypeSpecifier(DOUBLE_TYPE_NODE);
 				tmp->assignChild(0,rightChild);
 				rightChild = tmp;
 				setTypeSpecifier(left);
 			}
-			else if(right == DOUBLE_TYPE_NODE)
+			else if(right == (DOUBLE_TYPE_NODE || FLOAT_TYPE_NODE))
 			{
 				tmp->setTypeSpecifier(DOUBLE_TYPE_NODE);
 				tmp->assignChild(0,leftChild);
