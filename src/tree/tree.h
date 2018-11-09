@@ -77,9 +77,11 @@ public:
 	virtual void traverse_to_file(FILE*);
 	virtual void ast_to_3ac(FILE*);
 	virtual void assignChild(int childIndex, TreeNode* child);
-	virtual int getDataType(char *){}
+	virtual int getDataType(char *){return TREE_TYPE_NODE;}
 	virtual int returnTicket(){}
+	void printNode();
 	virtual void errorCheck(const char * str);
+	virtual void assignLine(int,int,int,FILE*);
 protected:
 	int TreeNodeNumber;
 	//type

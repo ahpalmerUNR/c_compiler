@@ -52,9 +52,10 @@
 
 	extern int column;
 	extern int line;
+	extern int size;
 
 	void outputReduction(const char *s);
-
+	char* getLine();
 	void yyerror(char const *msg);
 
 	int yylex();
@@ -317,26 +318,31 @@ storage_class_specifier
 	: AUTO_tok {
 		DataNode* tmp = new DataNode("storage_class_specifier_");
 		tmp->setTypeSpecifier(AUTO_TYPE_NODE);
+		tmp->assignLine(line,column-size,column,errorText);
 		$<tnode>$ = tmp;
 		outputReduction("storage_class_specifier : AUTO_tok");}
 	| REGISTER_tok {
 		DataNode* tmp = new DataNode("storage_class_specifier_");
 		tmp->setTypeSpecifier(REGISTER_TYPE_NODE);
+		tmp->assignLine(line,column-size,column,errorText);
 		$<tnode>$ = tmp;
 		outputReduction("storage_class_specifier : REGISTER_tok");}
 	| STATIC_tok {
 		DataNode* tmp = new DataNode("storage_class_specifier_");
 		tmp->setTypeSpecifier(STATIC_TYPE_NODE);
+		tmp->assignLine(line,column-size,column,errorText);
 		$<tnode>$ = tmp;
 		outputReduction("storage_class_specifier : STATIC_tok");}
 	| EXTERN_tok {
 		DataNode* tmp = new DataNode("storage_class_specifier_");
 		tmp->setTypeSpecifier(EXTERN_TYPE_NODE);
+		tmp->assignLine(line,column-size,column,errorText);
 		$<tnode>$ = tmp;
 		outputReduction("storage_class_specifier : EXTERN_tok");}
 	| TYPEDEF_tok {
 		DataNode* tmp = new DataNode("storage_class_specifier_");
 		tmp->setTypeSpecifier(TYPEDEF_TYPE_NODE);
+		tmp->assignLine(line,column-size,column,errorText);
 		$<tnode>$ = tmp;
 		outputReduction("storage_class_specifier : TYPEDEF_tok");}
 	;
@@ -347,6 +353,7 @@ type_specifier
 
 		DataNode* tmp = new DataNode("type_specifier_");
 		tmp->setTypeSpecifier(VOID_TYPE_NODE);
+		tmp->assignLine(line,column-size,column,errorText);
 		$<tnode>$ = tmp;
 		outputReduction("type_specifier : VOID_tok");}
 	| CHAR_tok {
@@ -354,6 +361,7 @@ type_specifier
 
 		DataNode* tmp = new DataNode("type_specifier_");
 		tmp->setTypeSpecifier(CHAR_TYPE_NODE);
+		tmp->assignLine(line,column-size,column,errorText);
 		$<tnode>$ = tmp;
 		outputReduction("type_specifier : CHAR_tok");}
 	| SHORT_tok { 
@@ -361,6 +369,7 @@ type_specifier
 
 		DataNode* tmp = new DataNode("type_specifier_");
 		tmp->setTypeSpecifier(SHORT_TYPE_NODE);
+		tmp->assignLine(line,column-size,column,errorText);
 		$<tnode>$ = tmp;
 		outputReduction("type_specifier : SHORT_tok");}
 	| INT_tok {
@@ -368,6 +377,7 @@ type_specifier
 
 		DataNode* tmp = new DataNode("type_specifier_");
 		tmp->setTypeSpecifier(INT_TYPE_NODE);
+		tmp->assignLine(line,column-size,column,errorText);
 		$<tnode>$ = tmp;
 		outputReduction("type_specifier : INT_tok");}
 	| LONG_tok {
@@ -375,6 +385,7 @@ type_specifier
 
 		DataNode* tmp = new DataNode("type_specifier_");
 		tmp->setTypeSpecifier(LONG_TYPE_NODE);
+		tmp->assignLine(line,column-size,column,errorText);
 		$<tnode>$ = tmp;
 		outputReduction("type_specifier : LONG_tok");}
 	| FLOAT_tok {
@@ -382,6 +393,7 @@ type_specifier
 
 		DataNode* tmp = new DataNode("type_specifier_");
 		tmp->setTypeSpecifier(FLOAT_TYPE_NODE);
+		tmp->assignLine(line,column-size,column,errorText);
 		$<tnode>$ = tmp;
 		outputReduction("type_specifier : FLOAT_tok");}
 	| DOUBLE_tok {
@@ -389,6 +401,7 @@ type_specifier
 
 		DataNode* tmp = new DataNode("type_specifier_");
 		tmp->setTypeSpecifier(DOUBLE_TYPE_NODE);
+		tmp->assignLine(line,column-size,column,errorText);
 		$<tnode>$ = tmp;
 		outputReduction("type_specifier : DOUBLE_tok");}
 	| SIGNED_tok {
@@ -396,6 +409,7 @@ type_specifier
 
 		DataNode* tmp = new DataNode("type_specifier_");
 		tmp->setTypeSpecifier(SIGNED_TYPE_NODE);
+		tmp->assignLine(line,column-size,column,errorText);
 		$<tnode>$ = tmp;
 		outputReduction("type_specifier : SIGNED_tok");}
 	| UNSIGNED_tok {
@@ -403,6 +417,7 @@ type_specifier
 
 		DataNode* tmp = new DataNode("type_specifier_");
 		tmp->setTypeSpecifier(UNSIGNED_TYPE_NODE);
+		tmp->assignLine(line,column-size,column,errorText);
 		$<tnode>$ = tmp;
 		outputReduction("type_specifier : UNSIGNED_tok");}
 	| struct_or_union_specifier { 
@@ -413,6 +428,7 @@ type_specifier
 
 		DataNode* tmp = new DataNode("type_specifier_");
 		tmp->setTypeSpecifier(ENUM_TYPE_NODE);
+		tmp->assignLine(line,column-size,column,errorText);
 		$<tnode>$ = tmp;
 		outputReduction("type_specifier : ENUM_tok");}
 	| TYPEDEF_NAME_tok {
@@ -422,6 +438,7 @@ type_specifier
 		tmp->storeString(yylval.lstr);
 		tmp->setTypeSpecifier(TYPEDEF_NAME_TYPE_NODE);
 		tmp->notData();
+		tmp->assignLine(line,column-size,column,errorText);
 		$<tnode>$ = tmp;
 		outputReduction("type_specifier : TYPEDEF_NAME_tok");}
 	;
@@ -432,6 +449,7 @@ type_qualifier
 
 		DataNode* tmp = new DataNode("type_qualifier_");
 		tmp->setTypeSpecifier(CONST_TYPE_NODE);
+		tmp->assignLine(line,column-size,column,errorText);
 		$<tnode>$ = tmp;
 		outputReduction("type_qualifier : CONST_tok");}
 	| VOLATILE_tok {
@@ -439,6 +457,7 @@ type_qualifier
 
 		DataNode* tmp = new DataNode("type_qualifier_");
 		tmp->setTypeSpecifier(VOLATILE_TYPE_NODE);
+		tmp->assignLine(line,column-size,column,errorText);
 		$<tnode>$ = tmp;
 		outputReduction("type_qualifier : VOLATILE_tok");}
 	;
@@ -469,11 +488,13 @@ struct_or_union
 	: STRUCT_tok {
 		DataNode* tmp = new DataNode("struct_or_union_");
 		tmp->setTypeSpecifier(STRUCT_TYPE_NODE);
+		tmp->assignLine(line,column-size,column,errorText);
 		$<tnode>$ = tmp;
 		outputReduction("struct_or_union : STRUCT_tok");}
 	| UNION_tok {
 		DataNode* tmp = new DataNode("struct_or_union_");
 		tmp->setTypeSpecifier(UNION_TYPE_NODE);
+		tmp->assignLine(line,column-size,column,errorText);
 		$<tnode>$ = tmp;
 		outputReduction("struct_or_union : UNION_tok");}
 	;
@@ -680,6 +701,7 @@ pointer
 		variableToInsert->types.push_back(POINTER_TYPE_NODE);
 		DataNode* tmp = new DataNode("pointer_");
 		tmp->setTypeSpecifier(POINTER_TYPE_NODE);
+		tmp->assignLine(line,column-size,column,errorText);
 		$<tnode>$ = tmp;
 		outputReduction("pointer : STAR_tok");}
 	| STAR_tok type_qualifier_list {
@@ -926,6 +948,7 @@ labeled_statement
 	| DEFAULT_tok COLON_tok statement {
 		DataNode* defaultString = new DataNode("default_");
 		defaultString->storeString((char *)"default");
+		defaultString->assignLine(line,column-8,column,errorText);
 		LabelNode* tmp = new LabelNode("labeled_statement_");
 		tmp->assignChild(0,defaultString);
 		tmp->assignChild(1,$<tnode>3);
@@ -953,6 +976,8 @@ pop
 compound_statement
 	: push OPEN_BRACE_tok CLOSE_BRACE_tok pop {
 		TreeNode* tmp = new TreeNode("compound_statement_",0);
+		tmp->assignLine(line,column-size,column,errorText);
+		tmp->printNode();
 		$<tnode>$ = tmp;
 		outputReduction("compound_statement : OPEN_BRACE_tok CLOSE_BRACE_tok");}
 	| push OPEN_BRACE_tok statement_list CLOSE_BRACE_tok pop {
@@ -1427,26 +1452,32 @@ unary_expression
 unary_operator
 	: AMP_tok {
 		OperatorNode* tmp = new OperatorNode("unary_operator_", AMP_op,1);
+		tmp->assignLine(line,column-size,column,errorText);
 		$<tnode>$ = tmp;
 		outputReduction("unary_operator : AMP_tok");}
 	| STAR_tok {
 		OperatorNode* tmp = new OperatorNode("unary_operator_", STAR_op,1);
+		tmp->assignLine(line,column-size,column,errorText);
 		$<tnode>$ = tmp;
 		outputReduction("unary_operator : STAR_tok");}
 	| PLUS_tok {
 		OperatorNode* tmp = new OperatorNode("unary_operator_", PLUS_op,1);
+		tmp->assignLine(line,column-size,column,errorText);
 		$<tnode>$ = tmp;
 		outputReduction("unary_operator : PLUS_tok");}
 	| MINUS_tok {
 		OperatorNode* tmp = new OperatorNode("unary_operator_", MINUS_op,1);
+		tmp->assignLine(line,column-size,column,errorText);
 		$<tnode>$ = tmp;
 		outputReduction("unary_operator : MINUS_tok");}
 	| TILDA_tok {
 		OperatorNode* tmp = new OperatorNode("unary_operator_", TILDA_op,1);
+		tmp->assignLine(line,column-size,column,errorText);
 		$<tnode>$ = tmp;
 		outputReduction("unary_operator : TILDA_tok");}
 	| NOT_tok {
 		OperatorNode* tmp = new OperatorNode("unary_operator_", NOT_op,1);
+		tmp->assignLine(line,column-size,column,errorText);
 		$<tnode>$ = tmp;
 		outputReduction("unary_operator : NOT_tok");}
 	;
@@ -1523,6 +1554,7 @@ argument_expression_list
 		tmp->notData();
 		tmp->setNumberChildren(2);
 		tmp->setTypeSpecifier(typeCheck(COMMA_OP, &$<tnode>1, &$<tnode>3));
+		tmp->printNode();
 		tmp->assignChild(0, $<tnode>1);
 		tmp->assignChild(1, $<tnode>3);
 		outputReduction("argument_expression_list : argument_expression_list COMMA_tok assignment_expression");}
@@ -1532,20 +1564,24 @@ constant
 	: INTEGER_CONSTANT_tok {
 		DataNode* tmp = new DataNode("constant_");
 		tmp->storeInt(yylval.lint);
+		tmp->assignLine(line,column-size,column,errorText);
 		$<tnode>$ = tmp;
 		outputReduction("constant : INTEGER_CONSTANT_tok");}
 	| CHARACTER_CONSTANT_tok {
 		DataNode* tmp = new DataNode("constant_");
 		tmp->storeChar(yylval.lchar);
+		tmp->assignLine(line,column-size,column,errorText);
 		$<tnode>$ = tmp;
 		outputReduction("constant : CHARACTER_CONSTANT_tok");}
 	| FLOATING_CONSTANT_tok {
 		DataNode* tmp = new DataNode("constant_");
 		tmp->storeDouble(yylval.ldoub);
+		tmp->assignLine(line,column-size,column,errorText);
 		$<tnode>$ = tmp;
 		outputReduction("constant : FLOATING_CONSTANT_tok");}
 	| ENUMERATION_CONSTANT_tok {
 		TreeNode* tmp = new TreeNode("constant",0);
+		tmp->assignLine(line,column-size,column,errorText);
 		$<tnode>$ = tmp;
 		outputReduction("constant : ENUMERATION_CONSTANT_tok");}
 	;
@@ -1554,6 +1590,7 @@ string
 	: STRING_LITERAL_tok {
 		DataNode* tmp = new DataNode("string_");
 		tmp->storeString(yylval.lstr);
+		tmp->assignLine(line,column-size,column,errorText);
 		$<tnode>$ = tmp;
 		outputReduction("string : STRING_LITERAL_tok");}
 	;
@@ -1564,12 +1601,14 @@ identifier
 		if (yylval.lnode != NULL) {
 
 			/*printf("%s\n",yylval.lnode->name.c_str());
-			tmp->storeString((char*)yylval.lnode->name.c_str());*/
-			printf("%s\n",variableToInsert->name.c_str());
+			tmp->storeString((char*)yylval.lnode->name.c_str());
+			printf("%s\n",variableToInsert->name.c_str());*/
 			tmp->storeString((char*)variableToInsert->name.c_str());
 
 			tmp->setTypeSpecifier(ID_TYPE_NODE);
 		}
+		tmp->assignLine(line,column-size,column,errorText);
+		
 		$<tnode>$ = tmp;
 		outputReduction("identifier : ID_tok");}
 	;
@@ -1756,6 +1795,7 @@ int main(int argc, char **argv)
 	return 0;	
 }
 
+
 void yyerror(char const *msg)
 {
 	char tmp[MAX_LINE_LENGTH];
@@ -1786,7 +1826,7 @@ TreeNode* createOperatorDataNode(OperatorType opType, TreeNode *leftChild, TreeN
 		tmp->notData();
 		tmp->setNumberChildren(2);
 		tmp->setTypeSpecifier(typeCheck(opType, &leftChild, &rightChild));
-		cout << leftChild->returnTicket() << endl;
+		//cout << leftChild->returnTicket() << endl;
 		tmp->assignChild(0, leftChild);
 		tmp->assignChild(1, rightChild);
 		return tmp;

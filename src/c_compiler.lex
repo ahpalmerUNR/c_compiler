@@ -28,6 +28,7 @@ extern int insert_lookup;
 extern SymbolTable s;
 int line = 1;
 int column = 1;
+int size = 0;
 extern FILE *outfile;
 extern FILE *out_log;
 extern char *logName;
@@ -270,6 +271,7 @@ mult_line_comment	"/*"([^*]|\*+[^*/])*"*/"
 int send_token(char const* token_name,int token)
 {
 	column+=yyleng;
+	size = yyleng;
 	//printf("%s\n",tmp);
 	time_time = time(NULL);
 	clock_time = clock();
@@ -716,7 +718,7 @@ int id_token()
 	}
 	
 	//printf("Lex debug level %d\n",lex_debug_level);
-	
+	size = yyleng;
 	return(send_token("ID_tok",ID_tok));
 }
 

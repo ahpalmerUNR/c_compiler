@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-11-05 15:44:49
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-07 15:56:42
+* @Last Modified time: 2018-11-09 00:21:15
 */
 #include "functionNode.h"
 
@@ -53,7 +53,8 @@ void FunctionNode::errorCheck()
 	}
 	if (children[0]->getDataType(temp)==EMPTY_TYPE_NODE)
 	{
-		yyerror("Warning: No return type specified for function.");
+		TreeNode::printNode();
+		TreeNode::errorCheck("Warning: No return type specified for function.");
 	}
 	else
 	{
