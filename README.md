@@ -132,7 +132,8 @@ int main()
 	return 0;
 }
 ```
-
+## AST
+To view the AST if graphviz is not installed you can use the website [http://www.webgraphviz.com/](http://www.webgraphviz.com/).
 ## Contributions
 * Zachary Young
 
@@ -149,7 +150,7 @@ int main()
 	Regular expressions for Lex
 	
 	Solving various errors
-	
+	README.md
 	
 
 * Andrew Palmer
