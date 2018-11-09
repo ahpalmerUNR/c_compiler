@@ -1,0 +1,107 @@
+digraph AST {
+	translation_unit_58 -> translation_unit_11;
+	translation_unit_11 -> declaration_10;
+	declaration_10 [label="declaration_10"]
+	declaration_10 -> type_specifier_0;
+	type_specifier_0 [label="int"]
+	declaration_10 -> direct_declarator_9;
+	direct_declarator_9 -> identifier_1;
+	identifier_1 [label="ID: q"]
+	direct_declarator_9 -> parameter_list_8;
+	parameter_list_8 -> parameter_declaration_4;
+	parameter_declaration_4 -> type_specifier_2;
+	type_specifier_2 [label="int"]
+	parameter_declaration_4 -> identifier_3;
+	identifier_3 [label="ID: f"]
+	parameter_list_8 -> parameter_declaration_7;
+	parameter_declaration_7 -> type_specifier_5;
+	type_specifier_5 [label="int"]
+	parameter_declaration_7 -> identifier_6;
+	identifier_6 [label="ID: j"]
+	translation_unit_58 -> function_definition_57;
+	function_definition_57 [shape=doubleoctagon,color=red,label="main"]
+	function_definition_57 -> type_specifier_12;
+	type_specifier_12 [label="int"]
+	function_definition_57 -> identifier_13;
+	identifier_13 [label="ID: main"]
+	function_definition_57 -> empty_56;
+	empty_56 [style=filled,color=indigo,fontcolor=white]
+	function_definition_57 -> compound_statement_55;
+	compound_statement_55 -> declaration_list_27;
+	declaration_list_27 -> declaration_21;
+	declaration_21 [label="declaration_21"]
+	declaration_21 -> type_specifier_15;
+	type_specifier_15 [label="float"]
+	declaration_21 -> direct_declarator_20;
+	direct_declarator_20 [label="  Left[Right]"]
+	direct_declarator_20 -> direct_declarator_18;
+	direct_declarator_18 [label="  Left[Right]"]
+	direct_declarator_18 -> identifier_16;
+	identifier_16 [label="ID: k"]
+	direct_declarator_18 -> constant_17;
+	constant_17 [label="Int: 5"]
+	direct_declarator_20 -> constant_19;
+	constant_19 [label="Int: 5"]
+	declaration_list_27 -> declaration_26;
+	declaration_26 [label="declaration_26"]
+	declaration_26 -> type_specifier_22;
+	type_specifier_22 [label="int"]
+	declaration_26 -> direct_declarator_25;
+	direct_declarator_25 [label="  Left[Right]"]
+	direct_declarator_25 -> identifier_23;
+	identifier_23 [label="ID: l"]
+	direct_declarator_25 -> constant_24;
+	constant_24 [label="Int: 5"]
+	compound_statement_55 -> statement_list_54;
+	statement_list_54 -> statement_list_46;
+	statement_list_46 -> assignment_expression_37;
+	assignment_expression_37 [label="Int:  Left = Right"]
+	assignment_expression_37 -> postfix_expression_32;
+	postfix_expression_32 [label="  Left[Right]"]
+	postfix_expression_32 -> postfix_expression_30;
+	postfix_expression_30 [label="  Left[Right]"]
+	postfix_expression_30 -> identifier_28;
+	identifier_28 [label="ID: k"]
+	postfix_expression_30 -> constant_29;
+	constant_29 [label="Int: 1"]
+	postfix_expression_32 -> constant_31;
+	constant_31 [label="Int: 2"]
+	assignment_expression_37 -> operator_expression_35;
+	operator_expression_35 [label="Float:  Left + Right"]
+	operator_expression_35 -> constant_33;
+	constant_33 [label="Float: 5.000000"]
+	operator_expression_35 -> Implicit_Cast36;
+	Implicit_Cast36 [label="Cast(Float)"]
+	Implicit_Cast36 -> constant_34;
+	constant_34 [label="Int: 1"]
+	statement_list_46 -> assignment_expression_44;
+	assignment_expression_44 [label="Float:  Left = Right"]
+	assignment_expression_44 -> postfix_expression_42;
+	postfix_expression_42 [label="  Left[Right]"]
+	postfix_expression_42 -> postfix_expression_40;
+	postfix_expression_40 [label="  Left[Right]"]
+	postfix_expression_40 -> identifier_38;
+	identifier_38 [label="ID: k"]
+	postfix_expression_40 -> constant_39;
+	constant_39 [label="Int: 1"]
+	postfix_expression_42 -> constant_41;
+	constant_41 [label="Int: 2"]
+	assignment_expression_44 -> Implicit_Cast_45;
+	Implicit_Cast_45 [label="Cast(Float)"]
+	Implicit_Cast_45 -> constant_43;
+	constant_43 [label="Char: c"]
+	statement_list_54 -> postfix_expression_53;
+	postfix_expression_53 [label="  Left(Right)"]
+	postfix_expression_53 -> identifier_47;
+	identifier_47 [label="ID: q"]
+	postfix_expression_53 -> argument_expression_list_52;
+	argument_expression_list_52 [label=" Left , Right"]
+	argument_expression_list_52 -> argument_expression_list_50;
+	argument_expression_list_50 [label=" Left , Right"]
+	argument_expression_list_50 -> constant_48;
+	constant_48 [label="Int: 5"]
+	argument_expression_list_50 -> constant_49;
+	constant_49 [label="Int: 2"]
+	argument_expression_list_52 -> constant_51;
+	constant_51 [label="Int: 3"]
+}

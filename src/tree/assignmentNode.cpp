@@ -116,7 +116,7 @@ void AssignmentNode::errorCheck()
 			assignChild(1,tmp);
 			setTypeSpecifier(left);
 			//may produce duplicate warnings as data node so maybe not use it...
-			//implicitCastWarning(left,right);
+			implicitCastWarning(left,right);
 		}
 }
 
@@ -154,7 +154,7 @@ void AssignmentNode::implicitCastWarning(nodeDataType t1, nodeDataType t2)
 			snprintf(t2Print, 500,"Float");
 			break;
 	}
-	string d = "Warning: implicit cast of types: ";
+	string d = "Warning: implicit cast of types in assignment: ";
 	string one = t1Print;
 	string two = t2Print;
 	//TreeNode::errorCheck((d + one + " " + two).c_str());

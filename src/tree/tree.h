@@ -41,7 +41,8 @@ enum OperatorType {
 	BAR_OP,
 	CARET_OP,
 	AMP_OP,
-	BRACKET_OP
+	BRACKET_OP,
+	PAREN_OP
 	};
 	
 enum AssignType {

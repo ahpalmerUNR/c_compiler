@@ -152,6 +152,7 @@ void DataNode::traverse_to_file(FILE* fileout)
 				break;
 			case COMMA_OP:
 				snprintf(operatorPrint, 500,"Left , Right");
+				snprintf(typePrint, 500,"");
 				break;
 			case QUESTION_OP:
 				snprintf(operatorPrint, 500,"Left ? Middle : Right");
@@ -173,7 +174,10 @@ void DataNode::traverse_to_file(FILE* fileout)
 				break;
 			case BRACKET_OP:
 				snprintf(operatorPrint, 500,"Left[Right]");
-				break;				
+				break;
+			case PAREN_OP:
+				snprintf(operatorPrint, 500,"Left(Right)");
+				break;					
 		}
 	}
 	if(isOperatorNode)
@@ -363,7 +367,7 @@ void DataNode::implicitCastWarning(nodeDataType t1, nodeDataType t2)
 			snprintf(t2Print, 500,"Float");
 			break;
 	}
-	string d = "Warning: implicit cast of types: ";
+	string d = "Warning: implicit cast of types when performing operation: ";
 	string one = t1Print;
 	string two = t2Print;
 	//TreeNode::errorCheck((d + one + " " + two).c_str());

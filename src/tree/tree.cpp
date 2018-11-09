@@ -47,7 +47,7 @@ void TreeNode::ast_to_3ac(FILE* fileout)
 void TreeNode::assignChild(int childIndex, TreeNode* child)
 {
 	children[childIndex] = child;
-	forErrors.assign(childIndex+1,child.forErrors[0]);
+	/*forErrors.assign(childIndex+1,child.forErrors[0]);
 	
 	//if nothing set before
 	if(forErrors[0].lineStart==-1)
@@ -97,11 +97,11 @@ void TreeNode::assignChild(int childIndex, TreeNode* child)
 		{
 			forErrors[0].colEnd = child.forErrors[0].colEnd;
 		}
-	}
+	}*/
 
 }
 
-void TreeNode::assignLine(int line,int colstart, int colend, string code)
+/*void TreeNode::assignLine(int line,int colstart, int colend, string code)
 {
 	sourceLine pair;
 	pair.lineNum = line;
@@ -113,11 +113,11 @@ void TreeNode::assignLine(int line,int colstart, int colend, string code)
 	toAdd.colEnd = colend;
 	toAdd.source.emblace_back(pair);
 	forErrors.assign(0,toAdd);
-}
+}*/
 
 void TreeNode::errorCheck(const char * str)
 {
-	printf("Symantic Issue: %s:Line: %d Column: %d %s\n",file_name,lineNum,colNum,str);
+/*	printf("Symantic Issue: %s:Line: %d Column: %d %s\n",file_name,lineNum,colNum,str);
 	printf("%s",sourceCode.c_str());
 	for(int i = colNum-1; i>0;i--)
 	{
@@ -143,7 +143,7 @@ void TreeNode::errorCheck(const char * str)
 	else
 	{
 		//print multi-line error
-	}
+	}*/
 }
 
 vector<int> TreeNode::getTypes()

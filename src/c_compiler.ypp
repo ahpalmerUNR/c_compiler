@@ -1471,9 +1471,17 @@ postfix_expression
 		$<tnode>$ = tmp;
 		outputReduction("postfix_expression : postfix_expression OPEN_PAREN_tok CLOSE_PAREN_tok");}
 	| postfix_expression OPEN_PAREN_tok argument_expression_list CLOSE_PAREN_tok {
-		TreeNode* tmp = new TreeNode("postfix_expression_",2);
+		DataNode* tmp = new DataNode("postfix_expression_");
+		tmp->setNumberChildren(2);
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>3);
+		tmp->setTypeSpecifier(ID_TYPE_NODE);
+		tmp->setOperator(PAREN_OP);
+		vector<nodeDataType> type;
+		//cout << "hereE" <<  $<tnode>1->getidDataType() << endl;
+		type.push_back($<tnode>1->getidDataType());
+		tmp->setidDataTypes(type);
+		tmp->notData();
 		$<tnode>$ = tmp;
 		outputReduction("postfix_expression : postfix_expression OPEN_PAREN_tok argument_expression_list CLOSE_PAREN_tok");}
 	| postfix_expression PERIOD_tok identifier {
@@ -1528,8 +1536,8 @@ argument_expression_list
 		tmp->setNumberChildren(2);
 		tmp->assignChild(0, $<tnode>1);
 		tmp->assignChild(1, $<tnode>3);
-		tmp->errorCheck();
-		tmp->errorCheck();
+		//tmp->errorCheck();
+		$<tnode>$ = tmp;
 		outputReduction("argument_expression_list : argument_expression_list COMMA_tok assignment_expression");}
 	;
 
