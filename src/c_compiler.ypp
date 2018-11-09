@@ -273,6 +273,10 @@ declaration
 		char buffer[500];
 		vector<int> types = tmp->getType();
 		tmp->parseTypes();
+		// Debugging: Get the types parsed
+		// for (int t : types) {
+		// 	cout << getDataTypeString(static_cast<nodeDataType>(t)) << " ";
+		// } cout << endl;
 		$<tnode>$ = tmp;
 		outputReduction("declaration : declaration_specifiers init_declarator_list SEMI_tok");}
 
@@ -290,7 +294,9 @@ declaration_list
 
 declaration_specifiers
 	: storage_class_specifier {
-		$<tnode>$ = $<tnode>1;
+		DeclarationSpecNode* tmp = new DeclarationSpecNode("declaration_specifiers_",1);
+		tmp->assignChild(0, $<tnode>1);
+		$<tnode>$ = tmp;
 		outputReduction("declaration_specifiers : storage_class_specifier");}
 	| storage_class_specifier declaration_specifiers {
 		DeclarationSpecNode* tmp = new DeclarationSpecNode("declaration_specifiers_",2);
@@ -299,7 +305,9 @@ declaration_specifiers
 		$<tnode>$ = tmp;
 		outputReduction("declaration_specifiers : storage_class_specifier declaration_specifiers");}
 	| type_specifier {
-		$<tnode>$ = $<tnode>1;
+		DeclarationSpecNode* tmp = new DeclarationSpecNode("declaration_specifiers_",1);
+		tmp->assignChild(0, $<tnode>1);
+		$<tnode>$ = tmp;
 		outputReduction("declaration_specifiers : type_specifier");}
 	| type_specifier declaration_specifiers {
 		DeclarationSpecNode* tmp = new DeclarationSpecNode("declaration_specifiers_",2);
@@ -308,7 +316,9 @@ declaration_specifiers
 		$<tnode>$ = tmp;
 		outputReduction("declaration_specifiers : type_specifier declaration_specifiers");}
 	| type_qualifier {
-		$<tnode>$ = $<tnode>1;
+		DeclarationSpecNode* tmp = new DeclarationSpecNode("declaration_specifiers_",1);
+		tmp->assignChild(0, $<tnode>1);
+		$<tnode>$ = tmp;
 		outputReduction("declaration_specifiers : type_qualifier");}
 	| type_qualifier declaration_specifiers {
 		DeclarationSpecNode* tmp = new DeclarationSpecNode("declaration_specifiers_",2);

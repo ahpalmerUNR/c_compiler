@@ -222,6 +222,7 @@ void DataNode::setTypeSpecifier(nodeDataType typeSpec)
 	oType = operatorSpec;
 	isOperatorNode = true;
 }
+
 int DataNode::getDataType(char * representation)
 {
 	if (isData)

@@ -32,22 +32,28 @@ void DeclarationSpecNode::ast_to_3ac(FILE* fileout)
 
 int DeclarationSpecNode::getDataType(char* ignore)
 {
-	char buffer[500];
-	for(int i = 0; i < numberChildren; i++) {
-		if (children[i]->getDataType(buffer) != -1) {
-			types.push_back(children[i]->getDataType(buffer));
-		}
-	}
-	return -1; // Not actually a datatype
+	// char buffer[500];
+	// for(int i = 0; i < numberChildren; i++) {
+	// 	if (children[i]->getDataType(buffer) != -1) {
+	// 		types.push_back(children[i]->getDataType(buffer));
+	// 	}
+	// }
+	// return children[0]->getDataType(buffer);
+	return -1;
 }
 
 vector<int> DeclarationSpecNode::getTypes()
 {
-	// for (int i = 0; i < numberChildren; i++) {
-	vector<int> tmp = children[1]->getTypes();
-	for (const int t : tmp) {
-		types.push_back(t);
+	char buffer[500];
+	for (int i = 0; i < numberChildren; i++) {
+		vector<int> tmp = children[i]->getTypes();
+		for (const int t : tmp) {
+			if (t != -1) {
+				types.push_back(t);
+			}
+		}
+
+		// types.push_back(children[i]->getDataType(buffer));
 	}
-	// }
 	return types;
 }
