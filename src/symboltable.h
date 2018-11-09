@@ -54,7 +54,8 @@ enum nodeDataType {
 	TYPEDEF_TYPE_NODE,
 	ID_TYPE_NODE,
 	EMPTY_TYPE_NODE,
-	TREE_TYPE_NODE
+	TREE_TYPE_NODE,
+	DIRECT_DECL_TYPE_NODE
 };
 
 string getDataType(nodeDataType);

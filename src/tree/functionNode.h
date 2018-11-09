@@ -14,9 +14,11 @@ public:
 	int getDataType(char*);
 	int returnTicket();
 	void errorCheck();
+	vector<int> getTypes();
 	
 protected:
-	vector<nodeDataType> freturnType;
+	// vector<nodeDataType> freturnType;
+	vector<int> freturnType;
 	int variableTick;
 	vector<vector<nodeDataType>> functionArgs;
 	string functName;

@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-11-05 15:44:49
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-09 02:01:23
+* @Last Modified time: 2018-11-09 03:09:36
 */
 #include "functionNode.h"
 
@@ -32,12 +32,17 @@ void FunctionNode::ast_to_3ac(FILE* fileout)
 
 int FunctionNode::getDataType(char* buffer)
 {
+	return -1;
+}
 
+vector<int> FunctionNode::getTypes()
+{
+	return freturnType;
 }
 
 int FunctionNode::returnTicket()
 {
-
+	return variableTick;
 }
 
 void FunctionNode::errorCheck()
@@ -47,9 +52,19 @@ void FunctionNode::errorCheck()
 	{
 		functName.assign(temp);
 	}
+	else if(children[1]->getDataType(temp)==DIRECT_DECL_TYPE_NODE)
+	{
+		children[1]->children[0]->getDataType(temp);
+		
+		functName.assign(temp);
+		
+		//set param list
+	}
 	else
 	{
-		yyerror("No function name.");
+		cout<<"Child type "<<children[1]->getDataType(temp)<<" "<<ID_TYPE_NODE<<endl;
+		// children[1]->printNode();
+		TreeNode::errorCheck("No function name.");
 	}
 	if (children[0]->getDataType(temp)==EMPTY_TYPE_NODE)
 	{
@@ -58,7 +73,7 @@ void FunctionNode::errorCheck()
 	}
 	else
 	{
-		//set return type
+		freturnType = children[0]->getTypes();
 	}
 	if (children[2]->getDataType(temp)!=EMPTY_TYPE_NODE)
 	{

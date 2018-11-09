@@ -73,15 +73,19 @@ struct ErrorReport{
 	vector<sourceLine> source;
 };
 
+class FunctionNode;
+
 class TreeNode
 {
+	friend class FunctionNode;
 public:
 	TreeNode(string TreeNodeProductionName,int numberOfChildren);
 	~TreeNode();
 	virtual void traverse_to_file(FILE*);
 	virtual void ast_to_3ac(FILE*);
 	virtual void assignChild(int childIndex, TreeNode* child);
-	virtual int getDataType(char *){return TREE_TYPE_NODE;}
+	virtual int getDataType(char *){return tType;}
+	virtual void setTypeSpecifier(nodeDataType typeSpec);
 	//virtual int getDataType(char *){ return -1; }
 	virtual nodeDataType getidDataType(){};
 	virtual vector<int> getTypes();
@@ -98,6 +102,7 @@ protected:
 	int numberChildren;
 	vector<TreeNode*> children;
 	vector<int> types;
+	nodeDataType tType;
 };
 
 class Tree

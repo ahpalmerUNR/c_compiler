@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-27 14:10:44
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-09 01:38:21
+* @Last Modified time: 2018-11-09 03:00:14
 */
 #include "tree.h"
 
@@ -18,6 +18,7 @@ TreeNode::TreeNode(string TreeNodeProductionName,int numberOfChildren)
 	forErrors[0].lineEnd = -1;
 	forErrors[0].colStart = -1;
 	forErrors[0].colEnd = -1;
+	tType = TREE_TYPE_NODE;
 }
 
 TreeNode::~TreeNode()
@@ -127,6 +128,11 @@ void TreeNode::assignChild(int childIndex, TreeNode* child)
 	}
 }
 
+void TreeNode::setTypeSpecifier(nodeDataType typeSpec)
+{
+	tType = typeSpec;
+}
+
 void TreeNode::assignLine(int line,int colstart, int colend, FILE* errorT)
 {
 	char tmp[500];
@@ -213,7 +219,7 @@ void TreeNode::errorCheck(const char * str)
 				printf("^");
 				fprintf(out_log,"^");
 			}
-			else if(i>forErrors[0].colStart)
+			else if(i>forErrors[0].colStart-1)
 			{
 				printf("-");
 				fprintf(out_log,"-");
@@ -224,8 +230,8 @@ void TreeNode::errorCheck(const char * str)
 				fprintf(out_log," ");
 			}
 		}
-		printf("and\n");
-		fprintf(out_log,"and\n");
+		printf("\nand\n");
+		fprintf(out_log,"\nand\n");
 		printf("%s",forErrors[0].source[forErrors[0].source.size()-1].codeLine.c_str());
 		fprintf(out_log,"%s",forErrors[0].source[forErrors[0].source.size()-1].codeLine.c_str());
 		for (int i = 0; i < forErrors[0].colEnd; ++i)
