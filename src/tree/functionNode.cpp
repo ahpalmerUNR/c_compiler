@@ -30,7 +30,7 @@ void FunctionNode::ast_to_3ac(FILE* fileout)
 
 }
 
-int FunctionNode::getDataType()
+int FunctionNode::getDataType(char* buffer)
 {
 
 }

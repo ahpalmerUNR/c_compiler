@@ -1,0 +1,104 @@
+digraph AST {
+	translation_unit_54 -> translation_unit_45;
+	translation_unit_45 -> translation_unit_34;
+	translation_unit_34 -> translation_unit_27;
+	translation_unit_27 -> translation_unit_20;
+	translation_unit_20 -> translation_unit_13;
+	translation_unit_13 -> translation_unit_6;
+	translation_unit_6 -> declaration_5;
+	declaration_5 [label="declaration_5"]
+	declaration_5 -> declaration_specifiers_3;
+	declaration_specifiers_3 [label="declaration_specifiers_3"]
+	declaration_specifiers_3 -> type_specifier_0;
+	type_specifier_0 [label="short"]
+	declaration_specifiers_3 -> declaration_specifiers_2;
+	declaration_specifiers_2 [label="declaration_specifiers_2"]
+	declaration_specifiers_2 -> type_specifier_1;
+	type_specifier_1 [label="long"]
+	declaration_5 -> identifier_4;
+	identifier_4 [label="ID: a"]
+	translation_unit_13 -> declaration_12;
+	declaration_12 [label="declaration_12"]
+	declaration_12 -> declaration_specifiers_10;
+	declaration_specifiers_10 [label="declaration_specifiers_10"]
+	declaration_specifiers_10 -> type_specifier_7;
+	type_specifier_7 [label="long"]
+	declaration_specifiers_10 -> declaration_specifiers_9;
+	declaration_specifiers_9 [label="declaration_specifiers_9"]
+	declaration_specifiers_9 -> type_specifier_8;
+	type_specifier_8 [label="float"]
+	declaration_12 -> identifier_11;
+	identifier_11 [label="ID: b"]
+	translation_unit_20 -> declaration_19;
+	declaration_19 [label="declaration_19"]
+	declaration_19 -> declaration_specifiers_17;
+	declaration_specifiers_17 [label="declaration_specifiers_17"]
+	declaration_specifiers_17 -> type_specifier_14;
+	type_specifier_14 [label="short"]
+	declaration_specifiers_17 -> declaration_specifiers_16;
+	declaration_specifiers_16 [label="declaration_specifiers_16"]
+	declaration_specifiers_16 -> type_specifier_15;
+	type_specifier_15 [label="float"]
+	declaration_19 -> identifier_18;
+	identifier_18 [label="ID: c"]
+	translation_unit_27 -> declaration_26;
+	declaration_26 [label="declaration_26"]
+	declaration_26 -> declaration_specifiers_24;
+	declaration_specifiers_24 [label="declaration_specifiers_24"]
+	declaration_specifiers_24 -> type_specifier_21;
+	type_specifier_21 [label="short"]
+	declaration_specifiers_24 -> declaration_specifiers_23;
+	declaration_specifiers_23 [label="declaration_specifiers_23"]
+	declaration_specifiers_23 -> type_specifier_22;
+	type_specifier_22 [label="char"]
+	declaration_26 -> identifier_25;
+	identifier_25 [label="ID: d"]
+	translation_unit_34 -> declaration_33;
+	declaration_33 [label="declaration_33"]
+	declaration_33 -> declaration_specifiers_31;
+	declaration_specifiers_31 [label="declaration_specifiers_31"]
+	declaration_specifiers_31 -> type_specifier_28;
+	type_specifier_28 [label="short"]
+	declaration_specifiers_31 -> declaration_specifiers_30;
+	declaration_specifiers_30 [label="declaration_specifiers_30"]
+	declaration_specifiers_30 -> type_specifier_29;
+	type_specifier_29 [label="double"]
+	declaration_33 -> identifier_32;
+	identifier_32 [label="ID: e"]
+	translation_unit_45 -> declaration_44;
+	declaration_44 [label="declaration_44"]
+	declaration_44 -> declaration_specifiers_42;
+	declaration_specifiers_42 [label="declaration_specifiers_42"]
+	declaration_specifiers_42 -> type_specifier_35;
+	type_specifier_35 [label="float"]
+	declaration_specifiers_42 -> declaration_specifiers_41;
+	declaration_specifiers_41 [label="declaration_specifiers_41"]
+	declaration_specifiers_41 -> type_specifier_36;
+	type_specifier_36 [label="char"]
+	declaration_specifiers_41 -> declaration_specifiers_40;
+	declaration_specifiers_40 [label="declaration_specifiers_40"]
+	declaration_specifiers_40 -> type_specifier_37;
+	type_specifier_37 [label="float"]
+	declaration_specifiers_40 -> declaration_specifiers_39;
+	declaration_specifiers_39 [label="declaration_specifiers_39"]
+	declaration_specifiers_39 -> type_specifier_38;
+	type_specifier_38 [label="int"]
+	declaration_44 -> identifier_43;
+	identifier_43 [label="ID: f"]
+	translation_unit_54 -> declaration_53;
+	declaration_53 [label="declaration_53"]
+	declaration_53 -> declaration_specifiers_51;
+	declaration_specifiers_51 [label="declaration_specifiers_51"]
+	declaration_specifiers_51 -> type_specifier_46;
+	type_specifier_46 [label="signed"]
+	declaration_specifiers_51 -> declaration_specifiers_50;
+	declaration_specifiers_50 [label="declaration_specifiers_50"]
+	declaration_specifiers_50 -> type_specifier_47;
+	type_specifier_47 [label="unsigned"]
+	declaration_specifiers_50 -> declaration_specifiers_49;
+	declaration_specifiers_49 [label="declaration_specifiers_49"]
+	declaration_specifiers_49 -> type_specifier_48;
+	type_specifier_48 [label="int"]
+	declaration_53 -> identifier_52;
+	identifier_52 [label="ID: g"]
+}

@@ -12,6 +12,8 @@ using namespace std;
 
 extern SymbolTable astTable;
 extern void yyerror(char const * msg);
+extern int line;
+extern int column;
 extern FILE* errorText;
 extern FILE* out_log;
 extern int MAX_LINE_LENGTH;
@@ -77,7 +79,10 @@ public:
 	virtual void traverse_to_file(FILE*);
 	virtual void ast_to_3ac(FILE*);
 	virtual void assignChild(int childIndex, TreeNode* child);
+
 	virtual int getDataType(char *){return TREE_TYPE_NODE;}
+	//virtual int getDataType(char *){ return -1; }
+	virtual vector<int> getTypes();
 	virtual int returnTicket(){}
 	void printNode();
 	virtual void errorCheck(const char * str);
@@ -89,6 +94,7 @@ protected:
 	string TreeNodeName;
 	int numberChildren;
 	vector<TreeNode*> children;
+	vector<int> types;
 };
 
 class Tree

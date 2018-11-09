@@ -3,7 +3,7 @@
 	#include <stdio.h>
 	#include <stdlib.h>
 	#include <memory>
-	#include "../src/symboltable.h"	
+	#include "../src/symboltable.h"
 	#include "../src/tree/tree.h"
 	#include "../src/tree/labelNode.h"
 	#include "../src/tree/emptyNode.h"
@@ -16,7 +16,8 @@
 	#include "../src/tree/relationNode.h"
 	#include "../src/tree/castNode.h"
 	#include "../src/tree/functionNode.h"
-	// #include "../src/tree/typeNode.h"
+	#include "../src/tree/typeNode.h"
+	#include "../src/tree/declarationSpecNode.h"
 
 
 	#define MAX_LINE_LENGTH 500
@@ -60,6 +61,7 @@
 
 	int yylex();
 
+	string getDataTypeString(nodeDataType);
 	TreeNode* createOperatorDataNode(OperatorType opType, TreeNode *leftChil, TreeNode* rightChild);
 	TreeNode* createRelationNode(OperatorType opType, TreeNode *leftChild, TreeNode *rightChild);
 	nodeDataType typeCheck(OperatorType opType,TreeNode **leftChild, TreeNode **rightChild);
@@ -255,7 +257,7 @@ function_definition
 
 declaration
 	: declaration_specifiers SEMI_tok {
-		TreeNode* tmp = new TreeNode("declaration_",1);
+		TypeNode* tmp = new TypeNode("declaration_",1);
 		tmp->assignChild(0,$<tnode>1);
 		$<tnode>$ = tmp;
 		outputReduction("declaration : declaration_specifiers SEMI_tok");}
@@ -266,9 +268,16 @@ declaration
 			}
 		}
 
-		TreeNode* tmp = new TreeNode("declaration_",2);
+		TypeNode* tmp = new TypeNode("declaration_",2);
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>2);
+		char buffer[500];
+		vector<int> types = tmp->getType();
+		tmp->parseTypes();
+		// Debugging: Get the types parsed
+		// for (int t : types) {
+		// 	cout << getDataTypeString(static_cast<nodeDataType>(t)) << " ";
+		// } cout << endl;
 		$<tnode>$ = tmp;
 		outputReduction("declaration : declaration_specifiers init_declarator_list SEMI_tok");}
 
@@ -286,28 +295,34 @@ declaration_list
 
 declaration_specifiers
 	: storage_class_specifier {
-		$<tnode>$ = $<tnode>1;
+		DeclarationSpecNode* tmp = new DeclarationSpecNode("declaration_specifiers_",1);
+		tmp->assignChild(0, $<tnode>1);
+		$<tnode>$ = tmp;
 		outputReduction("declaration_specifiers : storage_class_specifier");}
 	| storage_class_specifier declaration_specifiers {
-		TreeNode* tmp = new TreeNode("declaration_specifiers_",2);
+		DeclarationSpecNode* tmp = new DeclarationSpecNode("declaration_specifiers_",2);
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>2);
 		$<tnode>$ = tmp;
 		outputReduction("declaration_specifiers : storage_class_specifier declaration_specifiers");}
 	| type_specifier {
-		$<tnode>$ = $<tnode>1;
+		DeclarationSpecNode* tmp = new DeclarationSpecNode("declaration_specifiers_",1);
+		tmp->assignChild(0, $<tnode>1);
+		$<tnode>$ = tmp;
 		outputReduction("declaration_specifiers : type_specifier");}
 	| type_specifier declaration_specifiers {
-		TreeNode* tmp = new TreeNode("declaration_specifiers_",2);
+		DeclarationSpecNode* tmp = new DeclarationSpecNode("declaration_specifiers_",2);
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>2);
 		$<tnode>$ = tmp;
 		outputReduction("declaration_specifiers : type_specifier declaration_specifiers");}
 	| type_qualifier {
-		$<tnode>$ = $<tnode>1;
+		DeclarationSpecNode* tmp = new DeclarationSpecNode("declaration_specifiers_",1);
+		tmp->assignChild(0, $<tnode>1);
+		$<tnode>$ = tmp;
 		outputReduction("declaration_specifiers : type_qualifier");}
 	| type_qualifier declaration_specifiers {
-		TreeNode* tmp = new TreeNode("declaration_specifiers_",2);
+		DeclarationSpecNode* tmp = new DeclarationSpecNode("declaration_specifiers_",2);
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>2);
 		$<tnode>$ = tmp;
@@ -1599,12 +1614,14 @@ identifier
 	: ID_tok {
 		DataNode* tmp = new DataNode("identifier_");
 		if (yylval.lnode != NULL) {
+<<<<<<< HEAD
 
 			/*printf("%s\n",yylval.lnode->name.c_str());
 			tmp->storeString((char*)yylval.lnode->name.c_str());
 			printf("%s\n",variableToInsert->name.c_str());*/
+=======
+>>>>>>> origin/nate
 			tmp->storeString((char*)variableToInsert->name.c_str());
-
 			tmp->setTypeSpecifier(ID_TYPE_NODE);
 		}
 		tmp->assignLine(line,column-size,column,errorText);
@@ -1819,6 +1836,60 @@ void yyerror(char const *msg)
 	}
 	fprintf(out_log,"^ \n\n");
 }
+
+// Given a type return a datatype
+string getDataTypeString(nodeDataType type)
+{
+	switch (type) {
+		case INT_TYPE_NODE:
+			return("int");
+		case DOUBLE_TYPE_NODE:
+			return("double");
+		case CHAR_TYPE_NODE:
+			return("char");
+		case VOID_TYPE_NODE:
+			return("void");
+		case POINTER_TYPE_NODE:
+			return("*");
+		case SHORT_TYPE_NODE:
+			return("short");
+		case LONG_TYPE_NODE:
+			return("long");
+		case FLOAT_TYPE_NODE:
+			return("float");
+		case SIGNED_TYPE_NODE:
+			return("signed");
+		case UNSIGNED_TYPE_NODE:
+			return("unsigned");
+		case STRUCT_TYPE_NODE:
+			return("struct");
+		case UNION_TYPE_NODE:
+			return("union");
+		case ENUM_TYPE_NODE:
+			return("enum");
+		case TYPEDEF_NAME_TYPE_NODE:
+			return("typedef");
+		case CONST_TYPE_NODE:
+			return("const");
+		case VOLATILE_TYPE_NODE:
+			return("volatile");
+		case AUTO_TYPE_NODE:
+			return("auto");
+		case REGISTER_TYPE_NODE:
+			return("register");
+		case STATIC_TYPE_NODE:
+			return("static");
+		case EXTERN_TYPE_NODE:
+			return("extern");
+		case TYPEDEF_TYPE_NODE:
+			return("typedef");
+		case ID_TYPE_NODE:
+			return("id");
+		default:
+			return("ERROR");
+	}
+}
+
 TreeNode* createOperatorDataNode(OperatorType opType, TreeNode *leftChild, TreeNode* rightChild)
 {
 		DataNode* tmp = new DataNode("operator_expression_");
