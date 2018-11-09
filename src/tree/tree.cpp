@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-27 14:10:44
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-08 15:06:07
+* @Last Modified time: 2018-11-08 16:15:27
 */
 #include "tree.h"
 
@@ -72,8 +72,30 @@ void TreeNode::assignChild(int childIndex, TreeNode* child)
 				firstLine.source.insert(0,child.forErrors[0].source[index]);
 				++index;
 			}
+			forErrors[0].lineStart = child.forErrors[0].lineStart;
+			forErrors[0].colStart = child.forErrors[0].colStart;
 		}
-		///Working here!!!
+		else if(forErrors[0].lineStart == child.forErrors[0].lineStart && forErrors[0].colStart > child.forErrors[0].colStart)
+		{
+			forErrors[0].colStart = child.forErrors[0].colStart;
+		}
+		if (forErrors[0].lineEnd < child.forErrors[0].lineEnd)
+		{
+			pullInd = forErrors[0].source.size()-1;
+			int firstLine = forErrors[0].source[pullInd].lineNum;
+			int index = child.forErrors[0].source.size()-1;
+			while(index >=0 && child.forErrors[0].source[index].lineNum > firstLine)
+			{
+				firstLine.source.insert(pullInd,child.forErrors[0].source[index]);
+				--index;
+			}
+			forErrors[0].lineEnd = child.forErrors[0].lineEnd;
+			forErrors[0].colEnd = child.forErrors[0].colEnd;
+		}
+		else if(forErrors[0].lineEnd == child.forErrors[0].lineEnd && forErrors[0].colEnd < child.forErrors[0].colEnd)
+		{
+			forErrors[0].colEnd = child.forErrors[0].colEnd;
+		}
 	}
 
 }
