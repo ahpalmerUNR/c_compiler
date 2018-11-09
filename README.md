@@ -133,7 +133,7 @@ int main()
 }
 ```
 ## AST
-To view the AST if graphviz is not installed you can use the website [http://www.webgraphviz.com/](http://www.webgraphviz.com/).
+To view the AST if graphviz is not installed you can use the website [http://www.webgraphviz.com/](http://www.webgraphviz.com/) by copying the text in the .gv file produced.
 ## Contributions
 * Zachary Young
 
