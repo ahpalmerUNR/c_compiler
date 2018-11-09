@@ -1,98 +1,79 @@
 digraph AST {
-	translation_unit_55 -> translation_unit_30;
-	translation_unit_30 -> translation_unit_7;
-	translation_unit_7 -> declaration_6;
-	declaration_6 [label="declaration_6"]
-	declaration_6 -> declaration_specifiers_1;
+	translation_unit_43 -> translation_unit_5;
+	translation_unit_5 -> declaration_4;
+	declaration_4 [label="declaration_4"]
+	declaration_4 -> declaration_specifiers_1;
 	declaration_specifiers_1 [label="declaration_specifiers_1"]
 	declaration_specifiers_1 -> type_specifier_0;
 	type_specifier_0 [label="int"]
-	declaration_6 -> direct_declarator_5;
-	direct_declarator_5 -> identifier_2;
-	identifier_2 [label="ID: printc"]
-	direct_declarator_5 -> declaration_specifiers_4;
-	declaration_specifiers_4 [label="declaration_specifiers_4"]
-	declaration_specifiers_4 -> type_specifier_3;
-	type_specifier_3 [label="int"]
-	translation_unit_30 -> function_definition_29;
-	function_definition_29 [shape=doubleoctagon,color=red,label="printc"]
-	function_definition_29 -> declaration_specifiers_9;
-	declaration_specifiers_9 [label="declaration_specifiers_9"]
-	declaration_specifiers_9 -> type_specifier_8;
-	type_specifier_8 [label="int"]
-	function_definition_29 -> direct_declarator_25;
-	direct_declarator_25 -> identifier_10;
-	identifier_10 [label="ID: printc"]
-	direct_declarator_25 -> parameter_list_24;
-	parameter_list_24 -> parameter_list_19;
-	parameter_list_19 -> parameter_declaration_14;
-	parameter_declaration_14 -> declaration_specifiers_12;
-	declaration_specifiers_12 [label="declaration_specifiers_12"]
-	declaration_specifiers_12 -> type_specifier_11;
-	type_specifier_11 [label="int"]
-	parameter_declaration_14 -> identifier_13;
-	identifier_13 [label="ID: a"]
-	parameter_list_19 -> parameter_declaration_18;
-	parameter_declaration_18 -> declaration_specifiers_16;
-	declaration_specifiers_16 [label="declaration_specifiers_16"]
-	declaration_specifiers_16 -> type_specifier_15;
-	type_specifier_15 [label="float"]
-	parameter_declaration_18 -> identifier_17;
-	identifier_17 [label="ID: b"]
-	parameter_list_24 -> parameter_declaration_23;
-	parameter_declaration_23 -> declaration_specifiers_21;
-	declaration_specifiers_21 [label="declaration_specifiers_21"]
-	declaration_specifiers_21 -> type_specifier_20;
-	type_specifier_20 [label="char"]
-	parameter_declaration_23 -> identifier_22;
-	identifier_22 [label="ID: c"]
-	function_definition_29 -> empty_28;
-	empty_28 [style=filled,color=indigo,fontcolor=white]
-	function_definition_29 -> jump_statement_27;
-	jump_statement_27 [shape = triangle,color=purple,label="return expr"]
-	jump_statement_27 -> constant_26;
-	constant_26 [label="Int: 1"]
-	translation_unit_55 -> function_definition_54;
-	function_definition_54 [shape=doubleoctagon,color=red,label="main"]
-	function_definition_54 -> declaration_specifiers_32;
-	declaration_specifiers_32 [label="declaration_specifiers_32"]
-	declaration_specifiers_32 -> type_specifier_31;
-	type_specifier_31 [label="int"]
-	function_definition_54 -> identifier_33;
-	identifier_33 [label="ID: main"]
-	function_definition_54 -> empty_53;
-	empty_53 [style=filled,color=indigo,fontcolor=white]
-	function_definition_54 -> compound_statement_52;
-	compound_statement_52 -> declaration_39;
-	declaration_39 [label="declaration_39"]
-	declaration_39 -> declaration_specifiers_36;
-	declaration_specifiers_36 [label="declaration_specifiers_36"]
-	declaration_specifiers_36 -> type_specifier_35;
-	type_specifier_35 [label="int"]
-	declaration_39 -> direct_declarator_38;
-	direct_declarator_38 -> identifier_37;
-	identifier_37 [label="ID: p"]
-	compound_statement_52 -> statement_list_51;
-	statement_list_51 -> assignment_expression_47;
-	assignment_expression_47 [label="Int:  Left = Right"]
-	assignment_expression_47 -> postfix_expression_42;
-	postfix_expression_42 [label="  Left[Right]"]
-	postfix_expression_42 -> identifier_40;
-	identifier_40 [label="ID: p"]
-	postfix_expression_42 -> constant_41;
-	constant_41 [label="Int: 1"]
-	assignment_expression_47 -> Implicit_Cast_48;
-	Implicit_Cast_48 [label="Cast(Int)"]
-	Implicit_Cast_48 -> operator_expression_45;
-	operator_expression_45 [label="Float:  Left + Right"]
-	operator_expression_45 -> Implicit_Cast46;
-	Implicit_Cast46 [label="Cast(Float)"]
-	Implicit_Cast46 -> constant_43;
-	constant_43 [label="Int: 2"]
-	operator_expression_45 -> constant_44;
-	constant_44 [label="Float: 3.900000"]
-	statement_list_51 -> jump_statement_50;
-	jump_statement_50 [shape = triangle,color=purple,label="return expr"]
-	jump_statement_50 -> constant_49;
-	constant_49 [label="Int: 0"]
+	declaration_4 -> identifier_2;
+	identifier_2 [label="ID: q"]
+	translation_unit_43 -> function_definition_42;
+	function_definition_42 [shape=doubleoctagon,color=red,label="main"]
+	function_definition_42 -> declaration_specifiers_7;
+	declaration_specifiers_7 [label="declaration_specifiers_7"]
+	declaration_specifiers_7 -> type_specifier_6;
+	type_specifier_6 [label="int"]
+	function_definition_42 -> identifier_8;
+	identifier_8 [label="ID: main"]
+	function_definition_42 -> empty_41;
+	empty_41 [style=filled,color=indigo,fontcolor=white]
+	function_definition_42 -> compound_statement_40;
+	compound_statement_40 -> declaration_13;
+	declaration_13 [label="declaration_13"]
+	declaration_13 -> declaration_specifiers_11;
+	declaration_specifiers_11 [label="declaration_specifiers_11"]
+	declaration_specifiers_11 -> type_specifier_10;
+	type_specifier_10 [label="int"]
+	declaration_13 -> identifier_12;
+	identifier_12 [label="ID: i"]
+	compound_statement_40 -> statement_list_39;
+	statement_list_39 -> statement_list_33;
+	statement_list_33 -> statement_list_29;
+	statement_list_29 -> assignment_expression_21;
+	assignment_expression_21 [label="Int:  Left = Right"]
+	assignment_expression_21 -> postfix_expression_16;
+	postfix_expression_16 [label="  Left[Right]"]
+	postfix_expression_16 -> identifier_14;
+	identifier_14 [label="ID: i"]
+	postfix_expression_16 -> constant_15;
+	constant_15 [label="Int: 1"]
+	assignment_expression_21 -> Implicit_Cast_22;
+	Implicit_Cast_22 [label="Cast(Int)"]
+	Implicit_Cast_22 -> operator_expression_19;
+	operator_expression_19 [label="Float:  Left + Right"]
+	operator_expression_19 -> constant_17;
+	constant_17 [label="Float: 1.000000"]
+	operator_expression_19 -> Implicit_Cast20;
+	Implicit_Cast20 [label="Cast(Float)"]
+	Implicit_Cast20 -> constant_18;
+	constant_18 [label="Int: 5"]
+	statement_list_29 -> assignment_expression_28;
+	assignment_expression_28 [label="Int:  Left = Right"]
+	assignment_expression_28 -> identifier_23;
+	identifier_23 [label="ID: i"]
+	assignment_expression_28 -> operator_expression_26;
+	operator_expression_26 [label="Int:  Left + Right"]
+	operator_expression_26 -> constant_24;
+	constant_24 [label="Int: 5"]
+	operator_expression_26 -> Implicit_Cast27;
+	Implicit_Cast27 [label="Cast(Int)"]
+	Implicit_Cast27 -> constant_25;
+	constant_25 [label="Char: c"]
+	statement_list_33 -> postfix_expression_31;
+	postfix_expression_31 [label="  Left(Right)"]
+	postfix_expression_31 -> identifier_30;
+	identifier_30 [label="ID: q"]
+	postfix_expression_31 -> empty_32;
+	empty_32 [style=filled,color=indigo,fontcolor=white]
+	statement_list_39 -> postfix_expression_38;
+	postfix_expression_38 [label="  Left(Right)"]
+	postfix_expression_38 -> identifier_34;
+	identifier_34 [label="ID: q"]
+	postfix_expression_38 -> argument_expression_list_37;
+	argument_expression_list_37 [label="  Left , Right"]
+	argument_expression_list_37 -> constant_35;
+	constant_35 [label="Int: 1"]
+	argument_expression_list_37 -> constant_36;
+	constant_36 [label="Float: 4.000000"]
 }

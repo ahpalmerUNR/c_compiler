@@ -1507,15 +1507,37 @@ postfix_expression
 		tmp->setTypeSpecifier(ID_TYPE_NODE);
 		tmp->setOperator(BRACKET_OP);
 		vector<nodeDataType> type;
+		type.push_back($<tnode>1->getidDataType());
+		tmp->setidDataTypes(type);
+		tmp->notData();
+		char useless[500];
+		if($<tnode>3->getDataType(useless) != INT_TYPE_NODE)
+		{
+			if($<tnode>3->getDataType(useless) == ID_TYPE_NODE)
+			{
+				if($<tnode>3->getidDataType() != INT_TYPE_NODE)
+				{
+					//yyerror("Invalid operand to [] operator");
+				}
+			}
+			else
+				yyerror("Invalid operand to [] operator");
+		}
+		$<tnode>$ = tmp;
+		outputReduction("postfix_expression : postfix_expression OPEN_BRACKET_tok expression CLOSE_BRACKET_tok");}
+	| postfix_expression OPEN_PAREN_tok CLOSE_PAREN_tok {
+		DataNode* tmp = new DataNode("postfix_expression_");
+		EmptyNode* blank1 = new EmptyNode("empty_");
+		tmp->setNumberChildren(2);
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,blank1);
+		tmp->setTypeSpecifier(ID_TYPE_NODE);
+		tmp->setOperator(PAREN_OP);
+		vector<nodeDataType> type;
 		//cout << "hereE" <<  $<tnode>1->getidDataType() << endl;
 		type.push_back($<tnode>1->getidDataType());
 		tmp->setidDataTypes(type);
 		tmp->notData();
-		$<tnode>$ = tmp;
-		outputReduction("postfix_expression : postfix_expression OPEN_BRACKET_tok expression CLOSE_BRACKET_tok");}
-	| postfix_expression OPEN_PAREN_tok CLOSE_PAREN_tok {
-		TreeNode* tmp = new TreeNode("postfix_expression_",1);
-		tmp->assignChild(0,$<tnode>1);
 		$<tnode>$ = tmp;
 		outputReduction("postfix_expression : postfix_expression OPEN_PAREN_tok CLOSE_PAREN_tok");}
 	| postfix_expression OPEN_PAREN_tok argument_expression_list CLOSE_PAREN_tok {
