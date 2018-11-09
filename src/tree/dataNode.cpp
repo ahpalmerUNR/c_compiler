@@ -267,7 +267,7 @@ int DataNode::getDataType(char * representation)
 				break;
 			case ID_TYPE_NODE:
 				snprintf(representation, 500,"%s",data.dstr);
-				printf("%s\n", data.dstr);	
+				//printf("%s\n", data.dstr);	
 		}
 	}
 	return dType;
