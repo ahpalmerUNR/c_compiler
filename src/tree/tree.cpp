@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-27 14:10:44
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-08 16:15:27
+* @Last Modified time: 2018-11-08 16:51:51
 */
 #include "tree.h"
 
@@ -48,7 +48,8 @@ void TreeNode::assignChild(int childIndex, TreeNode* child)
 {
 	children[childIndex] = child;
 	forErrors.assign(childIndex+1,child.forErrors[0]);
-
+	
+	//if nothing set before
 	if(forErrors[0].lineStart==-1)
 	{
 		forErrors[0].lineStart = child.forErrors[0].lineStart;
@@ -60,7 +61,7 @@ void TreeNode::assignChild(int childIndex, TreeNode* child)
 			forErrors[0].source.assign(i,child.forErrors[0].source[i]);
 		}
 	}
-
+	//add to existing source code
 	else
 	{
 		if (forErrors[0].lineStart > child.forErrors[0].lineStart)
@@ -132,6 +133,17 @@ void TreeNode::errorCheck(const char * str)
 		fprintf(out_log,"-");
 	}
 	fprintf(out_log,"^ \n\n");
+	
+	printf("Symantic Issue: %s:Line: %d Column: %d %s\n",file_name,lineNum,colNum,str);
+	fprintf(out_log,"Symantic Issue: %s:Line: %d Column: %d %s\n",file_name,lineNum,colNum,str);
+	if (forErrors.lineStart == forErrors.lineEnd)
+	{
+		//print single line error
+	}
+	else
+	{
+		//print multi-line error
+	}
 }
 
 Tree::Tree()
