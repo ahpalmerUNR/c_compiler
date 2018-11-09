@@ -152,7 +152,7 @@ void DataNode::traverse_to_file(FILE* fileout)
 				break;
 			case COMMA_OP:
 				snprintf(operatorPrint, 500,"Left , Right");
-				snprintf(typePrint, 500,"");
+				snprintf(typePrint, 500," ");
 				break;
 			case QUESTION_OP:
 				snprintf(operatorPrint, 500,"Left ? Middle : Right");
