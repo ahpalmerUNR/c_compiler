@@ -383,7 +383,7 @@ type_specifier
 		$<tnode>$ = tmp;
 		outputReduction("type_specifier : LONG_tok");}
 	| FLOAT_tok {
-		variableToInsert->types.push_back(FLOAT_TYPE_NODE);
+		variableToInsert->types.push_back(DOUBLE_TYPE_NODE);
 
 		DataNode* tmp = new DataNode("type_specifier_");
 		tmp->setTypeSpecifier(FLOAT_TYPE_NODE);
@@ -650,9 +650,16 @@ direct_declarator
 		$<tnode>$ = tmp;
 		outputReduction("direct_declarator : direct_declarator OPEN_BRACKET_tok CLOSE_BRACKET_tok");}
 	| direct_declarator OPEN_BRACKET_tok constant_expression CLOSE_BRACKET_tok {
-		TreeNode* tmp = new TreeNode("direct_declarator_",2);
+		DataNode* tmp = new DataNode("direct_declarator_");
+		tmp->setNumberChildren(2);
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>3);
+		//vector<nodeDataType> type;
+		//type.push_back($<tnode>1->getidDataType());
+		//tmp->setidDataTypes(type);
+		tmp->notData();
+		tmp->setOperator(BRACKET_OP);
+		tmp->setTypeSpecifier(ID_TYPE_NODE);
 		$<tnode>$ = tmp;
 		outputReduction("direct_declarator : direct_declarator OPEN_BRACKET_tok constant_expression CLOSE_BRACKET_tok");}
 	| direct_declarator getTypes OPEN_PAREN_tok CLOSE_PAREN_tok {
@@ -1445,9 +1452,17 @@ postfix_expression
 		$<tnode>$ = $<tnode>1;
 		outputReduction("postfix_expression : primary_expression");}
 	| postfix_expression OPEN_BRACKET_tok expression CLOSE_BRACKET_tok {
-		TreeNode* tmp = new TreeNode("postfix_expression_",2);
+		DataNode* tmp = new DataNode("postfix_expression_");
+		tmp->setNumberChildren(2);
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>3);
+		tmp->setTypeSpecifier(ID_TYPE_NODE);
+		tmp->setOperator(BRACKET_OP);
+		vector<nodeDataType> type;
+		//cout << "hereE" <<  $<tnode>1->getidDataType() << endl;
+		type.push_back($<tnode>1->getidDataType());
+		tmp->setidDataTypes(type);
+		tmp->notData();
 		$<tnode>$ = tmp;
 		outputReduction("postfix_expression : postfix_expression OPEN_BRACKET_tok expression CLOSE_BRACKET_tok");}
 	| postfix_expression OPEN_PAREN_tok CLOSE_PAREN_tok {
@@ -1563,13 +1578,14 @@ identifier
 				{
 					tmp->storeString((char*)yylval.lnode->name.c_str());
 					tmp->setidDataTypes(n->types);
+					//cout << yylval.lnode->name << tmp->getidDataType() << endl;
 				}			
 			}
 		}
 		else
 		{	
 			tmp->storeString((char*)"error");
-			//yyerror("Variable not declared before use");
+			yyerror("Variable not declared before use");
 		}
 		tmp->setTypeSpecifier(ID_TYPE_NODE);
 		$<tnode>$ = tmp;

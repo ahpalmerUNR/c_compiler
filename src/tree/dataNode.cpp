@@ -130,7 +130,8 @@ void DataNode::traverse_to_file(FILE* fileout)
 			case DOUBLE_TYPE_NODE:
 				snprintf(typePrint, 500,"Float: ");
 				break;
-			
+			default:
+				snprintf(typePrint, 500," ");
 		}
 		switch(oType)
 		{
@@ -170,6 +171,9 @@ void DataNode::traverse_to_file(FILE* fileout)
 			case AMP_OP:
 				snprintf(operatorPrint, 500,"Left & Right");
 				break;
+			case BRACKET_OP:
+				snprintf(operatorPrint, 500,"Left[Right]");
+				break;				
 		}
 	}
 	if(isOperatorNode)

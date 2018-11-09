@@ -1,13 +1,17 @@
+int q(int f);
+
 int main()
 {
-  float k;
+  double k[10];
+	int a[1];
 	char l;
 	signed int i;
 	double j;
-
-	i = j + 5;
-	i = 5 + j;
-	i = 5 + 'c';
+	k[0] = 1;
+	a[0] = 5.0;
+	//i = j + 5;
+	//i = 5 + j;
+	//i = 5 + 'c';
 	i = j + l;
-	j = i;
+	//j = i;
 }

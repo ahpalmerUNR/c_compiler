@@ -1,108 +1,104 @@
 digraph AST {
-	translation_unit_58 -> function_definition_57;
-	function_definition_57 [shape=doubleoctagon,color=red,label="main"]
-	function_definition_57 -> type_specifier_0;
+	translation_unit_57 -> translation_unit_7;
+	translation_unit_7 -> declaration_6;
+	declaration_6 [label="declaration_6"]
+	declaration_6 -> type_specifier_0;
 	type_specifier_0 [label="int"]
-	function_definition_57 -> identifier_1;
-	identifier_1 [label="ID: main"]
-	function_definition_57 -> empty_56;
-	empty_56 [style=filled,color=indigo,fontcolor=white]
-	function_definition_57 -> compound_statement_55;
-	compound_statement_55 -> declaration_list_19;
-	declaration_list_19 -> declaration_list_15;
-	declaration_list_15 -> declaration_list_9;
-	declaration_list_9 -> declaration_5;
-	declaration_5 [label="declaration_5"]
-	declaration_5 -> type_specifier_3;
-	type_specifier_3 [label="float"]
-	declaration_5 -> identifier_4;
-	identifier_4 [label="ID: k"]
-	declaration_list_9 -> declaration_8;
-	declaration_8 [label="declaration_8"]
-	declaration_8 -> type_specifier_6;
-	type_specifier_6 [label="char"]
-	declaration_8 -> identifier_7;
-	identifier_7 [label="ID: l"]
-	declaration_list_15 -> declaration_14;
-	declaration_14 [label="declaration_14"]
-	declaration_14 -> declaration_specifiers_12;
-	declaration_specifiers_12 [label="declaration_specifiers_12"]
-	declaration_specifiers_12 -> type_specifier_10;
-	type_specifier_10 [label="signed"]
-	declaration_specifiers_12 -> type_specifier_11;
-	type_specifier_11 [label="int"]
-	declaration_14 -> identifier_13;
-	identifier_13 [label="ID: i"]
-	declaration_list_19 -> declaration_18;
-	declaration_18 [label="declaration_18"]
-	declaration_18 -> type_specifier_16;
-	type_specifier_16 [label="double"]
-	declaration_18 -> identifier_17;
-	identifier_17 [label="ID: j"]
-	compound_statement_55 -> statement_list_54;
-	statement_list_54 -> statement_list_49;
-	statement_list_49 -> statement_list_41;
-	statement_list_41 -> statement_list_34;
-	statement_list_34 -> assignment_expression_25;
-	assignment_expression_25 [label="Int:  Left = Right"]
-	assignment_expression_25 -> identifier_20;
-	identifier_20 [label="ID: i"]
-	assignment_expression_25 -> Implicit_Cast_26;
-	Implicit_Cast_26 [label="Cast(Int)"]
-	Implicit_Cast_26 -> operator_expression_23;
-	operator_expression_23 [label="Float:  Left + Right"]
-	operator_expression_23 -> identifier_21;
-	identifier_21 [label="ID: j"]
-	operator_expression_23 -> Implicit_Cast24;
-	Implicit_Cast24 [label="Cast(Float)"]
-	Implicit_Cast24 -> constant_22;
-	constant_22 [label="Int: 5"]
-	statement_list_34 -> assignment_expression_32;
-	assignment_expression_32 [label="Int:  Left = Right"]
-	assignment_expression_32 -> identifier_27;
-	identifier_27 [label="ID: i"]
-	assignment_expression_32 -> Implicit_Cast_33;
-	Implicit_Cast_33 [label="Cast(Int)"]
-	Implicit_Cast_33 -> operator_expression_30;
-	operator_expression_30 [label="Float:  Left + Right"]
-	operator_expression_30 -> Implicit_Cast31;
-	Implicit_Cast31 [label="Cast(Float)"]
-	Implicit_Cast31 -> constant_28;
-	constant_28 [label="Int: 5"]
-	operator_expression_30 -> identifier_29;
-	identifier_29 [label="ID: j"]
-	statement_list_41 -> assignment_expression_40;
-	assignment_expression_40 [label="Int:  Left = Right"]
-	assignment_expression_40 -> identifier_35;
-	identifier_35 [label="ID: i"]
-	assignment_expression_40 -> operator_expression_38;
-	operator_expression_38 [label="Int:  Left + Right"]
-	operator_expression_38 -> constant_36;
-	constant_36 [label="Int: 5"]
-	operator_expression_38 -> Implicit_Cast39;
-	Implicit_Cast39 [label="Cast(Int)"]
-	Implicit_Cast39 -> constant_37;
-	constant_37 [label="Char: c"]
-	statement_list_49 -> assignment_expression_47;
-	assignment_expression_47 [label="Int:  Left = Right"]
-	assignment_expression_47 -> identifier_42;
-	identifier_42 [label="ID: i"]
-	assignment_expression_47 -> Implicit_Cast_48;
-	Implicit_Cast_48 [label="Cast(Int)"]
-	Implicit_Cast_48 -> operator_expression_45;
-	operator_expression_45 [label="Float:  Left + Right"]
-	operator_expression_45 -> identifier_43;
-	identifier_43 [label="ID: j"]
-	operator_expression_45 -> Implicit_Cast46;
-	Implicit_Cast46 [label="Cast(Float)"]
-	Implicit_Cast46 -> identifier_44;
-	identifier_44 [label="ID: l"]
-	statement_list_54 -> assignment_expression_52;
-	assignment_expression_52 [label="Float:  Left = Right"]
-	assignment_expression_52 -> identifier_50;
-	identifier_50 [label="ID: j"]
-	assignment_expression_52 -> Implicit_Cast_53;
-	Implicit_Cast_53 [label="Cast(Float)"]
-	Implicit_Cast_53 -> identifier_51;
-	identifier_51 [label="ID: i"]
+	declaration_6 -> direct_declarator_5;
+	direct_declarator_5 -> identifier_1;
+	identifier_1 [label="ID: q"]
+	direct_declarator_5 -> parameter_declaration_4;
+	parameter_declaration_4 -> type_specifier_2;
+	type_specifier_2 [label="int"]
+	parameter_declaration_4 -> identifier_3;
+	identifier_3 [label="ID: f"]
+	translation_unit_57 -> function_definition_56;
+	function_definition_56 [shape=doubleoctagon,color=red,label="main"]
+	function_definition_56 -> type_specifier_8;
+	type_specifier_8 [label="int"]
+	function_definition_56 -> identifier_9;
+	identifier_9 [label="ID: main"]
+	function_definition_56 -> empty_55;
+	empty_55 [style=filled,color=indigo,fontcolor=white]
+	function_definition_56 -> compound_statement_54;
+	compound_statement_54 -> declaration_list_35;
+	declaration_list_35 -> declaration_list_31;
+	declaration_list_31 -> declaration_list_25;
+	declaration_list_25 -> declaration_list_21;
+	declaration_list_21 -> declaration_15;
+	declaration_15 [label="declaration_15"]
+	declaration_15 -> type_specifier_11;
+	type_specifier_11 [label="double"]
+	declaration_15 -> direct_declarator_14;
+	direct_declarator_14 [label="  Left[Right]"]
+	direct_declarator_14 -> identifier_12;
+	identifier_12 [label="ID: k"]
+	direct_declarator_14 -> constant_13;
+	constant_13 [label="Int: 10"]
+	declaration_list_21 -> declaration_20;
+	declaration_20 [label="declaration_20"]
+	declaration_20 -> type_specifier_16;
+	type_specifier_16 [label="int"]
+	declaration_20 -> direct_declarator_19;
+	direct_declarator_19 [label="  Left[Right]"]
+	direct_declarator_19 -> identifier_17;
+	identifier_17 [label="ID: a"]
+	direct_declarator_19 -> constant_18;
+	constant_18 [label="Int: 1"]
+	declaration_list_25 -> declaration_24;
+	declaration_24 [label="declaration_24"]
+	declaration_24 -> type_specifier_22;
+	type_specifier_22 [label="char"]
+	declaration_24 -> identifier_23;
+	identifier_23 [label="ID: l"]
+	declaration_list_31 -> declaration_30;
+	declaration_30 [label="declaration_30"]
+	declaration_30 -> declaration_specifiers_28;
+	declaration_specifiers_28 [label="declaration_specifiers_28"]
+	declaration_specifiers_28 -> type_specifier_26;
+	type_specifier_26 [label="signed"]
+	declaration_specifiers_28 -> type_specifier_27;
+	type_specifier_27 [label="int"]
+	declaration_30 -> identifier_29;
+	identifier_29 [label="ID: i"]
+	declaration_list_35 -> declaration_34;
+	declaration_34 [label="declaration_34"]
+	declaration_34 -> type_specifier_32;
+	type_specifier_32 [label="double"]
+	declaration_34 -> identifier_33;
+	identifier_33 [label="ID: j"]
+	compound_statement_54 -> statement_list_53;
+	statement_list_53 -> statement_list_47;
+	statement_list_47 -> assignment_expression_40;
+	assignment_expression_40 [label="Float:  Left = Right"]
+	assignment_expression_40 -> postfix_expression_38;
+	postfix_expression_38 [label="  Left[Right]"]
+	postfix_expression_38 -> identifier_36;
+	identifier_36 [label="ID: k"]
+	postfix_expression_38 -> constant_37;
+	constant_37 [label="Int: 0"]
+	assignment_expression_40 -> Implicit_Cast_41;
+	Implicit_Cast_41 [label="Cast(Float)"]
+	Implicit_Cast_41 -> constant_39;
+	constant_39 [label="Int: 1"]
+	statement_list_47 -> assignment_expression_46;
+	assignment_expression_46 [label="Int:  Left = Right"]
+	assignment_expression_46 -> postfix_expression_44;
+	postfix_expression_44 [label="  Left[Right]"]
+	postfix_expression_44 -> identifier_42;
+	identifier_42 [label="ID: a"]
+	postfix_expression_44 -> constant_43;
+	constant_43 [label="Int: 0"]
+	assignment_expression_46 -> constant_45;
+	constant_45 [label="Float: 5.000000"]
+	statement_list_53 -> assignment_expression_52;
+	assignment_expression_52 [label="Int:  Left = Right"]
+	assignment_expression_52 -> identifier_48;
+	identifier_48 [label="ID: i"]
+	assignment_expression_52 -> operator_expression_51;
+	operator_expression_51 [label="Float:  Left + Right"]
+	operator_expression_51 -> identifier_49;
+	identifier_49 [label="ID: j"]
+	operator_expression_51 -> identifier_50;
+	identifier_50 [label="ID: l"]
 }
