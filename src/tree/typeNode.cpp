@@ -80,6 +80,7 @@ vector<nodeDataType> TypeNode::parseTypes()
 	int numShorts = 0;
 	int isSigned = 0;
 	int isUnsigned = 0;
+	bool isFloat = false;
 	for (const int t : types) {
 		nodeDataType type = static_cast<nodeDataType>(t);
 		switch (type) {
@@ -101,10 +102,33 @@ vector<nodeDataType> TypeNode::parseTypes()
 				typesToUse.push_back(type);
 				numShorts++;
 				break;
-			case CHAR_TYPE_NODE:
-			case INT_TYPE_NODE:
-			case FLOAT_TYPE_NODE:
 			case DOUBLE_TYPE_NODE:
+				if (numShorts) {
+					yyerror("Invalid type");
+					return {};
+				}
+				numPrimaryTypes++;
+				typesToUse.push_back(type);
+				break;
+			case INT_TYPE_NODE:
+				numPrimaryTypes++;
+				typesToUse.push_back(type);
+				break;
+			case CHAR_TYPE_NODE:
+				if (numLongs || numShorts) {
+					yyerror("Invalid type");
+					return {};
+				}
+				isFloat = true;
+				numPrimaryTypes++;
+				typesToUse.push_back(type);
+				break;
+			case FLOAT_TYPE_NODE:
+				if (numLongs || numShorts) {
+					yyerror("Invalid type");
+					return {};
+				}
+				isFloat = true;
 				numPrimaryTypes++;
 				typesToUse.push_back(type);
 				break;

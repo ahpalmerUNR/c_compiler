@@ -167,4 +167,20 @@ int main()
 	Makefile
 	
 	Solving various errors
+
+
+* Nathan Yocum
+
+	Symbol table updates
+
+	Symbol table test cases
+
+	Tree Output
+
+	Type Nodes
+
+	Declaration Specifier Nodes
+
+	Solving various errors
+
 	

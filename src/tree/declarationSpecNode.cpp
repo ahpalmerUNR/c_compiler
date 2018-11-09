@@ -43,5 +43,11 @@ int DeclarationSpecNode::getDataType(char* ignore)
 
 vector<int> DeclarationSpecNode::getTypes()
 {
+	// for (int i = 0; i < numberChildren; i++) {
+	vector<int> tmp = children[1]->getTypes();
+	for (const int t : tmp) {
+		types.push_back(t);
+	}
+	// }
 	return types;
 }
