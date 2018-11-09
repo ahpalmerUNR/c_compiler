@@ -109,6 +109,7 @@ vector<nodeDataType> TypeNode::parseTypes()
 				numPrimaryTypes++;
 				typesToUse.push_back(type);
 				break;
+			case VOID_TYPE_NODE:
 			case INT_TYPE_NODE:
 				numPrimaryTypes++;
 				typesToUse.push_back(type);
