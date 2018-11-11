@@ -15,7 +15,7 @@ digraph AST {
 	declaration_specifiers_4 -> type_specifier_3;
 	type_specifier_3 [label="int"]
 	translation_unit_30 -> function_definition_29;
-	function_definition_29 [shape=doubleoctagon,color=red,label="printc"]
+	function_definition_29 [shape=doubleoctagon,color=red,label=""]
 	function_definition_29 -> declaration_specifiers_9;
 	declaration_specifiers_9 [label="declaration_specifiers_9"]
 	declaration_specifiers_9 -> type_specifier_8;

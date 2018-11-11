@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-11-05 15:44:49
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-09 03:09:36
+* @Last Modified time: 2018-11-11 14:25:59
 */
 #include "functionNode.h"
 
@@ -64,12 +64,12 @@ void FunctionNode::errorCheck()
 	{
 		cout<<"Child type "<<children[1]->getDataType(temp)<<" "<<ID_TYPE_NODE<<endl;
 		// children[1]->printNode();
-		TreeNode::errorCheck("No function name.");
+		children[1]->errorCheck("No function name.");
 	}
 	if (children[0]->getDataType(temp)==EMPTY_TYPE_NODE)
 	{
 		// TreeNode::printNode();
-		TreeNode::errorCheck("Warning: No return type specified for function.");
+		children[1]->errorCheck("Warning: No return type specified for function.");
 	}
 	else
 	{

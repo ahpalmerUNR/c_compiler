@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-27 14:10:44
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-09 03:00:14
+* @Last Modified time: 2018-11-11 14:21:05
 */
 #include "tree.h"
 
@@ -109,8 +109,8 @@ void TreeNode::assignChild(int childIndex, TreeNode* child)
 			}
 			if (forErrors[0].lineEnd < child->forErrors[0].lineEnd)
 			{
-				pullInd = forErrors[0].source.size()-1;
-				int firstLine = forErrors[0].source[pullInd].lineNum;
+				pullInd = forErrors[0].source.size();
+				int firstLine = forErrors[0].source[pullInd-1].lineNum;
 				int index = child->forErrors[0].source.size()-1;
 				while(index >=0 && child->forErrors[0].source[index].lineNum > firstLine)
 				{
@@ -210,9 +210,13 @@ void TreeNode::errorCheck(const char * str)
 		//print multi-line error
 		printf("Issue between:\n");
 		fprintf(out_log,"Issue between:\n");
+		// for (int i = 0; i < forErrors[0].source.size(); ++i)
+		// {
+		// 	printf("%s",forErrors[0].source[i].codeLine.c_str());
+		// }
 		printf("%s",forErrors[0].source[0].codeLine.c_str());
 		fprintf(out_log,"%s",forErrors[0].source[0].codeLine.c_str());
-		for (int i = 0; i < 80; ++i)
+		for (int i = 0; i < forErrors[0].colStart+20; ++i)
 		{
 			if (i==forErrors[0].colStart-1)
 			{
@@ -230,6 +234,7 @@ void TreeNode::errorCheck(const char * str)
 				fprintf(out_log," ");
 			}
 		}
+		
 		printf("\nand\n");
 		fprintf(out_log,"\nand\n");
 		printf("%s",forErrors[0].source[forErrors[0].source.size()-1].codeLine.c_str());

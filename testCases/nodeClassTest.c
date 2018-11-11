@@ -1,6 +1,5 @@
 int printc(int);
-
-int printc(int a, float b, char c)
+printc(int a, float b, char c)
 {
 	return 1;
 }
