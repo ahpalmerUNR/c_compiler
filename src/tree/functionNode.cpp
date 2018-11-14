@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-11-05 15:44:49
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-11 14:25:59
+* @Last Modified time: 2018-11-13 16:42:18
 */
 #include "functionNode.h"
 
@@ -51,25 +51,27 @@ void FunctionNode::errorCheck()
 	if (children[1]->getDataType(temp)==ID_TYPE_NODE)
 	{
 		functName.assign(temp);
+		cout<<endl<<children[1]->getDataType(temp)<<endl<<endl<<functName<<endl<<endl;
 	}
 	else if(children[1]->getDataType(temp)==DIRECT_DECL_TYPE_NODE)
 	{
 		children[1]->children[0]->getDataType(temp);
 		
 		functName.assign(temp);
-		
+		cout<<endl<<children[1]->children[0]->getDataType(temp)<<endl<<endl<<functName<<endl<<endl;
 		//set param list
 	}
 	else
 	{
+		cout<<endl<<children[1]->getDataType(temp)<<endl<<endl<<functName<<endl<<endl;
 		cout<<"Child type "<<children[1]->getDataType(temp)<<" "<<ID_TYPE_NODE<<endl;
 		// children[1]->printNode();
 		children[1]->errorCheck("No function name.");
 	}
 	if (children[0]->getDataType(temp)==EMPTY_TYPE_NODE)
 	{
-		// TreeNode::printNode();
 		children[1]->errorCheck("Warning: No return type specified for function.");
+		cout<<endl<<endl<<functName<<endl<<endl;
 	}
 	else
 	{
@@ -79,6 +81,6 @@ void FunctionNode::errorCheck()
 	{
 		//set param types
 	}
-	
+	TreeNode::printNode();
 	
 }

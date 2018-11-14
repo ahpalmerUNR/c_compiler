@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-27 14:10:44
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-11 14:21:05
+* @Last Modified time: 2018-11-13 16:45:52
 */
 #include "tree.h"
 
@@ -53,7 +53,7 @@ void TreeNode::printNode()
 	cout<<"Col End "<<forErrors[0].colEnd<<", "<<endl;
 	for (int i = 0; i < forErrors[0].source.size(); ++i)
 	{
-		cout<<forErrors[0].source[i].codeLine.c_str()<<endl;
+		cout<<forErrors[0].source[i].codeLine.c_str();
 	}
 }
 
@@ -210,10 +210,10 @@ void TreeNode::errorCheck(const char * str)
 		//print multi-line error
 		printf("Issue between:\n");
 		fprintf(out_log,"Issue between:\n");
-		// for (int i = 0; i < forErrors[0].source.size(); ++i)
-		// {
-		// 	printf("%s",forErrors[0].source[i].codeLine.c_str());
-		// }
+		for (int i = 0; i < forErrors[0].source.size(); ++i)
+		{
+			printf("%s",forErrors[0].source[i].codeLine.c_str());
+		}
 		printf("%s",forErrors[0].source[0].codeLine.c_str());
 		fprintf(out_log,"%s",forErrors[0].source[0].codeLine.c_str());
 		for (int i = 0; i < forErrors[0].colStart+20; ++i)

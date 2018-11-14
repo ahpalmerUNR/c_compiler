@@ -1,10 +1,16 @@
 int printc(int);
 printc(int a, float b, char c)
 {
-	return 1;
+	{
+		int l=0;
+		{}
+		;
+		;
+	}
+	return 4;
 }
 
-int main()
+int main(int a)
 {
 	int p[];
 	

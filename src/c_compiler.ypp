@@ -480,6 +480,7 @@ type_qualifier
 struct_or_union_specifier
 	: struct_or_union identifier OPEN_BRACE_tok   struct_declaration_list   CLOSE_BRACE_tok {
 		TreeNode* tmp = new TreeNode("struct_or_union_specifier_",3);
+		tmp->assignLine(line,column-size,column,errorText);
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>2);
 		tmp->assignChild(2,$<tnode>4);
@@ -487,6 +488,7 @@ struct_or_union_specifier
 		outputReduction("struct_or_union_specifier : struct_or_union identifier OPEN_BRACE_tok struct_declaration_list CLOSE_BRACE_tok");}
 	| struct_or_union OPEN_BRACE_tok   struct_declaration_list   CLOSE_BRACE_tok {
 		TreeNode* tmp = new TreeNode("struct_or_union_specifier_",2);
+		tmp->assignLine(line,column-size,column,errorText);
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>3);
 		$<tnode>$ = tmp;
@@ -553,6 +555,7 @@ init_declarator
 struct_declaration
 	: specifier_qualifier_list struct_declarator_list SEMI_tok {
 		TreeNode* tmp = new TreeNode("struct_declaration_",2);
+		tmp->assignLine(line,column-size,column,errorText);
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>2);
 		$<tnode>$ = tmp;
@@ -672,16 +675,19 @@ direct_declarator
 		outputReduction("direct_declarator : identifier");}
 	| OPEN_PAREN_tok declarator CLOSE_PAREN_tok {
 		TreeNode* tmp = new TreeNode("direct_declarator_",1);
+		tmp->assignLine(line,column-size,column,errorText);
 		tmp->assignChild(0,$<tnode>2);
 		$<tnode>$ = tmp;
 		outputReduction("direct_declarator : OPEN_PAREN_tok declarator CLOSE_PAREN_tok");}
 	| direct_declarator OPEN_BRACKET_tok CLOSE_BRACKET_tok {
 		TreeNode* tmp = new TreeNode("direct_declarator_",1);
+		tmp->assignLine(line,column-size,column,errorText);
 		tmp->assignChild(0,$<tnode>1);
 		$<tnode>$ = tmp;
 		outputReduction("direct_declarator : direct_declarator OPEN_BRACKET_tok CLOSE_BRACKET_tok");}
 	| direct_declarator OPEN_BRACKET_tok constant_expression CLOSE_BRACKET_tok {
 		DataNode* tmp = new DataNode("direct_declarator_");
+		tmp->assignLine(line,column-size,column,errorText);
 		tmp->setNumberChildren(2);
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>3);
@@ -695,11 +701,13 @@ direct_declarator
 		outputReduction("direct_declarator : direct_declarator OPEN_BRACKET_tok constant_expression CLOSE_BRACKET_tok");}
 	| direct_declarator getTypes OPEN_PAREN_tok CLOSE_PAREN_tok {
 		TreeNode* tmp = new TreeNode("direct_declarator_",1);
+		tmp->assignLine(line,column-size,column,errorText);
 		tmp->assignChild(0,$<tnode>1);
 		$<tnode>$ = $<tnode>1;
 		outputReduction("direct_declarator : direct_declarator OPEN_PAREN_tok CLOSE_PAREN_tok");}
 	| direct_declarator getTypes OPEN_PAREN_tok parameter_type_list CLOSE_PAREN_tok {
 		TreeNode* tmp = new TreeNode("direct_declarator_",2);
+		tmp->assignLine(line,column-size,column,errorText);
 		tmp->setTypeSpecifier(DIRECT_DECL_TYPE_NODE);
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>4);
@@ -707,6 +715,7 @@ direct_declarator
 		outputReduction("direct_declarator : direct_declarator OPEN_PAREN_tok parameter_type_list CLOSE_PAREN_tok");}
 	| direct_declarator getTypes OPEN_PAREN_tok identifier_list CLOSE_PAREN_tok {
 		TreeNode* tmp = new TreeNode("direct_declarator_",2);
+		tmp->assignLine(line,column-size,column,errorText);
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>4);
 		$<tnode>$ = tmp;
@@ -769,6 +778,7 @@ parameter_type_list
 		outputReduction("parameter_type_list : parameter_list");}
 	| parameter_list COMMA_tok ELIPSIS_tok {
 		TreeNode* tmp = new TreeNode("parameter_type_list_",1);
+		tmp->assignLine(line,column-size,column,errorText);
 		tmp->assignChild(0,$<tnode>1);
 		$<tnode>$ = tmp;
 		outputReduction("parameter_type_list : parameter_list COMMA_tok ELIPSIS_tok");}
@@ -837,11 +847,13 @@ initializer
 		outputReduction("initializer : assignment_expression");}
 	| OPEN_BRACE_tok initializer_list CLOSE_BRACE_tok {
 		TreeNode* tmp = new TreeNode("initializer_",1);
+		tmp->assignLine(line,column-size,column,errorText);
 		tmp->assignChild(0,$<tnode>2);
 		$<tnode>$ = tmp;
 		outputReduction("initializer : OPEN_BRACE_tok initializer_list CLOSE_BRACE_tok");}
 	| OPEN_BRACE_tok initializer_list COMMA_tok CLOSE_BRACE_tok {
 		TreeNode* tmp = new TreeNode("initializer_",1);
+		tmp->assignLine(line,column-size,column,errorText);
 		tmp->assignChild(0,$<tnode>2);
 		$<tnode>$ = tmp;
 		outputReduction("initializer : OPEN_BRACE_tok initializer_list COMMA_tok CLOSE_BRACE_tok");}
@@ -889,45 +901,54 @@ abstract_declarator
 direct_abstract_declarator
 	: OPEN_PAREN_tok abstract_declarator CLOSE_PAREN_tok {
 		TreeNode* tmp = new TreeNode("direct_abstract_declarator_",1);
+		tmp->assignLine(line,column-size,column,errorText);
 		tmp->assignChild(0,$<tnode>2);
 		$<tnode>$ = tmp;
 		outputReduction("direct_abstract_declarator : OPEN_PAREN_tok abstract_declarator CLOSE_PAREN_tok");}
 	| OPEN_BRACKET_tok CLOSE_BRACKET_tok {
 		TreeNode* tmp = new TreeNode("direct_abstract_declarator_",0);
+		tmp->assignLine(line,column-size,column,errorText);
 		$<tnode>$ = tmp;
 		outputReduction("direct_abstract_declarator : OPEN_BRACKET_tok CLOSE_BRACKET_tok");}
 	| OPEN_BRACKET_tok constant_expression CLOSE_BRACKET_tok {
 		TreeNode* tmp = new TreeNode("direct_abstract_declarator_",1);
+		tmp->assignLine(line,column-size,column,errorText);
 		tmp->assignChild(0,$<tnode>2);
 		$<tnode>$ = tmp;
 		outputReduction("direct_abstract_declarator : OPEN_BRACKET_tok constant_expression CLOSE_BRACKET_tok");}
 	| direct_abstract_declarator OPEN_BRACKET_tok CLOSE_BRACKET_tok {
 		TreeNode* tmp = new TreeNode("direct_abstract_declarator_",1);
+		tmp->assignLine(line,column-size,column,errorText);
 		tmp->assignChild(0,$<tnode>1);
 		$<tnode>$ = tmp;
 		outputReduction("direct_abstract_declarator : direct_abstract_declarator OPEN_BRACKET_tok CLOSE_BRACKET_tok");}
 	| direct_abstract_declarator OPEN_BRACKET_tok constant_expression CLOSE_BRACKET_tok {
 		TreeNode* tmp = new TreeNode("direct_abstract_declarator_",2);
+		tmp->assignLine(line,column-size,column,errorText);
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>2);
 		$<tnode>$ = tmp;
 		outputReduction("direct_abstract_declarator : direct_abstract_declarator OPEN_BRACKET_tok constant_expression CLOSE_BRACKET_tok");}
 	| OPEN_PAREN_tok CLOSE_PAREN_tok {
 		TreeNode* tmp = new TreeNode("direct_abstract_declarator_",0);
+		tmp->assignLine(line,column-size,column,errorText);
 		$<tnode>$ = tmp;
 		outputReduction("direct_abstract_declarator : OPEN_PAREN_tok CLOSE_PAREN_tok");}
 	| OPEN_PAREN_tok parameter_type_list CLOSE_PAREN_tok {
 		TreeNode* tmp = new TreeNode("direct_abstract_declarator_",1);
+		tmp->assignLine(line,column-size,column,errorText);
 		tmp->assignChild(0,$<tnode>2);
 		$<tnode>$ = tmp;
 		outputReduction("direct_abstract_declarator : OPEN_PAREN_tok parameter_type_list CLOSE_PAREN_tok");}
 	| direct_abstract_declarator OPEN_PAREN_tok CLOSE_PAREN_tok {
 		TreeNode* tmp = new TreeNode("direct_abstract_declarator_",1);
+		tmp->assignLine(line,column-size,column,errorText);
 		tmp->assignChild(0,$<tnode>1);
 		$<tnode>$ = tmp;
 		outputReduction("direct_abstract_declarator : direct_abstract_declarator OPEN_PAREN_tok CLOSE_PAREN_tok");}
 	| direct_abstract_declarator OPEN_PAREN_tok parameter_type_list CLOSE_PAREN_tok {
 		TreeNode* tmp = new TreeNode("direct_abstract_declarator_",2);
+		tmp->assignLine(line,column-size,column,errorText);
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>2);
 		$<tnode>$ = tmp;
@@ -984,6 +1005,10 @@ labeled_statement
 
 expression_statement
 	: SEMI_tok {
+		TreeNode* tmp = new TreeNode("expression_statement_",0);
+		tmp->assignLine(line,column-size,column,errorText);
+
+		$<tnode>$ = tmp;
 		outputReduction("expression_statement : SEMI_tok");}
 	| expression SEMI_tok {
 		$<tnode>$ = $<tnode>1;
@@ -1014,6 +1039,7 @@ compound_statement
 		outputReduction("compound_statement : OPEN_BRACE_tok declaration_list CLOSE_BRACE_tok");}
 	| push OPEN_BRACE_tok  declaration_list  statement_list CLOSE_BRACE_tok pop {
 		TreeNode* tmp = new TreeNode("compound_statement_",2);
+		tmp->assignLine(line,column-size,column,errorText);
 		tmp->assignChild(0,$<tnode>3);
 		tmp->assignChild(1,$<tnode>4);
 		$<tnode>$ = tmp;
@@ -1069,6 +1095,7 @@ iteration_statement
 		EmptyNode* blank1 = new EmptyNode("empty_");
 		EmptyNode* blank2 = new EmptyNode("empty_");
 		Iter_statement* tmp = new Iter_statement("iteration_statement_",true);
+		tmp->assignLine(line,column-size,column,errorText);
 		tmp->assignChild(0,blank1);
 		tmp->assignChild(2,blank2);
 		tmp->assignChild(1,$<tnode>5);
@@ -1157,26 +1184,31 @@ jump_statement
 	: GOTO_tok {insert_lookup = 0;} identifier SEMI_tok {
 		insert_lookup = 1;
 		JumpNode* tmp = new JumpNode("jump_statement_",0);
+		tmp->assignLine(line,column-size,column,errorText);
 		tmp->assignChild(0,$<tnode>3);
 		$<tnode>$ = tmp;
 		outputReduction("jump_statement : GOTO_tok identifier SEMI_tok");}
 	| CONTINUE_tok SEMI_tok {
 		JumpNode* tmp = new JumpNode("jump_statement_",1);
+		tmp->assignLine(line,column-size,column,errorText);
 		tmp->assignLine(line,column-9,column,errorText);
 		$<tnode>$ = tmp;
 		outputReduction("jump_statement : CONTINUE_tok SEMI_tok");}
 	| BREAK_tok SEMI_tok {
 		JumpNode* tmp = new JumpNode("jump_statement_",2);
+		tmp->assignLine(line,column-size,column,errorText);
 		tmp->assignLine(line,column-6,column,errorText);
 		$<tnode>$ = tmp;
 		outputReduction("jump_statement : BREAK_tok SEMI_tok");}
 	| RETURN_tok SEMI_tok {
 		JumpNode* tmp = new JumpNode("jump_statement_",3);
+		tmp->assignLine(line,column-size,column,errorText);
 		tmp->assignLine(line,column-7,column,errorText);
 		$<tnode>$ = tmp;
 		outputReduction("jump_statement : RETURN_tok SEMI_tok");}
 	| RETURN_tok expression SEMI_tok {
 		JumpNode* tmp = new JumpNode("jump_statement_",4);
+		tmp->assignLine(line,column-size,column,errorText);
 		tmp->assignChild(0,$<tnode>2);
 		$<tnode>$ = tmp;
 		outputReduction("jump_statement : RETURN_tok expression SEMI_tok");}
@@ -1457,6 +1489,7 @@ unary_expression
 		outputReduction("unary_expression : SIZEOF_tok unary_expression");}
 	| SIZEOF_tok OPEN_PAREN_tok type_name CLOSE_PAREN_tok {
 		TreeNode* tmp = new TreeNode("unary_expression_",1);
+		tmp->assignLine(line,column-size,column,errorText);
 		tmp->assignChild(0,$<tnode>3);
 		$<tnode>$ = tmp;
 		outputReduction("unary_expression : SIZEOF_tok OPEN_PAREN_tok type_name CLOSE_PAREN_tok");}
@@ -1501,6 +1534,7 @@ postfix_expression
 		outputReduction("postfix_expression : primary_expression");}
 	| postfix_expression OPEN_BRACKET_tok expression CLOSE_BRACKET_tok {
 		DataNode* tmp = new DataNode("postfix_expression_");
+		tmp->assignLine(line,column-size,column,errorText);
 		tmp->setNumberChildren(2);
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>3);
@@ -1515,11 +1549,13 @@ postfix_expression
 		outputReduction("postfix_expression : postfix_expression OPEN_BRACKET_tok expression CLOSE_BRACKET_tok");}
 	| postfix_expression OPEN_PAREN_tok CLOSE_PAREN_tok {
 		TreeNode* tmp = new TreeNode("postfix_expression_",1);
+		tmp->assignLine(line,column-size,column,errorText);
 		tmp->assignChild(0,$<tnode>1);
 		$<tnode>$ = tmp;
 		outputReduction("postfix_expression : postfix_expression OPEN_PAREN_tok CLOSE_PAREN_tok");}
 	| postfix_expression OPEN_PAREN_tok argument_expression_list CLOSE_PAREN_tok {
 		DataNode* tmp = new DataNode("postfix_expression_");
+		tmp->assignLine(line,column-size,column,errorText);
 		tmp->setNumberChildren(2);
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>3);
@@ -1546,11 +1582,13 @@ postfix_expression
 		outputReduction("postfix_expression : postfix_expression PTR_OP_tok identifier");}
 	| postfix_expression INC_OP_tok {
 		TreeNode* tmp = new TreeNode("postfix_expression_",1);
+		tmp->assignLine(line,column-size,column,errorText);
 		tmp->assignChild(0,$<tnode>1);
 		$<tnode>$ = tmp;
 		outputReduction("postfix_expression : postfix_expression INC_OP_tok");}
 	| postfix_expression DEC_OP_tok {
 		TreeNode* tmp = new TreeNode("postfix_expression_",1);
+		tmp->assignLine(line,column-size,column,errorText);
 		tmp->assignChild(0,$<tnode>1);
 		$<tnode>$ = tmp;
 		outputReduction("postfix_expression : postfix_expression DEC_OP_tok");}
@@ -1568,6 +1606,7 @@ primary_expression
 		outputReduction("primary_expression : string");}
 	| OPEN_PAREN_tok expression CLOSE_PAREN_tok {
 		TreeNode* tmp = new TreeNode("primary_expression_",1);
+		tmp->assignLine(line,column-size,column,errorText);
 		tmp->assignChild(0,$<tnode>2);
 		$<tnode>$ = tmp;
 		outputReduction("primary_expression : OPEN_PAREN_tok expression CLOSE_PAREN_tok");}
