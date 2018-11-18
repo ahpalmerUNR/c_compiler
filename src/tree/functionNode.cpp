@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-11-05 15:44:49
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-18 14:10:24
+* @Last Modified time: 2018-11-18 14:39:04
 */
 #include "functionNode.h"
 
@@ -45,30 +45,30 @@ int FunctionNode::returnTicket()
 	return variableTick;
 }
 
-void FunctionNode::errorCheck()
+void FunctionNode::errorCheck(const char * str)
 {
 	char temp[500];
 	//Gets function name and sets param list if direct_decl_type
-	if (children[1]->getDataType(temp)==ID_TYPE_NODE)
-	{
-		functName.assign(temp);
-		cout<<endl<<children[1]->getDataType(temp)<<endl<<endl<<functName<<endl<<endl;
-	}
-	else if(children[1]->getDataType(temp)==DIRECT_DECL_TYPE_NODE)
-	{
-		children[1]->children[0]->getDataType(temp);
+	// if (children[1]->getDataType(temp)==ID_TYPE_NODE)
+	// {
+	// 	functName.assign(temp);
+	// 	cout<<endl<<children[1]->getDataType(temp)<<endl<<endl<<functName<<endl<<endl;
+	// }
+	// else if(children[1]->getDataType(temp)==DIRECT_DECL_TYPE_NODE)
+	// {
+	// 	children[1]->children[0]->getDataType(temp);
 		
-		functName.assign(temp);
-		cout<<endl<<children[1]->children[0]->getDataType(temp)<<endl<<endl<<functName<<endl<<endl;
-		//set param list
-	}
-	else
-	{
-		cout<<endl<<children[1]->getDataType(temp)<<endl<<endl<<functName<<endl<<endl;
-		cout<<"Child type "<<children[1]->getDataType(temp)<<" "<<ID_TYPE_NODE<<endl;
-		// children[1]->printNode();
-		children[1]->errorCheck("No function name.");
-	}
+	// 	functName.assign(temp);
+	// 	cout<<endl<<children[1]->children[0]->getDataType(temp)<<endl<<endl<<functName<<endl<<endl;
+	// 	//set param list
+	// }
+	// else
+	// {
+	// 	cout<<endl<<children[1]->getDataType(temp)<<endl<<endl<<functName<<endl<<endl;
+	// 	cout<<"Child type "<<children[1]->getDataType(temp)<<" "<<ID_TYPE_NODE<<endl;
+	// 	// children[1]->printNode();
+	// 	children[1]->errorCheck("No function name.");
+	// }
 	
 	//check return type provided
 	//if type is a storage-class specifier then it can only be extern or static
@@ -85,18 +85,29 @@ void FunctionNode::errorCheck()
 	{
 		freturnType = children[0]->getTypes();
 	}
-	if (children[2]->getDataType(temp)!=EMPTY_TYPE_NODE)
-	{
-		//set param types
-	}
-	TreeNode::printNode();
+	// if (children[2]->getDataType(temp)!=EMPTY_TYPE_NODE)
+	// {
+	// 	//set param types
+	// }
+	// TreeNode::printNode();
 	
 	
 	//function declaration must specify explicitly that the declared identifier has function type:
 	// i.e. direct_decl ( parameter-type-list)
 	//   or direct_decl ( identifier-list) 
 	// 	 or direct_decl ( )
-	// 	 
+	// 	
+	if (children[1]->getDataType(temp)!=DIRECT_DECL_TYPE_NODE)
+	{
+		children[1]->errorCheck("ERROR: Incorrect declarator type");
+		
+	} 
+	else
+	{
+		children[1]->children[0]->getDataType(temp);
+		
+		functName.assign(temp);
+	}
 	
 	//direct_decl in above comment must be either identifier or parenthesized identifier
 	//
@@ -143,7 +154,7 @@ ParamListNode::ParamListNode(string TreeNodeProductionName,bool isIDListType):Tr
 	isID = isIDListType;
 }
 
-~ParamListNode::ParamListNode()
+ParamListNode::~ParamListNode()
 {
 	
 }

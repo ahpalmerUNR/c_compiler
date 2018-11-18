@@ -700,9 +700,12 @@ direct_declarator
 		$<tnode>$ = tmp;
 		outputReduction("direct_declarator : direct_declarator OPEN_BRACKET_tok constant_expression CLOSE_BRACKET_tok");}
 	| direct_declarator getTypes OPEN_PAREN_tok CLOSE_PAREN_tok {
-		TreeNode* tmp = new TreeNode("direct_declarator_",1);
+		TreeNode* tmp = new TreeNode("direct_declarator_",2);
+		EmptyNode* blank1 = new EmptyNode("empty_");
 		tmp->assignLine(line,column-size,column,errorText);
+		tmp->setTypeSpecifier(DIRECT_DECL_TYPE_NODE);
 		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,blank1);
 		$<tnode>$ = $<tnode>1;
 		outputReduction("direct_declarator : direct_declarator OPEN_PAREN_tok CLOSE_PAREN_tok");}
 	| direct_declarator getTypes OPEN_PAREN_tok parameter_type_list CLOSE_PAREN_tok {

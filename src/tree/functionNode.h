@@ -13,7 +13,7 @@ public:
 	void ast_to_3ac(FILE* fileout);
 	int getDataType(char*);
 	int returnTicket();
-	void errorCheck();
+	void errorCheck(const char * str);
 	vector<int> getTypes();
 	
 protected:
@@ -34,6 +34,6 @@ public:
 	
 protected:
 	bool isID;//if false, is param-list
-}
+};
 
 #endif
