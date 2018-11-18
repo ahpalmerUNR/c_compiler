@@ -25,4 +25,15 @@ protected:
 	
 };
 
+class ParamListNode:public TreeNode
+{
+public:
+	ParamListNode(string TreeNodeProductionName,bool isIDList);
+	~ParamListNode();
+	bool isIDList();
+	
+protected:
+	bool isID;//if false, is param-list
+}
+
 #endif

@@ -11,6 +11,7 @@ public:
 	
 	void traverse_to_file(FILE*);
 	void ast_to_3ac(FILE*);
+	void errorCheck(const char * str);
 	
 protected:
 	int jticket1;

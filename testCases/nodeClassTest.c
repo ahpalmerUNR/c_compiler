@@ -1,6 +1,7 @@
 int printc(int);
 printc(int a, float b, char c)
 {
+	case :
 	{
 		int l=0;
 		{}

@@ -11,3 +11,11 @@ symmantic args/logic checking
 AST node creation
 
 symmantic args/logic checking and AST node creation overlap to varying degrees based on the type of node. It is probably better to split the work so that we have sections of productions where one person will do both symmantic checking and AST node creation at the same time. 
+
+
+
+
+Andrew's Notes:
+1. There are 3 primary scopes we care about : Objects, functions, labels.
+2. Symbol table should perform a check for what type of id it belongs to. Name mangling will help with most of this; however, this requires better recognition of the type of an ID we are searching for in the symbol table.
+3. 

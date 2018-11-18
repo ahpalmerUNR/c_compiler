@@ -716,6 +716,7 @@ direct_declarator
 	| direct_declarator getTypes OPEN_PAREN_tok identifier_list CLOSE_PAREN_tok {
 		TreeNode* tmp = new TreeNode("direct_declarator_",2);
 		tmp->assignLine(line,column-size,column,errorText);
+		tmp->setTypeSpecifier(DIRECT_DECL_TYPE_NODE);
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>4);
 		$<tnode>$ = tmp;
@@ -777,19 +778,25 @@ parameter_type_list
 		$<tnode>$ = $<tnode>1;
 		outputReduction("parameter_type_list : parameter_list");}
 	| parameter_list COMMA_tok ELIPSIS_tok {
-		TreeNode* tmp = new TreeNode("parameter_type_list_",1);
+		/*TreeNode* tmp = new TreeNode("parameter_type_list_",1);
 		tmp->assignLine(line,column-size,column,errorText);
 		tmp->assignChild(0,$<tnode>1);
 		$<tnode>$ = tmp;
+		functionality of this type not supported, thus ignored*/
+		$<tnode>$ = $<tnode>1;
 		outputReduction("parameter_type_list : parameter_list COMMA_tok ELIPSIS_tok");}
 	;
 
 parameter_list
 	: parameter_declaration {
-		$<tnode>$ = $<tnode>1;
+		EmptyNode* blank1 = new EmptyNode("empty_");
+		ParamListNode* tmp = new ParamListNode("parameter_type_list_",false);
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,blank1);
+		$<tnode>$ = tmp;
 		outputReduction("parameter_list : parameter_declaration");}
 	| parameter_list COMMA_tok parameter_declaration {
-		TreeNode* tmp = new TreeNode("parameter_list_",2);
+		ParamListNode* tmp = new ParamListNode("parameter_list_",false);
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>3);
 		$<tnode>$ = tmp;
@@ -831,10 +838,14 @@ parameter_declaration
 
 identifier_list
 	: identifier {
+		EmptyNode* blank1 = new EmptyNode("empty_");
+		ParamListNode* tmp = new ParamListNode("identifier_list_",true);
+		tmp->assignChild(0,$<tnode>1);
+		tmp->assignChild(1,blank1);
 		$<tnode>$ = $<tnode>1;
 		outputReduction("identifier_list : identifier");}
 	| identifier_list COMMA_tok identifier {
-		TreeNode* tmp = new TreeNode("identifier_list_",2);
+		ParamListNode* tmp = new ParamListNode("identifier_list_",true);
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>3);
 		$<tnode>$ = tmp;
@@ -1023,6 +1034,7 @@ pop
 	:	{
 			s.popBST();
 		}
+	;
 
 compound_statement
 	: push OPEN_BRACE_tok CLOSE_BRACE_tok pop {

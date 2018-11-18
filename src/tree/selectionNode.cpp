@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-31 11:49:36
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-07 16:06:03
+* @Last Modified time: 2018-11-18 13:25:30
 */
 #include "selectionNode.h"
 
@@ -75,4 +75,31 @@ void SelectionNode::ast_to_3ac(FILE* fileout)
 			fprintf(fileout, "LABEL\t%d\n", jticket3);
 		}
 	}
+}
+
+void SelectionNode::errorCheck(const char * str)
+{
+	//if if statement
+	//
+		//expression must have arithmetic or pointer type
+		// this gets evaluated including side effects 
+			
+	//if switch statement
+	//
+		//expression must have integral type
+		//
+		//**expression undergoes integral promotion
+		//case statements converted to promoted type
+		//
+		//cases must be unique
+		//
+		//only one default case
+		//
+		//nested switch statements ignore cases of inner switch statements
+		//
+		//expression is compared against all cases and only executes a default 
+		//if no match occurs. If no default then the switch does not perform
+		//anything. expressions side effects are executed
+		//
+		//from ** and below, these require evalutation of statement where cases are added to switch symbol table.
 }
