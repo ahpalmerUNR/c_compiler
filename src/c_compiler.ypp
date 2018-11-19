@@ -221,7 +221,7 @@ function_definition
 		tmp->assignChild(1,$<tnode>1);
 		tmp->assignChild(2,blank2);
 		tmp->assignChild(3,$<tnode>2);
-		tmp->errorCheck();
+		tmp->errorCheck("");
 		$<tnode>$ = tmp;
 		outputReduction("function_definition : declarator compound_statement");}
 	| declarator   declaration_list {insert_lookup=1;}  compound_statement {
@@ -231,7 +231,7 @@ function_definition
 		tmp->assignChild(1,$<tnode>1);
 		tmp->assignChild(2,$<tnode>2);
 		tmp->assignChild(3,$<tnode>4);
-		tmp->errorCheck();
+		tmp->errorCheck("");
 		$<tnode>$ = tmp;
 		outputReduction("function_definition : declarator declaration_list compound_statement");}
 	| declaration_specifiers declarator compound_statement {
@@ -241,7 +241,7 @@ function_definition
 		tmp->assignChild(1,$<tnode>2);
 		tmp->assignChild(2,blank1);
 		tmp->assignChild(3,$<tnode>3);
-		tmp->errorCheck();
+		tmp->errorCheck("");
 		$<tnode>$ = tmp;
 		outputReduction("function_definition : declaration_specifiers declarator compound_statement");}
 	| declaration_specifiers declarator   declaration_list {insert_lookup=1;} compound_statement {
@@ -250,7 +250,7 @@ function_definition
 		tmp->assignChild(1,$<tnode>2);
 		tmp->assignChild(2,$<tnode>3);
 		tmp->assignChild(3,$<tnode>5);
-		tmp->errorCheck();
+		tmp->errorCheck("");
 		$<tnode>$ = tmp;
 		outputReduction("function_definition : declaration_specifiers declarator declaration_list compound_statement");}
 	;

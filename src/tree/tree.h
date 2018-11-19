@@ -94,6 +94,7 @@ public:
 	void printNode();
 	virtual void errorCheck(const char * str);
 	virtual void assignLine(int,int,int,FILE*);
+	virtual bool isIDList(){return false;}
 protected:
 	int TreeNodeNumber;
 	//type

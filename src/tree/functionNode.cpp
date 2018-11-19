@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-11-05 15:44:49
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-18 14:39:04
+* @Last Modified time: 2018-11-18 22:15:42
 */
 #include "functionNode.h"
 
@@ -99,7 +99,7 @@ void FunctionNode::errorCheck(const char * str)
 	// 	
 	if (children[1]->getDataType(temp)!=DIRECT_DECL_TYPE_NODE)
 	{
-		children[1]->errorCheck("ERROR: Incorrect declarator type");
+		children[1]->errorCheck("ERROR: Incorrect declarator type. Must be function declarator.");
 		
 	} 
 	else
@@ -107,36 +107,62 @@ void FunctionNode::errorCheck(const char * str)
 		children[1]->children[0]->getDataType(temp);
 		
 		functName.assign(temp);
+		
+		//direct_decl in above comment must be either identifier or parenthesized identifier
+		//
+		
+		//can't be function type by means of typedef
+		//
+		
+		//if parameter-type-list in above comment then declaration-list must be absent
+		int typeNode = children[1]->children[1]->getDataType(temp);
+		if (typeNode!=EMPTY_TYPE_NODE)
+		{
+			if (children[1]->children[1]->isIDList())
+			{
+				//Set param types to variables
+				//
+				//if type with identifier-list
+				//identifier-list names the variables and declaration-list names the types and must be present or all types are assumed to be ints
+				//
+				//declaration-list can only name types specified in id-list
+				//
+				//initialization is not permitted
+				//
+				//Only storage-class specifier possible is register
+				//
+			}
+			else
+			{
+				if (children[2]->getDataType(temp)!=EMPTY_TYPE_NODE)
+				{
+					children[2]->errorCheck("ERROR: Parameterized list in declaration does not permit declaration list after declarator.");
+				}
+				//Each decl in param-list must contain an identifier
+				//
+				//could end with ", ..." but we are ignoring this case for now
+				//otherwise
+				//the function must be called with more params than arguments
+				//the va_arg macro mechanism defined in the stdarg.h is used to ref extra args
+				//variadic functions must have at least one named parameter
+				//
+			}
+		}
+		else
+		{
+			//Unless parameter-type-list consists only of void meaning that it takes no parameters
+			if (children[2]->getDataType(temp)!=EMPTY_TYPE_NODE)
+			{
+				children[2]->errorCheck("ERROR: Empty parameter list in declaration does not permit declaration list after declarator.");
+			}
+		}
+		
+		
 	}
 	
-	//direct_decl in above comment must be either identifier or parenthesized identifier
-	//
 	
-	//can't be function type by means of typedef
-	//
 	
-	//if parameter-type-list in above comment then declaration-list must be absent
-	//Unless parameter-type-list consists only of void meaning that it takes no parameters
-	//Each decl in param-list must contain an identifier
-	//
-	//could end with ", ..." but we are ignoring this case for now
-	//otherwise
-	//the function must be called with more params than arguments
-	//the va_arg macro mechanism defined in the stdarg.h is used to ref extra args
-	//variadic functions must have at least one named parameter
-	//
-	
-	//if type with identifier-list
-	//identifier-list names the variables and declaration-list names the types and must be present or all types are assumed to be ints
-	//
-	//declaration-list can only name types specified in id-list
-	//
-	//initialization is not permitted
-	//
-	//Only storage-class specifier possible is register
-	//
-	
-	//both stypes make assumption that params are declared just after the beginning of the compound statement(the function body)
+	//both types make assumption that params are declared just after the beginning of the compound statement(the function body)
 	//
 	//shadowing of params allowed only in inner blocks
 	//
