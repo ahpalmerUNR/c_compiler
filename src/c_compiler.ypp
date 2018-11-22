@@ -272,7 +272,7 @@ declaration
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>2);
 		char buffer[500];
-		vector<int> types = tmp->getType();
+		vector<nodeDataType> types = tmp->getType();
 		tmp->parseTypes();
 		// Debugging: Get the types parsed
 		// for (int t : types) {

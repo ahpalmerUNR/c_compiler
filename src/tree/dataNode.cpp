@@ -248,7 +248,7 @@ void DataNode::setTypeSpecifier(nodeDataType typeSpec)
 	isOperatorNode = true;
 }
 
-int DataNode::getDataType(char * representation)
+nodeDataType DataNode::getDataType(char * representation)
 {
 	if (isData)
 	{

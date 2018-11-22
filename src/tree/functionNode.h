@@ -11,14 +11,14 @@ public:
 	
 	void traverse_to_file(FILE* fileout);
 	void ast_to_3ac(FILE* fileout);
-	int getDataType(char*);
+	nodeDataType getDataType(char*);
 	int returnTicket();
 	void errorCheck(const char * str);
-	vector<int> getTypes();
+	vector<nodeDataType> getTypes();
 	
 protected:
 	// vector<nodeDataType> freturnType;
-	vector<int> freturnType;
+	vector<nodeDataType> freturnType;
 	int variableTick;
 	vector<vector<nodeDataType>> functionArgs;
 	string functName;

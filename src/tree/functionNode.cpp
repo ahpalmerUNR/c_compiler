@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-11-05 15:44:49
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-18 22:15:42
+* @Last Modified time: 2018-11-22 11:16:57
 */
 #include "functionNode.h"
 
@@ -30,12 +30,12 @@ void FunctionNode::ast_to_3ac(FILE* fileout)
 
 }
 
-int FunctionNode::getDataType(char* buffer)
+nodeDataType FunctionNode::getDataType(char* buffer)
 {
-	return -1;
+	return VOID_TYPE_NODE;
 }
 
-vector<int> FunctionNode::getTypes()
+vector<nodeDataType> FunctionNode::getTypes()
 {
 	return freturnType;
 }

@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-27 14:10:44
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-13 16:45:52
+* @Last Modified time: 2018-11-22 11:08:07
 */
 #include "tree.h"
 
@@ -260,10 +260,10 @@ void TreeNode::errorCheck(const char * str)
 
 }
 
-vector<int> TreeNode::getTypes()
+vector<nodeDataType> TreeNode::getTypes()
 {
 	char buffer[500];
-	vector<int> type;
+	vector<nodeDataType> type;
 	type.push_back(getDataType(buffer));
 	return type;
 }
