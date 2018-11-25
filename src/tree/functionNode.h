@@ -22,7 +22,8 @@ protected:
 	int variableTick;
 	vector<vector<nodeDataType>> functionArgs;
 	string functName;
-	
+	int sizeOfParams;
+	int sizeOfLocals;
 };
 
 class ParamListNode:public TreeNode

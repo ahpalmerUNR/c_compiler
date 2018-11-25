@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-11-05 15:44:49
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-22 11:16:57
+* @Last Modified time: 2018-11-24 15:43:09
 */
 #include "functionNode.h"
 
@@ -12,6 +12,8 @@ FunctionNode::FunctionNode(string TreeNodeProductionName):TreeNode(TreeNodeProdu
 {
 	variableTick = Variable_counter;
 	++Variable_counter;
+	sizeOfParams = 0;
+	sizeOfLocals = 0;
 }
 
 FunctionNode::~FunctionNode()
@@ -27,7 +29,9 @@ void FunctionNode::traverse_to_file(FILE* fileout)
 
 void FunctionNode::ast_to_3ac(FILE* fileout)
 {
-
+	fprintf(fileout, "PROCENTRY\t%s\t%d\t%d\n",functName.c_str(),sizeOfParams,sizeOfLocals);
+	children[3]->ast_to_3ac(fileout);
+	fprintf(fileout, "ENDPROC\n");
 }
 
 nodeDataType FunctionNode::getDataType(char* buffer)
