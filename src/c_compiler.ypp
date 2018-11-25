@@ -1075,22 +1075,26 @@ statement_list
 
 selection_statement
 	: IF_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement %prec THEN  {
-		SelectionNode* tmp = new SelectionNode("selection_statement_",2,false);
+		SelectionNode* tmp = new SelectionNode("selection_statement_",false);
+		EmptyNode* blank1 = new EmptyNode("empty_");
 		tmp->assignChild(0,$<tnode>3);
 		tmp->assignChild(1,$<tnode>5);
+		tmp->assignChild(2,blank1);
 		$<tnode>$ = tmp;
 		outputReduction("selection_statement : IF_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement");}
 	| IF_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement ELSE_tok statement {
-		SelectionNode* tmp = new SelectionNode("selection_statement_",3,false);
+		SelectionNode* tmp = new SelectionNode("selection_statement_",false);
 		tmp->assignChild(0,$<tnode>3);
 		tmp->assignChild(1,$<tnode>5);
 		tmp->assignChild(2,$<tnode>7);
 		$<tnode>$ = tmp;
 		outputReduction("selection_statement : IF_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement ELSE_tok statement");}
 	| SWITCH_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement {
-		SelectionNode* tmp = new SelectionNode("selection_statement_",2,true);
+		SelectionNode* tmp = new SelectionNode("selection_statement_",true);
+		EmptyNode* blank1 = new EmptyNode("empty_");
 		tmp->assignChild(0,$<tnode>3);
 		tmp->assignChild(1,$<tnode>5);
+		tmp->assignChild(2,blank1);
 		$<tnode>$ = tmp;
 		outputReduction("selection_statement : SWITCH_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement");}
 	;

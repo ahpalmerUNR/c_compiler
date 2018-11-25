@@ -2,11 +2,11 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-31 11:49:36
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-18 13:25:30
+* @Last Modified time: 2018-11-24 16:11:05
 */
 #include "selectionNode.h"
 
-SelectionNode::SelectionNode(string TreeNodeProductionName,int numChildren,bool isaSwitch):TreeNode(TreeNodeProductionName,numChildren)
+SelectionNode::SelectionNode(string TreeNodeProductionName,bool isaSwitch):TreeNode(TreeNodeProductionName,3)
 {
 	jticket1 = Label_counter;
 	++Label_counter;
@@ -45,34 +45,35 @@ void SelectionNode::traverse_to_file(FILE* fileout)
 }
 void SelectionNode::ast_to_3ac(FILE* fileout)
 {
+	char temp[500];
 	if (isSwitch)
 	{
 		//code for switch
 	}
 	else
 	{
-		if (jticket3<0)
+		if (children[2]->getDataType(temp)==EMPTY_TYPE_NODE)
 		{
 			//no else
 			children[0]->ast_to_3ac(fileout);
-			fprintf(fileout, "BREQ\t%d\t(0)\t%d\n", children[0]->returnTicket(),jticket1);
-			fprintf(fileout, "BR\t\t\t%d\n", jticket2);
-			fprintf(fileout, "LABEL\t%d\n",jticket1);
+			fprintf(fileout, "BREQ\t%d\t(0)\tlabel%d\n", children[0]->returnTicket(),jticket1);
+			fprintf(fileout, "BR\t\t\tlabel%d\n", jticket2);
+			fprintf(fileout, "LABEL\tlabel%d\n",jticket1);
 			children[1]->ast_to_3ac(fileout);
-			fprintf(fileout, "LABEL\t%d\n", jticket2);
+			fprintf(fileout, "LABEL\tlabel%d\n", jticket2);
 		}
 		else
 		{
 			//else
 			children[0]->ast_to_3ac(fileout);
-			fprintf(fileout, "BREQ\t%d\t(0)\t%d\n", children[0]->returnTicket(),jticket1);
-			fprintf(fileout, "BR\t\t\t%d\n", jticket2);
-			fprintf(fileout, "LABEL\t%d\n",jticket1);
+			fprintf(fileout, "BREQ\t%d\t(0)\tlabel%d\n", children[0]->returnTicket(),jticket1);
+			fprintf(fileout, "BR\t\t\tlabel%d\n", jticket2);
+			fprintf(fileout, "LABEL\tlabel%d\n",jticket1);
 			children[1]->ast_to_3ac(fileout);
-			fprintf(fileout, "BR\t\t\t%d\n", jticket3);
-			fprintf(fileout, "LABEL\t%d\n", jticket2);
+			fprintf(fileout, "BR\t\t\tlabel%d\n", jticket3);
+			fprintf(fileout, "LABEL\tlabel%d\n", jticket2);
 			children[2]->ast_to_3ac(fileout);
-			fprintf(fileout, "LABEL\t%d\n", jticket3);
+			fprintf(fileout, "LABEL\tlabel%d\n", jticket3);
 		}
 	}
 }

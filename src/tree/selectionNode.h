@@ -6,7 +6,7 @@
 class SelectionNode:public TreeNode
 {
 public:
-	SelectionNode(string TreeNodeProductionName,int numChildren,bool isaSwitch);
+	SelectionNode(string TreeNodeProductionName,bool isaSwitch);
 	~SelectionNode();
 	
 	void traverse_to_file(FILE*);
