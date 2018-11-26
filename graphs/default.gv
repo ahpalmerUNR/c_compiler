@@ -1,0 +1,56 @@
+digraph AST {
+	translation_unit_30 -> function_definition_29;
+	function_definition_29 [shape=doubleoctagon,color=red,label=""]
+	function_definition_29 -> declaration_specifiers_1;
+	declaration_specifiers_1 [label="declaration_specifiers_1"]
+	declaration_specifiers_1 -> type_specifier_0;
+	type_specifier_0 [label="int"]
+	function_definition_29 -> identifier_2;
+	identifier_2 [label="ID: main"]
+	function_definition_29 -> empty_28;
+	empty_28 [style=filled,color=indigo,fontcolor=white]
+	function_definition_29 -> compound_statement_27;
+	compound_statement_27 -> declaration_8;
+	declaration_8 [label="declaration_8"]
+	declaration_8 -> declaration_specifiers_6;
+	declaration_specifiers_6 [label="declaration_specifiers_6"]
+	declaration_specifiers_6 -> type_specifier_5;
+	type_specifier_5 [label="int"]
+	declaration_8 -> identifier_7;
+	identifier_7 [label="ID: i"]
+	compound_statement_27 -> statement_list_26;
+	statement_list_26 -> assignment_expression_22;
+	assignment_expression_22 [label="Int:  Left = Right"]
+	assignment_expression_22 -> identifier_9;
+	identifier_9 [label="ID: i"]
+	assignment_expression_22 -> Implicit_Cast_23;
+	Implicit_Cast_23 [label="Cast(Int)"]
+	Implicit_Cast_23 -> operator_expression_20;
+	operator_expression_20 [label="Float:  Left - Right"]
+	operator_expression_20 -> operator_expression_17;
+	operator_expression_17 [label="Float:  Left + Right"]
+	operator_expression_17 -> operator_expression_14;
+	operator_expression_14 [label="Float:  Left / Right"]
+	operator_expression_14 -> Implicit_Cast15;
+	Implicit_Cast15 [label="Cast(Float)"]
+	Implicit_Cast15 -> operator_expression_12;
+	operator_expression_12 [label="Int:  Left * Right"]
+	operator_expression_12 -> constant_10;
+	constant_10 [label="Int: 2"]
+	operator_expression_12 -> identifier_11;
+	identifier_11 [label="ID: i"]
+	operator_expression_14 -> constant_13;
+	constant_13 [label="Float: 4.000000"]
+	operator_expression_17 -> Implicit_Cast18;
+	Implicit_Cast18 [label="Cast(Float)"]
+	Implicit_Cast18 -> constant_16;
+	constant_16 [label="Int: 3"]
+	operator_expression_20 -> Implicit_Cast21;
+	Implicit_Cast21 [label="Cast(Float)"]
+	Implicit_Cast21 -> constant_19;
+	constant_19 [label="Char: c"]
+	statement_list_26 -> jump_statement_25;
+	jump_statement_25 [shape = triangle,color=purple,label="return expr"]
+	jump_statement_25 -> constant_24;
+	constant_24 [label="Int: 0"]
+}
