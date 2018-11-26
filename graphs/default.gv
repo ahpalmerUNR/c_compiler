@@ -1,16 +1,16 @@
 digraph AST {
-	translation_unit_38 -> function_definition_37;
-	function_definition_37 [shape=doubleoctagon,color=red,label=""]
-	function_definition_37 -> declaration_specifiers_1;
+	translation_unit_39 -> function_definition_38;
+	function_definition_38 [shape=doubleoctagon,color=red,label=""]
+	function_definition_38 -> declaration_specifiers_1;
 	declaration_specifiers_1 [label="declaration_specifiers_1"]
 	declaration_specifiers_1 -> type_specifier_0;
 	type_specifier_0 [label="int"]
-	function_definition_37 -> identifier_2;
+	function_definition_38 -> identifier_2;
 	identifier_2 [label="ID: main"]
-	function_definition_37 -> empty_36;
-	empty_36 [style=filled,color=indigo,fontcolor=white]
-	function_definition_37 -> compound_statement_35;
-	compound_statement_35 -> declaration_8;
+	function_definition_38 -> empty_37;
+	empty_37 [style=filled,color=indigo,fontcolor=white]
+	function_definition_38 -> compound_statement_36;
+	compound_statement_36 -> declaration_8;
 	declaration_8 [label="declaration_8"]
 	declaration_8 -> declaration_specifiers_6;
 	declaration_specifiers_6 [label="declaration_specifiers_6"]
@@ -18,9 +18,9 @@ digraph AST {
 	type_specifier_5 [label="int"]
 	declaration_8 -> identifier_7;
 	identifier_7 [label="ID: i"]
-	compound_statement_35 -> statement_list_34;
-	statement_list_34 -> statement_list_31;
-	statement_list_31 -> selection_statement_27;
+	compound_statement_36 -> statement_list_35;
+	statement_list_35 -> statement_list_32;
+	statement_list_32 -> selection_statement_27;
 	selection_statement_27 [shape=diamond,color=green,label="if else"]
 	selection_statement_27 -> conditional_expression_20;
 	conditional_expression_20 [label="Int:  Left && Right"]
@@ -56,14 +56,16 @@ digraph AST {
 	identifier_24 [label="ID: i"]
 	assignment_expression_26 -> constant_25;
 	constant_25 [label="Int: 1"]
-	statement_list_31 -> assignment_expression_30;
-	assignment_expression_30 [label="Int:  Left = Right"]
-	assignment_expression_30 -> identifier_28;
+	statement_list_32 -> assignment_expression_31;
+	assignment_expression_31 [label="Int:  Left = Right"]
+	assignment_expression_31 -> identifier_28;
 	identifier_28 [label="ID: i"]
-	assignment_expression_30 -> constant_29;
-	constant_29 [label="Int: 3"]
-	statement_list_34 -> jump_statement_33;
-	jump_statement_33 [shape = triangle,color=purple,label="return expr"]
-	jump_statement_33 -> constant_32;
-	constant_32 [label="Int: 0"]
+	assignment_expression_31 -> unary_operator_29;
+	unary_operator_29 [label="-"]
+	unary_operator_29 -> identifier_30;
+	identifier_30 [label="ID: i"]
+	statement_list_35 -> jump_statement_34;
+	jump_statement_34 [shape = triangle,color=purple,label="return expr"]
+	jump_statement_34 -> constant_33;
+	constant_33 [label="Int: 0"]
 }
