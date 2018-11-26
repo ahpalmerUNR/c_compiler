@@ -1,16 +1,16 @@
 digraph AST {
-	translation_unit_22 -> function_definition_21;
-	function_definition_21 [shape=doubleoctagon,color=red,label=""]
-	function_definition_21 -> declaration_specifiers_1;
+	translation_unit_38 -> function_definition_37;
+	function_definition_37 [shape=doubleoctagon,color=red,label=""]
+	function_definition_37 -> declaration_specifiers_1;
 	declaration_specifiers_1 [label="declaration_specifiers_1"]
 	declaration_specifiers_1 -> type_specifier_0;
 	type_specifier_0 [label="int"]
-	function_definition_21 -> identifier_2;
+	function_definition_37 -> identifier_2;
 	identifier_2 [label="ID: main"]
-	function_definition_21 -> empty_20;
-	empty_20 [style=filled,color=indigo,fontcolor=white]
-	function_definition_21 -> compound_statement_19;
-	compound_statement_19 -> declaration_8;
+	function_definition_37 -> empty_36;
+	empty_36 [style=filled,color=indigo,fontcolor=white]
+	function_definition_37 -> compound_statement_35;
+	compound_statement_35 -> declaration_8;
 	declaration_8 [label="declaration_8"]
 	declaration_8 -> declaration_specifiers_6;
 	declaration_specifiers_6 [label="declaration_specifiers_6"]
@@ -18,20 +18,52 @@ digraph AST {
 	type_specifier_5 [label="int"]
 	declaration_8 -> identifier_7;
 	identifier_7 [label="ID: i"]
-	compound_statement_19 -> statement_list_18;
-	statement_list_18 -> selection_statement_14;
-	selection_statement_14 [shape=diamond,color=green,label="if else"]
-	selection_statement_14 -> equality_expression_11;
+	compound_statement_35 -> statement_list_34;
+	statement_list_34 -> statement_list_31;
+	statement_list_31 -> selection_statement_27;
+	selection_statement_27 [shape=diamond,color=green,label="if else"]
+	selection_statement_27 -> conditional_expression_20;
+	conditional_expression_20 [label="Int:  Left && Right"]
+	conditional_expression_20 -> conditional_expression_16;
+	conditional_expression_16 [label="Int:  Left && Right"]
+	conditional_expression_16 -> equality_expression_11;
 	equality_expression_11 [label="Float:  Left == Right"]
 	equality_expression_11 -> identifier_9;
 	identifier_9 [label="ID: i"]
 	equality_expression_11 -> constant_10;
 	constant_10 [label="Float: 2.000000"]
-	selection_statement_14 -> expression_statement_13;
-	selection_statement_14 -> empty_15;
-	empty_15 [style=filled,color=indigo,fontcolor=white]
-	statement_list_18 -> jump_statement_17;
-	jump_statement_17 [shape = triangle,color=purple,label="return expr"]
-	jump_statement_17 -> constant_16;
-	constant_16 [label="Int: 0"]
+	conditional_expression_16 -> equality_expression_15;
+	equality_expression_15 [label="Int:  Left > Right"]
+	equality_expression_15 -> identifier_13;
+	identifier_13 [label="ID: i"]
+	equality_expression_15 -> constant_14;
+	constant_14 [label="Int: 3"]
+	conditional_expression_20 -> equality_expression_19;
+	equality_expression_19 [label="Int:  Left < Right"]
+	equality_expression_19 -> identifier_17;
+	identifier_17 [label="ID: i"]
+	equality_expression_19 -> constant_18;
+	constant_18 [label="Int: 1"]
+	selection_statement_27 -> assignment_expression_23;
+	assignment_expression_23 [label="Int:  Left = Right"]
+	assignment_expression_23 -> identifier_21;
+	identifier_21 [label="ID: i"]
+	assignment_expression_23 -> constant_22;
+	constant_22 [label="Int: 2"]
+	selection_statement_27 -> assignment_expression_26;
+	assignment_expression_26 [label="Int:  Left = Right"]
+	assignment_expression_26 -> identifier_24;
+	identifier_24 [label="ID: i"]
+	assignment_expression_26 -> constant_25;
+	constant_25 [label="Int: 1"]
+	statement_list_31 -> assignment_expression_30;
+	assignment_expression_30 [label="Int:  Left = Right"]
+	assignment_expression_30 -> identifier_28;
+	identifier_28 [label="ID: i"]
+	assignment_expression_30 -> constant_29;
+	constant_29 [label="Int: 3"]
+	statement_list_34 -> jump_statement_33;
+	jump_statement_33 [shape = triangle,color=purple,label="return expr"]
+	jump_statement_33 -> constant_32;
+	constant_32 [label="Int: 0"]
 }

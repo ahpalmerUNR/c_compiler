@@ -10,7 +10,10 @@ RelationNode::~RelationNode()
 {
 
 }
-
+nodeDataType RelationNode::getDataType(char *c)
+{
+	return dType;
+}
 void RelationNode::traverse_to_file(FILE *fileout)
 {
 	char typePrint[500];
@@ -55,28 +58,90 @@ void RelationNode::traverse_to_file(FILE *fileout)
 
 void RelationNode::ast_to_3ac(FILE *fileout)
 {
-	char operatorPrint[500];
+	children[0]->ast_to_3ac(fileout);
+	children[1]->ast_to_3ac(fileout);
+	char typePrint[500];
+	char typePrint2[500];
+	char typePrint3[500];
+	string opString;
+	switch(dType)
+	{
+		case CHAR_TYPE_NODE:
+			snprintf(typePrint, 500,"c");
+			break;
+		case INT_TYPE_NODE:
+			snprintf(typePrint, 500,"i");
+			break;
+		case DOUBLE_TYPE_NODE:
+			snprintf(typePrint, 500,"f");
+			break;
+		case FLOAT_TYPE_NODE:
+			snprintf(typePrint, 500,"f");
+			break;
+		
+	}
+	nodeDataType t = children[0]->getDataType(typePrint2);
+	if(t == ID_TYPE_NODE) t = children[0]->getidDataType();
+	switch(t)
+	{
+		case CHAR_TYPE_NODE:
+			snprintf(typePrint2, 500,"c");
+			break;
+		case INT_TYPE_NODE:
+			snprintf(typePrint2, 500,"i");
+			break;
+		case DOUBLE_TYPE_NODE:
+			snprintf(typePrint2, 500,"f");
+			break;
+		case FLOAT_TYPE_NODE:
+			snprintf(typePrint2, 500,"f");
+			break;
+		
+	}
+	t = children[1]->getDataType(typePrint3);
+	if(t == ID_TYPE_NODE) t = children[1]->getidDataType();
+	switch(t)
+	{
+		case CHAR_TYPE_NODE:
+			snprintf(typePrint3, 500,"c");
+			break;
+		case INT_TYPE_NODE:
+			snprintf(typePrint3, 500,"i");
+			break;
+		case DOUBLE_TYPE_NODE:
+			snprintf(typePrint3, 500,"f");
+			break;
+		case FLOAT_TYPE_NODE:
+			snprintf(typePrint3, 500,"f");
+			break;
+		
+	}
+	string s1;
+	string s2;
+	s1 = string(typePrint2) + to_string(children[0]->returnTicket());
+	s2 = string(typePrint3) + to_string(children[1]->returnTicket());  
 	switch(oType)
 	{
 		case EQ_OP:
-			snprintf(operatorPrint, 500,"Left == Right");
+			opString = s1 + "==" + s2;
 			break;
 		case NE_OP:
-			snprintf(operatorPrint, 500,"Left != Right");
+			opString = s1 + "!=" + s2;
 			break;
 		case GT_OP:
-			snprintf(operatorPrint, 500,"Left > Right");
+			opString = s1 + ">" + s2;
 			break;
 		case GE_OP:
-			snprintf(operatorPrint, 500,"Left >= Right");
+			opString = s1 + ">=" + s2;
 			break;
 		case LT_OP:
-			snprintf(operatorPrint, 500,"Left < Right");
+			opString = s1 + "<" + s2;
 			break;
 		case LE_OP:
-			snprintf(operatorPrint, 500,"Left <= Right");
+			opString = s1 + "<=" + s2;
 			break;
 	}
+	fprintf(fileout, "%s%i=%s\n",typePrint, ticketNumber, opString.c_str());
 }
 
 int RelationNode::returnTicket()

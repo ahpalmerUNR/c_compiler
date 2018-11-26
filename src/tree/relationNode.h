@@ -12,7 +12,7 @@ public:
 	void ast_to_3ac(FILE*);
 
 	int returnTicket();
-
+	nodeDataType getDataType(char *);
 	void setOperator(OperatorType opSpec);
 	void setTypeSpecifier(nodeDataType typeSpec);
 	void errorCheck();
