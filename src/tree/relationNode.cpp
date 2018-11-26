@@ -55,7 +55,28 @@ void RelationNode::traverse_to_file(FILE *fileout)
 
 void RelationNode::ast_to_3ac(FILE *fileout)
 {
-
+	char operatorPrint[500];
+	switch(oType)
+	{
+		case EQ_OP:
+			snprintf(operatorPrint, 500,"Left == Right");
+			break;
+		case NE_OP:
+			snprintf(operatorPrint, 500,"Left != Right");
+			break;
+		case GT_OP:
+			snprintf(operatorPrint, 500,"Left > Right");
+			break;
+		case GE_OP:
+			snprintf(operatorPrint, 500,"Left >= Right");
+			break;
+		case LT_OP:
+			snprintf(operatorPrint, 500,"Left < Right");
+			break;
+		case LE_OP:
+			snprintf(operatorPrint, 500,"Left <= Right");
+			break;
+	}
 }
 
 int RelationNode::returnTicket()
@@ -79,6 +100,10 @@ void RelationNode::errorCheck()
 		TreeNode *rightChild = children[1];
 		nodeDataType left = nodeDataType(leftChild->getDataType(wat));
 		nodeDataType right = nodeDataType(rightChild->getDataType(wat));
+		if(left == ID_TYPE_NODE)
+			left = children[0]->getidDataType();
+		if(right == ID_TYPE_NODE)
+			right = children[1]->getidDataType();
 		if(left == right)
 		{
 			if(left == DOUBLE_TYPE_NODE && oType == MOD_OP)
@@ -100,28 +125,28 @@ void RelationNode::errorCheck()
 				tmp->setTypeSpecifier(DOUBLE_TYPE_NODE);
 				tmp->assignChild(0,rightChild);
 				rightChild = tmp;
-				setTypeSpecifier(left);
+				setTypeSpecifier(DOUBLE_TYPE_NODE);
 			}
 			else if(right == DOUBLE_TYPE_NODE)
 			{
 				tmp->setTypeSpecifier(DOUBLE_TYPE_NODE);
 				tmp->assignChild(0,leftChild);
 				leftChild = tmp;
-				setTypeSpecifier(right);
+				setTypeSpecifier(DOUBLE_TYPE_NODE);
 			}
 			else if(left == INT_TYPE_NODE)
 			{
 				tmp->setTypeSpecifier(INT_TYPE_NODE);
 				tmp->assignChild(0,rightChild);	
 				rightChild = tmp;		
-				setTypeSpecifier(left);
+				setTypeSpecifier(INT_TYPE_NODE);
 			}
 			else if(right == INT_TYPE_NODE)
 			{
 				tmp->setTypeSpecifier(INT_TYPE_NODE);
 				tmp->assignChild(0,leftChild);
 				leftChild = tmp;
-				setTypeSpecifier(right);
+				setTypeSpecifier(INT_TYPE_NODE);
 			}
 		}
 }
