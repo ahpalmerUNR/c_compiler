@@ -22,6 +22,8 @@ extern int AST_node_counter;
 extern int Label_counter;
 extern int Variable_counter;
 
+string rep_3ac_ticket(nodeDataType ndt, int ticket);
+
 enum OperatorType {
 	ADD_OP,
 	SUB_OP,

@@ -1,12 +1,11 @@
+int q()
+{
+	return 0;
+}
 int main()
 {
 	int i;
-	if(i == 2.0 && i < 3 && i > 1)
-	{
-		i = 2;
-	}
-	else
-		i = 1;
-	i = -i;
+	i += 5;
+	i = 6;
 	return 0;
 }

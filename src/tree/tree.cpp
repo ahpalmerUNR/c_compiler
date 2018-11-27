@@ -300,3 +300,27 @@ void Tree::set_root(TreeNode* new_root)
 {
 	root = new_root;
 }
+
+string rep_3ac_ticket(nodeDataType ndt, int ticket)
+{
+	char typePrint[500];
+	switch(ndt)
+	{
+		case CHAR_TYPE_NODE:
+			snprintf(typePrint, 500,"c");
+			break;
+		case INT_TYPE_NODE:
+			snprintf(typePrint, 500,"i");
+			break;
+		case DOUBLE_TYPE_NODE:
+			snprintf(typePrint, 500,"f");
+			break;
+		case FLOAT_TYPE_NODE:
+			snprintf(typePrint, 500,"f");
+		default:
+			snprintf(typePrint, 500, "Error probably with id");
+			break;
+		
+	}
+	return string(typePrint) + to_string(ticket);
+}

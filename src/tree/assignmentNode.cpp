@@ -96,7 +96,9 @@ void AssignmentNode::ast_to_3ac(FILE *fileout)
 			break;
 		
 	}
-	switch(children[1]->getDataType(typePrint2))
+	nodeDataType t = children[1]->getDataType(typePrint2);
+	if(t == ID_TYPE_NODE) t = children[1]->getidDataType();
+	switch(t)
 	{
 		case CHAR_TYPE_NODE:
 			snprintf(typePrint2, 500,"c");
@@ -117,28 +119,28 @@ void AssignmentNode::ast_to_3ac(FILE *fileout)
 	bool isOpAssign = true;
 	string assignString;
 	string s1;
-	s1 =  string(typePrint1) + to_string(children[0]->returnTicket());
+	s1 =  rep_3ac_ticket(children[0]->getidDataType(),children[0]->returnTicket());
 	string s2;
-	s2 = string(typePrint2) + to_string(children[1]->returnTicket());
+	s2 = rep_3ac_ticket(t,children[1]->returnTicket());
 	switch(aType)
 	{
 		case EQUAL_ASSIGN:
 			isOpAssign = false;
 			break;
 		case ADD_ASSIGN:
-			assignString = s1 + "+" + s2;
+			assignString = "ADD\t" + s1 + "\t" + s2;
 			break;
 		case SUB_ASSIGN:
-			assignString = s1 + "-" + s2;
+			assignString = "SUB\t" + s1 + "\t" + s2;
 			break;
 		case MULT_ASSIGN:
-			assignString = s1 + "*" + s2;
+			assignString = "MULT\t" + s1 + "\t" + s2;
 			break;
 		case DIV_ASSIGN:
-			assignString = s1 + "/" + s2;
+			assignString = "DIV\t" + s1 + "\t" + s2;
 			break;
 		case MOD_ASSIGN:
-			assignString = s1 + "%" + s2;
+			assignString = "MOD\t" + s1 + "\t" + s2;
 			break;
 		case LEFT_ASSIGN:
 			assignString = s1 + "<<" + s2;
@@ -158,11 +160,11 @@ void AssignmentNode::ast_to_3ac(FILE *fileout)
 	}	
 	if(isOpAssign)
 	{
-		fprintf(fileout,"%s%i=%s\n",typePrint1,Variable_counter, assignString.c_str());
-		fprintf(fileout,"%s=%s%i\n",s1.c_str(),typePrint1,Variable_counter++);
+		fprintf(fileout,"%s\t%s\n",assignString.c_str(),s1.c_str());
+		//fprintf(fileout,"ASSIGN\t%s\t%s%i\n",s1.c_str(),typePrint1,Variable_counter++);
 	}
 	else
-		fprintf(fileout,"%s=%s\n",s1.c_str(),s2.c_str());
+		fprintf(fileout,"ASSIGN\t%s\t_\t%s\n",s1.c_str(),s2.c_str());
 }
 
 int AssignmentNode::returnTicket()

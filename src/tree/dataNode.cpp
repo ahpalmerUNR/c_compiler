@@ -244,19 +244,19 @@ void DataNode::ast_to_3ac(FILE* fileout)
 		switch(oType)
 		{
 			case ADD_OP:
-				opString = s1 + "+" + s2;
+				opString = "ADD\t" + s1 + "\t" + s2;
 				break;
 			case SUB_OP:
-				opString = s1 + "-" + s2;
+				opString = "SUB\t" + s1 + "\t" + s2;
 				break;
 			case MULT_OP:
-				opString = s1 + "*" + s2;
+				opString = "MULT\t" + s1 + "\t" + s2;
 				break;
 			case DIV_OP:
-				opString = s1 + "/" + s2;
+				opString = "DIV\t" + s1 + "\t" + s2;
 				break;
 			case MOD_OP:
-				opString = s1 + "%" + s2;
+				opString = "MOD\t" + s1 + "\t" + s2;
 				break;
 			case COMMA_OP:
 				opString = s1 + "," + s2;
@@ -286,7 +286,7 @@ void DataNode::ast_to_3ac(FILE* fileout)
 				opString = s1 + "(" + s2 + ")";
 				break;					
 		}
-		fprintf(fileout,"%s%i=%s\n",typePrint1,ticketNumber,opString.c_str()); 
+		fprintf(fileout,"%s\t%s%i\n",opString.c_str(),typePrint1,ticketNumber); 
 	}	
 }
 

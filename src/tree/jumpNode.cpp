@@ -134,7 +134,7 @@ void JumpNode::ast_to_3ac(FILE* fileout)
 				ticketNumber = ch1->colNumber;
 			}
 			children[0]->ast_to_3ac(fileout);
-			fprintf(fileout, "ADDR\t%d\t\t%d\n", ticketNumber,children[0]->returnTicket());
+			fprintf(fileout, "ADDR\t%s\t\t%s\n", rep_3ac_ticket(children[0]->getidDataType(),children[0]->returnTicket()).c_str(),rep_3ac_ticket(INT_TYPE_NODE,ticketNumber).c_str());
 			fprintf(fileout, "ENDPROC\n");
 			break;
 	}
