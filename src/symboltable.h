@@ -70,15 +70,16 @@ struct Node {
 	Node(const Node&);
 	void print();
 	void output(FILE*);
+	bool compareFunction(const Node);
 
 	int lineNumber;
 	int colNumber;
 	enum DataType type;
-	bool isFunction;
-	// Vector containing the types of the node
-	vector<nodeDataType> types;
 	int ntype = 1;
 	string name;
+	
+	// Vector containing the types of the node
+	vector<nodeDataType> types;
 	// Contains the params of node (if it is a function)
 	vector<vector<nodeDataType>> params;
 };
@@ -115,6 +116,9 @@ public:
 
 	// Pop the top bst from the stack
 	void popBST();
+
+	// Given a symbol table, insert all of the nodes from the 
+	// void insertNodesFromSymbolTable(const SymbolTable);
 private:
 	// Stack of Balanced binary search trees
 	vector<map<string, Node> > stack;

@@ -37,7 +37,6 @@
 	 * SymbolTable and variables to manipulate the insertion to symbol table
 	 */
 	SymbolTable s;
-	bool pushedParamsIntoSymTab = false;
 
 	int levels[5];
 
@@ -49,7 +48,6 @@
 	int Variable_counter;
 
 	unique_ptr<Node> variableToInsert(new Node());
-	unique_ptr<Node> functionToInsert(new Node());
 
 	extern int column;
 	extern int line;
@@ -195,19 +193,9 @@ translation_unit
 
 external_declaration
 	: function_definition {
-		if (pushedParamsIntoSymTab) {
-			s.popBST();
-			pushedParamsIntoSymTab = false;
-		}
 		$<tnode>$ = $<tnode>1;
 		outputReduction("external_declaration : function_definition");}
 	| declaration {
-		if (insert_lookup == 0) {
-			if (functionToInsert->name != "") {
-				s.insert(functionToInsert->name, *functionToInsert);
-			}
-		}
-		functionToInsert.reset(new Node());
 		$<tnode>$ = $<tnode>1;
 		outputReduction("external_declaration : declaration");}
 	;
@@ -262,12 +250,6 @@ declaration
 		$<tnode>$ = tmp;
 		outputReduction("declaration : declaration_specifiers SEMI_tok");}
 	| declaration_specifiers init_declarator_list SEMI_tok {
-		if (insert_lookup == 0) {
-			if (variableToInsert->name != "") {
-				s.insert(variableToInsert->name, *variableToInsert);
-			}
-		}
-
 		TypeNode* tmp = new TypeNode("declaration_",2);
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>2);
@@ -668,14 +650,32 @@ declarator
 
 direct_declarator
 	: identifier {
+		if (insert_lookup == 0) {
+			if (variableToInsert->name != "") {
+				s.insert(variableToInsert->name, *variableToInsert);
+			}
+			variableToInsert.reset(new Node());
+		}
 		$<tnode>$ = $<tnode>1;
 		outputReduction("direct_declarator : identifier");}
 	| OPEN_PAREN_tok declarator CLOSE_PAREN_tok {
+		if (insert_lookup == 0) {
+			if (variableToInsert->name != "") {
+				s.insert(variableToInsert->name, *variableToInsert);
+			}
+			variableToInsert.reset(new Node());
+		}
 		TreeNode* tmp = new TreeNode("direct_declarator_",1);
 		tmp->assignChild(0,$<tnode>2);
 		$<tnode>$ = tmp;
 		outputReduction("direct_declarator : OPEN_PAREN_tok declarator CLOSE_PAREN_tok");}
 	| direct_declarator OPEN_BRACKET_tok CLOSE_BRACKET_tok {
+		if (insert_lookup == 0) {
+			if (variableToInsert->name != "") {
+				s.insert(variableToInsert->name, *variableToInsert);
+			}
+			variableToInsert.reset(new Node());
+		}
 		TreeNode* tmp = new TreeNode("direct_declarator_",1);
 		tmp->assignChild(0,$<tnode>1);
 		$<tnode>$ = tmp;
@@ -693,31 +693,37 @@ direct_declarator
 		tmp->setTypeSpecifier(ID_TYPE_NODE);
 		$<tnode>$ = tmp;
 		outputReduction("direct_declarator : direct_declarator OPEN_BRACKET_tok constant_expression CLOSE_BRACKET_tok");}
-	| direct_declarator getTypes OPEN_PAREN_tok CLOSE_PAREN_tok {
+	| direct_declarator push OPEN_PAREN_tok CLOSE_PAREN_tok pop {
+		if (insert_lookup == 0) {
+			if (variableToInsert->name != "") {
+				s.insert(variableToInsert->name, *variableToInsert);
+			}
+			variableToInsert.reset(new Node());
+		}
 		TreeNode* tmp = new TreeNode("direct_declarator_",1);
 		tmp->assignChild(0,$<tnode>1);
 		$<tnode>$ = $<tnode>1;
 		outputReduction("direct_declarator : direct_declarator OPEN_PAREN_tok CLOSE_PAREN_tok");}
-	| direct_declarator getTypes OPEN_PAREN_tok parameter_type_list CLOSE_PAREN_tok {
+	| direct_declarator push OPEN_PAREN_tok parameter_type_list CLOSE_PAREN_tok pop {
 		TreeNode* tmp = new TreeNode("direct_declarator_",2);
 		tmp->setTypeSpecifier(DIRECT_DECL_TYPE_NODE);
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>4);
 		$<tnode>$ = tmp;
 		outputReduction("direct_declarator : direct_declarator OPEN_PAREN_tok parameter_type_list CLOSE_PAREN_tok");}
-	| direct_declarator getTypes OPEN_PAREN_tok identifier_list CLOSE_PAREN_tok {
+	| direct_declarator push OPEN_PAREN_tok identifier_list CLOSE_PAREN_tok pop {
+		if (insert_lookup == 0) {
+			if (variableToInsert->name != "") {
+				s.insert(variableToInsert->name, *variableToInsert);
+			}
+			variableToInsert.reset(new Node());
+		}
 		TreeNode* tmp = new TreeNode("direct_declarator_",2);
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>4);
 		$<tnode>$ = tmp;
 		outputReduction("direct_declarator : direct_declarator OPEN_PAREN_tok identifier_list CLOSE_PAREN_tok");}
 	;
-
-getTypes
-	:	{
-			functionToInsert.reset(new Node(*variableToInsert));
-			variableToInsert.reset(new Node());
-		}
 
 pointer
 	: STAR_tok {
@@ -788,30 +794,15 @@ parameter_list
 
 parameter_declaration
 	: declaration_specifiers declarator {
-		if (!pushedParamsIntoSymTab) {
-			pushedParamsIntoSymTab = true;
-			s.pushEmptyBST();
-		}
-		s.insert(variableToInsert->name, *variableToInsert);
-		functionToInsert->params.push_back(variableToInsert->types);
-		variableToInsert.reset(new Node());
-
-
 		TreeNode* tmp = new TreeNode("parameter_declaration_",2);
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>2);
 		$<tnode>$ = tmp;
 		outputReduction("parameter_declaration : declaration_specifiers declarator");}
 	| declaration_specifiers {
-		functionToInsert->params.push_back(variableToInsert->types);
-		variableToInsert.reset(new Node());
-
 		$<tnode>$ = $<tnode>1;
 		outputReduction("parameter_declaration : declaration_specifiers");}
 	| declaration_specifiers abstract_declarator {
-		functionToInsert->params.push_back(variableToInsert->types);
-		variableToInsert.reset(new Node());
-
 		TreeNode* tmp = new TreeNode("parameter_declaration_",2);
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>2);
@@ -991,7 +982,9 @@ expression_statement
 	;
 
 push
-	:	{ s.pushEmptyBST(); }
+	:	{
+		 s.pushEmptyBST(); 
+		}
 	;
 
 pop

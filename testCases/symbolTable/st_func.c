@@ -3,9 +3,10 @@
  * @author Nathan Yocum
  * @brief Test that a simple function lookup works
  */
-void foo();
+int foo(int);
 
-void foo() {
-	double int k;
+int foo(int i) {
+	int i;
 	!!D
 }
+
