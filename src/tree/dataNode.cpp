@@ -262,18 +262,21 @@ void DataNode::storeChar(char c)
 	data.dchar = c;
 	dType = CHAR_TYPE_NODE;
 	isData = true;
+	byteSize = CHAR_MIPS;
 }
 void DataNode::storeInt(int i)
 {
 	data.dint = i;
 	dType = INT_TYPE_NODE;
 	isData = true;
+	byteSize = INT_MIPS;
 }
 void DataNode::storeDouble(double d)
 {
 	data.ddoub = d;
 	dType = DOUBLE_TYPE_NODE;
 	isData = true;
+	byteSize = DOUBLE_MIPS;
 }
 void DataNode::storeString(char *s)
 {
@@ -283,6 +286,7 @@ void DataNode::storeString(char *s)
 
 	dType = STRING_TYPE_NODE;
 	isData = true;
+	byteSize = INT_MIPS;
 }
 
 nodeDataType DataNode::getidDataType()

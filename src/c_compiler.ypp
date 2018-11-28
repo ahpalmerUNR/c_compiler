@@ -1727,7 +1727,7 @@ int main(int argc, char **argv)
 	c_line_yacc_debug_level=1;
 	
 	bool genAST=false;
-	bool gen3AC=false;
+	bool gen3AC=true;
 	bool genAssembly = false;
 	
 	levels[0] = 2;

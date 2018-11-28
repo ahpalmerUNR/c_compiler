@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-11-05 15:44:49
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-24 15:43:09
+* @Last Modified time: 2018-11-28 14:59:45
 */
 #include "functionNode.h"
 
@@ -135,12 +135,19 @@ void FunctionNode::errorCheck(const char * str)
 				//
 				//Only storage-class specifier possible is register
 				//
+			
+				sizeOfParams = children[2]->byteSize;
+			
 			}
 			else
 			{
 				if (children[2]->getDataType(temp)!=EMPTY_TYPE_NODE)
 				{
 					children[2]->errorCheck("ERROR: Parameterized list in declaration does not permit declaration list after declarator.");
+				}
+				else
+				{
+					sizeOfParams = children[1]->byteSize;
 				}
 				//Each decl in param-list must contain an identifier
 				//
@@ -159,6 +166,10 @@ void FunctionNode::errorCheck(const char * str)
 			{
 				children[2]->errorCheck("ERROR: Empty parameter list in declaration does not permit declaration list after declarator.");
 			}
+			else
+			{
+				sizeOfParams = children[1]->byteSize;
+			}
 		}
 		
 		
@@ -176,6 +187,9 @@ void FunctionNode::errorCheck(const char * str)
 	//
 	//Converted as necessary to the appropiate types specified in function spec
 	//
+	//
+	
+	sizeOfLocals = children[3]->byteSize;
 }
 
 

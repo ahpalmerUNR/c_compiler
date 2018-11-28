@@ -1,13 +1,16 @@
 int printc(int);
-printc(int a, float b, char c)
-int a,b,c;
+int printc(int a, float b, char c)
+// int a,b,c;
 {
+	!!D
 	//case :
 	{
 		int l=0;
 		{}
 		;
 		;
+		!!D
+
 	}
 	return 4;
 }

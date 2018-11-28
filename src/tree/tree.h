@@ -7,6 +7,7 @@
 #include <vector>
 #include <iostream>
 #include "../symboltable.h"
+#include "../MIPS_Type_Sizes.h"
 
 using namespace std;
 
@@ -106,6 +107,7 @@ protected:
 	vector<TreeNode*> children;
 	vector<nodeDataType> types;
 	nodeDataType tType;
+	int byteSize;
 };
 
 class Tree
