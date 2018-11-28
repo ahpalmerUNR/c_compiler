@@ -642,9 +642,7 @@ void check_float()
 
 int id_token()
 {
-	//printf("Entered ID function\n");
 	Node * pointsTo = NULL;
-	//printf("pointsto made\n");
 	int scope;
 	int errorcode=0;
 	if(yyleng >=32)
@@ -653,54 +651,36 @@ int id_token()
 		print_error("Identifier length too large. Max character length 31.");
 		
 	}
-	//printf("Before Search of symboltable");
-	//pointsTo = s.searchAll(yytext,&scope);
-	//printf("After Search of symboltable");
 	if(insert_lookup == 1)
-	//if(pointsTo != NULL)
 	{
 		pointsTo = s.searchAll(yytext,&scope);
-		//pointsTo->print();
-		//printf("\n\nID FOUND AND NOW ASSIGNING TYPE\n");
 		if(pointsTo == NULL)
 		{
 			yylval.lnode = pointsTo;
-			print_error("Variable not declared in this scope.");
 			return(send_token("ERROR_tok",ID_tok));
-
 		}
-		else if(pointsTo->ntype == 1)
+		else if(pointsTo->ntype == ID)
 		{
 			yylval.lnode = pointsTo;
 			
 			return(send_token("ID_tok",ID_tok));
 		}
-		else if(pointsTo->ntype==2)
+		else if(pointsTo->ntype== FUNCTION)
 		{
 			yylval.lnode = pointsTo;
 			
+			return(send_token("ID_tok",ENUMERATION_CONSTANT_tok));
+		}
+		else if(pointsTo->ntype == ENUMERATION_CONSTANT)
+		{
+			yylval.lnode = pointsTo;
 			return(send_token("ENUMERATION_CONSTANT_tok",ENUMERATION_CONSTANT_tok));
 		}
-		else if(pointsTo->ntype == 3)
-		{
+		else if(pointsTo->ntype == TYPEDEF_NAME) {
 			yylval.lnode = pointsTo;
-			
 			return(send_token("TYPEDEF_NAME_tok",TYPEDEF_NAME_tok));
 		}
-		//else
-		//{
-		//	printf("Inserting when found\n");
-		//	yylval.lnode = s.insert(yytext,line,INT_TYPE,&errorcode);
-		//	
-		//	return(send_token("ID_tok",ID_tok));
-		//}
-		
-	}
-	
-	else
-	{
-		//printf("\n\nID NOT FOUND AND NOW ADDING\n");
-				
+	} else {
 		yylval.lnode = variableToInsert.get();
 		variableToInsert->name = yytext;
 		variableToInsert->lineNumber = line;
@@ -709,16 +689,12 @@ int id_token()
 		if(errorcode==1)
 		{
 			char buff[200];
-			//printf("%s",buff);
 			snprintf(buff,200, "Conflicts with variable in current scope on line : %d",yylval.lnode->lineNumber);
-			//char*errormes = err+ buff;
 			print_error(buff);
 		}
 		
 		return(send_token("ID_tok",ID_tok));
 	}
-	
-	//printf("Lex debug level %d\n",lex_debug_level);
 	size = yyleng;
 	return(send_token("ID_tok",ID_tok));
 }

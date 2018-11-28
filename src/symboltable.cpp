@@ -219,6 +219,7 @@ Node *SymbolTable::insert(string tokenKey, Node d)
 		return prevDecl;
 	}
 }
+
 Node *SymbolTable::searchAll(string key, int *location)
 {
 	//cout<<"entered search all"<<endl;
@@ -281,6 +282,7 @@ Node *SymbolTable::searchTop(string key)
 		return NULL;
 	}
 }
+
 void SymbolTable::writeToFile(FILE *stream)
 {
 	//char const *fileName)
@@ -307,6 +309,7 @@ void SymbolTable::writeToFile(FILE *stream)
 	// stream<<"\n\nSYMBOL TABLE ABOVE"<<endl<<endl;
 	// stream.close();
 }
+
 void SymbolTable::printCurrentScope()
 {
 	// Iterate through top level and output information
@@ -316,12 +319,14 @@ void SymbolTable::printCurrentScope()
 		i->second.print();
 	}
 }
+
 void SymbolTable::pushBST(map<string, Node> bst)
 {
 	//Push bst and increment level
 	stack.push_back(bst);
 	currentLevel++;
 }
+
 void SymbolTable::pushEmptyBST()
 {
 	// Push empty bst and increment level
@@ -332,6 +337,7 @@ void SymbolTable::pushEmptyBST()
 	// if(symbol_table_debug % 2  == 0)
 	// 	cout << "Level 3 debug: Entering new scope of level: " << currentLevel << endl;
 }
+
 void SymbolTable::popBST()
 {
 	// Pop bst and decrement level

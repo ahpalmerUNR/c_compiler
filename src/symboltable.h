@@ -62,7 +62,7 @@ string getDataType(nodeDataType);
 
 // To store if the declaration is Id, enum or, typedef
 enum NType{
-	ID, ENUMERATION_CONSTANT, TYPEDEF_NAME
+	ID, FUNCTION, ENUMERATION_CONSTANT, TYPEDEF_NAME
 };
 // Information about the symbol - add more data types in it as necessary
 struct Node {
@@ -75,9 +75,11 @@ struct Node {
 	int lineNumber;
 	int colNumber;
 	enum DataType type;
-	int ntype = 1;
+	NType ntype = ID;
 	string name;
 	
+	// isDefined Used to check if function is defined in namespace
+	bool isDefined = false;
 	// Vector containing the types of the node
 	vector<nodeDataType> types;
 	// Contains the params of node (if it is a function)
