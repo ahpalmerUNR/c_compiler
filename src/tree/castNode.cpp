@@ -90,7 +90,7 @@ void CastNode::ast_to_3ac(FILE* fileout)
 			snprintf(typePrint3, 500,"Error probably with id");
 			break;
 	}
-	fprintf(fileout,"%s%i=%s%s%i\n",typePrint2,ticketNumber,typePrint,typePrint3,children[0]->returnTicket());
+	fprintf(fileout,"CAST\t%s%i\t_\t%s\n",typePrint3,children[0]->returnTicket(),rep_3ac_ticket(dType,ticketNumber).c_str());
 }
 
 int CastNode::returnTicket()

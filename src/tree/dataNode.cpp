@@ -192,55 +192,21 @@ void DataNode::ast_to_3ac(FILE* fileout)
 	char typePrint2[500];
 	if(isOperatorNode)
 	{
+		bool isOpAssign = true;
+		string opString;
+		string s1;
+		string s2;
+		string s3;
 		children[0]->ast_to_3ac(fileout);
 		children[1]->ast_to_3ac(fileout);
 		nodeDataType t = children[0]->getDataType(typePrint1);
 		if(t == ID_TYPE_NODE) t = children[0]->getidDataType();
-		
-		switch(t)
-		{
-			case CHAR_TYPE_NODE:
-				snprintf(typePrint1, 500,"c");
-				break;
-			case INT_TYPE_NODE:
-				snprintf(typePrint1, 500,"i");
-				break;
-			case FLOAT_TYPE_NODE:
-				snprintf(typePrint1, 500,"f");
-			case DOUBLE_TYPE_NODE:
-				snprintf(typePrint1, 500,"f");
-				break;
-			default:
-				snprintf(typePrint1, 500, "Error probably with id");
-				break;
-		
-		}
+		s1 =  rep_3ac_ticket(t,children[0]->returnTicket());		
 		t = children[1]->getDataType(typePrint2);
 		if(t == ID_TYPE_NODE) t = children[1]->getidDataType();
-		switch(t)
-		{
-			case CHAR_TYPE_NODE:
-				snprintf(typePrint2, 500,"c");
-				break;
-			case INT_TYPE_NODE:
-				snprintf(typePrint2, 500,"i");
-				break;
-			case DOUBLE_TYPE_NODE:
-				snprintf(typePrint2, 500,"f");
-				break;
-			case FLOAT_TYPE_NODE:
-				snprintf(typePrint1, 500,"f");
-			default:
-				snprintf(typePrint2, 500, "Error probably with id");
-				break;
-		
-		}
-		bool isOpAssign = true;
-		string opString;
-		string s1;
-		s1 =  string(typePrint1) + to_string(children[0]->returnTicket());
-		string s2;
-		s2 = string(typePrint2) + to_string(children[1]->returnTicket());
+		s2 =  rep_3ac_ticket(t,children[1]->returnTicket());		
+
+		s3 = rep_3ac_ticket(dType,ticketNumber);
 		switch(oType)
 		{
 			case ADD_OP:
@@ -259,34 +225,35 @@ void DataNode::ast_to_3ac(FILE* fileout)
 				opString = "MOD\t" + s1 + "\t" + s2;
 				break;
 			case COMMA_OP:
-				opString = s1 + "," + s2;
+				opString = "COMMA\t" + s1 + "\t" + s2;
 				break;
 			case QUESTION_OP:
-				opString = s1 + "?" + s2;
+				opString = "QUESTION\t" + s1 + "\t" + s2;
 				break;
 			case OR_OP:
-				opString = s1 + "||" + s2;
+				opString = "OR\t" + s1 + "\t" + s2;
 				break;
 			case AND_OP:
-				opString = s1 + "&&" + s2;
+				opString = "AND\t" + s1 + "\t" + s2;
 				break;
 			case BAR_OP:
-				opString = s1 + "|" + s2;
+				opString = "BAR\t" + s1 + "\t" + s2;
 				break;
 			case CARET_OP:
-				opString = s1 + "^" + s2;
+				opString = "CARET\t" + s1 + "\t" + s2;
 				break;
 			case AMP_OP:
-				opString = s1 + "&" + s2;
+				opString = "AMP\t" + s1 + "\t" + s2;
 				break;
 			case BRACKET_OP:
-				opString = s1 + "[" + s2 + "]";
+				opString = "BRACKET\t" + s1 + "\t" + s2;
+				s3 = rep_3ac_ticket(getidDataType(),ticketNumber);
 				break;
 			case PAREN_OP:
-				opString = s1 + "(" + s2 + ")";
+				opString = "PAREN\t" + s1 + "\t" + s2;
 				break;					
 		}
-		fprintf(fileout,"%s\t%s%i\n",opString.c_str(),typePrint1,ticketNumber); 
+		fprintf(fileout,"%s\t%s\n",opString.c_str(),s3.c_str()); 
 	}	
 }
 

@@ -4,8 +4,9 @@ int q()
 }
 int main()
 {
-	int i;
+	float i;
 	i += 5;
-	i = 6;
+	i = i + 6.0;
+	i[1] = 5;
 	return 0;
 }

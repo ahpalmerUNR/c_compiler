@@ -78,49 +78,17 @@ void AssignmentNode::ast_to_3ac(FILE *fileout)
 	char typePrint1[500];
 	char typePrint2[500];
 	char assignPrint[500];
-	switch(children[0]->getidDataType())
-	{
-		case CHAR_TYPE_NODE:
-			snprintf(typePrint1, 500,"c");
-			break;
-		case INT_TYPE_NODE:
-			snprintf(typePrint1, 500,"i");
-			break;
-		case FLOAT_TYPE_NODE:
-			snprintf(typePrint1, 500,"f");
-		case DOUBLE_TYPE_NODE:
-			snprintf(typePrint1, 500,"f");
-			break;
-		default:
-			snprintf(typePrint1, 500, "Error probably with id");
-			break;
-		
-	}
-	nodeDataType t = children[1]->getDataType(typePrint2);
-	if(t == ID_TYPE_NODE) t = children[1]->getidDataType();
-	switch(t)
-	{
-		case CHAR_TYPE_NODE:
-			snprintf(typePrint2, 500,"c");
-			break;
-		case INT_TYPE_NODE:
-			snprintf(typePrint2, 500,"i");
-			break;
-		case DOUBLE_TYPE_NODE:
-			snprintf(typePrint2, 500,"f");
-			break;
-		case FLOAT_TYPE_NODE:
-			snprintf(typePrint2, 500,"f");
-		default:
-			snprintf(typePrint2, 500, "Error probably with id");
-			break;
-		
-	}
+
+	nodeDataType t = children[0]->getDataType(typePrint2);
+	if(t == ID_TYPE_NODE) t = children[0]->getidDataType();
+
 	bool isOpAssign = true;
 	string assignString;
 	string s1;
-	s1 =  rep_3ac_ticket(children[0]->getidDataType(),children[0]->returnTicket());
+	s1 =  rep_3ac_ticket(t,children[0]->returnTicket());
 	string s2;
+	t = children[1]->getDataType(typePrint2);
+	if(t == ID_TYPE_NODE) t = children[1]->getidDataType();
 	s2 = rep_3ac_ticket(t,children[1]->returnTicket());
 	switch(aType)
 	{
@@ -143,19 +111,19 @@ void AssignmentNode::ast_to_3ac(FILE *fileout)
 			assignString = "MOD\t" + s1 + "\t" + s2;
 			break;
 		case LEFT_ASSIGN:
-			assignString = s1 + "<<" + s2;
+			assignString = "LEFT\t" + s1 + "\t" + s2;
 			break;
 		case RIGHT_ASSIGN:
-			assignString = s1 + ">>" + s2;
+			assignString = "RIGHT\t" + s1 + "\t" + s2;
 			break;
 		case AND_ASSIGN:
-			assignString = s1 + "&" + s2;
+			assignString = "AND\t" + s1 + "\t" + s2;
 			break;
 		case XOR_ASSIGN:
-			assignString = s1 + "^" + s2;
+			assignString = "XOR\t" + s1 + "\t" + s2;
 			break;
 		case OR_ASSIGN:
-			assignString = s1 + "|" + s2;
+			assignString = "OR\t" + s1 + "\t" + s2;
 			break;
 	}	
 	if(isOpAssign)
@@ -164,7 +132,7 @@ void AssignmentNode::ast_to_3ac(FILE *fileout)
 		//fprintf(fileout,"ASSIGN\t%s\t%s%i\n",s1.c_str(),typePrint1,Variable_counter++);
 	}
 	else
-		fprintf(fileout,"ASSIGN\t%s\t_\t%s\n",s1.c_str(),s2.c_str());
+		fprintf(fileout,"ASSIGN\t%s\t_\t%s\n",s2.c_str(),s1.c_str());
 }
 
 int AssignmentNode::returnTicket()
