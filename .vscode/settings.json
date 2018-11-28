@@ -12,4 +12,5 @@
     "utility": "cpp",
     "memory": "cpp"
   },
+  "editor.formatOnSave": false
 }

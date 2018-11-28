@@ -5,18 +5,10 @@
 * @Last Modified time: 2018-10-27 20:32:51
 */
 int maxSize;
+void sendInt(int);
+void sendFloat(float);
+void sendChar(char);
 
-void sendInt(int a){
-	//stuff
-}
-
-void sendFloat(float taa){
-	//stuff
-}
-
-void sendChar(char ca){
-	//stuff
-}
 
 int main()
 {
@@ -56,4 +48,16 @@ int main()
 	sendChar(niceChar);
 	
 	return 0;
+}
+
+void sendInt(int a){
+	//stuff
+}
+
+void sendFloat(float taa){
+	//stuff
+}
+
+void sendChar(char ca){
+	//stuff
 }

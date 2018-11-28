@@ -62,7 +62,7 @@ string getDataType(nodeDataType);
 
 // To store if the declaration is Id, enum or, typedef
 enum NType{
-	ID, ENUMERATION_CONSTANT, TYPEDEF_NAME
+	ID, FUNCTION, ENUMERATION_CONSTANT, TYPEDEF_NAME
 };
 // Information about the symbol - add more data types in it as necessary
 struct Node {
@@ -70,15 +70,18 @@ struct Node {
 	Node(const Node&);
 	void print();
 	void output(FILE*);
+	bool compareFunction(const Node);
 
 	int lineNumber;
 	int colNumber;
 	enum DataType type;
-	bool isFunction;
+	NType ntype = ID;
+	string name;
+	
+	// isDefined Used to check if function is defined in namespace
+	bool isDefined = false;
 	// Vector containing the types of the node
 	vector<nodeDataType> types;
-	int ntype = 1;
-	string name;
 	// Contains the params of node (if it is a function)
 	vector<vector<nodeDataType>> params;
 };
@@ -115,6 +118,9 @@ public:
 
 	// Pop the top bst from the stack
 	void popBST();
+
+	// Given a symbol table, insert all of the nodes from the 
+	// void insertNodesFromSymbolTable(const SymbolTable);
 private:
 	// Stack of Balanced binary search trees
 	vector<map<string, Node> > stack;

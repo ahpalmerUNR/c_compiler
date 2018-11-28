@@ -43,7 +43,7 @@ To compile a c program, run the program with the last argument the source file.
 ```
 The above code would compile the t1.c test case. All resulting files are saved alongside the testcases.
 
-The c_compiler excepts commandline arguments.
+The c_compiler accepts commandline arguments.
 ```
 	-o [filename] sets the output file name. Defaults to out.s 
 	Note: currently -o creates the parse file and defaults to parseFile.txt
@@ -53,6 +53,8 @@ The c_compiler excepts commandline arguments.
 	Note: currently log file only holds symbol table dumps and error messages.
 	
 	-d[lsp]* sets the debug levels for scanner, symbol table, and parser.
+	
+	-a Output the ast to a file.
 	
 ```
 
@@ -130,7 +132,8 @@ int main()
 	return 0;
 }
 ```
-
+## AST
+To view the AST if graphviz is not installed you can use the website [http://www.webgraphviz.com/](http://www.webgraphviz.com/) by copying the text in the .gv file produced.
 ## Contributions
 * Zachary Young
 
@@ -147,7 +150,7 @@ int main()
 	Regular expressions for Lex
 	
 	Solving various errors
-	
+	README.md
 	
 
 * Andrew Palmer
