@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-27 14:10:44
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-22 11:08:07
+* @Last Modified time: 2018-11-28 14:48:06
 */
 #include "tree.h"
 
@@ -19,6 +19,7 @@ TreeNode::TreeNode(string TreeNodeProductionName,int numberOfChildren)
 	forErrors[0].colStart = -1;
 	forErrors[0].colEnd = -1;
 	tType = TREE_TYPE_NODE;
+	byteSize = 0;
 }
 
 TreeNode::~TreeNode()
@@ -62,6 +63,7 @@ void TreeNode::assignChild(int childIndex, TreeNode* child)
 	int pullInd;
 	char temp[500];
 	children[childIndex] = child;
+	byteSize = byteSize + child->byteSize;
 
 	forErrors.erase(forErrors.begin()+childIndex+1);
 	forErrors.insert(forErrors.begin()+childIndex+1,child->forErrors[0]);
