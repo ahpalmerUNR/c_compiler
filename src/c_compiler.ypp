@@ -28,7 +28,7 @@
 	FILE * parseFile;
 	//FILE * productionFile;
 	int insert_lookup;//1 lookup 0 insert
-	char *logName = (char*)"testCases/compilerLog.txt";
+	char *logName = (char*)"build/compilerLog.txt";
 	char *file_name;
 	time_t time_time;
 	clock_t clock_time;
@@ -1738,6 +1738,8 @@ int main(int argc, char **argv)
 	
 	outfile = fopen("testCases/out.s","w");
 	out_log = fopen(logName,"w");
+	fprintf(out_log,"Log Start\n");
+	fprintf(out_log,"\n");
 	tokenFile = fopen("testCases/tokenFile.txt","w");
 	parseFile = fopen("testCases/parseFile.txt","w");
 	//productionFile = fopen("productionFile.txt","w");
@@ -1793,6 +1795,8 @@ int main(int argc, char **argv)
 			{
 				fclose(out_log);
 				out_log = fopen(argv[i+1],"w");
+				fprintf(out_log,"Log Start\n");
+				fprintf(out_log,"\n");
 				logName = argv[i+1];
 			}
 			if(argv[i][0]=='-' && argv[i][1]=='d')
