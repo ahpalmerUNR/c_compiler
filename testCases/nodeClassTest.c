@@ -1,27 +1,7 @@
-int printc(int);
-!!D
-int printc(int a, float b, char c)
-// int a,b,c;
+int main(int argc, char const *argv[])
 {
-	!!D
-	//case :
-	{
-		int l=0;
-		{}
-		;
-		;
-		!!D
-
-	}
-	return 4;
-}
-
-int main(int a)
-{
-	int p[];
-!!D
-	
-	p[1] = 2 + 3.9;
-	
+	int j;
+	int i;
+	j = 1 + 2;
 	return 0;
 }
