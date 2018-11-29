@@ -5,7 +5,9 @@
  */
 // void foo(long int i, float j);
 
+// int i;
+
 void foo(int i) {
-	i = 5;
+	// i = 5;
 }
 !!D
