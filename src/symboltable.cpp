@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-09-28 12:11:57
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-29 15:44:33
+* @Last Modified time: 2018-11-29 15:47:49
 */
 #include "symboltable.h"
 #include <stdio.h>
@@ -329,9 +329,10 @@ void SymbolTable::pushBST(map<string, Node> bst)
 
 void SymbolTable::pushSymbolTableCopy(const SymbolTable stCopy)
 {
-	map<string, Node> bst;
-	stack.push_back(bst);
-	currentLevel++;
+	for (map <string, Node> bst : stCopy.stack) {
+		stack.push_back(bst);
+		// currentLevel++;
+	}
 }
 
 void SymbolTable::pushEmptyBST()
@@ -343,7 +344,9 @@ void SymbolTable::pushEmptyBST()
 	//Debug message
 	if(symbol_table_debug % 2  == 0)
 		cout << "Level 3 debug: Entering new scope of level: " << currentLevel << endl;
+
 	cout.flush();
+
 }
 
 void SymbolTable::popBST()
