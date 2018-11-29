@@ -72,6 +72,8 @@ struct Node {
 	void print();
 	void output(FILE*);
 
+	int ticketNumber = -1;
+
 	int lineNumber;
 	int colNumber;
 	enum DataType type;
@@ -115,6 +117,9 @@ public:
 
 	// Push an empty bst on the stack
 	void pushEmptyBST();
+	
+	// Push a copy of a given symbol table onto stack
+	void pushSymbolTableCopy(const SymbolTable);
 
 	// Pop the top bst from the stack
 	void popBST();

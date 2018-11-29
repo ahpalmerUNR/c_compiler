@@ -37,6 +37,7 @@
 	 * SymbolTable and variables to manipulate the insertion to symbol table
 	 */
 	bool useFunctionSymTab = false;
+	bool popAtEnd = false;
 	SymbolTable s;
 	SymbolTable funcSymTab;
 
@@ -50,6 +51,7 @@
 	int Variable_counter;
 
 	unique_ptr<Node> variableToInsert(new Node());
+	unique_ptr<Node> parameterToInsert(new Node());
 
 	extern int column;
 	extern int line;
@@ -619,7 +621,7 @@ __useSymTab__
 	:	{
 			useFunctionSymTab = false;
 			// Insert the function table into symbol table
-			// Todo
+			s.pushSymbolTableCopy(funcSymTab);
 			funcSymTab = *(new SymbolTable);
 		}
 	;
@@ -629,7 +631,7 @@ direct_declarator
 		$<tnode>$ = $<tnode>1;
 		Node* searchResult = s.searchTop(variableToInsert->name);
 		if (useFunctionSymTab) {
-			// funcSymTab.insert(variableToInsert->name, *variableToInsert);
+			funcSymTab.insert(parameterToInsert->name, *parameterToInsert);
 		} else {
 			if (searchResult == NULL || searchResult->ntype != FUNCTION) {
 				s.insert(variableToInsert->name, *variableToInsert);
@@ -776,9 +778,10 @@ parameter_list
 parameter_declaration
 	: declaration_specifiers declarator {
 		Node* searchResult = s.searchTop(variableToInsert->name);
+		parameterToInsert->types = variableToInsert->types;
 		if (searchResult != NULL) {
 			searchResult->params.push_back(variableToInsert->types);
-			variableToInsert->types = {};	
+			variableToInsert->types = {};
 		}
 		TreeNode* tmp = new TreeNode("parameter_declaration_",2);
 		tmp->assignChild(0,$<tnode>1);
