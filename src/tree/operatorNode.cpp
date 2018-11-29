@@ -58,50 +58,42 @@ void OperatorNode::ast_to_3ac(FILE* fileout)
 	dType = children[0]->getDataType(typePrint);
 	if(dType == ID_TYPE_NODE)
 		dType = children[0]->getidDataType();
-	string opString;
-	switch(dType)
-	{
-		case CHAR_TYPE_NODE:
-			snprintf(typePrint2, 500,"c");
-			break;
-		case INT_TYPE_NODE:
-			snprintf(typePrint2, 500,"i");
-			break;
-		case DOUBLE_TYPE_NODE:
-			snprintf(typePrint2, 500,"f");
-			break;
-		case FLOAT_TYPE_NODE:
-			snprintf(typePrint2, 500,"f");
-			break;
-	}
+	string s2 = rep_3ac_ticket(dType,ticketNumber);
+	string s1 = rep_3ac_ticket(dType,children[0]->returnTicket());
 	switch(oType)
 	{
 		case AMP_op:
-			snprintf(typePrint, 500,"&");
+			snprintf(typePrint, 500,"AMP");
 			break;
 		case STAR_op:
-			snprintf(typePrint, 500,"*");
+			snprintf(typePrint, 500,"STAR");
 			break;
 		case PLUS_op:
-			snprintf(typePrint, 500,"+");
+			snprintf(typePrint, 500,"PLUS");
 			break;
 		case MINUS_op:
-			snprintf(typePrint, 500,"-");
+			snprintf(typePrint, 500,"MINUS");
 			break;
 		case TILDA_op:
-			snprintf(typePrint, 500,"~");
+			snprintf(typePrint, 500,"TILDA");
 			break;
 		case NOT_op:
-			snprintf(typePrint, 500,"!");
+			snprintf(typePrint, 500,"NOT");
 			break;
 		case INC_op:
-			snprintf(typePrint, 500,"++");
+			snprintf(typePrint, 500,"INC");
+			//maybe since inc and dec store the value back 
+			s1 = s2;
+			ticketNumber = children[0]->returnTicket();
 			break;
 		case DEC_op:
-			snprintf(typePrint, 500,"--");
+			snprintf(typePrint, 500,"DEC");
+			//maybe
+			s1 = s2;
+			ticketNumber = children[0]->returnTicket();
 			break;
 	}
-	fprintf(fileout, "%s%i=%s%s%i\n",typePrint2,ticketNumber, typePrint, typePrint2, children[0]->returnTicket());
+	fprintf(fileout, "%s\t%s\t_\t%s\n",typePrint,s1.c_str(),s2.c_str());
 }
 int OperatorNode::returnTicket()
 {
