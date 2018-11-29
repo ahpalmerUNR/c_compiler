@@ -1,16 +1,16 @@
 digraph AST {
-	translation_unit_22 -> function_definition_21;
-	function_definition_21 [shape=doubleoctagon,color=red,label=""]
-	function_definition_21 -> declaration_specifiers_1;
+	translation_unit_20 -> function_definition_19;
+	function_definition_19 [shape=doubleoctagon,color=red,label=""]
+	function_definition_19 -> declaration_specifiers_1;
 	declaration_specifiers_1 [label="declaration_specifiers_1"]
 	declaration_specifiers_1 -> type_specifier_0;
 	type_specifier_0 [label="int"]
-	function_definition_21 -> identifier_2;
+	function_definition_19 -> identifier_2;
 	identifier_2 [label="ID: main"]
-	function_definition_21 -> empty_20;
-	empty_20 [style=filled,color=indigo,fontcolor=white]
-	function_definition_21 -> compound_statement_19;
-	compound_statement_19 -> declaration_8;
+	function_definition_19 -> empty_18;
+	empty_18 [style=filled,color=indigo,fontcolor=white]
+	function_definition_19 -> compound_statement_17;
+	compound_statement_17 -> declaration_8;
 	declaration_8 [label="declaration_8"]
 	declaration_8 -> declaration_specifiers_6;
 	declaration_specifiers_6 [label="declaration_specifiers_6"]
@@ -18,23 +18,19 @@ digraph AST {
 	type_specifier_5 [label="int"]
 	declaration_8 -> identifier_7;
 	identifier_7 [label="ID: j"]
-	compound_statement_19 -> statement_list_18;
-	statement_list_18 -> assignment_expression_14;
-	assignment_expression_14 [label="Int:  Left = Right"]
-	assignment_expression_14 -> identifier_9;
+	compound_statement_17 -> statement_list_16;
+	statement_list_16 -> assignment_expression_13;
+	assignment_expression_13 [label="Int:  Left = Right"]
+	assignment_expression_13 -> identifier_9;
 	identifier_9 [label="ID: j"]
-	assignment_expression_14 -> Implicit_Cast_15;
-	Implicit_Cast_15 [label="Cast(Int)"]
-	Implicit_Cast_15 -> operator_expression_12;
-	operator_expression_12 [label="Float:  Left + Right"]
+	assignment_expression_13 -> operator_expression_12;
+	operator_expression_12 [label="Int:  Left + Right"]
 	operator_expression_12 -> constant_10;
-	constant_10 [label="Float: 1.000000"]
-	operator_expression_12 -> Implicit_Cast13;
-	Implicit_Cast13 [label="Cast(Float)"]
-	Implicit_Cast13 -> constant_11;
+	constant_10 [label="Int: 1"]
+	operator_expression_12 -> constant_11;
 	constant_11 [label="Int: 2"]
-	statement_list_18 -> jump_statement_17;
-	jump_statement_17 [shape = triangle,color=purple,label="return expr"]
-	jump_statement_17 -> constant_16;
-	constant_16 [label="Int: 0"]
+	statement_list_16 -> jump_statement_15;
+	jump_statement_15 [shape = triangle,color=purple,label="return expr"]
+	jump_statement_15 -> constant_14;
+	constant_14 [label="Int: 0"]
 }
