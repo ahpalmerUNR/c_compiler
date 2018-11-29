@@ -60,18 +60,38 @@ void RelationNode::ast_to_3ac(FILE *fileout)
 {
 	children[0]->ast_to_3ac(fileout);
 	children[1]->ast_to_3ac(fileout);
-	char typePrint[500];
-	char typePrint2[500];
-	char typePrint3[500];
+	char typePrint[500] = "0";
+	char typePrint2[500]= "0";
+	char typePrint3[500] = "0";
 	string opString;
 	string s1,s2,s3;
 
-	nodeDataType t = children[0]->getDataType(typePrint2);
-	if(t == ID_TYPE_NODE) t = children[0]->getidDataType();
-	s1 = rep_3ac_ticket(t,children[0]->returnTicket());
-	t = children[1]->getDataType(typePrint3);
-	if(t == ID_TYPE_NODE) t = children[1]->getidDataType();
-	s2 = rep_3ac_ticket(t,children[1]->returnTicket());
+	nodeDataType t = children[0]->getDataType(typePrint);
+	s1 = typePrint;
+	if(t == ID_TYPE_NODE){ 
+		t = children[0]->getidDataType();
+		s1 =  rep_3ac_ticket(t,children[0]->returnTicket());
+	}
+	else
+	{
+		if(s1 == "0")
+				s1 =  rep_3ac_ticket(t,children[0]->returnTicket());
+		else
+				s1 = "(" + s1 + ")";
+	}		
+	t = children[1]->getDataType(typePrint2);
+	s2 = typePrint2;
+	if(t == ID_TYPE_NODE){
+		t = children[1]->getidDataType();
+		s2 =  rep_3ac_ticket(t,children[1]->returnTicket());
+	}		
+	else
+	{
+		if(s2 == "0")
+				s2 =  rep_3ac_ticket(t,children[1]->returnTicket());
+		else
+				s2 = "(" + s2 + ")";
+	}	
 
 	s3 = rep_3ac_ticket(dType,ticketNumber);
  

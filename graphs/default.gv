@@ -1,5 +1,5 @@
 digraph AST {
-	translation_unit_29 -> translation_unit_9;
+	translation_unit_34 -> translation_unit_9;
 	translation_unit_9 -> function_definition_8;
 	function_definition_8 [shape=doubleoctagon,color=red,label=""]
 	function_definition_8 -> declaration_specifiers_1;
@@ -14,36 +14,46 @@ digraph AST {
 	jump_statement_6 [shape = triangle,color=purple,label="return expr"]
 	jump_statement_6 -> constant_5;
 	constant_5 [label="Int: 0"]
-	translation_unit_29 -> function_definition_28;
-	function_definition_28 [shape=doubleoctagon,color=red,label=""]
-	function_definition_28 -> declaration_specifiers_11;
+	translation_unit_34 -> function_definition_33;
+	function_definition_33 [shape=doubleoctagon,color=red,label=""]
+	function_definition_33 -> declaration_specifiers_11;
 	declaration_specifiers_11 [label="declaration_specifiers_11"]
 	declaration_specifiers_11 -> type_specifier_10;
 	type_specifier_10 [label="int"]
-	function_definition_28 -> identifier_12;
+	function_definition_33 -> identifier_12;
 	identifier_12 [label="ID: main"]
-	function_definition_28 -> empty_27;
-	empty_27 [style=filled,color=indigo,fontcolor=white]
-	function_definition_28 -> compound_statement_26;
-	compound_statement_26 -> declaration_18;
+	function_definition_33 -> empty_32;
+	empty_32 [style=filled,color=indigo,fontcolor=white]
+	function_definition_33 -> compound_statement_31;
+	compound_statement_31 -> declaration_18;
 	declaration_18 [label="declaration_18"]
 	declaration_18 -> declaration_specifiers_16;
 	declaration_specifiers_16 [label="declaration_specifiers_16"]
 	declaration_specifiers_16 -> type_specifier_15;
 	type_specifier_15 [label="int"]
 	declaration_18 -> identifier_17;
-	identifier_17 [label="ID: i"]
-	compound_statement_26 -> statement_list_25;
-	statement_list_25 -> assignment_expression_22;
-	assignment_expression_22 [label="Int:  Left = Right"]
-	assignment_expression_22 -> identifier_19;
-	identifier_19 [label="ID: i"]
-	assignment_expression_22 -> unary_expression_21;
-	unary_expression_21 [label="++"]
-	unary_expression_21 -> identifier_20;
-	identifier_20 [label="ID: i"]
-	statement_list_25 -> jump_statement_24;
-	jump_statement_24 [shape = triangle,color=purple,label="return expr"]
-	jump_statement_24 -> constant_23;
-	constant_23 [label="Int: 0"]
+	identifier_17 [label="ID: j"]
+	compound_statement_31 -> statement_list_30;
+	statement_list_30 -> assignment_expression_27;
+	assignment_expression_27 [label="Int:  Left = Right"]
+	assignment_expression_27 -> identifier_19;
+	identifier_19 [label="ID: j"]
+	assignment_expression_27 -> operator_expression_26;
+	operator_expression_26 [label="Int:  Left - Right"]
+	operator_expression_26 -> operator_expression_24;
+	operator_expression_24 [label="Int:  Left + Right"]
+	operator_expression_24 -> constant_20;
+	constant_20 [label="Int: 5"]
+	operator_expression_24 -> operator_expression_23;
+	operator_expression_23 [label="Int:  Left * Right"]
+	operator_expression_23 -> constant_21;
+	constant_21 [label="Int: 2"]
+	operator_expression_23 -> constant_22;
+	constant_22 [label="Int: 3"]
+	operator_expression_26 -> identifier_25;
+	identifier_25 [label="ID: j"]
+	statement_list_30 -> jump_statement_29;
+	jump_statement_29 [shape = triangle,color=purple,label="return expr"]
+	jump_statement_29 -> constant_28;
+	constant_28 [label="Int: 0"]
 }

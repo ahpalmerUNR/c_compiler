@@ -188,8 +188,8 @@ void DataNode::traverse_to_file(FILE* fileout)
 }
 void DataNode::ast_to_3ac(FILE* fileout)
 {
-	char typePrint1[500];
-	char typePrint2[500];
+	char typePrint1[500] = "0";
+	char typePrint2[500] = "0";
 	if(isOperatorNode)
 	{
 		bool isOpAssign = true;
@@ -200,13 +200,34 @@ void DataNode::ast_to_3ac(FILE* fileout)
 		children[0]->ast_to_3ac(fileout);
 		children[1]->ast_to_3ac(fileout);
 		nodeDataType t = children[0]->getDataType(typePrint1);
-		if(t == ID_TYPE_NODE) t = children[0]->getidDataType();
-		s1 =  rep_3ac_ticket(t,children[0]->returnTicket());		
+		s1 = typePrint1;
+		if(t == ID_TYPE_NODE){ 
+			t = children[0]->getidDataType();
+			s1 =  rep_3ac_ticket(t,children[0]->returnTicket());
+		}
+		else
+		{
+			if(s1 == "0")
+					s1 =  rep_3ac_ticket(t,children[0]->returnTicket());
+			else
+					s1 = "(" + s1 + ")";
+		}		
 		t = children[1]->getDataType(typePrint2);
-		if(t == ID_TYPE_NODE) t = children[1]->getidDataType();
-		s2 =  rep_3ac_ticket(t,children[1]->returnTicket());		
+		s2 = typePrint2;
+		if(t == ID_TYPE_NODE){
+			t = children[1]->getidDataType();
+			s2 =  rep_3ac_ticket(t,children[1]->returnTicket());
+		}		
+		else
+		{
+			if(s2 == "0")
+					s2 =  rep_3ac_ticket(t,children[1]->returnTicket());
+			else
+					s2 = "(" + s2 + ")";
+		}	
 
 		s3 = rep_3ac_ticket(dType,ticketNumber);
+
 		switch(oType)
 		{
 			case ADD_OP:
@@ -334,8 +355,10 @@ nodeDataType DataNode::getDataType(char * representation)
 				break;
 			case ID_TYPE_NODE:
 				snprintf(representation, 500,"%s",data.dstr);
-
-				// printf("%s\n", data.dstr);	
+				break;
+			default:
+				snprintf(representation, 500,"No data type");
+				 //printf("%s\n", data.dstr);	
 
 		}
 	}

@@ -4,7 +4,7 @@ int q()
 }
 int main()
 {
-	int i;
-	i = ++i;
+	int j;
+	j = 5 + 2 * 3 - j;
 	return 0;
 }
