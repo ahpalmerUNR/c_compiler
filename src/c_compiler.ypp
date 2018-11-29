@@ -630,6 +630,7 @@ __useSymTab__
 
 direct_declarator
 	: identifier {
+		cout << "Hello!" << endl;
 		$<tnode>$ = $<tnode>1;
 		Node* searchResult = s.searchTop(variableToInsert->name);
 		if (useFunctionSymTab) {
