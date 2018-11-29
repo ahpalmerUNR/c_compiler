@@ -605,20 +605,6 @@ declarator
 
 direct_declarator
 	: identifier {
-		if (insert_lookup == 0) {
-			if (variableToInsert->ntype == FUNCTION) {
-				if (s.searchTop(variableToInsert->name) == NULL) {
-					s.insert(variableToInsert->name, *variableToInsert);
-				} else {
-					// Check that the function is being called right
-				}
-			} else {
-				if (variableToInsert->name != "") {
-					s.insert(variableToInsert->name, *variableToInsert);
-				}
-			}
-			variableToInsert.reset(new Node());
-		}
 		$<tnode>$ = $<tnode>1;
 		outputReduction("direct_declarator : identifier");}
 	| OPEN_PAREN_tok declarator CLOSE_PAREN_tok {
@@ -645,12 +631,46 @@ direct_declarator
 	| direct_declarator OPEN_PAREN_tok CLOSE_PAREN_tok {
 		variableToInsert->ntype = FUNCTION;
 
+		if (insert_lookup == 0) {
+			if (variableToInsert->ntype == FUNCTION) {
+				Node* searchResult = s.searchTop(variableToInsert->name);
+				if (searchResult == NULL) {
+					s.insert(variableToInsert->name, *variableToInsert);
+				} else {
+					// Check that the function is being called right
+					if (*variableToInsert == *searchResult) {
+						cout << "yay!" << endl;
+					}
+				}
+			} else {
+				if (variableToInsert->name != "") {
+					s.insert(variableToInsert->name, *variableToInsert);
+				}
+			}
+			variableToInsert.reset(new Node());
+		}
+
 		TreeNode* tmp = new TreeNode("direct_declarator_",1);
 		tmp->assignChild(0,$<tnode>1);
 		$<tnode>$ = $<tnode>1;
 		outputReduction("direct_declarator : direct_declarator OPEN_PAREN_tok CLOSE_PAREN_tok");}
 	| direct_declarator OPEN_PAREN_tok parameter_type_list CLOSE_PAREN_tok {
 		variableToInsert->ntype = FUNCTION;
+
+		if (insert_lookup == 0) {
+			if (variableToInsert->ntype == FUNCTION) {
+				if (s.searchTop(variableToInsert->name) == NULL) {
+					s.insert(variableToInsert->name, *variableToInsert);
+				} else {
+					// Check that the function is being called right
+				}
+			} else {
+				if (variableToInsert->name != "") {
+					s.insert(variableToInsert->name, *variableToInsert);
+				}
+			}
+			variableToInsert.reset(new Node());
+		}
 		
 		TreeNode* tmp = new TreeNode("direct_declarator_",2);
 		tmp->setTypeSpecifier(DIRECT_DECL_TYPE_NODE);
@@ -660,6 +680,22 @@ direct_declarator
 		outputReduction("direct_declarator : direct_declarator OPEN_PAREN_tok parameter_type_list CLOSE_PAREN_tok");}
 	| direct_declarator OPEN_PAREN_tok identifier_list CLOSE_PAREN_tok {
 		variableToInsert->ntype = FUNCTION;
+
+		if (insert_lookup == 0) {
+			if (variableToInsert->ntype == FUNCTION) {
+				if (s.searchTop(variableToInsert->name) == NULL) {
+					s.insert(variableToInsert->name, *variableToInsert);
+				} else {
+					// Check that the function is being called right
+				}
+			} else {
+				if (variableToInsert->name != "") {
+					s.insert(variableToInsert->name, *variableToInsert);
+				}
+			}
+			variableToInsert.reset(new Node());
+		}
+
 		TreeNode* tmp = new TreeNode("direct_declarator_",2);
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>3);
@@ -713,6 +749,7 @@ type_qualifier_list
 
 parameter_type_list
 	: parameter_list {
+		cout << variableToInsert->name << endl;
 		$<tnode>$ = $<tnode>1;
 		outputReduction("parameter_type_list : parameter_list");}
 	| parameter_list COMMA_tok ELIPSIS_tok {

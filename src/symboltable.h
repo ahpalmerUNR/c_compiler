@@ -68,9 +68,9 @@ enum NType{
 struct Node {
 	Node();
 	Node(const Node&);
+	bool operator==(const Node&) const;
 	void print();
 	void output(FILE*);
-	bool compareFunction(const Node);
 
 	int lineNumber;
 	int colNumber;
@@ -119,8 +119,6 @@ public:
 	// Pop the top bst from the stack
 	void popBST();
 
-	// Given a symbol table, insert all of the nodes from the 
-	// void insertNodesFromSymbolTable(const SymbolTable);
 private:
 	// Stack of Balanced binary search trees
 	vector<map<string, Node> > stack;
