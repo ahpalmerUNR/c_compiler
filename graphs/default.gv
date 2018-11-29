@@ -1,49 +1,40 @@
 digraph AST {
-	translation_unit_30 -> translation_unit_9;
-	translation_unit_9 -> function_definition_8;
-	function_definition_8 [shape=doubleoctagon,color=red,label=""]
-	function_definition_8 -> declaration_specifiers_1;
+	translation_unit_22 -> function_definition_21;
+	function_definition_21 [shape=doubleoctagon,color=red,label=""]
+	function_definition_21 -> declaration_specifiers_1;
 	declaration_specifiers_1 [label="declaration_specifiers_1"]
 	declaration_specifiers_1 -> type_specifier_0;
 	type_specifier_0 [label="int"]
-	function_definition_8 -> identifier_2;
-	identifier_2 [label="ID: q"]
-	function_definition_8 -> empty_7;
-	empty_7 [style=filled,color=indigo,fontcolor=white]
-	function_definition_8 -> jump_statement_6;
-	jump_statement_6 [shape = triangle,color=purple,label="return expr"]
-	jump_statement_6 -> constant_5;
-	constant_5 [label="Int: 0"]
-	translation_unit_30 -> function_definition_29;
-	function_definition_29 [shape=doubleoctagon,color=red,label=""]
-	function_definition_29 -> declaration_specifiers_11;
-	declaration_specifiers_11 [label="declaration_specifiers_11"]
-	declaration_specifiers_11 -> type_specifier_10;
-	type_specifier_10 [label="int"]
-	function_definition_29 -> identifier_12;
-	identifier_12 [label="ID: main"]
-	function_definition_29 -> empty_28;
-	empty_28 [style=filled,color=indigo,fontcolor=white]
-	function_definition_29 -> compound_statement_27;
-	compound_statement_27 -> declaration_18;
-	declaration_18 [label="declaration_18"]
-	declaration_18 -> declaration_specifiers_16;
-	declaration_specifiers_16 [label="declaration_specifiers_16"]
-	declaration_specifiers_16 -> type_specifier_15;
-	type_specifier_15 [label="int"]
-	declaration_18 -> identifier_17;
-	identifier_17 [label="ID: j"]
-	compound_statement_27 -> statement_list_26;
-	statement_list_26 -> assignment_expression_23;
-	assignment_expression_23 [label="Int:  Left = Right"]
-	assignment_expression_23 -> identifier_19;
-	identifier_19 [label="ID: j"]
-	assignment_expression_23 -> cast_expression22;
-	cast_expression22 [label="Cast(Int)"]
-	cast_expression22 -> constant_21;
-	constant_21 [label="Float: 5.000000"]
-	statement_list_26 -> jump_statement_25;
-	jump_statement_25 [shape = triangle,color=purple,label="return expr"]
-	jump_statement_25 -> constant_24;
-	constant_24 [label="Int: 0"]
+	function_definition_21 -> identifier_2;
+	identifier_2 [label="ID: main"]
+	function_definition_21 -> empty_20;
+	empty_20 [style=filled,color=indigo,fontcolor=white]
+	function_definition_21 -> compound_statement_19;
+	compound_statement_19 -> declaration_8;
+	declaration_8 [label="declaration_8"]
+	declaration_8 -> declaration_specifiers_6;
+	declaration_specifiers_6 [label="declaration_specifiers_6"]
+	declaration_specifiers_6 -> type_specifier_5;
+	type_specifier_5 [label="int"]
+	declaration_8 -> identifier_7;
+	identifier_7 [label="ID: j"]
+	compound_statement_19 -> statement_list_18;
+	statement_list_18 -> assignment_expression_14;
+	assignment_expression_14 [label="Int:  Left = Right"]
+	assignment_expression_14 -> identifier_9;
+	identifier_9 [label="ID: j"]
+	assignment_expression_14 -> Implicit_Cast_15;
+	Implicit_Cast_15 [label="Cast(Int)"]
+	Implicit_Cast_15 -> operator_expression_12;
+	operator_expression_12 [label="Float:  Left + Right"]
+	operator_expression_12 -> constant_10;
+	constant_10 [label="Float: 1.000000"]
+	operator_expression_12 -> Implicit_Cast13;
+	Implicit_Cast13 [label="Cast(Float)"]
+	Implicit_Cast13 -> constant_11;
+	constant_11 [label="Int: 2"]
+	statement_list_18 -> jump_statement_17;
+	jump_statement_17 [shape = triangle,color=purple,label="return expr"]
+	jump_statement_17 -> constant_16;
+	constant_16 [label="Int: 0"]
 }

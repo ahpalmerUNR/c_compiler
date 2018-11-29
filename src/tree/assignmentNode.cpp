@@ -236,6 +236,6 @@ void AssignmentNode::implicitCastWarning(nodeDataType t1, nodeDataType t2)
 	string d = "Warning: implicit cast of types in assignment: ";
 	string one = t1Print;
 	string two = t2Print;
-	//TreeNode::errorCheck((d + one + " " + two).c_str());
-	yyerror((d + one + " " + two).c_str());
+	TreeNode::errorCheck((d + one + " " + two).c_str());
+	//yyerror((d + one + " " + two).c_str());
 }
