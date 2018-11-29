@@ -6,11 +6,12 @@
 class SelectionNode:public TreeNode
 {
 public:
-	SelectionNode(string TreeNodeProductionName,int numChildren,bool isaSwitch);
+	SelectionNode(string TreeNodeProductionName,bool isaSwitch);
 	~SelectionNode();
 	
 	void traverse_to_file(FILE*);
 	void ast_to_3ac(FILE*);
+	void errorCheck(const char * str);
 	
 protected:
 	int jticket1;

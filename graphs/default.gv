@@ -1,22 +1,72 @@
 digraph AST {
-	translation_unit_13 -> translation_unit_5;
-	translation_unit_5 -> declaration_4;
-	declaration_4 [label="declaration_4"]
-	declaration_4 -> declaration_specifiers_1;
+	translation_unit_38 -> translation_unit_11;
+	translation_unit_11 -> declaration_10;
+	declaration_10 [label="declaration_10"]
+	declaration_10 -> declaration_specifiers_1;
 	declaration_specifiers_1 [label="declaration_specifiers_1"]
 	declaration_specifiers_1 -> type_specifier_0;
 	type_specifier_0 [label="int"]
-	declaration_4 -> identifier_2;
-	identifier_2 [label="ID: foo"]
-	translation_unit_13 -> function_definition_12;
-	function_definition_12 [shape=doubleoctagon,color=red,label="foo"]
-	function_definition_12 -> declaration_specifiers_7;
-	declaration_specifiers_7 [label="declaration_specifiers_7"]
-	declaration_specifiers_7 -> type_specifier_6;
-	type_specifier_6 [label="int"]
-	function_definition_12 -> identifier_8;
-	identifier_8 [label="ID: foo"]
-	function_definition_12 -> empty_11;
-	empty_11 [style=filled,color=indigo,fontcolor=white]
-	function_definition_12 -> compound_statement_10;
+	declaration_10 -> direct_declarator_9;
+	direct_declarator_9 -> identifier_2;
+	identifier_2 [label="ID: factorial"]
+	direct_declarator_9 -> parameter_type_list_8;
+	parameter_type_list_8 -> parameter_declaration_6;
+	parameter_declaration_6 -> declaration_specifiers_4;
+	declaration_specifiers_4 [label="declaration_specifiers_4"]
+	declaration_specifiers_4 -> type_specifier_3;
+	type_specifier_3 [label="int"]
+	parameter_declaration_6 -> identifier_5;
+	identifier_5 [label="ID: n"]
+	parameter_type_list_8 -> empty_7;
+	empty_7 [style=filled,color=indigo,fontcolor=white]
+	translation_unit_38 -> function_definition_37;
+	function_definition_37 [shape=doubleoctagon,color=red,label="factorial"]
+	function_definition_37 -> declaration_specifiers_13;
+	declaration_specifiers_13 [label="declaration_specifiers_13"]
+	declaration_specifiers_13 -> type_specifier_12;
+	type_specifier_12 [label="int"]
+	function_definition_37 -> direct_declarator_21;
+	direct_declarator_21 -> identifier_14;
+	identifier_14 [label="ID: factorial"]
+	direct_declarator_21 -> parameter_type_list_20;
+	parameter_type_list_20 -> parameter_declaration_18;
+	parameter_declaration_18 -> declaration_specifiers_16;
+	declaration_specifiers_16 [label="declaration_specifiers_16"]
+	declaration_specifiers_16 -> type_specifier_15;
+	type_specifier_15 [label="int"]
+	parameter_declaration_18 -> identifier_17;
+	identifier_17 [label="ID: m"]
+	parameter_type_list_20 -> empty_19;
+	empty_19 [style=filled,color=indigo,fontcolor=white]
+	function_definition_37 -> empty_36;
+	empty_36 [style=filled,color=indigo,fontcolor=white]
+	function_definition_37 -> selection_statement_35;
+	selection_statement_35 [shape=diamond,color=green,label="if else"]
+	selection_statement_35 -> equality_expression_24;
+	equality_expression_24 [label="Int:  Left <= Right"]
+	equality_expression_24 -> identifier_22;
+	identifier_22 [label="ID: m"]
+	equality_expression_24 -> constant_23;
+	constant_23 [label="Int: 1"]
+	selection_statement_35 -> jump_statement_26;
+	jump_statement_26 [shape = triangle,color=purple,label="return expr"]
+	jump_statement_26 -> constant_25;
+	constant_25 [label="Int: 1"]
+	selection_statement_35 -> jump_statement_34;
+	jump_statement_34 [shape = triangle,color=purple,label="return expr"]
+	jump_statement_34 -> operator_expression_33;
+	operator_expression_33 [label="Int:  Left * Right"]
+	operator_expression_33 -> identifier_27;
+	identifier_27 [label="ID: m"]
+	operator_expression_33 -> postfix_expression_32;
+	postfix_expression_32 [label="  Left(Right)"]
+	postfix_expression_32 -> identifier_28;
+	identifier_28 [label="ID: factorial"]
+	postfix_expression_32 -> operator_expression_31;
+	operator_expression_31 [label="Int:  Left - Right"]
+	operator_expression_31 -> identifier_29;
+	identifier_29 [label="ID: m"]
+	operator_expression_31 -> constant_30;
+	constant_30 [label="Int: 1"]
+
 }

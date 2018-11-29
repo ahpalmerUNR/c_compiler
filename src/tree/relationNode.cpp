@@ -10,7 +10,10 @@ RelationNode::~RelationNode()
 {
 
 }
-
+nodeDataType RelationNode::getDataType(char *c)
+{
+	return dType;
+}
 void RelationNode::traverse_to_file(FILE *fileout)
 {
 	char typePrint[500];
@@ -55,7 +58,45 @@ void RelationNode::traverse_to_file(FILE *fileout)
 
 void RelationNode::ast_to_3ac(FILE *fileout)
 {
+	children[0]->ast_to_3ac(fileout);
+	children[1]->ast_to_3ac(fileout);
+	char typePrint[500];
+	char typePrint2[500];
+	char typePrint3[500];
+	string opString;
+	string s1,s2,s3;
 
+	nodeDataType t = children[0]->getDataType(typePrint2);
+	if(t == ID_TYPE_NODE) t = children[0]->getidDataType();
+	s1 = rep_3ac_ticket(t,children[0]->returnTicket());
+	t = children[1]->getDataType(typePrint3);
+	if(t == ID_TYPE_NODE) t = children[1]->getidDataType();
+	s2 = rep_3ac_ticket(t,children[1]->returnTicket());
+
+	s3 = rep_3ac_ticket(dType,ticketNumber);
+ 
+	switch(oType)
+	{
+		case EQ_OP:
+			opString = "EQ\t" + s1 + "\t" + s2;
+			break;
+		case NE_OP:
+			opString = "NE\t" + s1 + "\t" + s2;
+			break;
+		case GT_OP:
+			opString = "GT\t" + s1 + "\t" + s2;
+			break;
+		case GE_OP:
+			opString = "GE\t" + s1 + "\t" + s2;
+			break;
+		case LT_OP:
+			opString = "LT\t" + s1 + "\t" + s2;
+			break;
+		case LE_OP:
+			opString = "LE\t" + s1 + "\t" + s2;
+			break;
+	}
+	fprintf(fileout, "%s\t%s\n",opString.c_str(),s3.c_str());
 }
 
 int RelationNode::returnTicket()
@@ -79,49 +120,53 @@ void RelationNode::errorCheck()
 		TreeNode *rightChild = children[1];
 		nodeDataType left = nodeDataType(leftChild->getDataType(wat));
 		nodeDataType right = nodeDataType(rightChild->getDataType(wat));
-		if(left == right)
+		if(left == ID_TYPE_NODE)
+			left = children[0]->getidDataType();
+		if(right == ID_TYPE_NODE)
+			right = children[1]->getidDataType();
+				if(left == right)
 		{
 			if(left == DOUBLE_TYPE_NODE && oType == MOD_OP)
-				yyerror("Invalid operands to %");
+				yyerror("ERROR: Invalid operands to %");
 			setTypeSpecifier(left);
 		}
 		else
 		{
 			implicitCastWarning(left,right);
-			CastNode *tmp = new CastNode("Implicit Cast");
+			CastNode *tmp = new CastNode("Implicit_Cast");
 			//++Variable_counter;
 			//++AST_node_counter;
 			if(oType == MOD_OP && (left == DOUBLE_TYPE_NODE || right == DOUBLE_TYPE_NODE))
 			{
-				TreeNode::errorCheck("Invalid operands to %");
+				TreeNode::errorCheck("ERROR: Invalid operands to %");
 			}
-			if(left == DOUBLE_TYPE_NODE)
+			if(left == DOUBLE_TYPE_NODE || left ==  FLOAT_TYPE_NODE)
 			{
 				tmp->setTypeSpecifier(DOUBLE_TYPE_NODE);
-				tmp->assignChild(0,rightChild);
-				rightChild = tmp;
-				setTypeSpecifier(left);
+				tmp->assignChild(0,children[1]);
+				assignChild(1,tmp);
+				setTypeSpecifier(DOUBLE_TYPE_NODE);
 			}
-			else if(right == DOUBLE_TYPE_NODE)
+			else if(right == DOUBLE_TYPE_NODE || right == FLOAT_TYPE_NODE)
 			{
 				tmp->setTypeSpecifier(DOUBLE_TYPE_NODE);
-				tmp->assignChild(0,leftChild);
-				leftChild = tmp;
-				setTypeSpecifier(right);
+				tmp->assignChild(0,children[0]);
+				assignChild(0,tmp);
+				setTypeSpecifier(DOUBLE_TYPE_NODE);
 			}
 			else if(left == INT_TYPE_NODE)
 			{
 				tmp->setTypeSpecifier(INT_TYPE_NODE);
-				tmp->assignChild(0,rightChild);	
-				rightChild = tmp;		
-				setTypeSpecifier(left);
+				tmp->assignChild(0,children[1]);	
+				assignChild(1,tmp);
+				setTypeSpecifier(INT_TYPE_NODE);
 			}
 			else if(right == INT_TYPE_NODE)
 			{
 				tmp->setTypeSpecifier(INT_TYPE_NODE);
-				tmp->assignChild(0,leftChild);
-				leftChild = tmp;
-				setTypeSpecifier(right);
+				tmp->assignChild(0,children[0]);
+				assignChild(0,tmp);
+				setTypeSpecifier(INT_TYPE_NODE);
 			}
 		}
 }

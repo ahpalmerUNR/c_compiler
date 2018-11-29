@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-27 14:10:44
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-09 03:00:14
+* @Last Modified time: 2018-11-28 14:48:06
 */
 #include "tree.h"
 
@@ -19,6 +19,7 @@ TreeNode::TreeNode(string TreeNodeProductionName,int numberOfChildren)
 	forErrors[0].colStart = -1;
 	forErrors[0].colEnd = -1;
 	tType = TREE_TYPE_NODE;
+	byteSize = 0;
 }
 
 TreeNode::~TreeNode()
@@ -53,7 +54,7 @@ void TreeNode::printNode()
 	cout<<"Col End "<<forErrors[0].colEnd<<", "<<endl;
 	for (int i = 0; i < forErrors[0].source.size(); ++i)
 	{
-		cout<<forErrors[0].source[i].codeLine.c_str()<<endl;
+		cout<<forErrors[0].source[i].codeLine.c_str();
 	}
 }
 
@@ -62,6 +63,7 @@ void TreeNode::assignChild(int childIndex, TreeNode* child)
 	int pullInd;
 	char temp[500];
 	children[childIndex] = child;
+	byteSize = byteSize + child->byteSize;
 
 	forErrors.erase(forErrors.begin()+childIndex+1);
 	forErrors.insert(forErrors.begin()+childIndex+1,child->forErrors[0]);
@@ -109,8 +111,8 @@ void TreeNode::assignChild(int childIndex, TreeNode* child)
 			}
 			if (forErrors[0].lineEnd < child->forErrors[0].lineEnd)
 			{
-				pullInd = forErrors[0].source.size()-1;
-				int firstLine = forErrors[0].source[pullInd].lineNum;
+				pullInd = forErrors[0].source.size();
+				int firstLine = forErrors[0].source[pullInd-1].lineNum;
 				int index = child->forErrors[0].source.size()-1;
 				while(index >=0 && child->forErrors[0].source[index].lineNum > firstLine)
 				{
@@ -210,9 +212,13 @@ void TreeNode::errorCheck(const char * str)
 		//print multi-line error
 		printf("Issue between:\n");
 		fprintf(out_log,"Issue between:\n");
+		for (int i = 0; i < forErrors[0].source.size(); ++i)
+		{
+			printf("%s",forErrors[0].source[i].codeLine.c_str());
+		}
 		printf("%s",forErrors[0].source[0].codeLine.c_str());
 		fprintf(out_log,"%s",forErrors[0].source[0].codeLine.c_str());
-		for (int i = 0; i < 80; ++i)
+		for (int i = 0; i < forErrors[0].colStart+20; ++i)
 		{
 			if (i==forErrors[0].colStart-1)
 			{
@@ -230,6 +236,7 @@ void TreeNode::errorCheck(const char * str)
 				fprintf(out_log," ");
 			}
 		}
+		
 		printf("\nand\n");
 		fprintf(out_log,"\nand\n");
 		printf("%s",forErrors[0].source[forErrors[0].source.size()-1].codeLine.c_str());
@@ -255,10 +262,10 @@ void TreeNode::errorCheck(const char * str)
 
 }
 
-vector<int> TreeNode::getTypes()
+vector<nodeDataType> TreeNode::getTypes()
 {
 	char buffer[500];
-	vector<int> type;
+	vector<nodeDataType> type;
 	type.push_back(getDataType(buffer));
 	return type;
 }
@@ -294,4 +301,28 @@ void Tree::tree_to_3ac(string fileName)
 void Tree::set_root(TreeNode* new_root)
 {
 	root = new_root;
+}
+
+string rep_3ac_ticket(nodeDataType ndt, int ticket)
+{
+	char typePrint[500];
+	switch(ndt)
+	{
+		case CHAR_TYPE_NODE:
+			snprintf(typePrint, 500,"c");
+			break;
+		case INT_TYPE_NODE:
+			snprintf(typePrint, 500,"i");
+			break;
+		case DOUBLE_TYPE_NODE:
+			snprintf(typePrint, 500,"f");
+			break;
+		case FLOAT_TYPE_NODE:
+			snprintf(typePrint, 500,"f");
+		default:
+			snprintf(typePrint, 500, "Error probably with id");
+			break;
+		
+	}
+	return string(typePrint) + to_string(ticket);
 }

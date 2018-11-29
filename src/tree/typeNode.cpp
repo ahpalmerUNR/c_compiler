@@ -57,7 +57,7 @@ void TypeNode::ast_to_3ac(FILE* fileout)
  * 
  * @return vector<nodeDataType> 
  */
-vector<int> TypeNode::getType()
+vector<nodeDataType> TypeNode::getType()
 {
 	char buffer[500];
 	types = children[0]->getTypes();

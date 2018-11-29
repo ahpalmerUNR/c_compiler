@@ -10,7 +10,7 @@ public:
 	EmptyNode(string TreeNodeProductionName);
 	~EmptyNode();
 	void traverse_to_file(FILE*);
-	int getDataType(char *);
+	nodeDataType getDataType(char *);
 protected:
 	nodeDataType dType;
 };

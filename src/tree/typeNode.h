@@ -11,7 +11,7 @@ public:
 	void traverse_to_file(FILE*);
 	void ast_to_3ac(FILE*);
 
-	vector<int> getType();
+	vector<nodeDataType> getType();
 	vector<nodeDataType> parseTypes();
 protected:
 	// parseTypes parse types in children, return types of variables

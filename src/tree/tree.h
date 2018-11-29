@@ -7,6 +7,7 @@
 #include <vector>
 #include <iostream>
 #include "../symboltable.h"
+#include "../MIPS_Type_Sizes.h"
 
 using namespace std;
 
@@ -21,6 +22,8 @@ extern char* file_name;
 extern int AST_node_counter;
 extern int Label_counter;
 extern int Variable_counter;
+
+string rep_3ac_ticket(nodeDataType ndt, int ticket);
 
 enum OperatorType {
 	ADD_OP,
@@ -84,16 +87,17 @@ public:
 	virtual void traverse_to_file(FILE*);
 	virtual void ast_to_3ac(FILE*);
 	virtual void assignChild(int childIndex, TreeNode* child);
-	virtual int getDataType(char *){return tType;}
+	virtual nodeDataType getDataType(char *){return tType;}
 	virtual void setTypeSpecifier(nodeDataType typeSpec);
 	//virtual int getDataType(char *){ return -1; }
 	virtual nodeDataType getidDataType(){};
-	virtual vector<int> getTypes();
+	virtual vector<nodeDataType> getTypes();
 	virtual void setidDataTypes(int types){};
 	virtual int returnTicket(){}
 	void printNode();
 	virtual void errorCheck(const char * str);
 	virtual void assignLine(int,int,int,FILE*);
+	virtual bool isIDList(){return false;}
 protected:
 	int TreeNodeNumber;
 	//type
@@ -101,8 +105,9 @@ protected:
 	string TreeNodeName;
 	int numberChildren;
 	vector<TreeNode*> children;
-	vector<int> types;
+	vector<nodeDataType> types;
 	nodeDataType tType;
+	int byteSize;
 };
 
 class Tree

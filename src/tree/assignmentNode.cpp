@@ -73,7 +73,66 @@ void AssignmentNode::traverse_to_file(FILE *fileout)
 }
 void AssignmentNode::ast_to_3ac(FILE *fileout)
 {
+	children[0]->ast_to_3ac(fileout);
+	children[1]->ast_to_3ac(fileout);
+	char typePrint1[500];
+	char typePrint2[500];
+	char assignPrint[500];
 
+	nodeDataType t = children[0]->getDataType(typePrint2);
+	if(t == ID_TYPE_NODE) t = children[0]->getidDataType();
+
+	bool isOpAssign = true;
+	string assignString;
+	string s1;
+	s1 =  rep_3ac_ticket(t,children[0]->returnTicket());
+	string s2;
+	t = children[1]->getDataType(typePrint2);
+	if(t == ID_TYPE_NODE) t = children[1]->getidDataType();
+	s2 = rep_3ac_ticket(t,children[1]->returnTicket());
+	switch(aType)
+	{
+		case EQUAL_ASSIGN:
+			isOpAssign = false;
+			break;
+		case ADD_ASSIGN:
+			assignString = "ADD\t" + s1 + "\t" + s2;
+			break;
+		case SUB_ASSIGN:
+			assignString = "SUB\t" + s1 + "\t" + s2;
+			break;
+		case MULT_ASSIGN:
+			assignString = "MULT\t" + s1 + "\t" + s2;
+			break;
+		case DIV_ASSIGN:
+			assignString = "DIV\t" + s1 + "\t" + s2;
+			break;
+		case MOD_ASSIGN:
+			assignString = "MOD\t" + s1 + "\t" + s2;
+			break;
+		case LEFT_ASSIGN:
+			assignString = "LEFT\t" + s1 + "\t" + s2;
+			break;
+		case RIGHT_ASSIGN:
+			assignString = "RIGHT\t" + s1 + "\t" + s2;
+			break;
+		case AND_ASSIGN:
+			assignString = "AND\t" + s1 + "\t" + s2;
+			break;
+		case XOR_ASSIGN:
+			assignString = "XOR\t" + s1 + "\t" + s2;
+			break;
+		case OR_ASSIGN:
+			assignString = "OR\t" + s1 + "\t" + s2;
+			break;
+	}	
+	if(isOpAssign)
+	{
+		fprintf(fileout,"%s\t%s\n",assignString.c_str(),s1.c_str());
+		//fprintf(fileout,"ASSIGN\t%s\t%s%i\n",s1.c_str(),typePrint1,Variable_counter++);
+	}
+	else
+		fprintf(fileout,"ASSIGN\t%s\t_\t%s\n",s2.c_str(),s1.c_str());
 }
 
 int AssignmentNode::returnTicket()

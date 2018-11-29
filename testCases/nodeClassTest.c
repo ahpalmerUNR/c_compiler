@@ -1,13 +1,25 @@
 int printc(int);
-
+!!D
 int printc(int a, float b, char c)
+// int a,b,c;
 {
-	return 1;
+	!!D
+	//case :
+	{
+		int l=0;
+		{}
+		;
+		;
+		!!D
+
+	}
+	return 4;
 }
 
-int main()
+int main(int a)
 {
 	int p[];
+!!D
 	
 	p[1] = 2 + 3.9;
 	

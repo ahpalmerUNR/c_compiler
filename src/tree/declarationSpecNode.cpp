@@ -30,7 +30,7 @@ void DeclarationSpecNode::ast_to_3ac(FILE* fileout)
 
 }
 
-int DeclarationSpecNode::getDataType(char* ignore)
+nodeDataType DeclarationSpecNode::getDataType(char* ignore)
 {
 	// char buffer[500];
 	// for(int i = 0; i < numberChildren; i++) {
@@ -39,15 +39,15 @@ int DeclarationSpecNode::getDataType(char* ignore)
 	// 	}
 	// }
 	// return children[0]->getDataType(buffer);
-	return -1;
+	return VOID_TYPE_NODE;
 }
 
-vector<int> DeclarationSpecNode::getTypes()
+vector<nodeDataType> DeclarationSpecNode::getTypes()
 {
 	char buffer[500];
 	for (int i = 0; i < numberChildren; i++) {
-		vector<int> tmp = children[i]->getTypes();
-		for (const int t : tmp) {
+		vector<nodeDataType> tmp = children[i]->getTypes();
+		for (nodeDataType t : tmp) {
 			if (t != -1) {
 				types.push_back(t);
 			}
