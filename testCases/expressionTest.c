@@ -5,6 +5,6 @@ int q()
 int main()
 {
 	int j;
-	j = 5 + 2 * 3 - j;
+	j = (int)5.0;
 	return 0;
 }

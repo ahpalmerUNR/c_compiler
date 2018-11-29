@@ -1,5 +1,5 @@
 digraph AST {
-	translation_unit_34 -> translation_unit_9;
+	translation_unit_30 -> translation_unit_9;
 	translation_unit_9 -> function_definition_8;
 	function_definition_8 [shape=doubleoctagon,color=red,label=""]
 	function_definition_8 -> declaration_specifiers_1;
@@ -14,18 +14,18 @@ digraph AST {
 	jump_statement_6 [shape = triangle,color=purple,label="return expr"]
 	jump_statement_6 -> constant_5;
 	constant_5 [label="Int: 0"]
-	translation_unit_34 -> function_definition_33;
-	function_definition_33 [shape=doubleoctagon,color=red,label=""]
-	function_definition_33 -> declaration_specifiers_11;
+	translation_unit_30 -> function_definition_29;
+	function_definition_29 [shape=doubleoctagon,color=red,label=""]
+	function_definition_29 -> declaration_specifiers_11;
 	declaration_specifiers_11 [label="declaration_specifiers_11"]
 	declaration_specifiers_11 -> type_specifier_10;
 	type_specifier_10 [label="int"]
-	function_definition_33 -> identifier_12;
+	function_definition_29 -> identifier_12;
 	identifier_12 [label="ID: main"]
-	function_definition_33 -> empty_32;
-	empty_32 [style=filled,color=indigo,fontcolor=white]
-	function_definition_33 -> compound_statement_31;
-	compound_statement_31 -> declaration_18;
+	function_definition_29 -> empty_28;
+	empty_28 [style=filled,color=indigo,fontcolor=white]
+	function_definition_29 -> compound_statement_27;
+	compound_statement_27 -> declaration_18;
 	declaration_18 [label="declaration_18"]
 	declaration_18 -> declaration_specifiers_16;
 	declaration_specifiers_16 [label="declaration_specifiers_16"]
@@ -33,27 +33,17 @@ digraph AST {
 	type_specifier_15 [label="int"]
 	declaration_18 -> identifier_17;
 	identifier_17 [label="ID: j"]
-	compound_statement_31 -> statement_list_30;
-	statement_list_30 -> assignment_expression_27;
-	assignment_expression_27 [label="Int:  Left = Right"]
-	assignment_expression_27 -> identifier_19;
+	compound_statement_27 -> statement_list_26;
+	statement_list_26 -> assignment_expression_23;
+	assignment_expression_23 [label="Int:  Left = Right"]
+	assignment_expression_23 -> identifier_19;
 	identifier_19 [label="ID: j"]
-	assignment_expression_27 -> operator_expression_26;
-	operator_expression_26 [label="Int:  Left - Right"]
-	operator_expression_26 -> operator_expression_24;
-	operator_expression_24 [label="Int:  Left + Right"]
-	operator_expression_24 -> constant_20;
-	constant_20 [label="Int: 5"]
-	operator_expression_24 -> operator_expression_23;
-	operator_expression_23 [label="Int:  Left * Right"]
-	operator_expression_23 -> constant_21;
-	constant_21 [label="Int: 2"]
-	operator_expression_23 -> constant_22;
-	constant_22 [label="Int: 3"]
-	operator_expression_26 -> identifier_25;
-	identifier_25 [label="ID: j"]
-	statement_list_30 -> jump_statement_29;
-	jump_statement_29 [shape = triangle,color=purple,label="return expr"]
-	jump_statement_29 -> constant_28;
-	constant_28 [label="Int: 0"]
+	assignment_expression_23 -> cast_expression22;
+	cast_expression22 [label="Cast(Int)"]
+	cast_expression22 -> constant_21;
+	constant_21 [label="Float: 5.000000"]
+	statement_list_26 -> jump_statement_25;
+	jump_statement_25 [shape = triangle,color=purple,label="return expr"]
+	jump_statement_25 -> constant_24;
+	constant_24 [label="Int: 0"]
 }
