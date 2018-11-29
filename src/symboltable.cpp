@@ -333,9 +333,10 @@ void SymbolTable::pushBST(map<string, Node> bst)
 
 void SymbolTable::pushSymbolTableCopy(const SymbolTable stCopy)
 {
-	map<string, Node> bst;
-	stack.push_back(bst);
-	currentLevel++;
+	for (map <string, Node> bst : stCopy.stack) {
+		stack.push_back(bst);
+		// currentLevel++;
+	}
 }
 
 void SymbolTable::pushEmptyBST()
@@ -345,8 +346,8 @@ void SymbolTable::pushEmptyBST()
 	stack.push_back(bst);
 	currentLevel++;
 	//Debug message
-	// if(symbol_table_debug % 2  == 0)
-	// 	cout << "Level 3 debug: Entering new scope of level: " << currentLevel << endl;
+	if(symbol_table_debug % 2  == 0)
+		cout << "Level 3 debug: Entering new scope of level: " << currentLevel << endl;
 }
 
 void SymbolTable::popBST()
