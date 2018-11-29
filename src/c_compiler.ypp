@@ -36,7 +36,9 @@
 	/**
 	 * SymbolTable and variables to manipulate the insertion to symbol table
 	 */
+	bool useFunctionSymTab = false;
 	SymbolTable s;
+	SymbolTable funcSymTab;
 
 	int levels[5];
 
@@ -606,15 +608,34 @@ declarator
 		outputReduction("declarator :  pointer direct_declarator");}
 	;
 
+__useFuncTab__
+	:	{
+			useFunctionSymTab = true;
+			variableToInsert->types = {};
+		}
+	;
+	
+__useSymTab__
+	:	{
+			useFunctionSymTab = false;
+			// Insert the function table into symbol table
+			// Todo
+			funcSymTab = *(new SymbolTable);
+		}
+	;
+
 direct_declarator
 	: identifier {
 		$<tnode>$ = $<tnode>1;
 		Node* searchResult = s.searchTop(variableToInsert->name);
-		
-		if (searchResult == NULL || searchResult->ntype != FUNCTION) {
-			s.insert(variableToInsert->name, *variableToInsert);
+		if (useFunctionSymTab) {
+			// funcSymTab.insert(variableToInsert->name, *variableToInsert);
+		} else {
+			if (searchResult == NULL || searchResult->ntype != FUNCTION) {
+				s.insert(variableToInsert->name, *variableToInsert);
+			}
 		}
-		variableToInsert->types = {};
+		// variableToInsert->types = {};
 
 		outputReduction("direct_declarator : identifier");}
 	| OPEN_PAREN_tok declarator CLOSE_PAREN_tok {
@@ -642,7 +663,7 @@ direct_declarator
 		$<tnode>$ = tmp;
 		outputReduction("direct_declarator : direct_declarator OPEN_BRACKET_tok constant_expression CLOSE_BRACKET_tok");}
 
-	| direct_declarator OPEN_PAREN_tok CLOSE_PAREN_tok {
+	| direct_declarator __useFuncTab__ OPEN_PAREN_tok CLOSE_PAREN_tok __useSymTab__ {
 		Node* searchResult = s.searchTop(variableToInsert->name);
 		searchResult->ntype = FUNCTION;
 
@@ -655,7 +676,7 @@ direct_declarator
 		tmp->assignChild(1,blank1);
 		$<tnode>$ = tmp;
 		outputReduction("direct_declarator : direct_declarator OPEN_PAREN_tok CLOSE_PAREN_tok");}
-	| direct_declarator OPEN_PAREN_tok parameter_type_list CLOSE_PAREN_tok {
+	| direct_declarator __useFuncTab__ OPEN_PAREN_tok parameter_type_list CLOSE_PAREN_tok __useSymTab__ {
 		Node* searchResult = s.searchTop(variableToInsert->name);
 		searchResult->ntype = FUNCTION;
 		
@@ -663,17 +684,17 @@ direct_declarator
 		tmp->assignLine(line,column-size,column,errorText);
 		tmp->setTypeSpecifier(DIRECT_DECL_TYPE_NODE);
 		tmp->assignChild(0,$<tnode>1);
-		tmp->assignChild(1,$<tnode>3);
+		tmp->assignChild(1,$<tnode>4);
 		$<tnode>$ = tmp;
 		outputReduction("direct_declarator : direct_declarator OPEN_PAREN_tok parameter_type_list CLOSE_PAREN_tok");}
-	| direct_declarator OPEN_PAREN_tok identifier_list CLOSE_PAREN_tok {
-		variableToInsert->ntype = FUNCTION;
+	| direct_declarator __useFuncTab__ OPEN_PAREN_tok identifier_list CLOSE_PAREN_tok __useSymTab__ {
+		// variableToInsert->ntype = FUNCTION;
 
 		TreeNode* tmp = new TreeNode("direct_declarator_",2);
 		tmp->assignLine(line,column-size,column,errorText);
 		tmp->setTypeSpecifier(DIRECT_DECL_TYPE_NODE);
 		tmp->assignChild(0,$<tnode>1);
-		tmp->assignChild(1,$<tnode>3);
+		tmp->assignChild(1,$<tnode>4);
 		$<tnode>$ = tmp;
 		outputReduction("direct_declarator : direct_declarator OPEN_PAREN_tok identifier_list CLOSE_PAREN_tok");}
 	;
@@ -754,12 +775,22 @@ parameter_list
 
 parameter_declaration
 	: declaration_specifiers declarator {
+		Node* searchResult = s.searchTop(variableToInsert->name);
+		if (searchResult != NULL) {
+			searchResult->params.push_back(variableToInsert->types);
+			variableToInsert->types = {};	
+		}
 		TreeNode* tmp = new TreeNode("parameter_declaration_",2);
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>2);
 		$<tnode>$ = tmp;
 		outputReduction("parameter_declaration : declaration_specifiers declarator");}
 	| declaration_specifiers {
+		Node* searchResult = s.searchTop(variableToInsert->name);
+		if (searchResult != NULL) {
+			searchResult->params.push_back(variableToInsert->types);
+			variableToInsert->types = {};	
+		}
 		$<tnode>$ = $<tnode>1;
 		outputReduction("parameter_declaration : declaration_specifiers");}
 	| declaration_specifiers abstract_declarator {

@@ -3,8 +3,10 @@
  * @author Nathan Yocum
  * @brief Test that a simple function lookup works
  */
-void foo();
+void foo(long int i, float j);
 
-void foo() {
-	!!D
+void foo(long int i, float j) {
+	
 }
+
+!!D

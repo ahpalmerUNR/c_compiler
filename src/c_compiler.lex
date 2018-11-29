@@ -43,6 +43,8 @@ extern clock_t clock_time;
 
 extern int* levels;
 
+extern bool useFunctionSymTab;
+
 int idLine;
 int idCol;
 
@@ -682,9 +684,11 @@ int id_token()
 		}
 	} else {
 		yylval.lnode = variableToInsert.get();
-		variableToInsert->name = yytext;
-		variableToInsert->lineNumber = line;
-		variableToInsert->colNumber = column;
+		if (!useFunctionSymTab) {
+			variableToInsert->name = yytext;
+			variableToInsert->lineNumber = line;
+			variableToInsert->colNumber = column;
+		}
 
 		if(errorcode==1)
 		{
