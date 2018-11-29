@@ -327,6 +327,13 @@ void SymbolTable::pushBST(map<string, Node> bst)
 	currentLevel++;
 }
 
+void SymbolTable::pushSymbolTableCopy(const SymbolTable stCopy)
+{
+	map<string, Node> bst;
+	stack.push_back(bst);
+	currentLevel++;
+}
+
 void SymbolTable::pushEmptyBST()
 {
 	// Push empty bst and increment level

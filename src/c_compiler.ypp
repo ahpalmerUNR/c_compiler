@@ -36,6 +36,10 @@
 	/**
 	 * SymbolTable and variables to manipulate the insertion to symbol table
 	 */
+
+	bool useFunctionSymTab = false;
+	bool popAtEnd = false;
+
 	SymbolTable s;
 
 	int levels[5];
@@ -48,6 +52,7 @@
 	int Variable_counter;
 
 	unique_ptr<Node> variableToInsert(new Node());
+	unique_ptr<Node> parameterToInsert(new Node());
 
 	extern int column;
 	extern int line;
@@ -606,19 +611,32 @@ declarator
 		outputReduction("declarator :  pointer direct_declarator");}
 	;
 
+
+__useFuncTab__
+	:	{
+			useFunctionSymTab = true;
+			variableToInsert->types = {};
+		}
+	;
+	
+__useSymTab__
+	:	{
+			useFunctionSymTab = false;
+			// Insert the function table into symbol table
+			s.pushSymbolTableCopy(funcSymTab);
+			funcSymTab = *(new SymbolTable);
+		}
+	;
+
 direct_declarator
 	: identifier {
-		if (insert_lookup == 0) {
-			if (variableToInsert->ntype == FUNCTION) {
-				if (s.searchTop(variableToInsert->name) == NULL) {
-					s.insert(variableToInsert->name, *variableToInsert);
-				} else {
-					// Check that the function is being called right
-				}
-			} else {
-				if (variableToInsert->name != "") {
-					s.insert(variableToInsert->name, *variableToInsert);
-				}
+		$<tnode>$ = $<tnode>1;
+		Node* searchResult = s.searchTop(variableToInsert->name);
+		if (useFunctionSymTab) {
+			funcSymTab.insert(parameterToInsert->name, *parameterToInsert);
+		} else {
+			if (searchResult == NULL || searchResult->ntype != FUNCTION) {
+				s.insert(variableToInsert->name, *variableToInsert);
 			}
 			variableToInsert.reset(new Node());
 		}
@@ -757,6 +775,14 @@ parameter_list
 
 parameter_declaration
 	: declaration_specifiers declarator {
+
+		Node* searchResult = s.searchTop(variableToInsert->name);
+		parameterToInsert->types = variableToInsert->types;
+		if (searchResult != NULL) {
+			searchResult->params.push_back(variableToInsert->types);
+			variableToInsert->types = {};
+		}
+
 		TreeNode* tmp = new TreeNode("parameter_declaration_",2);
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>2);

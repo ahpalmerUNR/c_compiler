@@ -62,6 +62,7 @@ int id_token();
 void check_float();
 
 extern unique_ptr<Node> variableToInsert; 
+extern unique_ptr<Node> parameterToInsert; 
 %}
 
 /************************************************************************/
@@ -683,8 +684,13 @@ int id_token()
 			return(send_token("TYPEDEF_NAME_tok",TYPEDEF_NAME_tok));
 		}
 	} else {
-		yylval.lnode = variableToInsert.get();
-		if (!useFunctionSymTab) {
+		if (useFunctionSymTab) {
+			parameterToInsert->name = yytext;
+			parameterToInsert->lineNumber = line;
+			parameterToInsert->colNumber = column;
+			yylval.lnode = parameterToInsert.get();
+		} else {
+			yylval.lnode = variableToInsert.get();
 			variableToInsert->name = yytext;
 			variableToInsert->lineNumber = line;
 			variableToInsert->colNumber = column;
