@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-09-28 12:11:57
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-29 15:37:51
+* @Last Modified time: 2018-11-29 15:44:33
 */
 #include "symboltable.h"
 #include <stdio.h>
@@ -341,8 +341,9 @@ void SymbolTable::pushEmptyBST()
 	stack.push_back(bst);
 	currentLevel++;
 	//Debug message
-	// if(symbol_table_debug % 2  == 0)
-	// 	cout << "Level 3 debug: Entering new scope of level: " << currentLevel << endl;
+	if(symbol_table_debug % 2  == 0)
+		cout << "Level 3 debug: Entering new scope of level: " << currentLevel << endl;
+	cout.flush();
 }
 
 void SymbolTable::popBST()
@@ -353,4 +354,6 @@ void SymbolTable::popBST()
 	//Debug messege
 	if (symbol_table_debug % 2 == 0)
 		cout << "Level 3 debug: Exiting scope, new level: " << currentLevel << endl;
+	cout.flush();
+	
 }

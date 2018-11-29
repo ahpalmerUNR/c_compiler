@@ -40,7 +40,7 @@
 	bool useFunctionSymTab = false;
 	bool popAtEnd = false;
 
-	SymbolTable s;
+	SymbolTable s, funcSymTab;
 
 	int levels[5];
 
