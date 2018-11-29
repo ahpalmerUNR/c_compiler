@@ -28,7 +28,7 @@
 	FILE * parseFile;
 	//FILE * productionFile;
 	int insert_lookup;//1 lookup 0 insert
-	char *logName = (char*)"build/compilerLog.txt";
+	char *logName = (char*)"testCases/compilerLog.txt";
 	char *file_name;
 	time_t time_time;
 	clock_t clock_time;
