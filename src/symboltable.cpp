@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-09-28 12:11:57
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-01 16:04:22
+* @Last Modified time: 2018-11-29 15:37:51
 */
 #include "symboltable.h"
 #include <stdio.h>
@@ -81,19 +81,6 @@ Node::Node(const Node &n)
 	}
 }
 
-bool Node::operator==(const Node& nodeToCompare) const {
-	if (name != nodeToCompare.name) {
-		return false;
-	}
-	if (ntype != nodeToCompare.ntype) {
-		return false;
-	}
-	// for () {
-
-	// }
-	return true;
-}
-
 void Node::print()
 {
 	cout << "line: " << lineNumber << " col: " << colNumber;
@@ -103,7 +90,7 @@ void Node::print()
 		cout << getDataType(type) << " ";
 	}
 	cout << "(node) key: " << name;
-	if (ntype == FUNCTION)
+	if (params.size())
 	{
 		cout << "Params: (";
 		for (const vector<nodeDataType> paramVector : params)
@@ -128,8 +115,7 @@ void Node::output(FILE *stream)
 	}
 	// If debugging -- to check if symTab and node keys line up.
 	// fprintf(stream, "(Node) Key: %s", name.c_str());
-	// cout << ntype << endl;
-	if (ntype == FUNCTION)
+	if (params.size())
 	{
 		fprintf(stream, " Params: (");
 		for (const vector<nodeDataType> paramVector : params)
@@ -143,6 +129,16 @@ void Node::output(FILE *stream)
 		fprintf(stream, ")");
 	}
 	fprintf(stream, "\n");
+}
+
+bool Node::compareFunction(Node nodeToCompare) {
+	if (name != nodeToCompare.name) {
+		cout << "ST Error: Names not the same:" << name << " " << nodeToCompare.name << endl;
+		return false;
+	}
+	for (vector<nodeDataType>::iterator i = types.begin(); i != types.end(); i++) {
+		
+	}
 }
 
 SymbolTable::SymbolTable()

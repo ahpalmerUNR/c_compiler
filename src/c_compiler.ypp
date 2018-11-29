@@ -36,9 +36,7 @@
 	/**
 	 * SymbolTable and variables to manipulate the insertion to symbol table
 	 */
-	bool useFunctionSymTab = false;
 	SymbolTable s;
-	SymbolTable funcSymTab;
 
 	int levels[5];
 
@@ -608,35 +606,23 @@ declarator
 		outputReduction("declarator :  pointer direct_declarator");}
 	;
 
-__useFuncTab__
-	:	{
-			useFunctionSymTab = true;
-			variableToInsert->types = {};
-		}
-	;
-	
-__useSymTab__
-	:	{
-			useFunctionSymTab = false;
-			// Insert the function table into symbol table
-			// Todo
-			funcSymTab = *(new SymbolTable);
-		}
-	;
-
 direct_declarator
 	: identifier {
-		$<tnode>$ = $<tnode>1;
-		Node* searchResult = s.searchTop(variableToInsert->name);
-		if (useFunctionSymTab) {
-			// funcSymTab.insert(variableToInsert->name, *variableToInsert);
-		} else {
-			if (searchResult == NULL || searchResult->ntype != FUNCTION) {
-				s.insert(variableToInsert->name, *variableToInsert);
+		if (insert_lookup == 0) {
+			if (variableToInsert->ntype == FUNCTION) {
+				if (s.searchTop(variableToInsert->name) == NULL) {
+					s.insert(variableToInsert->name, *variableToInsert);
+				} else {
+					// Check that the function is being called right
+				}
+			} else {
+				if (variableToInsert->name != "") {
+					s.insert(variableToInsert->name, *variableToInsert);
+				}
 			}
+			variableToInsert.reset(new Node());
 		}
-		// variableToInsert->types = {};
-
+		$<tnode>$ = $<tnode>1;
 		outputReduction("direct_declarator : identifier");}
 	| OPEN_PAREN_tok declarator CLOSE_PAREN_tok {
 		TreeNode* tmp = new TreeNode("direct_declarator_",1);
@@ -663,10 +649,8 @@ direct_declarator
 		$<tnode>$ = tmp;
 		outputReduction("direct_declarator : direct_declarator OPEN_BRACKET_tok constant_expression CLOSE_BRACKET_tok");}
 
-	| direct_declarator __useFuncTab__ OPEN_PAREN_tok CLOSE_PAREN_tok __useSymTab__ {
-		Node* searchResult = s.searchTop(variableToInsert->name);
-		searchResult->ntype = FUNCTION;
-
+	| direct_declarator OPEN_PAREN_tok CLOSE_PAREN_tok {
+		variableToInsert->ntype = FUNCTION;
 		TreeNode* tmp = new TreeNode("direct_declarator_",2);
 		EmptyNode* blank1 = new EmptyNode("empty_");
 		tmp->assignLine(line,column-size,column,errorText);
@@ -674,27 +658,25 @@ direct_declarator
 
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,blank1);
-		$<tnode>$ = tmp;
+		$<tnode>$ = $<tnode>1;
 		outputReduction("direct_declarator : direct_declarator OPEN_PAREN_tok CLOSE_PAREN_tok");}
-	| direct_declarator __useFuncTab__ OPEN_PAREN_tok parameter_type_list CLOSE_PAREN_tok __useSymTab__ {
-		Node* searchResult = s.searchTop(variableToInsert->name);
-		searchResult->ntype = FUNCTION;
+	| direct_declarator OPEN_PAREN_tok parameter_type_list CLOSE_PAREN_tok {
+		variableToInsert->ntype = FUNCTION;
 		
 		TreeNode* tmp = new TreeNode("direct_declarator_",2);
 		tmp->assignLine(line,column-size,column,errorText);
 		tmp->setTypeSpecifier(DIRECT_DECL_TYPE_NODE);
 		tmp->assignChild(0,$<tnode>1);
-		tmp->assignChild(1,$<tnode>4);
+		tmp->assignChild(1,$<tnode>3);
 		$<tnode>$ = tmp;
 		outputReduction("direct_declarator : direct_declarator OPEN_PAREN_tok parameter_type_list CLOSE_PAREN_tok");}
-	| direct_declarator __useFuncTab__ OPEN_PAREN_tok identifier_list CLOSE_PAREN_tok __useSymTab__ {
-		// variableToInsert->ntype = FUNCTION;
-
+	| direct_declarator OPEN_PAREN_tok identifier_list CLOSE_PAREN_tok {
+		variableToInsert->ntype = FUNCTION;
 		TreeNode* tmp = new TreeNode("direct_declarator_",2);
 		tmp->assignLine(line,column-size,column,errorText);
 		tmp->setTypeSpecifier(DIRECT_DECL_TYPE_NODE);
 		tmp->assignChild(0,$<tnode>1);
-		tmp->assignChild(1,$<tnode>4);
+		tmp->assignChild(1,$<tnode>3);
 		$<tnode>$ = tmp;
 		outputReduction("direct_declarator : direct_declarator OPEN_PAREN_tok identifier_list CLOSE_PAREN_tok");}
 	;
@@ -775,22 +757,12 @@ parameter_list
 
 parameter_declaration
 	: declaration_specifiers declarator {
-		Node* searchResult = s.searchTop(variableToInsert->name);
-		if (searchResult != NULL) {
-			searchResult->params.push_back(variableToInsert->types);
-			variableToInsert->types = {};	
-		}
 		TreeNode* tmp = new TreeNode("parameter_declaration_",2);
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>2);
 		$<tnode>$ = tmp;
 		outputReduction("parameter_declaration : declaration_specifiers declarator");}
 	| declaration_specifiers {
-		Node* searchResult = s.searchTop(variableToInsert->name);
-		if (searchResult != NULL) {
-			searchResult->params.push_back(variableToInsert->types);
-			variableToInsert->types = {};	
-		}
 		$<tnode>$ = $<tnode>1;
 		outputReduction("parameter_declaration : declaration_specifiers");}
 	| declaration_specifiers abstract_declarator {
@@ -1009,12 +981,11 @@ __setInsert__
 		}
 	;
 
-// Not needed (for now)
-// __setLookup__
-// 	:	{
-// 			insert_lookup = 1;
-// 		}
-// 	;
+__setLookup__
+	:	{
+			insert_lookup = 1;
+		}
+	;
 
 
 compound_statement
@@ -1024,44 +995,26 @@ compound_statement
 
 		$<tnode>$ = tmp;
 		outputReduction("compound_statement : OPEN_BRACE_tok CLOSE_BRACE_tok");}
-	| OPEN_BRACE_tok __push__ statement_list CLOSE_BRACE_tok __pop__ {
-		$<tnode>$ = $<tnode>3;
+	| OPEN_BRACE_tok __push__ __setLookup__ statement_list CLOSE_BRACE_tok __pop__ {
+		$<tnode>$ = $<tnode>4;
 		outputReduction("compound_statement : OPEN_BRACE_tok statement_list CLOSE_BRACE_tok");}
 	| OPEN_BRACE_tok __push__ __setInsert__ declaration_list CLOSE_BRACE_tok __pop__ {
 		$<tnode>$ = $<tnode>4;
 		outputReduction("compound_statement : OPEN_BRACE_tok declaration_list CLOSE_BRACE_tok");}
-	| OPEN_BRACE_tok __push__ __setInsert__ declaration_list statement_list CLOSE_BRACE_tok __pop__ {
+	| OPEN_BRACE_tok __push__ __setInsert__ declaration_list __setLookup__ statement_list CLOSE_BRACE_tok __pop__ {
 		TreeNode* tmp = new TreeNode("compound_statement_",2);
 		tmp->assignLine(line,column-size,column,errorText);
 		tmp->assignChild(0,$<tnode>4);
-		tmp->assignChild(1,$<tnode>5);
+		tmp->assignChild(1,$<tnode>6);
 		$<tnode>$ = tmp;
 		outputReduction("compound_statement : OPEN_BRACE_tok declaration_list statement_list CLOSE_BRACE_tok");}
 	;
 
 statement_list
 	: statement {
-		if (insert_lookup == 0) {
-			insert_lookup == 1;
-			int scope;
-			Node* searchResult = s.searchAll(variableToInsert->name, &scope);
-			if (searchResult == NULL) {
-				yyerror("Variable not found");
-			}
-		}
-
 		$<tnode>$ = $<tnode>1;
 		outputReduction("statement_list : statement");}
 	| statement_list statement {
-		if (insert_lookup == 0) {
-			insert_lookup == 1;
-			int scope;
-			Node* searchResult = s.searchAll(variableToInsert->name, &scope);
-			if (searchResult == NULL) {
-				yyerror("Variable not found");
-			}
-		}
-
 		TreeNode* tmp = new TreeNode("statement_list_",2);
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>2);
@@ -1893,6 +1846,23 @@ int main(int argc, char **argv)
 			
 		}
 	}
+	//int tok;
+	
+	//printf("Set commandline args\n");
+
+	
+	//printf("%d\n",lex_debug_level);
+	
+
+	//s.insert("KEY",Data);
+	//s.pushEmptyBST();
+	//s.popBST();
+	//s.searchTop("KEY");//returns pointer to node
+	//s.searchAll("KEY");//returns pointer
+	//s.writeToFile();//dumps table to file
+	//lex_debug_level = 1;
+	//symbol_table_debug = 1;
+	//yacc_debug_level = 1;
 	yyparse();
 
 	if(genAST)
