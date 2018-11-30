@@ -45,7 +45,7 @@ void CastNode::ast_to_3ac(FILE* fileout)
 {
 	children[0]->ast_to_3ac(fileout);
 	char typePrint[500] = "0";
-
+fprintf(fileout, "#%s",TreeNode::coldLine().c_str() );
 	string s1;
 	nodeDataType t = children[0]->getDataType(typePrint);
 	s1 = typePrint;

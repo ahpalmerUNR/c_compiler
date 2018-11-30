@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-09-28 12:11:57
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-30 00:21:37
+* @Last Modified time: 2018-11-30 10:07:16
 */
 #include "symboltable.h"
 #include <stdio.h>
@@ -349,6 +349,7 @@ void SymbolTable::writeToFile(FILE *stream)
 	fprintf(stream, "\n\n%s: SYMBOL TABLE ABOVE\n\n", name.c_str());
 	// stream<<"\n\nSYMBOL TABLE ABOVE"<<endl<<endl;
 	// stream.close();
+	fflush(stream);
 }
 
 void SymbolTable::printCurrentScope()

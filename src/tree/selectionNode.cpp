@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-31 11:49:36
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-24 16:31:41
+* @Last Modified time: 2018-11-30 10:30:54
 */
 #include "selectionNode.h"
 
@@ -44,7 +44,7 @@ void SelectionNode::traverse_to_file(FILE* fileout)
 	}
 }
 void SelectionNode::ast_to_3ac(FILE* fileout)
-{
+{fprintf(fileout, "#%s",TreeNode::coldLine().c_str() );
 	char temp[500];
 	if (isSwitch)
 	{

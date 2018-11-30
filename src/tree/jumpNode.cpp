@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-31 11:34:10
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-29 22:38:33
+* @Last Modified time: 2018-11-30 10:29:30
 */
 #include "jumpNode.h"
 
@@ -48,6 +48,7 @@ void JumpNode::ast_to_3ac(FILE* fileout)
 	int a = 0;
 	int isID;
 	Node* ch1;
+	fprintf(fileout, "#%s",TreeNode::coldLine().c_str() );
 	switch(jtype)
 	{
 		case 0:
@@ -134,7 +135,7 @@ void JumpNode::ast_to_3ac(FILE* fileout)
 				ticketNumber = ch1->lineNumber;
 			}
 			children[0]->ast_to_3ac(fileout);
-			fprintf(fileout, "ADDR\t%s\t\t%s\n", rep_3ac_ticket(children[0]->getidDataType(),children[0]->returnTicket()).c_str(),rep_3ac_ticket(INT_TYPE_NODE,ticketNumber).c_str());
+			fprintf(fileout, "ADDR\t%s\t_\t%s\n", rep_3ac_ticket(children[0]->getidDataType(),children[0]->returnTicket()).c_str(),rep_3ac_ticket(INT_TYPE_NODE,ticketNumber).c_str());
 			fprintf(fileout, "RETURN\n");
 			break;
 	}

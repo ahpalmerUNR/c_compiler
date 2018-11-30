@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-30 15:47:00
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-24 16:32:05
+* @Last Modified time: 2018-11-30 10:30:26
 */
 #include "labelNode.h"
 
@@ -28,6 +28,7 @@ void LabelNode::traverse_to_file(FILE* fileout)
 
 void LabelNode::ast_to_3ac(FILE* fileout)
 {
+	fprintf(fileout, "#%s",TreeNode::coldLine().c_str() );
 	//add child1.getDataType(repr) and jumpCounter to symbolTable.
 	char const_exprRepr[500];
 	int a = 0;

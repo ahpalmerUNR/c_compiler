@@ -189,6 +189,7 @@ void DataNode::traverse_to_file(FILE* fileout)
 }
 void DataNode::ast_to_3ac(FILE* fileout)
 {
+	fprintf(fileout, "#%s",TreeNode::coldLine().c_str() );
 	char typePrint1[500] = "0";
 	char typePrint2[500] = "0";
 	if(isOperatorNode)

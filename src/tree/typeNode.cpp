@@ -48,7 +48,7 @@ void TypeNode::traverse_to_file(FILE* fileout)
  * @param fileout 
  */
 void TypeNode::ast_to_3ac(FILE* fileout)
-{
+{fprintf(fileout, "#%s",TreeNode::coldLine().c_str() );
 	int i,tp;
 	char* temp;//[500];
 	// For some reason its always a double unless its like a long int or something and if its long int then int isnt stored?
@@ -76,8 +76,8 @@ void TypeNode::ast_to_3ac(FILE* fileout)
 	byteSize *= children[1]->getArrayOffset();
 	//cout << types[i] << endl;
 	fprintf(fileout,"ALLOC\t(%d)\t%s\n",byteSize,rep_3ac_ticket(types[i],children[1]->returnTicket()).c_str());
-	children[1]->getDataType(temp);
-	astTable.insert(temp,children[1]->forErrors[0].lineStart,children[1]->forErrors[0].colStart,INT_TYPE,&tp);
+	// children[1]->getDataType(temp);
+	// astTable.insert(temp,children[1]->forErrors[0].lineStart,children[1]->forErrors[0].colStart,INT_TYPE,&tp);
 }
 
 /**

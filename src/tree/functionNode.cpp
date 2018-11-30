@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-11-05 15:44:49
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-30 08:20:40
+* @Last Modified time: 2018-11-30 10:28:25
 */
 #include "functionNode.h"
 
@@ -39,7 +39,7 @@ void FunctionNode::ast_to_3ac(FILE* fileout)
 	
 	// astTable.writeToFile(out_log);
 	// fflush(out_log);
-	
+	fprintf(fileout, "#%s",TreeNode::coldLine().c_str() );
 	fprintf(fileout, "PROCENTRY\t%s\t(%d)\t(%d)\n",functName.c_str(),sizeOfParams,sizeOfLocals);
 	children[3]->ast_to_3ac(fileout);
 	fprintf(fileout, "ENDPROC\n");
