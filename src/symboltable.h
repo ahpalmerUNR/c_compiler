@@ -94,6 +94,9 @@ public:
 	//Default constructor for SymbolTable
 	SymbolTable();
 
+	//Named constructor for SymbolTable
+	SymbolTable(string n);
+
 	//Insert a node with the parameters specified, return new node or previous node
 	Node* insert(string tokenKey, int lN, int cN, DataType t,int*errorcode);  
 	
@@ -135,6 +138,8 @@ private:
 	vector<map<string, Node> > stack;
 	// Current level of the stack
 	int currentLevel;
+	// Name of the symbol table
+	string name = "";
 };
 
 #endif

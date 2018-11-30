@@ -37,8 +37,8 @@
 	 * SymbolTable and variables to manipulate the insertion to symbol table
 	 */
 	bool isParam = false;
-	SymbolTable s;
-	SymbolTable astTable;
+	SymbolTable s("Symbol Table");
+	SymbolTable astTable("AST Table");
 
 	vector<vector<nodeDataType>> paramTypesToBeUsed = {};
 
@@ -285,14 +285,14 @@ declaration
 declaration_list
 	: declaration {
 		$<tnode>$ = $<tnode>1;
-		insert_lookup = 1; outputReduction("declaration_list : declaration");}
+		outputReduction("declaration_list : declaration");}
 
 	|  declaration_list declaration {
 		TreeNode* tmp = new TreeNode("declaration_list_",2);
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>2);
 		$<tnode>$ = tmp;
-		insert_lookup=1; outputReduction("declaration_list : declaration_list declaration");}
+		outputReduction("declaration_list : declaration_list declaration");}
 	;
 
 declaration_specifiers
@@ -661,12 +661,14 @@ direct_declarator
 		$<tnode>$ = tmp;
 		outputReduction("direct_declarator : OPEN_PAREN_tok declarator CLOSE_PAREN_tok");}
 	| direct_declarator OPEN_BRACKET_tok CLOSE_BRACKET_tok {
+		cout << variableToInsert->name << endl;
 		TreeNode* tmp = new TreeNode("direct_declarator_",1);
 		tmp->assignLine(line,column-size,column,codeLine());
 		tmp->assignChild(0,$<tnode>1);
 		$<tnode>$ = tmp;
 		outputReduction("direct_declarator : direct_declarator OPEN_BRACKET_tok CLOSE_BRACKET_tok");}
 	| direct_declarator OPEN_BRACKET_tok constant_expression CLOSE_BRACKET_tok {
+		cout << variableToInsert->name << endl;
 		
 		DataNode* tmp = new DataNode("direct_declarator_");
 		tmp->assignLine(line,column-size,column,codeLine());

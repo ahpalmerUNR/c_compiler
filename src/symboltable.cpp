@@ -149,6 +149,14 @@ SymbolTable::SymbolTable()
 	pushEmptyBST();
 }
 
+SymbolTable::SymbolTable(string n)
+{
+	name = n;
+	currentLevel = -1;
+	// Initialize the symbol table with a bst
+	pushEmptyBST();
+}
+
 Node *SymbolTable::insert(string tokenKey, int lN, int cN, DataType t, int *errorcode)
 {
 	// cout<<"Here"<<endl;
@@ -323,7 +331,7 @@ void SymbolTable::writeToFile(FILE *stream)
 	// ofstream stream;
 	// stream.open(fileName,fstream::app);
 	int count = 0;
-	fprintf(stream, "SYMBOL TABLE DUMP\n");
+	fprintf(stream, "%s: SYMBOL TABLE DUMP\n", name.c_str());
 	// Iterate through symbol table and dump contents to file
 	for (vector<map<string, Node>>::iterator it = stack.begin(); it != stack.end(); ++it)
 	{
@@ -338,7 +346,7 @@ void SymbolTable::writeToFile(FILE *stream)
 		}
 		count++;
 	}
-	fprintf(stream, "\n\nSYMBOL TABLE ABOVE\n\n");
+	fprintf(stream, "\n\n%s: SYMBOL TABLE ABOVE\n\n", name.c_str());
 	// stream<<"\n\nSYMBOL TABLE ABOVE"<<endl<<endl;
 	// stream.close();
 }
