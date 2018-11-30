@@ -661,14 +661,14 @@ direct_declarator
 		$<tnode>$ = tmp;
 		outputReduction("direct_declarator : OPEN_PAREN_tok declarator CLOSE_PAREN_tok");}
 	| direct_declarator OPEN_BRACKET_tok CLOSE_BRACKET_tok {
-		cout << variableToInsert->name << endl;
+		// cout << variableToInsert->name << endl;
 		TreeNode* tmp = new TreeNode("direct_declarator_",1);
 		tmp->assignLine(line,column-size,column,codeLine());
 		tmp->assignChild(0,$<tnode>1);
 		$<tnode>$ = tmp;
 		outputReduction("direct_declarator : direct_declarator OPEN_BRACKET_tok CLOSE_BRACKET_tok");}
 	| direct_declarator OPEN_BRACKET_tok constant_expression CLOSE_BRACKET_tok {
-		cout << variableToInsert->name << endl;
+		// cout << variableToInsert->name << endl;
 		
 		DataNode* tmp = new DataNode("direct_declarator_");
 		tmp->assignLine(line,column-size,column,codeLine());
@@ -1085,7 +1085,7 @@ statement_list
 			int scope;
 			Node* searchResult = s.searchAll(variableToInsert->name, &scope);
 			if (searchResult == NULL) {
-				yyerror("Variable not found");
+				yyerror("Variable not declared before use");
 			}
 		}
 
