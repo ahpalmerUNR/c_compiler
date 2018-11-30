@@ -50,7 +50,7 @@ void TypeNode::traverse_to_file(FILE* fileout)
 void TypeNode::ast_to_3ac(FILE* fileout)
 {fprintf(fileout, "#%s",TreeNode::coldLine().c_str() );
 	int i,tp;
-	char* temp;//[500];
+	char temp[500];
 	// For some reason its always a double unless its like a long int or something and if its long int then int isnt stored?
 	for(i = 0; i < types.size(); i++)
 	{
