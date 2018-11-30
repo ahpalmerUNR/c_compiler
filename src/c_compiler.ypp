@@ -27,7 +27,7 @@
 	FILE * tokenFile;
 	FILE * parseFile;
 	//FILE * productionFile;
-	int insert_lookup;//1 lookup 0 insert
+	int insert_lookup = 0;//1 lookup 0 insert
 	char *logName = (char*)"testCases/compilerLog.txt";
 	char *file_name;
 	time_t time_time;
@@ -182,21 +182,21 @@
 %%
 
 translation_unit
-	: __setInsert__ external_declaration {
+	: external_declaration {
 		TreeNode* tmp = new TreeNode("translation_unit_",1);
-		tmp->assignLine(line,column,column,$<tnode>2->coldLine());
-		tmp->assignChild(0,$<tnode>2);
+		tmp->assignLine(line,column,column,$<tnode>1->coldLine());
+		tmp->assignChild(0,$<tnode>1);
 		$<tnode>$ = tmp;
 		AST.set_root(tmp);
-		insert_lookup = 1;  outputReduction("translation_unit : external_declaration");}
-	| translation_unit __setInsert__ external_declaration {
+		outputReduction("translation_unit : external_declaration");}
+	| translation_unit external_declaration {
 		TreeNode* tmp = new TreeNode("translation_unit_",2);
 		tmp->assignLine(line,column,column,$<tnode>1->coldLine());
 		tmp->assignChild(0,$<tnode>1);
-		tmp->assignChild(1,$<tnode>3);
+		tmp->assignChild(1,$<tnode>2);
 		$<tnode>$ = tmp;
 		AST.set_root(tmp);
-		insert_lookup = 1; outputReduction("translation_unit : translation_unit external_declaration");}
+		outputReduction("translation_unit : translation_unit external_declaration");}
 	;
 
 external_declaration
@@ -709,7 +709,6 @@ direct_declarator
 		isParam = false;
 		int scope;
 		Node* searchResult = s.searchBottom(variableToInsert->name);
-		s.writeToFile(stdin);
 		if (searchResult != NULL) {
 			searchResult->ntype = FUNCTION;
 			searchResult->params = paramTypesToBeUsed;
@@ -726,7 +725,10 @@ direct_declarator
 	| direct_declarator __isParam__ OPEN_PAREN_tok identifier_list CLOSE_PAREN_tok {
 		isParam = false;
 	
-		variableToInsert->ntype = FUNCTION;
+		Node* searchResult = s.searchBottom(variableToInsert->name);
+		if (searchResult != NULL && searchResult->ntype == FUNCTION) {
+			searchResult->ntype = FUNCTION;
+		}
 
 		TreeNode* tmp = new TreeNode("direct_declarator_",2);
 		tmp->assignLine(line,column-size,column,codeLine());
