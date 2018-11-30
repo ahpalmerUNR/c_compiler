@@ -333,9 +333,12 @@ void SymbolTable::pushBST(map<string, Node> bst)
 
 void SymbolTable::pushSymbolTableCopy(const SymbolTable stCopy)
 {
+	if (stCopy.currentLevel == -1) {
+		return;
+	}
 	for (map <string, Node> bst : stCopy.stack) {
 		stack.push_back(bst);
-		// currentLevel++;
+		currentLevel++;
 	}
 }
 
