@@ -202,31 +202,33 @@ void DataNode::ast_to_3ac(FILE* fileout)
 		children[0]->ast_to_3ac(fileout);
 		children[1]->ast_to_3ac(fileout);
 		nodeDataType t = children[0]->getDataType(typePrint1);
-		s1 = typePrint1;
+		//s1 = typePrint1;
+					s1 =  rep_3ac_ticket(t,children[0]->returnTicket());
 		if(t == ID_TYPE_NODE){ 
 			t = children[0]->getidDataType();
 			s1 =  rep_3ac_ticket(t,children[0]->returnTicket());
 		}
-		else
+		/*else
 		{
 			if(s1 == "0")
 					s1 =  rep_3ac_ticket(t,children[0]->returnTicket());
-			else
-					s1 = "(" + s1 + ")";
-		}		
+			//else
+					//s1 = "(" + s1 + ")";
+		}	*/	
 		t = children[1]->getDataType(typePrint2);
-		s2 = typePrint2;
+		//s2 = typePrint2;
+					s2 =  rep_3ac_ticket(t,children[1]->returnTicket());
 		if(t == ID_TYPE_NODE){
 			t = children[1]->getidDataType();
 			s2 =  rep_3ac_ticket(t,children[1]->returnTicket());
 		}		
-		else
+		/*else
 		{
 			if(s2 == "0")
 					s2 =  rep_3ac_ticket(t,children[1]->returnTicket());
-			else
-					s2 = "(" + s2 + ")";
-		}	
+			//else
+					//s2 = "(" + s2 + ")";
+		}	*/
 		if(dType != ID_TYPE_NODE)
 		{
 			t = dType;
@@ -289,6 +291,17 @@ void DataNode::ast_to_3ac(FILE* fileout)
 		if(!isBracket)
 			fprintf(fileout,"%s\t%s\n",opString.c_str(),s3.c_str()); 
 	}	
+	else
+	{
+		if(isData)
+		{
+			if(dType != ID_TYPE_NODE)
+			{
+				getDataType(typePrint1);
+				fprintf(fileout,"ASSIGN\t(%s)\t_\t%s\n",typePrint1,rep_3ac_ticket(dType,ticketNumber).c_str());
+			}
+		}
+	}
 }
 
 void DataNode::storeChar(char c)
