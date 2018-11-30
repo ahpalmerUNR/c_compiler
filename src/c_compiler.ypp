@@ -271,6 +271,7 @@ declaration
 		TypeNode* tmp = new TypeNode("declaration_",2);
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>2);
+		//cout << "Type node" << $<tnode>1->getArrayOffset() << " " << $<tnode>2->getArrayOffset() << endl;
 		char buffer[500];
 		vector<nodeDataType> types = tmp->getType();
 		tmp->parseTypes();
@@ -674,6 +675,11 @@ direct_declarator
 		tmp->assignChild(1,$<tnode>3);
 		tmp->notData();
 		tmp->setOperator(BRACKET_OP);
+		char buffer[500];
+		$<tnode>3->getDataType(buffer);
+		//cout << atoi(buffer) << endl;
+		tmp->setArrayOffset(atoi(buffer) * $<tnode>1->getArrayOffset());
+		//cout << tmp->getArrayOffset() << endl;
 		tmp->setTypeSpecifier(ID_TYPE_NODE);
 		$<tnode>$ = tmp;
 		outputReduction("direct_declarator : direct_declarator OPEN_BRACKET_tok constant_expression CLOSE_BRACKET_tok");}
@@ -1744,7 +1750,10 @@ identifier
 			printf("%s\n",variableToInsert->name.c_str());*/
 
 			if(insert_lookup == 0)
+			{
 				tmp->storeString((char*)variableToInsert->name.c_str());
+				variableToInsert->ticketNumber = tmp->getTicketNumber();
+			}
 			else
 			{
 				int q;
@@ -1755,6 +1764,7 @@ identifier
 					//need to use same ticket counter as the symbol table entry rather than making a new ticket for each i = 5; etc after declaration
 					tmp->storeString((char*)yylval.lnode->name.c_str());
 					tmp->setidDataTypes(n->types);
+					tmp->setTicketNumber(n->ticketNumber);
 					//cout << yylval.lnode->name << tmp->getidDataType() << endl;
 				}			
 			}
@@ -1926,7 +1936,7 @@ int main(int argc, char **argv)
 		}
 	}
 	yyparse();
-
+	genAST = true;
 	if(genAST)
 	{
 	AST.tree_to_gv("graphs/default.gv");

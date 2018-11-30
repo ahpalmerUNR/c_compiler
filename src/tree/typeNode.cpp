@@ -49,7 +49,32 @@ void TypeNode::traverse_to_file(FILE* fileout)
  */
 void TypeNode::ast_to_3ac(FILE* fileout)
 {
+	int i;
+	// For some reason its always a double unless its like a long int or something and if its long int then int isnt stored?
+	for(i = 0; i < types.size(); i++)
+	{
+		//cout << types[i] << endl;
+		if(types[i] == (FLOAT_TYPE_NODE || DOUBLE_TYPE_NODE))
+		{
+			byteSize = DOUBLE_MIPS;
+			break;
+		}
+		if(types[i] == CHAR_TYPE_NODE)
+		{
+			byteSize = CHAR_MIPS;
+			break;
+		}
+		if(types[i] == INT_TYPE_NODE)
+		{
 
+			byteSize = INT_MIPS;
+			break;
+		}
+
+	}
+	byteSize *= children[1]->getArrayOffset();
+	//cout << types[i] << endl;
+	fprintf(fileout,"ALLOC\t(%d)\t%s\n",byteSize,rep_3ac_ticket(types[i],children[1]->returnTicket()).c_str());
 }
 
 /**

@@ -75,6 +75,7 @@ Node::Node(const Node &n)
 
 	ntype = n.ntype;
 	name = n.name;
+	ticketNumber = n.ticketNumber;
 	for (const vector<nodeDataType> paramVector : n.params)
 	{
 		params.push_back(paramVector);
