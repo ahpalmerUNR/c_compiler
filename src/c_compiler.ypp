@@ -37,8 +37,9 @@
 	 * SymbolTable and variables to manipulate the insertion to symbol table
 	 */
 	bool isParam = false;
-	bool popAtEnd = false;
 	SymbolTable s;
+
+	vector<vector<nodeDataType>> paramTypesToBeUsed = {};
 
 	int levels[5];
 
@@ -633,8 +634,8 @@ direct_declarator
 			if (searchResult == NULL || searchResult->ntype != FUNCTION) {
 				s.insert(variableToInsert->name, *variableToInsert);
 			}
+			variableToInsert->types = {};
 		}
-		variableToInsert->types = {};
 
 		outputReduction("direct_declarator : identifier");}
 	| OPEN_PAREN_tok declarator CLOSE_PAREN_tok {
@@ -670,6 +671,7 @@ direct_declarator
 		if (searchResult != NULL) {
 			searchResult->ntype = FUNCTION;
 		}
+		paramTypesToBeUsed = {};
 
 		TreeNode* tmp = new TreeNode("direct_declarator_",2);
 		EmptyNode* blank1 = new EmptyNode("empty_");
@@ -687,7 +689,9 @@ direct_declarator
 		s.writeToFile(stdin);
 		if (searchResult != NULL) {
 			searchResult->ntype = FUNCTION;
+			searchResult->params = paramTypesToBeUsed;
 		}
+		paramTypesToBeUsed = {};
 		
 		TreeNode* tmp = new TreeNode("direct_declarator_",2);
 		tmp->assignLine(line,column-size,column,errorText);
@@ -786,23 +790,17 @@ parameter_list
 
 parameter_declaration
 	: declaration_specifiers declarator {
-		Node* searchResult = s.searchBottom(variableToInsert->name);
 		parameterToInsert->types = variableToInsert->types;
-		if (searchResult != NULL) {
-			searchResult->params.push_back(variableToInsert->types);
-			variableToInsert->types = {};
-		}
+		paramTypesToBeUsed.push_back(parameterToInsert->types);
+		
 		TreeNode* tmp = new TreeNode("parameter_declaration_",2);
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>2);
 		$<tnode>$ = tmp;
 		outputReduction("parameter_declaration : declaration_specifiers declarator");}
 	| declaration_specifiers {
-		Node* searchResult = s.searchBottom(variableToInsert->name);
-		if (searchResult != NULL) {
-			searchResult->params.push_back(variableToInsert->types);
-			variableToInsert->types = {};	
-		}
+		parameterToInsert->types = variableToInsert->types;
+		paramTypesToBeUsed.push_back(parameterToInsert->types);
 		$<tnode>$ = $<tnode>1;
 		outputReduction("parameter_declaration : declaration_specifiers");}
 	| declaration_specifiers abstract_declarator {
