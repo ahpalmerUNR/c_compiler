@@ -792,7 +792,8 @@ parameter_declaration
 	: declaration_specifiers declarator {
 		parameterToInsert->types = variableToInsert->types;
 		paramTypesToBeUsed.push_back(parameterToInsert->types);
-		
+		variableToInsert->types = {};
+
 		TreeNode* tmp = new TreeNode("parameter_declaration_",2);
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>2);
@@ -801,6 +802,8 @@ parameter_declaration
 	| declaration_specifiers {
 		parameterToInsert->types = variableToInsert->types;
 		paramTypesToBeUsed.push_back(parameterToInsert->types);
+		variableToInsert->types = {};
+		
 		$<tnode>$ = $<tnode>1;
 		outputReduction("parameter_declaration : declaration_specifiers");}
 	| declaration_specifiers abstract_declarator {
