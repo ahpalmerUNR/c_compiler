@@ -77,7 +77,7 @@ void TypeNode::ast_to_3ac(FILE* fileout)
 	//cout << types[i] << endl;
 	fprintf(fileout,"ALLOC\t(%d)\t%s\n",byteSize,rep_3ac_ticket(types[i],children[1]->returnTicket()).c_str());
 	children[1]->getDataType(temp);
-	astTable.insert(temp,children[1]->forErrors[0].lineStart,children[1]->forErrors[0].colStart,INT_TYPE,&tp);
+	// astTable.insert(temp,children[1]->forErrors[0].lineStart,children[1]->forErrors[0].colStart,INT_TYPE,&tp);
 }
 
 /**

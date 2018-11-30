@@ -672,7 +672,7 @@ int id_token()
 		{
 			yylval.lnode = pointsTo;
 			
-			return(send_token("ID_tok",ENUMERATION_CONSTANT_tok));
+			return(send_token("ID_tok",ID_tok));
 		}
 		else if(pointsTo->ntype == ENUMERATION_CONSTANT)
 		{
