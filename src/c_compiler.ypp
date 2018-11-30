@@ -38,6 +38,7 @@
 	 */
 	bool isParam = false;
 	SymbolTable s;
+	SymbolTable astTable;
 
 	vector<vector<nodeDataType>> paramTypesToBeUsed = {};
 
@@ -1768,8 +1769,8 @@ int c_line_lex_debug_level;
 int c_line_symbol_table_debug;
 int c_line_yacc_debug_level;
 
-SymbolTable astTable;
-//logName = "compilerLog.txt";
+
+// logName = "compilerLog.txt";
 
 extern FILE* yyin;
 
@@ -1793,7 +1794,7 @@ int main(int argc, char **argv)
 	c_line_lex_debug_level=1;
 	c_line_yacc_debug_level=1;
 	
-	bool genAST=false;
+	bool genAST=true;
 	bool gen3AC=true;
 	bool genAssembly = false;
 	
@@ -1921,6 +1922,7 @@ int main(int argc, char **argv)
 	}
 	if(gen3AC)
 	{
+		
 	AST.tree_to_3ac("build/3ac.txt");
 	}
 	if(genAssembly)

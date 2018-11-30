@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-09-28 12:11:57
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-29 16:15:27
+* @Last Modified time: 2018-11-29 22:56:24
 */
 #include "symboltable.h"
 #include <stdio.h>
@@ -150,6 +150,8 @@ SymbolTable::SymbolTable()
 
 Node *SymbolTable::insert(string tokenKey, int lN, int cN, DataType t, int *errorcode)
 {
+	cout<<"Here"<<endl;
+	cout.flush();
 	int location;
 	// Search for a previous declaration
 	Node *prevDecl = searchAll(tokenKey, &location);

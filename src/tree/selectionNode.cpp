@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-31 11:49:36
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-24 16:11:05
+* @Last Modified time: 2018-11-24 16:31:41
 */
 #include "selectionNode.h"
 
@@ -56,24 +56,24 @@ void SelectionNode::ast_to_3ac(FILE* fileout)
 		{
 			//no else
 			children[0]->ast_to_3ac(fileout);
-			fprintf(fileout, "BREQ\t%d\t(0)\tlabel%d\n", children[0]->returnTicket(),jticket1);
-			fprintf(fileout, "BR\t\t\tlabel%d\n", jticket2);
-			fprintf(fileout, "LABEL\tlabel%d\n",jticket1);
+			fprintf(fileout, "BREQ\t%d\t(0)\tl%d\n", children[0]->returnTicket(),jticket1);
+			fprintf(fileout, "BR\t\t\tl%d\n", jticket2);
+			fprintf(fileout, "LABEL\tl%d\n",jticket1);
 			children[1]->ast_to_3ac(fileout);
-			fprintf(fileout, "LABEL\tlabel%d\n", jticket2);
+			fprintf(fileout, "LABEL\tl%d\n", jticket2);
 		}
 		else
 		{
 			//else
 			children[0]->ast_to_3ac(fileout);
-			fprintf(fileout, "BREQ\t%d\t(0)\tlabel%d\n", children[0]->returnTicket(),jticket1);
-			fprintf(fileout, "BR\t\t\tlabel%d\n", jticket2);
-			fprintf(fileout, "LABEL\tlabel%d\n",jticket1);
+			fprintf(fileout, "BREQ\t%d\t(0)\tl%d\n", children[0]->returnTicket(),jticket1);
+			fprintf(fileout, "BR\t\t\tl%d\n", jticket2);
+			fprintf(fileout, "LABEL\tl%d\n",jticket1);
 			children[1]->ast_to_3ac(fileout);
-			fprintf(fileout, "BR\t\t\tlabel%d\n", jticket3);
-			fprintf(fileout, "LABEL\tlabel%d\n", jticket2);
+			fprintf(fileout, "BR\t\t\tl%d\n", jticket3);
+			fprintf(fileout, "LABEL\tl%d\n", jticket2);
 			children[2]->ast_to_3ac(fileout);
-			fprintf(fileout, "LABEL\tlabel%d\n", jticket3);
+			fprintf(fileout, "LABEL\tl%d\n", jticket3);
 		}
 	}
 }
