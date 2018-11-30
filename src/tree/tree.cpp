@@ -20,6 +20,7 @@ TreeNode::TreeNode(string TreeNodeProductionName,int numberOfChildren)
 	forErrors[0].colEnd = -1;
 	tType = TREE_TYPE_NODE;
 	byteSize = 0;
+	arrayOffset = 1;
 	// cout<<"TreeNode "<<TreeNodeName<<endl;
 	// cout.flush();
 }

@@ -1,10 +1,8 @@
-
 int main()
 {
-	int j;
-
-	j = 1 + 2;
-
+	int j[5];
+	int i;
+	j[2] = j[i];
 	return 0;
 
 }

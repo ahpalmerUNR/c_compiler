@@ -35,6 +35,10 @@ public:
 	void implicitCastWarning(nodeDataType t1, nodeDataType t2);
 	void setidDataTypes(vector<nodeDataType>);
 	nodeDataType getidDataType();
+	void setArrayOffset(int i);
+	int getArrayOffset();
+	void setTicketNumber(int);
+	int getTicketNumber();
 protected:
 
 	int ticketNumber;
@@ -44,8 +48,8 @@ protected:
 	bool isData;
 	bool isOperatorNode;
 	bool isArray;
-	int arrayOffset;
 	vector<nodeDataType> idDataTypes;
+	int arrayOffset;
 };
 
 #endif
