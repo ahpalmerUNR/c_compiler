@@ -83,31 +83,33 @@ void AssignmentNode::ast_to_3ac(FILE *fileout)
 	string assignString;
 	string s1,s2;
 	nodeDataType t = children[0]->getDataType(typePrint1);
-	s1 = typePrint1;
+	//s1 = typePrint1;
+				s1 =  rep_3ac_ticket(t,children[0]->returnTicket());
 	if(t == ID_TYPE_NODE){ 
 		t = children[0]->getidDataType();
 		s1 =  rep_3ac_ticket(t,children[0]->returnTicket());
 	}
-	else
+	/*else
 	{
 		if(s1 == "0")
 				s1 =  rep_3ac_ticket(t,children[0]->returnTicket());
 		else
 				s1 = "(" + s1 + ")";
-	}		
+	}*/		
 	t = children[1]->getDataType(typePrint2);
-	s2 = typePrint2;
+	//s2 = typePrint2;
+				s2 =  rep_3ac_ticket(t,children[1]->returnTicket());
 	if(t == ID_TYPE_NODE){
 		t = children[1]->getidDataType();
 		s2 =  rep_3ac_ticket(t,children[1]->returnTicket());
 	}		
-	else
+	/*else
 	{
 		if(s2 == "0")
 				s2 =  rep_3ac_ticket(t,children[1]->returnTicket());
 		else
 				s2 = "(" + s2 + ")";
-	}	
+	}*/	
 
 
 	switch(aType)
