@@ -36,10 +36,9 @@
 	/**
 	 * SymbolTable and variables to manipulate the insertion to symbol table
 	 */
-	bool useFunctionSymTab = false;
+	bool isParam = false;
 	bool popAtEnd = false;
 	SymbolTable s;
-	SymbolTable funcSymTab;
 
 	int levels[5];
 
@@ -268,13 +267,13 @@ declaration
 		outputReduction("declaration : declaration_specifiers init_declarator_list SEMI_tok");}
 
 declaration_list
-	: __setInsert__ declaration {
-		$<tnode>$ = $<tnode>2;
+	: declaration {
+		$<tnode>$ = $<tnode>1;
 		insert_lookup = 1; outputReduction("declaration_list : declaration");}
-	|  declaration_list __setInsert__ declaration {
+	|  declaration_list declaration {
 		TreeNode* tmp = new TreeNode("declaration_list_",2);
 		tmp->assignChild(0,$<tnode>1);
-		tmp->assignChild(1,$<tnode>3);
+		tmp->assignChild(1,$<tnode>2);
 		$<tnode>$ = tmp;
 		insert_lookup=1; outputReduction("declaration_list : declaration_list declaration");}
 	;
@@ -612,17 +611,15 @@ declarator
 
 __useFuncTab__
 	:	{
-			useFunctionSymTab = true;
+			isParam = true;
 			variableToInsert->types = {};
 		}
 	;
 	
 __useSymTab__
 	:	{
-			useFunctionSymTab = false;
-			// Insert the function table into symbol table
-			s.pushSymbolTableCopy(funcSymTab);
-			funcSymTab = *(new SymbolTable);
+			isParam = false;
+
 		}
 	;
 
@@ -630,8 +627,7 @@ direct_declarator
 	: identifier {
 		$<tnode>$ = $<tnode>1;
 		Node* searchResult = s.searchTop(variableToInsert->name);
-		if (useFunctionSymTab) {
-			funcSymTab.insert(parameterToInsert->name, *parameterToInsert);
+		if (isParam) {
 		} else {
 			if (searchResult == NULL || searchResult->ntype != FUNCTION) {
 				s.insert(variableToInsert->name, *variableToInsert);
@@ -666,7 +662,7 @@ direct_declarator
 		outputReduction("direct_declarator : direct_declarator OPEN_BRACKET_tok constant_expression CLOSE_BRACKET_tok");}
 
 	| direct_declarator __useFuncTab__ OPEN_PAREN_tok CLOSE_PAREN_tok {
-		useFunctionSymTab = false;
+		isParam = false;
 
 		Node* searchResult = s.searchTop(variableToInsert->name);
 		searchResult->ntype = FUNCTION;

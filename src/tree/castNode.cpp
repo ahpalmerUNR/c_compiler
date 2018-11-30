@@ -44,53 +44,24 @@ void CastNode::traverse_to_file(FILE* fileout)
 void CastNode::ast_to_3ac(FILE* fileout)
 {
 	children[0]->ast_to_3ac(fileout);
-	char typePrint[500];
-	char typePrint2[500];
-	char typePrint3[500];
-	switch(dType)
-	{
-		case CHAR_TYPE_NODE:
-			snprintf(typePrint, 500,"(Char)");
-			snprintf(typePrint2, 500,"c");
-			break;
-		case INT_TYPE_NODE:
-			snprintf(typePrint, 500,"(Int)");
-			snprintf(typePrint2, 500,"i");
-			break;
-		case DOUBLE_TYPE_NODE:
-			snprintf(typePrint, 500,"(Float)");
-			snprintf(typePrint2, 500,"f");
-			break;
-		case FLOAT_TYPE_NODE:
-			snprintf(typePrint, 500,"(Float)");
-			snprintf(typePrint2, 500,"f");
-			break;
-		default:
-			snprintf(typePrint2, 500,"Error probably with id");
-			break;
-	}
-	nodeDataType t = children[0]->getDataType(typePrint3);
-	if(t == ID_TYPE_NODE)
+	char typePrint[500] = "0";
+
+	string s1;
+	nodeDataType t = children[0]->getDataType(typePrint);
+	s1 = typePrint;
+	if(t == ID_TYPE_NODE){ 
 		t = children[0]->getidDataType();
-	switch(t)
-	{
-		case CHAR_TYPE_NODE:
-			snprintf(typePrint3, 500,"c");
-			break;
-		case INT_TYPE_NODE:
-			snprintf(typePrint3, 500,"i");
-			break;
-		case DOUBLE_TYPE_NODE:
-			snprintf(typePrint3, 500,"f");
-			break;
-		case FLOAT_TYPE_NODE:
-			snprintf(typePrint3, 500,"f");
-			break;
-		default:
-			snprintf(typePrint3, 500,"Error probably with id");
-			break;
+		s1 =  rep_3ac_ticket(t,children[0]->returnTicket());
 	}
-	fprintf(fileout,"CAST\t%s%i\t_\t%s\n",typePrint3,children[0]->returnTicket(),rep_3ac_ticket(dType,ticketNumber).c_str());
+	else
+	{
+		if(s1 == "0")
+				s1 =  rep_3ac_ticket(t,children[0]->returnTicket());
+		else
+				s1 = "(" + s1 + ")";
+	}
+
+	fprintf(fileout,"CAST\t%s\t_\t%s\n",s1.c_str(),rep_3ac_ticket(dType,ticketNumber).c_str());
 }
 
 int CastNode::returnTicket()

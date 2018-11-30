@@ -71,7 +71,7 @@ struct Node {
 	bool operator==(const Node&) const;
 	void print();
 	void output(FILE*);
-
+	bool compareFunction(Node);
 	int ticketNumber = -1;
 
 	int lineNumber;
