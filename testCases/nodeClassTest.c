@@ -5,3 +5,5 @@ int main()
 	j = 1 + 2;
 	return 0;
 }
+
+int i;
