@@ -1,9 +1,8 @@
 
 int main()
 {
-	int j;
-	int i;
-	j = 1 + 2;
+	int j[10];
+	j[10] = 5;
 
 	return 0;
 
