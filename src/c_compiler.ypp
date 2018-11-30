@@ -184,12 +184,14 @@
 translation_unit
 	: __setInsert__ external_declaration {
 		TreeNode* tmp = new TreeNode("translation_unit_",1);
+		tmp->assignLine(line,column,column,$<tnode>2->coldLine());
 		tmp->assignChild(0,$<tnode>2);
 		$<tnode>$ = tmp;
 		AST.set_root(tmp);
 		insert_lookup = 1;  outputReduction("translation_unit : external_declaration");}
 	| translation_unit __setInsert__ external_declaration {
 		TreeNode* tmp = new TreeNode("translation_unit_",2);
+		tmp->assignLine(line,column,column,$<tnode>1->coldLine());
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>3);
 		$<tnode>$ = tmp;
@@ -213,6 +215,7 @@ function_definition
 		EmptyNode* blank1 = new EmptyNode("empty_");
 		EmptyNode* blank2 = new EmptyNode("empty_");
 		FunctionNode* tmp = new FunctionNode("function_definition_");
+		tmp->assignLine(line,column,column,$<tnode>1->coldLine());
 		tmp->assignChild(0,blank1);
 		tmp->assignChild(1,$<tnode>1);
 		tmp->assignChild(2,blank2);
@@ -223,6 +226,7 @@ function_definition
 	| declarator   declaration_list {insert_lookup=1;}  compound_statement {
 		EmptyNode* blank1 = new EmptyNode("empty_");
 		FunctionNode* tmp = new FunctionNode("function_definition_");
+		tmp->assignLine(line,column,column,$<tnode>1->coldLine());
 		tmp->assignChild(0,blank1);
 		tmp->assignChild(1,$<tnode>1);
 		tmp->assignChild(2,$<tnode>2);
@@ -233,6 +237,11 @@ function_definition
 	| declaration_specifiers declarator compound_statement {
 		EmptyNode* blank1 = new EmptyNode("empty_");
 		FunctionNode* tmp = new FunctionNode("function_definition_");
+		
+		tmp->assignLine(line,column,column,$<tnode>1->coldLine());
+		//tmp->assignLine(3,1,1,"test");
+		//cout<<"Here"<<endl;
+		//cout.flush();
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>2);
 		tmp->assignChild(2,blank1);
@@ -242,6 +251,7 @@ function_definition
 		outputReduction("function_definition : declaration_specifiers declarator compound_statement");}
 	| declaration_specifiers declarator   declaration_list {insert_lookup=1;} compound_statement {
 		FunctionNode* tmp = new FunctionNode("function_definition_");
+		tmp->assignLine(line,column,column,$<tnode>1->coldLine());
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>2);
 		tmp->assignChild(2,$<tnode>3);
@@ -1756,6 +1766,7 @@ identifier
 		}
 		tmp->setTypeSpecifier(ID_TYPE_NODE);
 		tmp->assignLine(line,column-size,column,codeLine());
+		
 		$<tnode>$ = tmp;
 		outputReduction("identifier : ID_tok");}
 	;
@@ -2069,9 +2080,10 @@ void outputReduction(const char *production)
 string codeLine()
 {
 	string ret;
-	char tmp[500];
+	char atmp[500];
 	long int offset = ftell(errorText);
-	fgets(tmp,sizeof tmp, errorText);
+	fgets(atmp,sizeof atmp, errorText);
 	fseek(errorText,offset,SEEK_SET);
-	ret.assign(tmp);
+	ret.assign(atmp);
+	return ret;
 }

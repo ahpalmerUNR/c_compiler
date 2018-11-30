@@ -98,6 +98,7 @@ public:
 	virtual void errorCheck(const char * str);
 	virtual void assignLine(int,int,int,string);
 	virtual bool isIDList(){return false;}
+	string coldLine();
 protected:
 	int TreeNodeNumber;
 	//type
