@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-11-05 15:44:49
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-29 22:52:44
+* @Last Modified time: 2018-11-29 23:10:42
 */
 #include "functionNode.h"
 
@@ -31,10 +31,9 @@ void FunctionNode::ast_to_3ac(FILE* fileout)
 {
 	
 	int* tp;
-	string st = "return";
 	astTable.pushEmptyBST();
 	
-	astTable.insert(st,forErrors[0].source[0].lineNum,forErrors[0].colStart,INT_TYPE,tp);
+	astTable.insert("return",forErrors[0].source[0].lineNum,forErrors[0].colStart,INT_TYPE,tp);
 	cout<<"TreeNode "<<TreeNodeName<<endl;
 		cout.flush();
 	astTable.writeToFile(out_log);
