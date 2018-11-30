@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-27 14:10:44
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-29 22:35:07
+* @Last Modified time: 2018-11-30 00:07:52
 */
 #include "tree.h"
 
@@ -20,8 +20,8 @@ TreeNode::TreeNode(string TreeNodeProductionName,int numberOfChildren)
 	forErrors[0].colEnd = -1;
 	tType = TREE_TYPE_NODE;
 	byteSize = 0;
-	cout<<"TreeNode "<<TreeNodeName<<endl;
-	cout.flush();
+	// cout<<"TreeNode "<<TreeNodeName<<endl;
+	// cout.flush();
 }
 
 TreeNode::~TreeNode()
@@ -44,8 +44,8 @@ void TreeNode::ast_to_3ac(FILE* fileout)
 {
 	for (int i = 0; i < numberChildren; ++i)
 	{
-		cout<<"TreeNode "<<TreeNodeName<<endl;
-		cout.flush();
+		// cout<<"TreeNode "<<TreeNodeName<<endl;
+		// cout.flush();
 		children[i]->ast_to_3ac(fileout);
 	}
 }
@@ -68,6 +68,11 @@ void TreeNode::assignChild(int childIndex, TreeNode* child)
 	char temp[500];
 	children[childIndex] = child;
 	byteSize = byteSize + child->byteSize;
+	
+	if (forErrors[0].lineStart ==-1)
+	{
+		assignLine(child->forErrors[0].lineStart,child->forErrors[0].colStart,child->forErrors[0].colEnd,child->coldLine());
+	}
 
 	// forErrors.erase(forErrors.begin()+childIndex+1);
 	// forErrors.insert(forErrors.begin()+childIndex+1,child->forErrors[0]);
@@ -145,15 +150,17 @@ void TreeNode::setTypeSpecifier(nodeDataType typeSpec)
 	tType = typeSpec;
 }
 
-void TreeNode::assignLine(int line,int colstart, int colend, string tmp)
+void TreeNode::assignLine(int line,int colstart, int colend, string atmp)
 {
 	// char tmp[500];
 	// long int offset = ftell(errorT);
 	// fgets(tmp,sizeof tmp, errorT);
 	// fseek(errorT,offset,SEEK_SET);
+	// cout<<atmp;
+	// 	cout.flush();
 	sourceLine pair;
 	pair.lineNum = line;
-	pair.codeLine.assign(tmp); 
+	pair.codeLine.assign(atmp); 
 	ErrorReport toAdd;
 	toAdd.lineStart = line;
 	// cout<<toAdd.lineStart<<" "<<line<<endl<<endl;
@@ -167,6 +174,12 @@ void TreeNode::assignLine(int line,int colstart, int colend, string tmp)
 	// cout<<forErrors[0].lineStart<<" "<<toAdd.lineStart<<" "<<line<<endl<<endl;
 	// printNode();
 	// cout<<TreeNodeName.c_str();
+}
+
+string TreeNode::coldLine()
+{
+	// printNode();
+	return forErrors[0].source[0].codeLine;
 }
 
 void TreeNode::errorCheck(const char * str)
