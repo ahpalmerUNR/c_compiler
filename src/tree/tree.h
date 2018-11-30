@@ -80,7 +80,7 @@ class FunctionNode;
 
 class TreeNode
 {
-	friend class FunctionNode;
+	friend class FunctionNode;friend class TypeNode;
 public:
 	TreeNode(string TreeNodeProductionName,int numberOfChildren);
 	~TreeNode();
