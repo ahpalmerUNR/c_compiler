@@ -3,11 +3,12 @@
  * @author Nathan Yocum
  * @brief Test that a simple function lookup works
  */
-// void foo(long int i, float j);
-
-// int i;
-
-void foo(int i) {
-	// i = 5;
+int i;
+int main(float argc, int argd){
+	int i;
+	i = 5;
+	for(;;) {
+		
+	}
+	!!D
 }
-!!D

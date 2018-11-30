@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-31 11:34:10
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-07 15:59:29
+* @Last Modified time: 2018-11-29 22:38:33
 */
 #include "jumpNode.h"
 
@@ -71,7 +71,7 @@ void JumpNode::ast_to_3ac(FILE* fileout)
 				printf("Warning: jump goto node does not have id node child.\n");
 			}
 
-			fprintf(fileout, "BR\t\t\t%d\n", jumpCounter);
+			fprintf(fileout, "BR\t\t\tl%d\n", jumpCounter);
 			break;
 		case 1:
 			key = "continue";
@@ -85,10 +85,10 @@ void JumpNode::ast_to_3ac(FILE* fileout)
 				jumpCounter = ch1->lineNumber;
 			}
 
-			fprintf(fileout, "BR\t\t\t%d\n", jumpCounter);
+			fprintf(fileout, "BR\t\t\tl%d\n", jumpCounter);
 			break;
 		case 2:
-			key = "break;";
+			key = "break";
 			ch1 = astTable.searchAll(key.c_str(),&a);
 			if (ch1 ==NULL)
 			{
@@ -103,7 +103,7 @@ void JumpNode::ast_to_3ac(FILE* fileout)
 				else
 				{
 					jumpCounter = ch1->lineNumber;
-					fprintf(fileout, "BR\t\t\t%d\n", jumpCounter);
+					fprintf(fileout, "BR\t\t\tl%d\n", jumpCounter);
 				}
 			}
 			break;
@@ -119,7 +119,7 @@ void JumpNode::ast_to_3ac(FILE* fileout)
 				// jumpCounter = ch1->lineNumber;
 			}
 
-			fprintf(fileout, "ENDPROC\n");
+			fprintf(fileout, "RETURN\n");
 			break;
 		case 4:
 			key = "return";
@@ -130,12 +130,12 @@ void JumpNode::ast_to_3ac(FILE* fileout)
 			}
 			else
 			{
-				// jumpCounter = ch1->lineNumber;
-				ticketNumber = ch1->colNumber;
+				// jumpCounter = ch1->colNumber;
+				ticketNumber = ch1->lineNumber;
 			}
 			children[0]->ast_to_3ac(fileout);
 			fprintf(fileout, "ADDR\t%s\t\t%s\n", rep_3ac_ticket(children[0]->getidDataType(),children[0]->returnTicket()).c_str(),rep_3ac_ticket(INT_TYPE_NODE,ticketNumber).c_str());
-			fprintf(fileout, "ENDPROC\n");
+			fprintf(fileout, "RETURN\n");
 			break;
 	}
 }

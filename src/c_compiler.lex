@@ -43,7 +43,7 @@ extern clock_t clock_time;
 
 extern int* levels;
 
-extern bool useFunctionSymTab;
+extern bool isParam;
 
 int idLine;
 int idCol;
@@ -684,7 +684,7 @@ int id_token()
 			return(send_token("TYPEDEF_NAME_tok",TYPEDEF_NAME_tok));
 		}
 	} else {
-		if (useFunctionSymTab) {
+		if (isParam) {
 			parameterToInsert->name = yytext;
 			parameterToInsert->lineNumber = line;
 			parameterToInsert->colNumber = column;

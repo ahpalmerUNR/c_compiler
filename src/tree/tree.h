@@ -94,10 +94,15 @@ public:
 	virtual vector<nodeDataType> getTypes();
 	virtual void setidDataTypes(int types){};
 	virtual int returnTicket(){}
+	virtual void setArrayOffset(int i){arrayOffset = i;}
+	virtual int getArrayOffset(){return arrayOffset;}
 	void printNode();
 	virtual void errorCheck(const char * str);
-	virtual void assignLine(int,int,int,FILE*);
+	virtual void assignLine(int,int,int,string);
 	virtual bool isIDList(){return false;}
+	void setTicketNumber(int){};
+	int getTicketNumber(){};
+	string coldLine();
 protected:
 	int TreeNodeNumber;
 	//type
@@ -108,6 +113,7 @@ protected:
 	vector<nodeDataType> types;
 	nodeDataType tType;
 	int byteSize;
+	int arrayOffset;
 };
 
 class Tree

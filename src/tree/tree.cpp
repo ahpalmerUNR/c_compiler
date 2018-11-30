@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-27 14:10:44
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-28 14:48:06
+* @Last Modified time: 2018-11-30 00:07:52
 */
 #include "tree.h"
 
@@ -20,6 +20,9 @@ TreeNode::TreeNode(string TreeNodeProductionName,int numberOfChildren)
 	forErrors[0].colEnd = -1;
 	tType = TREE_TYPE_NODE;
 	byteSize = 0;
+	arrayOffset = 1;
+	// cout<<"TreeNode "<<TreeNodeName<<endl;
+	// cout.flush();
 }
 
 TreeNode::~TreeNode()
@@ -42,6 +45,8 @@ void TreeNode::ast_to_3ac(FILE* fileout)
 {
 	for (int i = 0; i < numberChildren; ++i)
 	{
+		// cout<<"TreeNode "<<TreeNodeName<<endl;
+		// cout.flush();
 		children[i]->ast_to_3ac(fileout);
 	}
 }
@@ -64,70 +69,81 @@ void TreeNode::assignChild(int childIndex, TreeNode* child)
 	char temp[500];
 	children[childIndex] = child;
 	byteSize = byteSize + child->byteSize;
+	
+	if (forErrors[0].lineStart ==-1)
+	{
+		assignLine(child->forErrors[0].lineStart,child->forErrors[0].colStart,child->forErrors[0].colEnd,child->coldLine());
+	}
 
-	forErrors.erase(forErrors.begin()+childIndex+1);
-	forErrors.insert(forErrors.begin()+childIndex+1,child->forErrors[0]);
+	// forErrors.erase(forErrors.begin()+childIndex+1);
+	// forErrors.insert(forErrors.begin()+childIndex+1,child->forErrors[0]);
 
 	
-	//skip for empty node types.
-	if (child->getDataType(temp)==EMPTY_TYPE_NODE)
-	{
-		// cout<<"Empty Node"<<endl;
-	}
-	else
-	{
-		//if nothing set before
-		if(forErrors[0].lineStart==-1)
-		{
-			// cout<<"NoChildrenYet"<<endl;
-			forErrors[0].lineStart = child->forErrors[0].lineStart;
-			forErrors[0].lineEnd = child->forErrors[0].lineEnd;
-			forErrors[0].colStart = child->forErrors[0].colStart;
-			forErrors[0].colEnd = child->forErrors[0].colEnd;
-			for (int i = 0; i < child->forErrors[0].source.size(); ++i)
-			{
-				// forErrors[0].source.erase(forErrors[0].source.begin()+i);
-				forErrors[0].source.insert(forErrors[0].source.begin()+i,child->forErrors[0].source[i]);
-			}
-		}
-		//add to existing source code
-		else
-		{
-			if (forErrors[0].lineStart > child->forErrors[0].lineStart)
-			{
-				int firstLine = forErrors[0].source[0].lineNum;
-				int index = 0;
-				while(child->forErrors[0].source[index].lineNum < firstLine)
-				{
-					forErrors[0].source.insert(forErrors[0].source.begin(),child->forErrors[0].source[index]);
-					++index;
-				}
-				forErrors[0].lineStart = child->forErrors[0].lineStart;
-				forErrors[0].colStart = child->forErrors[0].colStart;
-			}
-			else if(forErrors[0].lineStart == child->forErrors[0].lineStart && forErrors[0].colStart > child->forErrors[0].colStart)
-			{
-				forErrors[0].colStart = child->forErrors[0].colStart;
-			}
-			if (forErrors[0].lineEnd < child->forErrors[0].lineEnd)
-			{
-				pullInd = forErrors[0].source.size();
-				int firstLine = forErrors[0].source[pullInd-1].lineNum;
-				int index = child->forErrors[0].source.size()-1;
-				while(index >=0 && child->forErrors[0].source[index].lineNum > firstLine)
-				{
-					forErrors[0].source.insert(forErrors[0].source.begin()+pullInd,child->forErrors[0].source[index]);
-					--index;
-				}
-				forErrors[0].lineEnd = child->forErrors[0].lineEnd;
-				forErrors[0].colEnd = child->forErrors[0].colEnd;
-			}
-			else if(forErrors[0].lineEnd == child->forErrors[0].lineEnd && forErrors[0].colEnd < child->forErrors[0].colEnd)
-			{
-				forErrors[0].colEnd = child->forErrors[0].colEnd;
-			}
-		}
-	}
+	// //skip for empty node types.
+	// if (child->getDataType(temp)==EMPTY_TYPE_NODE)
+	// {
+	// 	// cout<<"Empty Node"<<endl;
+	// }
+	// else
+	// {
+	// 	//if nothing set before
+	// 	if(forErrors[0].lineStart==-1)
+	// 	{
+	// 		// cout<<"NoChildrenYet"<<endl;
+	// 		forErrors[0].lineStart = child->forErrors[0].lineStart;
+	// 		forErrors[0].lineEnd = child->forErrors[0].lineEnd;
+	// 		forErrors[0].colStart = child->forErrors[0].colStart;
+	// 		forErrors[0].colEnd = child->forErrors[0].colEnd;
+	// 		for (int i = 0; i < child->forErrors[0].source.size(); ++i)
+	// 		{
+	// 			// forErrors[0].source.erase(forErrors[0].source.begin()+i);
+	// 			forErrors[0].source.insert(forErrors[0].source.begin()+i,child->forErrors[0].source[i]);
+	// 		}
+	// 	}
+	// 	//add to existing source code
+	// 	else
+	// 	{
+			
+	// 		if (forErrors[0].lineStart > child->forErrors[0].lineStart)
+	// 		{
+				
+	// 			int firstLine = forErrors[0].source[0].lineNum;
+	// 			int index = 0;
+				
+	// 			while(child->forErrors[0].source[index].lineNum < firstLine)
+	// 			{
+	// 				forErrors[0].source.insert(forErrors[0].source.begin(),child->forErrors[0].source[index]);
+	// 				++index;
+	// 			}
+				
+	// 			forErrors[0].lineStart = child->forErrors[0].lineStart;
+	// 			forErrors[0].colStart = child->forErrors[0].colStart;
+	// 		}
+	// 		else if(forErrors[0].lineStart == child->forErrors[0].lineStart && forErrors[0].colStart > child->forErrors[0].colStart)
+	// 		{
+	// 			forErrors[0].colStart = child->forErrors[0].colStart;
+	// 		}
+			
+	// 		if (forErrors[0].lineEnd < child->forErrors[0].lineEnd)
+	// 		{
+	// 			pullInd = forErrors[0].source.size();
+	// 			int firstLine = forErrors[0].source[pullInd-1].lineNum;
+	// 			int index = child->forErrors[0].source.size()-1;
+	// 			while(index >=0 && child->forErrors[0].source[index].lineNum > firstLine)
+	// 			{
+	// 				forErrors[0].source.insert(forErrors[0].source.begin()+pullInd,child->forErrors[0].source[index]);
+	// 				--index;
+	// 			}
+	// 			forErrors[0].lineEnd = child->forErrors[0].lineEnd;
+	// 			forErrors[0].colEnd = child->forErrors[0].colEnd;
+	// 		}
+	// 		else if(forErrors[0].lineEnd == child->forErrors[0].lineEnd && forErrors[0].colEnd < child->forErrors[0].colEnd)
+	// 		{
+	// 			forErrors[0].colEnd = child->forErrors[0].colEnd;
+	// 		}
+			
+	// 	}
+	// }
 }
 
 void TreeNode::setTypeSpecifier(nodeDataType typeSpec)
@@ -135,15 +151,17 @@ void TreeNode::setTypeSpecifier(nodeDataType typeSpec)
 	tType = typeSpec;
 }
 
-void TreeNode::assignLine(int line,int colstart, int colend, FILE* errorT)
+void TreeNode::assignLine(int line,int colstart, int colend, string atmp)
 {
-	char tmp[500];
-	long int offset = ftell(errorT);
-	fgets(tmp,sizeof tmp, errorT);
-	fseek(errorT,offset,SEEK_SET);
+	// char tmp[500];
+	// long int offset = ftell(errorT);
+	// fgets(tmp,sizeof tmp, errorT);
+	// fseek(errorT,offset,SEEK_SET);
+	// cout<<atmp;
+	// 	cout.flush();
 	sourceLine pair;
 	pair.lineNum = line;
-	pair.codeLine.assign(tmp); 
+	pair.codeLine.assign(atmp); 
 	ErrorReport toAdd;
 	toAdd.lineStart = line;
 	// cout<<toAdd.lineStart<<" "<<line<<endl<<endl;
@@ -157,6 +175,12 @@ void TreeNode::assignLine(int line,int colstart, int colend, FILE* errorT)
 	// cout<<forErrors[0].lineStart<<" "<<toAdd.lineStart<<" "<<line<<endl<<endl;
 	// printNode();
 	// cout<<TreeNodeName.c_str();
+}
+
+string TreeNode::coldLine()
+{
+	// printNode();
+	return forErrors[0].source[0].codeLine;
 }
 
 void TreeNode::errorCheck(const char * str)
@@ -293,8 +317,10 @@ void Tree::tree_to_gv(string fileName)
 void Tree::tree_to_3ac(string fileName)
 {
 	FILE* printFile;
+	astTable.pushEmptyBST();
 	printFile = fopen(fileName.c_str(),"w");
 	root->ast_to_3ac(printFile);
+	astTable.popBST();
 	fclose(printFile);
 }
 
@@ -319,6 +345,7 @@ string rep_3ac_ticket(nodeDataType ndt, int ticket)
 			break;
 		case FLOAT_TYPE_NODE:
 			snprintf(typePrint, 500,"f");
+			break;
 		default:
 			snprintf(typePrint, 500, "Error probably with id");
 			break;

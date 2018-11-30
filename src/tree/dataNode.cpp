@@ -7,6 +7,7 @@ DataNode::DataNode(string nodeName) : TreeNode(nodeName,0)
 	++Variable_counter;
 	isData = false;
 	isOperatorNode = false;
+	arrayOffset = 1;
 	//idDataTypes.push_back(INT_TYPE_NODE);
 }
 
@@ -173,7 +174,7 @@ void DataNode::traverse_to_file(FILE* fileout)
 				snprintf(operatorPrint, 500,"Left & Right");
 				break;
 			case BRACKET_OP:
-				snprintf(operatorPrint, 500,"Left[Right]");
+				snprintf(operatorPrint, 500,"Left[Right]");			
 				break;
 			case PAREN_OP:
 				snprintf(operatorPrint, 500,"Left(Right)");
@@ -192,6 +193,7 @@ void DataNode::ast_to_3ac(FILE* fileout)
 	char typePrint2[500] = "0";
 	if(isOperatorNode)
 	{
+		bool isBracket = false;
 		bool isOpAssign = true;
 		string opString;
 		string s1;
@@ -225,8 +227,16 @@ void DataNode::ast_to_3ac(FILE* fileout)
 			else
 					s2 = "(" + s2 + ")";
 		}	
-
-		s3 = rep_3ac_ticket(dType,ticketNumber);
+		if(dType != ID_TYPE_NODE)
+		{
+			t = dType;
+			s3 = rep_3ac_ticket(dType,ticketNumber);
+		}
+		else
+		{
+			t = getidDataType();
+			s3 = rep_3ac_ticket(t,ticketNumber);
+		}
 
 		switch(oType)
 		{
@@ -267,14 +277,17 @@ void DataNode::ast_to_3ac(FILE* fileout)
 				opString = "AMP\t" + s1 + "\t" + s2;
 				break;
 			case BRACKET_OP:
-				opString = "BRACKET\t" + s1 + "\t" + s2;
-				s3 = rep_3ac_ticket(getidDataType(),ticketNumber);
+				isBracket = true;
+				fprintf(fileout,"ADDR\t%s\t_\t%s\n",s1.c_str(),rep_3ac_ticket(t,Variable_counter++).c_str());
+				fprintf(fileout,"ADD\t%s\t%s\t%s\n",rep_3ac_ticket(t,Variable_counter).c_str(),s2.c_str(),rep_3ac_ticket(t,Variable_counter++).c_str());
+				fprintf(fileout,"LOAD\t%s\t_\t%s\n",rep_3ac_ticket(t,Variable_counter++).c_str(),s3.c_str());				
 				break;
 			case PAREN_OP:
 				opString = "PAREN\t" + s1 + "\t" + s2;
 				break;					
 		}
-		fprintf(fileout,"%s\t%s\n",opString.c_str(),s3.c_str()); 
+		if(!isBracket)
+			fprintf(fileout,"%s\t%s\n",opString.c_str(),s3.c_str()); 
 	}	
 }
 
@@ -472,3 +485,19 @@ void DataNode::implicitCastWarning(nodeDataType t1, nodeDataType t2)
 	//yyerror((d + one + " " + two).c_str());
 }
 
+void DataNode::setArrayOffset(int i)
+{
+	arrayOffset = i;
+}
+int DataNode::getArrayOffset()
+{
+	return arrayOffset;
+}
+void DataNode::setTicketNumber(int t)
+{
+	ticketNumber = t;
+}
+int DataNode::getTicketNumber()
+{
+	return ticketNumber;
+}
