@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-27 14:10:44
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-29 16:53:11
+* @Last Modified time: 2018-11-29 22:35:07
 */
 #include "tree.h"
 
@@ -20,6 +20,8 @@ TreeNode::TreeNode(string TreeNodeProductionName,int numberOfChildren)
 	forErrors[0].colEnd = -1;
 	tType = TREE_TYPE_NODE;
 	byteSize = 0;
+	cout<<"TreeNode "<<TreeNodeName<<endl;
+	cout.flush();
 }
 
 TreeNode::~TreeNode()
@@ -42,6 +44,8 @@ void TreeNode::ast_to_3ac(FILE* fileout)
 {
 	for (int i = 0; i < numberChildren; ++i)
 	{
+		cout<<"TreeNode "<<TreeNodeName<<endl;
+		cout.flush();
 		children[i]->ast_to_3ac(fileout);
 	}
 }
@@ -299,8 +303,10 @@ void Tree::tree_to_gv(string fileName)
 void Tree::tree_to_3ac(string fileName)
 {
 	FILE* printFile;
+	astTable.pushEmptyBST();
 	printFile = fopen(fileName.c_str(),"w");
 	root->ast_to_3ac(printFile);
+	astTable.popBST();
 	fclose(printFile);
 }
 

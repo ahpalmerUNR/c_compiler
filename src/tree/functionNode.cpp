@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-11-05 15:44:49
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-28 14:59:45
+* @Last Modified time: 2018-11-29 22:52:44
 */
 #include "functionNode.h"
 
@@ -29,9 +29,21 @@ void FunctionNode::traverse_to_file(FILE* fileout)
 
 void FunctionNode::ast_to_3ac(FILE* fileout)
 {
-	fprintf(fileout, "PROCENTRY\t%s\t%d\t%d\n",functName.c_str(),sizeOfParams,sizeOfLocals);
+	
+	int* tp;
+	string st = "return";
+	astTable.pushEmptyBST();
+	
+	astTable.insert(st,forErrors[0].source[0].lineNum,forErrors[0].colStart,INT_TYPE,tp);
+	cout<<"TreeNode "<<TreeNodeName<<endl;
+		cout.flush();
+	astTable.writeToFile(out_log);
+	fflush(out_log);
+	
+	fprintf(fileout, "PROCENTRY\t%s\t(%d)\t(%d)\n",functName.c_str(),sizeOfParams,sizeOfLocals);
 	children[3]->ast_to_3ac(fileout);
 	fprintf(fileout, "ENDPROC\n");
+	astTable.popBST();
 }
 
 nodeDataType FunctionNode::getDataType(char* buffer)
