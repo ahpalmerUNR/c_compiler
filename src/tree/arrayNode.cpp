@@ -139,3 +139,11 @@ void ArrayNode::storeString(char *s)
 {
 	snprintf(name,500,"%s",s);
 }
+bool ArrayNode::isArrayNode()
+{
+	return true;
+}
+void ArrayNode::setLHS()
+{
+	isLHS = true;
+}

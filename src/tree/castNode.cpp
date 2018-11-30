@@ -62,6 +62,8 @@ void CastNode::ast_to_3ac(FILE* fileout)
 				s1 =  rep_3ac_ticket(t,children[0]->returnTicket());
 		else
 				s1 = "(" + s1 + ")";
+		// Because assign
+		s1 =  rep_3ac_ticket(t,children[0]->returnTicket());
 	}
 
 	fprintf(fileout,"CAST\t%s\t_\t%s\n",s1.c_str(),rep_3ac_ticket(dType,ticketNumber).c_str());

@@ -1345,6 +1345,8 @@ assignment_expression
 		tmp->setAssignType(AssignType($<aType>2));
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>3);
+		if($<tnode>1->isArrayNode())
+			$<tnode>1->setLHS();
 		tmp->errorCheck();
 		$<tnode>$ = tmp;
 		outputReduction("assignment_expression : unary_expression assignment_operator assignment_expression");}
@@ -1652,12 +1654,22 @@ postfix_expression
 		tmp->storeString(name);
 		//cout << name << endl;
 		//cout << n->arraySizes.size() << endl;
-		tmp->setArrayOffset(n->arraySizes[arraySizeOffset]);
+		int offset = 1;
+		for(int i = arraySizeOffset+1; i < n->arraySizes.size(); i++)
+		{
+			offset *= n->arraySizes[i];
+		}
+		tmp->setArrayOffset(offset);
+			cout << arraySizeOffset << "here" << endl;
 		if(arraySizeOffset == 0)
 			tmp->setFirst();
 		if(arraySizeOffset == n->arraySizes.size()-1)
+		{
 			tmp->setLast();
-		arraySizeOffset++;
+			arraySizeOffset = 0;
+		}
+		else
+			arraySizeOffset++;
 		tmp->setidDataTypes(type);
 		tmp->setTypeSpecifier(ID_TYPE_NODE);
 		if($<tnode>3->getDataType(name) != INT_TYPE_NODE)
