@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-09-28 12:11:57
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-29 15:47:49
+* @Last Modified time: 2018-11-29 16:15:27
 */
 #include "symboltable.h"
 #include <stdio.h>
@@ -329,9 +329,15 @@ void SymbolTable::pushBST(map<string, Node> bst)
 
 void SymbolTable::pushSymbolTableCopy(const SymbolTable stCopy)
 {
+	FILE* fi = fopen("build/table.txt", "w");
+	if (stCopy.currentLevel == -1) {
+		return;
+	}
 	for (map <string, Node> bst : stCopy.stack) {
+		bst[0].output(fi);
+		fflush(fi);
 		stack.push_back(bst);
-		// currentLevel++;
+		currentLevel++;
 	}
 }
 

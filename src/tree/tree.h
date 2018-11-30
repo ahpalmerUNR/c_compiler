@@ -96,7 +96,7 @@ public:
 	virtual int returnTicket(){}
 	void printNode();
 	virtual void errorCheck(const char * str);
-	virtual void assignLine(int,int,int,FILE*);
+	virtual void assignLine(int,int,int,string);
 	virtual bool isIDList(){return false;}
 protected:
 	int TreeNodeNumber;
