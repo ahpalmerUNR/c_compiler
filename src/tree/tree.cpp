@@ -325,6 +325,7 @@ string rep_3ac_ticket(nodeDataType ndt, int ticket)
 			break;
 		case FLOAT_TYPE_NODE:
 			snprintf(typePrint, 500,"f");
+			break;
 		default:
 			snprintf(typePrint, 500, "Error probably with id");
 			break;

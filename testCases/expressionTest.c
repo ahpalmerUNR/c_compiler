@@ -1,9 +1,7 @@
 
 int main()
 {
-	int j;
-	int i;
-	j = 1 + 2;
+	float i;
 
 	return 0;
 

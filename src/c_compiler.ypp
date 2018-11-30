@@ -1914,7 +1914,7 @@ int main(int argc, char **argv)
 		}
 	}
 	yyparse();
-
+	genAST = true;
 	if(genAST)
 	{
 	AST.tree_to_gv("graphs/default.gv");
