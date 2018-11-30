@@ -665,7 +665,9 @@ direct_declarator
 		$<tnode>$ = tmp;
 		outputReduction("direct_declarator : direct_declarator OPEN_BRACKET_tok constant_expression CLOSE_BRACKET_tok");}
 
-	| direct_declarator __useFuncTab__ OPEN_PAREN_tok CLOSE_PAREN_tok __useSymTab__ {
+	| direct_declarator __useFuncTab__ OPEN_PAREN_tok CLOSE_PAREN_tok {
+		useFunctionSymTab = false;
+
 		Node* searchResult = s.searchTop(variableToInsert->name);
 		searchResult->ntype = FUNCTION;
 
