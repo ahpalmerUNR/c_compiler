@@ -3,7 +3,12 @@
  * @author Nathan Yocum
  * @brief Test that a simple function lookup works
  */
-int main(long int i, int j){
-	
+int i;
+int main(float argc, int argd){
+	int i;
+	i = 5;
+	for(;;) {
+		
+	}
+	!!D
 }
-!!D

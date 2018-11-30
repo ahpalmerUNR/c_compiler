@@ -283,6 +283,36 @@ Node *SymbolTable::searchTop(string key)
 	}
 }
 
+Node *SymbolTable::searchBottom(string key)
+{
+	if (currentLevel < 0) {
+		return NULL;
+	}
+	// Print key value and node values on debug level
+	// Search top level and return node found or NULL
+	map<string, Node>::iterator it = stack[0].find(key);
+	if (it != stack[currentLevel].end())
+	{
+		// Key exists
+		if (symbol_table_debug % 5 == 0)
+		{
+			cout << "Level 5 debug: Level: " << currentLevel << " Key: " << it->first << " ";
+			it->second.print();
+		}
+		return &it->second;
+	}
+	else
+	{
+		if (symbol_table_debug % 5 == 0)
+		{
+			cout << "Level 5 debug: Level: " << currentLevel << " Key: " << it->first << " "
+				 << "NA" << endl;
+		}
+		// Key doesnt exist
+		return NULL;
+	}
+}
+
 void SymbolTable::writeToFile(FILE *stream)
 {
 	//char const *fileName)
@@ -348,8 +378,8 @@ void SymbolTable::pushEmptyBST()
 	stack.push_back(bst);
 	currentLevel++;
 	//Debug message
-	if(symbol_table_debug % 2  == 0)
-		cout << "Level 3 debug: Entering new scope of level: " << currentLevel << endl;
+	// if(symbol_table_debug % 2  == 0)
+		// cout << "Level 3 debug: Entering new scope of level: " << currentLevel << endl;
 
 	cout.flush();
 
@@ -360,6 +390,20 @@ void SymbolTable::popBST()
 	// Pop bst and decrement level
 	stack.pop_back();
 	currentLevel--;
+	//Debug messege
+	if (symbol_table_debug % 2 == 0)
+		cout << "Level 3 debug: Exiting scope, new level: " << currentLevel << endl;
+	cout.flush();
+	
+}
+
+void SymbolTable::popUntilGlobal()
+{
+	while (currentLevel > 0) {
+		// Pop bst and decrement level
+		stack.pop_back();
+		currentLevel--;
+	}
 	//Debug messege
 	if (symbol_table_debug % 2 == 0)
 		cout << "Level 3 debug: Exiting scope, new level: " << currentLevel << endl;
