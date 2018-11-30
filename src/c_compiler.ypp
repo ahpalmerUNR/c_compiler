@@ -196,9 +196,11 @@ translation_unit
 
 external_declaration
 	: function_definition {
+		s.popUntilGlobal();
 		$<tnode>$ = $<tnode>1;
 		outputReduction("external_declaration : function_definition");}
 	| declaration {
+		s.popUntilGlobal();
 		$<tnode>$ = $<tnode>1;
 		outputReduction("external_declaration : declaration");}
 	;
@@ -609,31 +611,30 @@ declarator
 		outputReduction("declarator :  pointer direct_declarator");}
 	;
 
-__useFuncTab__
+__isParam__
 	:	{
 			isParam = true;
-			variableToInsert->types = {};
+			s.pushEmptyBST();
 		}
 	;
 	
-__useSymTab__
-	:	{
-			isParam = false;
-
-		}
-	;
 
 direct_declarator
 	: identifier {
 		$<tnode>$ = $<tnode>1;
-		Node* searchResult = s.searchTop(variableToInsert->name);
+		Node* searchResult = s.searchBottom(variableToInsert->name);
 		if (isParam) {
+			if (parameterToInsert->name != "") {
+				parameterToInsert->types = variableToInsert->types;
+				s.insert(parameterToInsert->name, *parameterToInsert);
+				parameterToInsert.reset(new Node());
+			}
 		} else {
 			if (searchResult == NULL || searchResult->ntype != FUNCTION) {
 				s.insert(variableToInsert->name, *variableToInsert);
 			}
 		}
-		// variableToInsert->types = {};
+		variableToInsert->types = {};
 
 		outputReduction("direct_declarator : identifier");}
 	| OPEN_PAREN_tok declarator CLOSE_PAREN_tok {
@@ -661,11 +662,14 @@ direct_declarator
 		$<tnode>$ = tmp;
 		outputReduction("direct_declarator : direct_declarator OPEN_BRACKET_tok constant_expression CLOSE_BRACKET_tok");}
 
-	| direct_declarator __useFuncTab__ OPEN_PAREN_tok CLOSE_PAREN_tok {
+	| direct_declarator __isParam__ OPEN_PAREN_tok CLOSE_PAREN_tok {
+
 		isParam = false;
 
-		Node* searchResult = s.searchTop(variableToInsert->name);
-		searchResult->ntype = FUNCTION;
+		Node* searchResult = s.searchBottom(variableToInsert->name);
+		if (searchResult != NULL) {
+			searchResult->ntype = FUNCTION;
+		}
 
 		TreeNode* tmp = new TreeNode("direct_declarator_",2);
 		EmptyNode* blank1 = new EmptyNode("empty_");
@@ -676,9 +680,14 @@ direct_declarator
 		tmp->assignChild(1,blank1);
 		$<tnode>$ = tmp;
 		outputReduction("direct_declarator : direct_declarator OPEN_PAREN_tok CLOSE_PAREN_tok");}
-	| direct_declarator __useFuncTab__ OPEN_PAREN_tok parameter_type_list CLOSE_PAREN_tok __useSymTab__ {
-		Node* searchResult = s.searchTop(variableToInsert->name);
-		searchResult->ntype = FUNCTION;
+	| direct_declarator __isParam__ OPEN_PAREN_tok parameter_type_list CLOSE_PAREN_tok {
+		isParam = false;
+		int scope;
+		Node* searchResult = s.searchBottom(variableToInsert->name);
+		s.writeToFile(stdin);
+		if (searchResult != NULL) {
+			searchResult->ntype = FUNCTION;
+		}
 		
 		TreeNode* tmp = new TreeNode("direct_declarator_",2);
 		tmp->assignLine(line,column-size,column,errorText);
@@ -687,8 +696,10 @@ direct_declarator
 		tmp->assignChild(1,$<tnode>4);
 		$<tnode>$ = tmp;
 		outputReduction("direct_declarator : direct_declarator OPEN_PAREN_tok parameter_type_list CLOSE_PAREN_tok");}
-	| direct_declarator __useFuncTab__ OPEN_PAREN_tok identifier_list CLOSE_PAREN_tok __useSymTab__ {
-		// variableToInsert->ntype = FUNCTION;
+	| direct_declarator __isParam__ OPEN_PAREN_tok identifier_list CLOSE_PAREN_tok {
+		isParam = false;
+	
+		variableToInsert->ntype = FUNCTION;
 
 		TreeNode* tmp = new TreeNode("direct_declarator_",2);
 		tmp->assignLine(line,column-size,column,errorText);
@@ -775,7 +786,7 @@ parameter_list
 
 parameter_declaration
 	: declaration_specifiers declarator {
-		Node* searchResult = s.searchTop(variableToInsert->name);
+		Node* searchResult = s.searchBottom(variableToInsert->name);
 		parameterToInsert->types = variableToInsert->types;
 		if (searchResult != NULL) {
 			searchResult->params.push_back(variableToInsert->types);
@@ -787,7 +798,7 @@ parameter_declaration
 		$<tnode>$ = tmp;
 		outputReduction("parameter_declaration : declaration_specifiers declarator");}
 	| declaration_specifiers {
-		Node* searchResult = s.searchTop(variableToInsert->name);
+		Node* searchResult = s.searchBottom(variableToInsert->name);
 		if (searchResult != NULL) {
 			searchResult->params.push_back(variableToInsert->types);
 			variableToInsert->types = {};	

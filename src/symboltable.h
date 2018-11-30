@@ -106,6 +106,9 @@ public:
 	// Search the top level of the symbol table return pointer to the node or NULL
 	Node* searchTop(string key);
 
+	// Search the bottom level (global) of the symbol table
+	Node* searchBottom(string key);
+
 	// Dump the symbol table to the file
 	void writeToFile(FILE*); 
 	
@@ -123,6 +126,9 @@ public:
 
 	// Pop the top bst from the stack
 	void popBST();
+
+	// Pop trees until at global scope
+	void popUntilGlobal();
 
 private:
 	// Stack of Balanced binary search trees
