@@ -3,5 +3,7 @@
  * @author Nathan Yocum
  * @brief Test that a simple function lookup works
  */
-int main(){}
+int main(long int i, int j){
+	
+}
 !!D
