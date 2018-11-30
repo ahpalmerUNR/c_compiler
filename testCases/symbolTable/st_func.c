@@ -3,9 +3,13 @@
  * @author Nathan Yocum
  * @brief Test that a simple function lookup works
  */
-void foo();
-
-void foo() {
-	double int k;
+// int i;
+int main(float argc, int argd){
+	int j;
+	int i[26];
+	i[j] = 5;
+	for(;;) {
+		
+	}
 	!!D
 }

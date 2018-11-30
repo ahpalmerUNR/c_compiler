@@ -13,10 +13,14 @@ public:
 	void traverse_to_file(FILE*);
 	void ast_to_3ac(FILE*);
 
+	int returnTicket();
+	nodeDataType getDataType(char *);
+
 protected:
 
 	OperatorType2 oType;
-
+	int ticketNumber;
+	nodeDataType dType;
 };
 
 #endif

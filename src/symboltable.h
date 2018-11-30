@@ -62,23 +62,28 @@ string getDataType(nodeDataType);
 
 // To store if the declaration is Id, enum or, typedef
 enum NType{
-	ID, ENUMERATION_CONSTANT, TYPEDEF_NAME
+	ID, FUNCTION, ENUMERATION_CONSTANT, TYPEDEF_NAME
 };
 // Information about the symbol - add more data types in it as necessary
 struct Node {
 	Node();
 	Node(const Node&);
+	bool operator==(const Node&) const;
 	void print();
 	void output(FILE*);
+	bool compareFunction(Node);
+	int ticketNumber = -1;
 
 	int lineNumber;
 	int colNumber;
 	enum DataType type;
-	bool isFunction;
+	NType ntype = ID;
+	string name;
+	
+	// isDefined Used to check if function is defined in namespace
+	bool isDefined = false;
 	// Vector containing the types of the node
 	vector<nodeDataType> types;
-	int ntype = 1;
-	string name;
 	// Contains the params of node (if it is a function)
 	vector<vector<nodeDataType>> params;
 };
@@ -88,6 +93,9 @@ public:
 
 	//Default constructor for SymbolTable
 	SymbolTable();
+
+	//Named constructor for SymbolTable
+	SymbolTable(string n);
 
 	//Insert a node with the parameters specified, return new node or previous node
 	Node* insert(string tokenKey, int lN, int cN, DataType t,int*errorcode);  
@@ -101,6 +109,9 @@ public:
 	// Search the top level of the symbol table return pointer to the node or NULL
 	Node* searchTop(string key);
 
+	// Search the bottom level (global) of the symbol table
+	Node* searchBottom(string key);
+
 	// Dump the symbol table to the file
 	void writeToFile(FILE*); 
 	
@@ -112,14 +123,23 @@ public:
 
 	// Push an empty bst on the stack
 	void pushEmptyBST();
+	
+	// Push a copy of a given symbol table onto stack
+	void pushSymbolTableCopy(const SymbolTable);
 
 	// Pop the top bst from the stack
 	void popBST();
+
+	// Pop trees until at global scope
+	void popUntilGlobal();
+
 private:
 	// Stack of Balanced binary search trees
 	vector<map<string, Node> > stack;
 	// Current level of the stack
 	int currentLevel;
+	// Name of the symbol table
+	string name = "";
 };
 
 #endif

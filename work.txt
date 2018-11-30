@@ -11,3 +11,20 @@ symmantic args/logic checking
 AST node creation
 
 symmantic args/logic checking and AST node creation overlap to varying degrees based on the type of node. It is probably better to split the work so that we have sections of productions where one person will do both symmantic checking and AST node creation at the same time. 
+
+
+
+
+Andrew's Notes:
+1. There are 3 primary scopes we care about : Objects, functions, labels.
+2. Symbol table should perform a check for what type of id it belongs to. Name mangling will help with most of this; however, this requires better recognition of the type of an ID we are searching for in the symbol table.
+3. In function param list, it might be easier to use the symbol table stack for the params and pull that before the compound statement. Then when building the function node add the params appropriately. Otherwise we need to traverse the direct decl node in some good way to make sure we get the id names and types. With the symbol table, we could get the names easily and then if it is a param list also get the types, otherwise default to the declaration-list when we have id list type. 
+
+
+ToDoAndrew:
+1. code line printing
+2. load and store to 3ac
+3. doublecheck size
+4. arrays
+5. doublecheck funct calls
+6. 

@@ -1,15 +1,8 @@
-int printc(int);
-
-int printc(int a, float b, char c)
-{
-	return 1;
-}
-
 int main()
 {
-	int p[];
-	
-	p[1] = 2 + 3.9;
-	
+	int j;
+	int i;
+	j = 1 + 2;
+	!!D
 	return 0;
 }

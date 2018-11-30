@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-30 15:47:00
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-07 16:00:26
+* @Last Modified time: 2018-11-24 16:32:05
 */
 #include "labelNode.h"
 
@@ -51,6 +51,16 @@ void LabelNode::ast_to_3ac(FILE* fileout)
 	{
 		jumpCounter = ch1->lineNumber;
 	}
-	fprintf(fileout, "LABEL\t%d\n",jumpCounter);
+	fprintf(fileout, "LABEL\tl%d\n",jumpCounter);
 	children[1]->ast_to_3ac(fileout);	
+}
+
+void LabelNode::errorCheck(const char * str)
+{
+	//no lable reference in current scope
+	//
+	//case type not integral
+	//
+	//use of case and default outside of switch
+	
 }

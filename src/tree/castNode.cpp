@@ -11,7 +11,10 @@ CastNode::~CastNode()
 {
 
 }
-
+nodeDataType CastNode::getDataType(char *c)
+{
+	return dType;
+}	
 void CastNode::traverse_to_file(FILE* fileout)
 {
 	char typePrint[500];
@@ -40,7 +43,25 @@ void CastNode::traverse_to_file(FILE* fileout)
 
 void CastNode::ast_to_3ac(FILE* fileout)
 {
+	children[0]->ast_to_3ac(fileout);
+	char typePrint[500] = "0";
 
+	string s1;
+	nodeDataType t = children[0]->getDataType(typePrint);
+	s1 = typePrint;
+	if(t == ID_TYPE_NODE){ 
+		t = children[0]->getidDataType();
+		s1 =  rep_3ac_ticket(t,children[0]->returnTicket());
+	}
+	else
+	{
+		if(s1 == "0")
+				s1 =  rep_3ac_ticket(t,children[0]->returnTicket());
+		else
+				s1 = "(" + s1 + ")";
+	}
+
+	fprintf(fileout,"CAST\t%s\t_\t%s\n",s1.c_str(),rep_3ac_ticket(dType,ticketNumber).c_str());
 }
 
 int CastNode::returnTicket()

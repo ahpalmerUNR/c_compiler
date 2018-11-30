@@ -7,6 +7,7 @@ DataNode::DataNode(string nodeName) : TreeNode(nodeName,0)
 	++Variable_counter;
 	isData = false;
 	isOperatorNode = false;
+	arrayOffset = 1;
 	//idDataTypes.push_back(INT_TYPE_NODE);
 }
 
@@ -173,7 +174,7 @@ void DataNode::traverse_to_file(FILE* fileout)
 				snprintf(operatorPrint, 500,"Left & Right");
 				break;
 			case BRACKET_OP:
-				snprintf(operatorPrint, 500,"Left[Right]");
+				snprintf(operatorPrint, 500,"Left[Right]");			
 				break;
 			case PAREN_OP:
 				snprintf(operatorPrint, 500,"Left(Right)");
@@ -188,7 +189,106 @@ void DataNode::traverse_to_file(FILE* fileout)
 }
 void DataNode::ast_to_3ac(FILE* fileout)
 {
+	char typePrint1[500] = "0";
+	char typePrint2[500] = "0";
+	if(isOperatorNode)
+	{
+		bool isBracket = false;
+		bool isOpAssign = true;
+		string opString;
+		string s1;
+		string s2;
+		string s3;
+		children[0]->ast_to_3ac(fileout);
+		children[1]->ast_to_3ac(fileout);
+		nodeDataType t = children[0]->getDataType(typePrint1);
+		s1 = typePrint1;
+		if(t == ID_TYPE_NODE){ 
+			t = children[0]->getidDataType();
+			s1 =  rep_3ac_ticket(t,children[0]->returnTicket());
+		}
+		else
+		{
+			if(s1 == "0")
+					s1 =  rep_3ac_ticket(t,children[0]->returnTicket());
+			else
+					s1 = "(" + s1 + ")";
+		}		
+		t = children[1]->getDataType(typePrint2);
+		s2 = typePrint2;
+		if(t == ID_TYPE_NODE){
+			t = children[1]->getidDataType();
+			s2 =  rep_3ac_ticket(t,children[1]->returnTicket());
+		}		
+		else
+		{
+			if(s2 == "0")
+					s2 =  rep_3ac_ticket(t,children[1]->returnTicket());
+			else
+					s2 = "(" + s2 + ")";
+		}	
+		if(dType != ID_TYPE_NODE)
+		{
+			t = dType;
+			s3 = rep_3ac_ticket(dType,ticketNumber);
+		}
+		else
+		{
+			t = getidDataType();
+			s3 = rep_3ac_ticket(t,ticketNumber);
+		}
 
+		switch(oType)
+		{
+			case ADD_OP:
+				opString = "ADD\t" + s1 + "\t" + s2;
+				break;
+			case SUB_OP:
+				opString = "SUB\t" + s1 + "\t" + s2;
+				break;
+			case MULT_OP:
+				opString = "MULT\t" + s1 + "\t" + s2;
+				break;
+			case DIV_OP:
+				opString = "DIV\t" + s1 + "\t" + s2;
+				break;
+			case MOD_OP:
+				opString = "MOD\t" + s1 + "\t" + s2;
+				break;
+			case COMMA_OP:
+				opString = "COMMA\t" + s1 + "\t" + s2;
+				break;
+			case QUESTION_OP:
+				opString = "QUESTION\t" + s1 + "\t" + s2;
+				break;
+			case OR_OP:
+				opString = "OR\t" + s1 + "\t" + s2;
+				break;
+			case AND_OP:
+				opString = "AND\t" + s1 + "\t" + s2;
+				break;
+			case BAR_OP:
+				opString = "BAR\t" + s1 + "\t" + s2;
+				break;
+			case CARET_OP:
+				opString = "CARET\t" + s1 + "\t" + s2;
+				break;
+			case AMP_OP:
+				opString = "AMP\t" + s1 + "\t" + s2;
+				break;
+			case BRACKET_OP:
+				isBracket = true;
+				fprintf(fileout,"ADDR\t%s\t_\t%s\n",s1.c_str(),rep_3ac_ticket(t,Variable_counter++).c_str());
+				fprintf(fileout,"ADD\t%s\t%s\t%s\n",rep_3ac_ticket(t,Variable_counter).c_str(),s2.c_str(),rep_3ac_ticket(t,Variable_counter++).c_str());
+				fprintf(fileout,"LOAD\t%s\t_\t%s\n",rep_3ac_ticket(t,Variable_counter++).c_str(),s3.c_str());				
+				break;
+			case PAREN_OP:
+				opString = "PAREN\t" + s1 + "\t" + s2;
+				break;					
+		}
+		if(!isBracket)
+			fprintf(fileout,"%s\t%s\n",opString.c_str(),s3.c_str()); 
+	}	
 }
 
 void DataNode::storeChar(char c)
@@ -196,18 +296,21 @@ void DataNode::storeChar(char c)
 	data.dchar = c;
 	dType = CHAR_TYPE_NODE;
 	isData = true;
+	byteSize = CHAR_MIPS;
 }
 void DataNode::storeInt(int i)
 {
 	data.dint = i;
 	dType = INT_TYPE_NODE;
 	isData = true;
+	byteSize = INT_MIPS;
 }
 void DataNode::storeDouble(double d)
 {
 	data.ddoub = d;
 	dType = DOUBLE_TYPE_NODE;
 	isData = true;
+	byteSize = DOUBLE_MIPS;
 }
 void DataNode::storeString(char *s)
 {
@@ -217,6 +320,7 @@ void DataNode::storeString(char *s)
 
 	dType = STRING_TYPE_NODE;
 	isData = true;
+	byteSize = INT_MIPS;
 }
 
 nodeDataType DataNode::getidDataType()
@@ -248,7 +352,7 @@ void DataNode::setTypeSpecifier(nodeDataType typeSpec)
 	isOperatorNode = true;
 }
 
-int DataNode::getDataType(char * representation)
+nodeDataType DataNode::getDataType(char * representation)
 {
 	if (isData)
 	{
@@ -268,8 +372,10 @@ int DataNode::getDataType(char * representation)
 				break;
 			case ID_TYPE_NODE:
 				snprintf(representation, 500,"%s",data.dstr);
-
-				// printf("%s\n", data.dstr);	
+				break;
+			default:
+				snprintf(representation, 500,"No data type");
+				 //printf("%s\n", data.dstr);	
 
 		}
 	}
@@ -318,28 +424,28 @@ void DataNode::errorCheck()
 				tmp->setTypeSpecifier(DOUBLE_TYPE_NODE);
 				tmp->assignChild(0,children[1]);
 				assignChild(1,tmp);
-				setTypeSpecifier(left);
+				setTypeSpecifier(DOUBLE_TYPE_NODE);
 			}
 			else if(right == DOUBLE_TYPE_NODE || right == FLOAT_TYPE_NODE)
 			{
 				tmp->setTypeSpecifier(DOUBLE_TYPE_NODE);
 				tmp->assignChild(0,children[0]);
 				assignChild(0,tmp);
-				setTypeSpecifier(right);
+				setTypeSpecifier(DOUBLE_TYPE_NODE);
 			}
 			else if(left == INT_TYPE_NODE)
 			{
 				tmp->setTypeSpecifier(INT_TYPE_NODE);
 				tmp->assignChild(0,children[1]);	
 				assignChild(1,tmp);
-				setTypeSpecifier(left);
+				setTypeSpecifier(INT_TYPE_NODE);
 			}
 			else if(right == INT_TYPE_NODE)
 			{
 				tmp->setTypeSpecifier(INT_TYPE_NODE);
 				tmp->assignChild(0,children[0]);
 				assignChild(0,tmp);
-				setTypeSpecifier(right);
+				setTypeSpecifier(INT_TYPE_NODE);
 			}
 		}
 }
@@ -375,7 +481,23 @@ void DataNode::implicitCastWarning(nodeDataType t1, nodeDataType t2)
 	string d = "Warning: implicit cast of types when performing operation: ";
 	string one = t1Print;
 	string two = t2Print;
-	//TreeNode::errorCheck((d + one + " " + two).c_str());
-	yyerror((d + one + " " + two).c_str());
+	TreeNode::errorCheck((d + one + " " + two).c_str());
+	//yyerror((d + one + " " + two).c_str());
 }
 
+void DataNode::setArrayOffset(int i)
+{
+	arrayOffset = i;
+}
+int DataNode::getArrayOffset()
+{
+	return arrayOffset;
+}
+void DataNode::setTicketNumber(int t)
+{
+	ticketNumber = t;
+}
+int DataNode::getTicketNumber()
+{
+	return ticketNumber;
+}

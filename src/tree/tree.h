@@ -7,6 +7,7 @@
 #include <vector>
 #include <iostream>
 #include "../symboltable.h"
+#include "../MIPS_Type_Sizes.h"
 
 using namespace std;
 
@@ -21,6 +22,8 @@ extern char* file_name;
 extern int AST_node_counter;
 extern int Label_counter;
 extern int Variable_counter;
+
+string rep_3ac_ticket(nodeDataType ndt, int ticket);
 
 enum OperatorType {
 	ADD_OP,
@@ -77,23 +80,29 @@ class FunctionNode;
 
 class TreeNode
 {
-	friend class FunctionNode;
+	friend class FunctionNode;friend class TypeNode;
 public:
 	TreeNode(string TreeNodeProductionName,int numberOfChildren);
 	~TreeNode();
 	virtual void traverse_to_file(FILE*);
 	virtual void ast_to_3ac(FILE*);
 	virtual void assignChild(int childIndex, TreeNode* child);
-	virtual int getDataType(char *){return tType;}
+	virtual nodeDataType getDataType(char *){return tType;}
 	virtual void setTypeSpecifier(nodeDataType typeSpec);
 	//virtual int getDataType(char *){ return -1; }
 	virtual nodeDataType getidDataType(){};
-	virtual vector<int> getTypes();
+	virtual vector<nodeDataType> getTypes();
 	virtual void setidDataTypes(int types){};
 	virtual int returnTicket(){}
+	virtual void setArrayOffset(int i){arrayOffset = i;}
+	virtual int getArrayOffset(){return arrayOffset;}
 	void printNode();
 	virtual void errorCheck(const char * str);
-	virtual void assignLine(int,int,int,FILE*);
+	virtual void assignLine(int,int,int,string);
+	virtual bool isIDList(){return false;}
+	void setTicketNumber(int){};
+	int getTicketNumber(){};
+	string coldLine();
 protected:
 	int TreeNodeNumber;
 	//type
@@ -101,8 +110,10 @@ protected:
 	string TreeNodeName;
 	int numberChildren;
 	vector<TreeNode*> children;
-	vector<int> types;
+	vector<nodeDataType> types;
 	nodeDataType tType;
+	int byteSize;
+	int arrayOffset;
 };
 
 class Tree

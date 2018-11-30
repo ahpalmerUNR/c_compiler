@@ -28,13 +28,17 @@ public:
 	void storeChar(char c);
 	void setTypeSpecifier(nodeDataType typeSpec);
 	void setOperator(OperatorType typeSpec);
-	int getDataType(char * representation);//representation returned uses max buffer 500 characters.
+	nodeDataType getDataType(char * representation);//representation returned uses max buffer 500 characters.
 	void notData();
 	void setNumberChildren(int);
 	void errorCheck();
 	void implicitCastWarning(nodeDataType t1, nodeDataType t2);
 	void setidDataTypes(vector<nodeDataType>);
 	nodeDataType getidDataType();
+	void setArrayOffset(int i);
+	int getArrayOffset();
+	void setTicketNumber(int);
+	int getTicketNumber();
 protected:
 
 	int ticketNumber;
@@ -44,8 +48,8 @@ protected:
 	bool isData;
 	bool isOperatorNode;
 	bool isArray;
-	int arrayOffset;
 	vector<nodeDataType> idDataTypes;
+	int arrayOffset;
 };
 
 #endif

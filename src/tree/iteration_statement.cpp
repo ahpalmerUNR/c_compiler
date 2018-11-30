@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-30 22:43:27
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-07 15:58:20
+* @Last Modified time: 2018-11-24 16:33:35
 */
 #include "iteration_statement.h"
 
@@ -35,5 +35,23 @@ void Iter_statement::traverse_to_file(FILE* fileout)
 }
 void Iter_statement::ast_to_3ac(FILE* fileout)
 {
-	
+	if (dotype)
+	{
+		fprintf(fileout, "LABEL\tl%d\n", jumpCounterOne);
+		children[3]->ast_to_3ac(fileout);
+		children[1]->ast_to_3ac(fileout);
+		fprintf(fileout, "BREQ\t%d\t(0)\tl%d\n", children[1]->returnTicket(),jumpCounterOne);
+		
+	}
+	else
+	{
+		children[0]->ast_to_3ac(fileout);
+		fprintf(fileout, "LABEL\tl%d\n",jumpCounterOne);
+		children[1]->ast_to_3ac(fileout);
+		fprintf(fileout, "BRNE\t%d\t(0)\tl%d\n", children[1]->returnTicket(),jumpCounterTwo);
+		children[3]->ast_to_3ac(fileout);
+		children[2]->ast_to_3ac(fileout);
+		fprintf(fileout, "BR\tl%d\n", jumpCounterOne);
+		fprintf(fileout, "LABEL\tl%d\n", jumpCounterTwo);
+	}
 }
