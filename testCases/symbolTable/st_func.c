@@ -3,13 +3,10 @@
  * @author Nathan Yocum
  * @brief Test that a simple function lookup works
  */
-// int i;
+int j = 3;
 int main(float argc, int argd){
-	int j;
-	int i[26];
-	i[j] = 5;
-	for(;;) {
-		
-	}
+	int i;
+	int j[2];
+	j[i] = 4;
 	!!D
 }

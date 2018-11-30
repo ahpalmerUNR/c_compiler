@@ -9,6 +9,10 @@ c_compiler for UNR Compilers CS 660. This program takes in a .c file and returns
 
 [Team Mate Contributions](#contributions)
 
+[Things We Can Do](#cando)
+
+[Things We Can't Do](#cantdo)
+
 ## Installation
 Installation is done through the terminal.
 
@@ -186,4 +190,17 @@ To view the AST if graphviz is not installed you can use the website [http://www
 
 	Solving various errors
 
-	
+## Can Do
+
+* Bubble Sort
+	* Loops (`for, do-while, while, if`)
+
+* Matrix Multiplication
+	* Arrays
+
+* Recursive Factorial
+	* Functions
+
+## Can't Do
+
+* Array Initalization Lists (i.e. `int a[2] = {1,2};`)
