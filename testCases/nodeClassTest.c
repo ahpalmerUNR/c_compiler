@@ -2,10 +2,10 @@ int main()
 {
 	int j;
 	//!!D
-	//int i;
+	int i;
 	!!D
 	j = 1 + 2 + 3 + 1;
-	j=1;
+	j=1*i;
 	!!D
 	return j;
 }
