@@ -642,12 +642,14 @@ direct_declarator
 		if (isParam) {
 			if (parameterToInsert->name != "") {
 				parameterToInsert->types = variableToInsert->types;
+				//parameterToInsert->ticketNumber = $<tnode>1->returnTicket();
 				s.insert(parameterToInsert->name, *parameterToInsert);
 				parameterToInsert.reset(new Node());
 			}
 		} else {
 			Node* searchResult = s.searchTop(variableToInsert->name);
 			if (searchResult == NULL || searchResult->ntype != FUNCTION) {
+				variableToInsert->ticketNumber = $<tnode>1->returnTicket();
 				s.insert(variableToInsert->name, *variableToInsert);
 			}
 			variableToInsert->types = {};
@@ -1082,26 +1084,24 @@ compound_statement
 
 statement_list
 	: statement {
-		if (insert_lookup == 0) {
-			insert_lookup == 1;
-			int scope;
-			Node* searchResult = s.searchAll(variableToInsert->name, &scope);
-			if (searchResult == NULL) {
-				yyerror("Variable not declared before use");
-			}
+		insert_lookup == 1;
+		int scope;
+		Node* searchResult = s.searchAll(variableToInsert->name, &scope);
+		if (searchResult == NULL) {
+			yyerror("Variable not declared before use");
 		}
+		
 
 		$<tnode>$ = $<tnode>1;
 		outputReduction("statement_list : statement");}
 	| statement_list statement {
-		if (insert_lookup == 0) {
-			insert_lookup == 1;
-			int scope;
-			Node* searchResult = s.searchAll(variableToInsert->name, &scope);
-			if (searchResult == NULL) {
-				yyerror("Variable not found");
-			}
+		insert_lookup == 1;
+		int scope;
+		Node* searchResult = s.searchAll(variableToInsert->name, &scope);
+		if (searchResult == NULL) {
+			yyerror("Variable not found");
 		}
+		
 
 		TreeNode* tmp = new TreeNode("statement_list_",2);
 		tmp->assignChild(0,$<tnode>1);
@@ -1237,8 +1237,7 @@ iteration_statement
 	;
 
 jump_statement
-	: GOTO_tok {insert_lookup = 0;} identifier SEMI_tok {
-		insert_lookup = 1;
+	: GOTO_tok identifier SEMI_tok {
 		JumpNode* tmp = new JumpNode("jump_statement_",0);
 		tmp->assignLine(line,column-size,column,codeLine());
 		tmp->assignChild(0,$<tnode>3);
@@ -1279,10 +1278,10 @@ expression
 		tmp->setOperator(COMMA_OP);
 		tmp->notData();
 		tmp->setNumberChildren(2);
-		tmp->errorCheck();
 		//tmp->setTypeSpecifier(typeCheck(COMMA_OP, &$<tnode>1, &$<tnode>3));
 		tmp->assignChild(0, $<tnode>1);
 		tmp->assignChild(1, $<tnode>3);
+		tmp->errorCheck();
 		outputReduction("expression : expression COMMA_tok assignment_expression");}
 	;
 
@@ -1756,13 +1755,14 @@ identifier
 			if(insert_lookup == 0)
 			{
 				tmp->storeString((char*)variableToInsert->name.c_str());
-				variableToInsert->ticketNumber = tmp->getTicketNumber();
+				//variableToInsert->ticketNumber = tmp->returnTicket();
 			}
 			else
 			{
 				int q;
 
 				Node *n = s.searchAll(yylval.lnode->name,&q);
+				n->print();
 				if(n!=NULL)
 				{
 					//need to use same ticket counter as the symbol table entry rather than making a new ticket for each i = 5; etc after declaration

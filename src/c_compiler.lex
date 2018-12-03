@@ -657,6 +657,7 @@ int id_token()
 	if(insert_lookup == 1)
 	{
 		pointsTo = s.searchAll(yytext,&scope);
+		printf("Look Up, %s\n",yytext);
 		if(pointsTo == NULL)
 		{
 			yylval.lnode = pointsTo;
@@ -665,25 +666,29 @@ int id_token()
 		else if(pointsTo->ntype == ID)
 		{
 			yylval.lnode = pointsTo;
+			pointsTo->print();
 			
 			return(send_token("ID_tok",ID_tok));
 		}
 		else if(pointsTo->ntype== FUNCTION)
 		{
 			yylval.lnode = pointsTo;
-			
+			pointsTo->print();
 			return(send_token("ID_tok",ID_tok));
 		}
 		else if(pointsTo->ntype == ENUMERATION_CONSTANT)
 		{
 			yylval.lnode = pointsTo;
+			pointsTo->print();
 			return(send_token("ENUMERATION_CONSTANT_tok",ENUMERATION_CONSTANT_tok));
 		}
 		else if(pointsTo->ntype == TYPEDEF_NAME) {
 			yylval.lnode = pointsTo;
+			pointsTo->print();
 			return(send_token("TYPEDEF_NAME_tok",TYPEDEF_NAME_tok));
 		}
 	} else {
+		printf("Insert, %s\n",yytext);
 		if (isParam) {
 			parameterToInsert->name = yytext;
 			parameterToInsert->lineNumber = line;

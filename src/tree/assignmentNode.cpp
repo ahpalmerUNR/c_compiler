@@ -199,6 +199,9 @@ void AssignmentNode::errorCheck()
 			//may produce duplicate warnings as data node so maybe not use it...
 			implicitCastWarning(left,right);
 		}
+		cout<<children[0]->returnTicket()<<endl;
+		cout<<ticketNumber<<endl;
+		ticketNumber = children[0]->returnTicket();
 }
 
 void AssignmentNode::implicitCastWarning(nodeDataType t1, nodeDataType t2)
