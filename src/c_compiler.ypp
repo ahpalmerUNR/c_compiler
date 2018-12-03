@@ -1755,6 +1755,7 @@ identifier
 
 			if(insert_lookup == 0)
 			{
+				//cout << "am i here?" << endl;
 				tmp->storeString((char*)variableToInsert->name.c_str());
 				variableToInsert->ticketNumber = tmp->getTicketNumber();
 			}
@@ -1763,13 +1764,15 @@ identifier
 				int q;
 
 				Node *n = s.searchAll(yylval.lnode->name,&q);
+				//cout << "ever here?" << endl;
 				//Node *w = astTable.searchAll(yylval.lnode->name);
 				if(n!=NULL)
 				{
 					//need to use same ticket counter as the symbol table entry rather than making a new ticket for each i = 5; etc after declaration
 					tmp->storeString((char*)yylval.lnode->name.c_str());
 					tmp->setidDataTypes(n->types);
-					tmp->setTicketNumber(n->lineNumber);
+					cout << n->ticketNumber << endl;
+					tmp->setTicketNumber(n->ticketNumber);
 					//cout << yylval.lnode->name << tmp->getidDataType() << endl;
 				}			
 			}

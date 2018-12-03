@@ -100,8 +100,8 @@ public:
 	virtual void errorCheck(const char * str);
 	virtual void assignLine(int,int,int,string);
 	virtual bool isIDList(){return false;}
-	void setTicketNumber(int){};
-	int getTicketNumber(){};
+	void setTicketNumber(int t){ticketNumber = t;}
+	int getTicketNumber(){return ticketNumber;}
 	string coldLine();
 protected:
 	int TreeNodeNumber;
@@ -114,6 +114,7 @@ protected:
 	nodeDataType tType;
 	int byteSize;
 	int arrayOffset;
+	int ticketNumber;
 };
 
 class Tree
