@@ -78,7 +78,12 @@ void AssignmentNode::ast_to_3ac(FILE *fileout)
 	char typePrint1[500] = "0";
 	char typePrint2[500] = "0";
 	char assignPrint[500];
-fprintf(fileout, "#%s",TreeNode::coldLine().c_str() );
+	if (currentCodeLine != forErrors[0].source[0].lineNum )
+	{
+		fprintf(fileout, "#%s",TreeNode::coldLine().c_str() );
+		currentCodeLine = forErrors[0].source[0].lineNum;
+	}
+
 	bool isOpAssign = true;
 	string assignString;
 	string s1,s2;

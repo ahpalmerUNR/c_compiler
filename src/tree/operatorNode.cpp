@@ -51,7 +51,12 @@ void OperatorNode::traverse_to_file(FILE* fileout)
 	TreeNode::traverse_to_file(fileout);
 }
 void OperatorNode::ast_to_3ac(FILE* fileout)
-{fprintf(fileout, "#%s",TreeNode::coldLine().c_str() );
+{
+	if (currentCodeLine != forErrors[0].source[0].lineNum )
+	{
+		fprintf(fileout, "#%s",TreeNode::coldLine().c_str() );
+		currentCodeLine = forErrors[0].source[0].lineNum;
+	}
 	children[0]->ast_to_3ac(fileout);
 	char typePrint[500];
 	char typePrint2[500];

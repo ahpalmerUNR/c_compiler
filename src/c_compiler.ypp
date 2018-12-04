@@ -32,6 +32,7 @@
 	char *file_name;
 	time_t time_time;
 	clock_t clock_time;
+	int currentCodeLine = 0;
 
 	/**
 	 * SymbolTable and variables to manipulate the insertion to symbol table

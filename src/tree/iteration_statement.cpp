@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-30 22:43:27
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-30 10:30:19
+* @Last Modified time: 2018-12-03 15:57:51
 */
 #include "iteration_statement.h"
 
@@ -34,7 +34,12 @@ void Iter_statement::traverse_to_file(FILE* fileout)
 	TreeNode::traverse_to_file(fileout);
 }
 void Iter_statement::ast_to_3ac(FILE* fileout)
-{fprintf(fileout, "#%s",TreeNode::coldLine().c_str() );
+{
+	if (currentCodeLine != forErrors[0].source[0].lineNum )
+	{
+		fprintf(fileout, "#%s",TreeNode::coldLine().c_str() );
+		currentCodeLine = forErrors[0].source[0].lineNum;
+	}
 	if (dotype)
 	{
 		fprintf(fileout, "LABEL\tl%d\n", jumpCounterOne);

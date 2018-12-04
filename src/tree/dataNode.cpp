@@ -189,7 +189,11 @@ void DataNode::traverse_to_file(FILE* fileout)
 }
 void DataNode::ast_to_3ac(FILE* fileout)
 {
-	fprintf(fileout, "#%s",TreeNode::coldLine().c_str() );
+	if (currentCodeLine != forErrors[0].source[0].lineNum )
+	{
+		fprintf(fileout, "#%s",TreeNode::coldLine().c_str() );
+		currentCodeLine = forErrors[0].source[0].lineNum;
+	}
 	char typePrint1[500] = "0";
 	char typePrint2[500] = "0";
 	if(isOperatorNode)
@@ -204,7 +208,7 @@ void DataNode::ast_to_3ac(FILE* fileout)
 		children[1]->ast_to_3ac(fileout);
 		nodeDataType t = children[0]->getDataType(typePrint1);
 		//s1 = typePrint1;
-					s1 =  rep_3ac_ticket(t,children[0]->returnTicket());
+		s1 =  rep_3ac_ticket(t,children[0]->returnTicket());
 		if(t == ID_TYPE_NODE){ 
 			t = children[0]->getidDataType();
 			s1 =  rep_3ac_ticket(t,children[0]->returnTicket());
@@ -281,7 +285,10 @@ void DataNode::ast_to_3ac(FILE* fileout)
 				break;
 			case BRACKET_OP:
 				isBracket = true;
+				children[1]->getDataType(typePrint1);
+				cout<<"byteSize "<<byteSize<<" typePrint1 "<<typePrint1<<endl;
 				fprintf(fileout,"ADDR\t%s\t_\t%s\n",s1.c_str(),rep_3ac_ticket(t,Variable_counter++).c_str());
+				fprintf(fileout,"MULT\t%s\t%s\t%s\n",s2.c_str(),rep_3ac_ticket(dType,byteSize*atoi(typePrint1)).c_str(),s2.c_str() );
 				fprintf(fileout,"ADD\t%s\t%s\t%s\n",rep_3ac_ticket(t,Variable_counter).c_str(),s2.c_str(),rep_3ac_ticket(t,Variable_counter++).c_str());
 				fprintf(fileout,"LOAD\t%s\t_\t%s\n",rep_3ac_ticket(t,Variable_counter++).c_str(),s3.c_str());				
 				break;

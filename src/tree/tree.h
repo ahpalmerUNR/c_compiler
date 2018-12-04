@@ -22,6 +22,7 @@ extern char* file_name;
 extern int AST_node_counter;
 extern int Label_counter;
 extern int Variable_counter;
+extern int currentCodeLine;
 
 string rep_3ac_ticket(nodeDataType ndt, int ticket);
 
