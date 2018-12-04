@@ -41,6 +41,7 @@ extern time_t time_time;
 extern clock_t clock_time;
 //struct tm * timeinfo;
 
+extern int yydebug;
 extern int* levels;
 
 extern bool isParam;
@@ -558,6 +559,14 @@ void set_debug_level()
 	//printf("Debug %c set to %d\n",typebug,level);
 	if(typebug == 'Y')
 	{
+		if(level% 5==0)
+		{
+			yydebug=1;
+		}
+		else
+		{
+			yydebug=0;
+		}
 		if(level < c_line_yacc_debug_level)
 		{
 			yacc_debug_level = c_line_yacc_debug_level;
