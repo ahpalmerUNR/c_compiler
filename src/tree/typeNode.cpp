@@ -48,7 +48,12 @@ void TypeNode::traverse_to_file(FILE* fileout)
  * @param fileout 
  */
 void TypeNode::ast_to_3ac(FILE* fileout)
-{fprintf(fileout, "#%s",TreeNode::coldLine().c_str() );
+{
+	if (currentCodeLine != forErrors[0].source[0].lineNum )
+	{
+		fprintf(fileout, "#%s",TreeNode::coldLine().c_str() );
+		currentCodeLine = forErrors[0].source[0].lineNum;
+	}
 	int i,tp;
 	char temp[500];
 	// For some reason its always a double unless its like a long int or something and if its long int then int isnt stored?

@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-09-28 12:11:57
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-30 10:07:16
+* @Last Modified time: 2018-12-03 14:44:27
 */
 #include "symboltable.h"
 #include <stdio.h>
@@ -85,12 +85,14 @@ Node::Node(const Node &n)
 void Node::print()
 {
 	cout << "line: " << lineNumber << " col: " << colNumber;
+	cout<<" ticketNumber: "<<ticketNumber;
 	cout << " types: ";
 	for (const nodeDataType type : types)
 	{
 		cout << getDataType(type) << " ";
 	}
 	cout << "(node) key: " << name;
+	
 	if (params.size())
 	{
 		cout << "Params: (";
@@ -109,7 +111,7 @@ void Node::print()
 
 void Node::output(FILE *stream)
 {
-	fprintf(stream, "Line: %d, Col: %d, Types: ", lineNumber, colNumber);
+	fprintf(stream, "Line: %d, Col: %d, Ticket Number:%d, Types: ", lineNumber, colNumber,ticketNumber);
 	for (const nodeDataType type : types)
 	{
 		fprintf(stream, "%s ", getDataType(type).c_str());

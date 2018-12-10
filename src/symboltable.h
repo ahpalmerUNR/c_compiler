@@ -82,6 +82,7 @@ struct Node {
 	
 	// isDefined Used to check if function is defined in namespace
 	bool isDefined = false;
+	vector<int> arraySizes;
 	// Vector containing the types of the node
 	vector<nodeDataType> types;
 	// Contains the params of node (if it is a function)

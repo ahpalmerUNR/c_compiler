@@ -78,7 +78,12 @@ void AssignmentNode::ast_to_3ac(FILE *fileout)
 	char typePrint1[500] = "0";
 	char typePrint2[500] = "0";
 	char assignPrint[500];
-fprintf(fileout, "#%s",TreeNode::coldLine().c_str() );
+	if (currentCodeLine != forErrors[0].source[0].lineNum )
+	{
+		fprintf(fileout, "#%s",TreeNode::coldLine().c_str() );
+		currentCodeLine = forErrors[0].source[0].lineNum;
+	}
+
 	bool isOpAssign = true;
 	string assignString;
 	string s1,s2;
@@ -199,6 +204,9 @@ void AssignmentNode::errorCheck()
 			//may produce duplicate warnings as data node so maybe not use it...
 			implicitCastWarning(left,right);
 		}
+		cout<<children[0]->returnTicket()<<endl;
+		cout<<ticketNumber<<endl;
+		ticketNumber = children[0]->returnTicket();
 }
 
 void AssignmentNode::implicitCastWarning(nodeDataType t1, nodeDataType t2)

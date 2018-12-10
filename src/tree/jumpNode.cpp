@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-31 11:34:10
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-30 10:29:30
+* @Last Modified time: 2018-12-03 15:58:05
 */
 #include "jumpNode.h"
 
@@ -48,7 +48,11 @@ void JumpNode::ast_to_3ac(FILE* fileout)
 	int a = 0;
 	int isID;
 	Node* ch1;
-	fprintf(fileout, "#%s",TreeNode::coldLine().c_str() );
+	if (currentCodeLine != forErrors[0].source[0].lineNum )
+	{
+		fprintf(fileout, "#%s",TreeNode::coldLine().c_str() );
+		currentCodeLine = forErrors[0].source[0].lineNum;
+	}
 	switch(jtype)
 	{
 		case 0:

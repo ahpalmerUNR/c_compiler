@@ -57,7 +57,12 @@ void RelationNode::traverse_to_file(FILE *fileout)
 }
 
 void RelationNode::ast_to_3ac(FILE *fileout)
-{fprintf(fileout, "#%s",TreeNode::coldLine().c_str() );
+{
+	if (currentCodeLine != forErrors[0].source[0].lineNum )
+	{
+		fprintf(fileout, "#%s",TreeNode::coldLine().c_str() );
+		currentCodeLine = forErrors[0].source[0].lineNum;
+	}
 	children[0]->ast_to_3ac(fileout);
 	children[1]->ast_to_3ac(fileout);
 	char typePrint[500] = "0";
