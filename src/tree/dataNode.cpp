@@ -367,7 +367,7 @@ void DataNode::setTypeSpecifier(nodeDataType typeSpec)
 {
 	dType = typeSpec;
 }
-	void DataNode::setOperator(OperatorType operatorSpec)
+void DataNode::setOperator(OperatorType operatorSpec)
 {
 	oType = operatorSpec;
 	isOperatorNode = true;

@@ -683,6 +683,8 @@ direct_declarator
 		char buffer[500];
 		$<tnode>3->getDataType(buffer);
 		//cout << atoi(buffer) << endl;
+		if(atoi(buffer) <= 0)
+			tmp->TreeNode::errorCheck("ERROR: Invalid array size in declaration");
 		tmp->setArrayOffset(atoi(buffer) * $<tnode>1->getArrayOffset());
 		//cout << tmp->getArrayOffset() << endl;
 		tmp->setTypeSpecifier(ID_TYPE_NODE);
@@ -1608,7 +1610,7 @@ postfix_expression
 			{
 				if($<tnode>3->getidDataType() != INT_TYPE_NODE)
 				{
-					//yyerror("Invalid operand to [] operator");
+					yyerror("Invalid operand to [] operator");
 				}
 			}
 			else
