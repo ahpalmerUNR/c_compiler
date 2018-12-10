@@ -1,12 +1,11 @@
 int main()
 {
 
-	int i;
+	int i[1][-5];
 	int j;
 
-	i = 1;
+	i[1][2];
 
-	return 0;
-
+	/*!!D*/
 }
 

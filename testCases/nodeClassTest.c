@@ -1,6 +1,6 @@
 int main()
 {
-	//!!Y 5
+
 	int j[2][4];
 	// //!!D
 	// int i;

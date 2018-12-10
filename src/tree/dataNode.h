@@ -41,7 +41,7 @@ public:
 	int getTicketNumber();
 protected:
 
-	int ticketNumber;
+	//int ticketNumber;
 	nodeDataType dType;
 	OperatorType oType;
 	Data data;
