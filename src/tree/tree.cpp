@@ -338,7 +338,7 @@ void Tree::set_root(TreeNode* new_root)
 	root = new_root;
 }
 
-string rep_3ac_ticket(nodeDataType ndt, int ticket)
+string TreeNode::rep_3ac_ticket(nodeDataType ndt, int ticket)
 {
 	char typePrint[500];
 	switch(ndt)
@@ -356,7 +356,7 @@ string rep_3ac_ticket(nodeDataType ndt, int ticket)
 			snprintf(typePrint, 500,"f");
 			break;
 		default:
-			snprintf(typePrint, 500, "Error probably with id");
+			snprintf(typePrint, 500, "Error probably with id %d",ndt);
 			break;
 		
 	}

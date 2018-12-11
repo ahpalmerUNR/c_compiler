@@ -24,7 +24,6 @@ extern int Label_counter;
 extern int Variable_counter;
 extern int currentCodeLine;
 
-string rep_3ac_ticket(nodeDataType ndt, int ticket);
 
 enum OperatorType {
 	ADD_OP,
@@ -105,6 +104,7 @@ public:
 	void setTicketNumber(int t){ticketNumber = t;}
 	int getTicketNumber(){return ticketNumber;}
 	string coldLine();
+	string rep_3ac_ticket(nodeDataType ndt, int ticket);
 protected:
 	int TreeNodeNumber;
 	//type
