@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-27 14:10:44
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-30 00:07:52
+* @Last Modified time: 2018-12-10 15:46:46
 */
 #include "tree.h"
 
@@ -28,6 +28,15 @@ TreeNode::TreeNode(string TreeNodeProductionName,int numberOfChildren)
 TreeNode::~TreeNode()
 {
 	
+}
+bool TreeNode::checkChildZ()
+{
+	char tmp[500];
+	if(children[0]->getDataType(tmp)==EMPTY_TYPE_NODE)
+	{
+		return true;
+	}
+	return false;
 }
 
 void TreeNode::traverse_to_file(FILE* fileout)
