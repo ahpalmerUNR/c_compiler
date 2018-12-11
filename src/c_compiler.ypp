@@ -550,11 +550,11 @@ init_declarator
 	: declarator {
 		$<tnode>$ = $<tnode>1;
 		outputReduction("init_declarator : declarator");}
-	| declarator EQUAL_tok initializer {
+	| declarator EQUAL_tok {insert_lookup = 1;} initializer{
 		AssignmentNode* tmpAssign = new AssignmentNode("scope_assignment_",2);
 		tmpAssign->setAssignType(EQUAL_ASSIGN);
 		tmpAssign->assignChild(0,$<tnode>1);
-		tmpAssign->assignChild(1,$<tnode>3);
+		tmpAssign->assignChild(1,$<tnode>4);
 		tmpAssign->errorCheck();
 		if(scopeInits->checkChildZ()==true)
 		{
@@ -572,6 +572,7 @@ init_declarator
 		//tmp->assignChild(0,$<tnode>1);
 		//tmp->assignChild(1,$<tnode>3);
 		$<tnode>$ = $<tnode>1;
+		insert_lookup = 0;
 		outputReduction("init_declarator : declarator EQUAL_tok initializer");}
 	;
 

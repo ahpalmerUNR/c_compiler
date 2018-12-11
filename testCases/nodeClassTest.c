@@ -5,7 +5,9 @@ int main()
 	
 	int k = 2;
 	int j = 4;
-	int p = 3;
+	int p = k + 2 * j;
+
+	j = p + k;
 	// //!!D
 	// int i;
 	// // !!D
