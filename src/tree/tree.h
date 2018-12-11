@@ -98,6 +98,7 @@ public:
 	virtual void setArrayOffset(int i){arrayOffset = i;}
 	virtual int getArrayOffset(){return arrayOffset;}
 	void printNode();
+	bool checkChildZ();
 	virtual void errorCheck(const char * str);
 	virtual void assignLine(int,int,int,string);
 	virtual bool isIDList(){return false;}
