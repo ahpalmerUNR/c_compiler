@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-31 11:49:36
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-12-03 15:58:45
+* @Last Modified time: 2018-12-10 16:53:46
 */
 #include "selectionNode.h"
 
@@ -45,6 +45,7 @@ void SelectionNode::traverse_to_file(FILE* fileout)
 }
 void SelectionNode::ast_to_3ac(FILE* fileout)
 {
+	char tmp[500];
 	if (currentCodeLine != forErrors[0].source[0].lineNum )
 	{
 		fprintf(fileout, "#%s",TreeNode::coldLine().c_str() );
@@ -61,7 +62,7 @@ void SelectionNode::ast_to_3ac(FILE* fileout)
 		{
 			//no else
 			children[0]->ast_to_3ac(fileout);
-			fprintf(fileout, "BREQ\t%d\t(0)\tl%d\n", children[0]->returnTicket(),jticket1);
+			fprintf(fileout, "BREQ\t%s\t(0)\tl%d\n", rep_3ac_ticket(children[0]->getDataType(tmp), children[0]->returnTicket()).c_str(),jticket1);
 			fprintf(fileout, "BR\t\t\tl%d\n", jticket2);
 			fprintf(fileout, "LABEL\tl%d\n",jticket1);
 			children[1]->ast_to_3ac(fileout);
@@ -71,7 +72,7 @@ void SelectionNode::ast_to_3ac(FILE* fileout)
 		{
 			//else
 			children[0]->ast_to_3ac(fileout);
-			fprintf(fileout, "BREQ\t%d\t(0)\tl%d\n", children[0]->returnTicket(),jticket1);
+			fprintf(fileout, "BREQ\t%s\t(0)\tl%d\n", rep_3ac_ticket(children[0]->getDataType(tmp), children[0]->returnTicket()).c_str(),jticket1);
 			fprintf(fileout, "BR\t\t\tl%d\n", jticket2);
 			fprintf(fileout, "LABEL\tl%d\n",jticket1);
 			children[1]->ast_to_3ac(fileout);
