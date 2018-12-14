@@ -1,11 +1,11 @@
 int main()
 {
 
-	int i[1][5];
+	int i[4];
 	int j;
-	j = 3;
-	if(j = 3);
 
-	/*!!D*/
+	j = i[1] + 4;
+
+	!!D
 }
 

@@ -131,6 +131,15 @@ void Node::output(FILE *stream)
 		}
 		fprintf(stream, ")");
 	}
+	if(arraySizes.size())
+	{
+		fprintf(stream, " Array Sizes: ");
+		for (const int size : arraySizes)
+		{
+			fprintf(stream, "%d ", size);
+		}
+		fprintf(stream, ",");
+	}
 	fprintf(stream, "\n");
 }
 

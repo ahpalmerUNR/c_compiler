@@ -18,6 +18,7 @@
 	#include "../src/tree/functionNode.h"
 	#include "../src/tree/typeNode.h"
 	#include "../src/tree/declarationSpecNode.h"
+	#include "../src/tree/arrayNode.h"
 
 
 	#define MAX_LINE_LENGTH 500
@@ -33,7 +34,7 @@
 	time_t time_time;
 	clock_t clock_time;
 	int currentCodeLine = 0;
-
+	int arraySizeOffset = 0;
 	/**
 	 * SymbolTable and variables to manipulate the insertion to symbol table
 	 */
@@ -692,7 +693,7 @@ direct_declarator
 		$<tnode>$ = tmp;
 		outputReduction("direct_declarator : direct_declarator OPEN_BRACKET_tok CLOSE_BRACKET_tok");}
 	| direct_declarator OPEN_BRACKET_tok constant_expression CLOSE_BRACKET_tok {
-		// cout << variableToInsert->name << endl;
+		//cout << variableToInsert->name << endl;
 		
 		DataNode* tmp = new DataNode("direct_declarator_");
 		tmp->assignLine(line,column-size,column,codeLine());
@@ -707,6 +708,13 @@ direct_declarator
 		if(atoi(buffer) <= 0)
 			tmp->TreeNode::errorCheck("ERROR: Invalid array size in declaration");
 		tmp->setArrayOffset(atoi(buffer) * $<tnode>1->getArrayOffset());
+		//vector<int> sizes = $<tnode>3->getArraySizes;
+		//for(int i = 0; i < sizes.size(); i++)
+		cout << "Pushing back: " << atoi(buffer) << endl;
+		int a;
+		Node *n = s.searchAll(variableToInsert->name,&a);
+		if(n != NULL)
+			n->arraySizes.push_back(atoi(buffer));
 		//cout << tmp->getArrayOffset() << endl;
 		tmp->setTypeSpecifier(ID_TYPE_NODE);
 		$<tnode>$ = tmp;
@@ -1118,6 +1126,7 @@ compound_statement
 
 statement_list
 	: statement {
+		arraySizeOffset = 0;
 		insert_lookup = 1;
 		int scope;
 		Node* searchResult = s.searchAll(variableToInsert->name, &scope);
@@ -1129,6 +1138,7 @@ statement_list
 		$<tnode>$ = $<tnode>1;
 		outputReduction("statement_list : statement");}
 	| statement_list statement {
+		arraySizeOffset = 0;
 		insert_lookup = 1;
 		int scope;
 		Node* searchResult = s.searchAll(variableToInsert->name, &scope);
@@ -1622,21 +1632,30 @@ postfix_expression
 		$<tnode>$ = $<tnode>1;
 		outputReduction("postfix_expression : primary_expression");}
 	| postfix_expression OPEN_BRACKET_tok expression CLOSE_BRACKET_tok {
-		DataNode* tmp = new DataNode("postfix_expression_");
+		char name[500];
+		ArrayNode* tmp = new ArrayNode("postfix_expression_");
 		tmp->assignLine(line,column-size,column,codeLine());
-		tmp->setNumberChildren(2);
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>3);
-		tmp->setTypeSpecifier(ID_TYPE_NODE);
-		tmp->setOperator(BRACKET_OP);
 		vector<nodeDataType> type;
 		type.push_back($<tnode>1->getidDataType());
+		$<tnode>1->getDataType(name);
+		int q;
+		Node *n = s.searchAll(name,&q);
+		tmp->storeString(name);
+		//cout << name << endl;
+		//cout << n->arraySizes.size() << endl;
+		tmp->setArrayOffset(n->arraySizes[arraySizeOffset]);
+		if(arraySizeOffset == 0)
+			tmp->setFirst();
+		if(arraySizeOffset == n->arraySizes.size()-1)
+			tmp->setLast();
+		arraySizeOffset++;
 		tmp->setidDataTypes(type);
-		tmp->notData();
-		char useless[500];
-		if($<tnode>3->getDataType(useless) != INT_TYPE_NODE)
+		tmp->setTypeSpecifier(ID_TYPE_NODE);
+		if($<tnode>3->getDataType(name) != INT_TYPE_NODE)
 		{
-			if($<tnode>3->getDataType(useless) == ID_TYPE_NODE)
+			if($<tnode>3->getDataType(name) == ID_TYPE_NODE)
 			{
 				if($<tnode>3->getidDataType() != INT_TYPE_NODE)
 				{

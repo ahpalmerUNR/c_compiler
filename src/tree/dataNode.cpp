@@ -222,7 +222,7 @@ void DataNode::ast_to_3ac(FILE* fileout)
 		}	*/	
 		t = children[1]->getDataType(typePrint2);
 		//s2 = typePrint2;
-					s2 =  rep_3ac_ticket(t,children[1]->returnTicket());
+		s2 =  rep_3ac_ticket(t,children[1]->returnTicket());
 		if(t == ID_TYPE_NODE){
 			t = children[1]->getidDataType();
 			s2 =  rep_3ac_ticket(t,children[1]->returnTicket());
@@ -521,4 +521,8 @@ void DataNode::setTicketNumber(int t)
 int DataNode::getTicketNumber()
 {
 	return ticketNumber;
+}
+void DataNode::setArraySizes(int size)
+{
+	arraySizes.push_back(size);
 }
