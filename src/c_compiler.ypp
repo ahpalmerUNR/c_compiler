@@ -561,12 +561,14 @@ init_declarator
 		if(scopeInits->checkChildZ()==true)
 		{
 			scopeInits->assignChild(0,tmpAssign);
+			scopeInits->setNoBytes();
 		}
 		else{
 			TreeNode* ntmp = new TreeNode("scope_inits",2);
 			ntmp->assignChild(0,scopeInits);
 			ntmp->assignChild(1,tmpAssign);
 			scopeInits = ntmp;
+			scopeInits->setNoBytes();
 		}
 		//scopeInits->assignChild(0,tmpAssign);
 		//TreeNode* tmp = new TreeNode("init_declarator_",2);
@@ -1005,6 +1007,7 @@ direct_abstract_declarator
 
 statement
 	: labeled_statement {
+		$<tnode>1->setNoBytes();
 		$<tnode>$ = $<tnode>1;
 		outputReduction("statement : labeled_statement");}
 	| compound_statement {
@@ -1020,6 +1023,7 @@ statement
 		$<tnode>$ = $<tnode>1;
 		outputReduction("statement : iteration_statement");}
 	| jump_statement {
+		$<tnode>1->setNoBytes();
 		$<tnode>$ = $<tnode>1;
 		outputReduction("statement : jump_statement");}
 	;
@@ -1055,10 +1059,11 @@ expression_statement
 	: SEMI_tok {
 		TreeNode* tmp = new TreeNode("expression_statement_",0);
 		tmp->assignLine(line,column-size,column,codeLine());
-
+		tmp->setNoBytes();
 		$<tnode>$ = tmp;
 		outputReduction("expression_statement : SEMI_tok");}
 	| expression SEMI_tok {
+		$<tnode>1->setNoBytes();
 		$<tnode>$ = $<tnode>1;
 		outputReduction("expression_statement : expression SEMI_tok");}
 	;
@@ -1105,6 +1110,7 @@ compound_statement
 		dtmp->assignChild(1,scopeInits);
 		scopeInits = new TreeNode("scope_inits",1);
 		scopeInits->assignChild(0,blank);
+		scopeInits->setNoBytes();
 		insert_lookup = 1;
 		$<tnode>$ = dtmp;
 		outputReduction("compound_statement : OPEN_BRACE_tok declaration_list CLOSE_BRACE_tok");}
@@ -1117,6 +1123,7 @@ compound_statement
 		dtmp->assignChild(1,scopeInits);
 		scopeInits = new TreeNode("scope_inits",1);
 		scopeInits->assignChild(0,blank);
+		scopeInits->setNoBytes();
 		tmp->assignChild(0,dtmp);
 		
 		tmp->assignChild(1,$<tnode>6);
@@ -1773,23 +1780,27 @@ constant
 		DataNode* tmp = new DataNode("constant_");
 		tmp->storeInt(yylval.lint);
 		tmp->assignLine(line,column-size,column,codeLine());
+		tmp->setNoBytes();
 		$<tnode>$ = tmp;
 		outputReduction("constant : INTEGER_CONSTANT_tok");}
 	| CHARACTER_CONSTANT_tok {
 		DataNode* tmp = new DataNode("constant_");
 		tmp->storeChar(yylval.lchar);
 		tmp->assignLine(line,column-size,column,codeLine());
+		tmp->setNoBytes();
 		$<tnode>$ = tmp;
 		outputReduction("constant : CHARACTER_CONSTANT_tok");}
 	| FLOATING_CONSTANT_tok {
 		DataNode* tmp = new DataNode("constant_");
 		tmp->storeDouble(yylval.ldoub);
 		tmp->assignLine(line,column-size,column,codeLine());
+		tmp->setNoBytes();
 		$<tnode>$ = tmp;
 		outputReduction("constant : FLOATING_CONSTANT_tok");}
 	| ENUMERATION_CONSTANT_tok {
 		TreeNode* tmp = new TreeNode("constant",0);
 		tmp->assignLine(line,column-size,column,codeLine());
+		tmp->setNoBytes();
 		$<tnode>$ = tmp;
 		outputReduction("constant : ENUMERATION_CONSTANT_tok");}
 	;
@@ -1899,6 +1910,7 @@ int main(int argc, char **argv)
 	levels[4] = 11;
 	
 	scopeInits->assignChild(0,blank);
+	scopeInits->setNoBytes();
 	cout<<"Here"<<endl;
 	cout.flush();
 	

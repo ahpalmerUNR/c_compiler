@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-11-05 15:44:49
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-12-03 15:57:41
+* @Last Modified time: 2018-12-14 16:25:00
 */
 #include "functionNode.h"
 
@@ -163,7 +163,7 @@ void FunctionNode::errorCheck(const char * str)
 				}
 				else
 				{
-					sizeOfParams = children[1]->byteSize;
+					sizeOfParams = children[1]->children[1]->byteSize;
 				}
 				//Each decl in param-list must contain an identifier
 				//
@@ -184,7 +184,7 @@ void FunctionNode::errorCheck(const char * str)
 			}
 			else
 			{
-				sizeOfParams = children[1]->byteSize;
+				// sizeOfParams = children[1]->byteSize;
 			}
 		}
 		
