@@ -27,6 +27,8 @@ public:
 	void setFirst();
 	void setLast();
 	void storeString(char *string);
+	bool isArrayNode();
+	void setLHS();
 protected:
 
 	//int ticketNumber;
