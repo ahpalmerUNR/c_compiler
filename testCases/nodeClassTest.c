@@ -1,9 +1,9 @@
-int main()
+int main(float a,int b)
 {
 
 	// int j[2][4];
 	
-	int k = 2;
+	double k = 2;
 	int j = 4;
 	int p = k + 2 * j;
 
