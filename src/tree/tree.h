@@ -93,7 +93,7 @@ public:
 	//virtual int getDataType(char *){ return -1; }
 	virtual nodeDataType getidDataType(){};
 	virtual vector<nodeDataType> getTypes();
-	virtual void setidDataTypes(int types){};
+	virtual void setidDataTypes(vector<nodeDataType>){};
 	virtual int returnTicket(){}
 	virtual void setArrayOffset(int i){arrayOffset = i;}
 	virtual int getArrayOffset(){return arrayOffset;}

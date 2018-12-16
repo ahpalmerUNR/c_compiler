@@ -6,7 +6,7 @@ int main(float a,int b)
 	double k = 2;
 	
 	float j = 4;
-	int p = k + 2 * j;
+	char p = k + 2 * j;
 	!!D
 
 	j = p + k;

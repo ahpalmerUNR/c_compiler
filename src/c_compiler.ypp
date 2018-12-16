@@ -676,6 +676,7 @@ direct_declarator
 			if (searchResult == NULL || searchResult->ntype != FUNCTION) {
 				variableToInsert->ticketNumber = $<tnode>1->returnTicket();
 				s.insert(variableToInsert->name, *variableToInsert);
+				$<tnode>1->setidDataTypes(variableToInsert->types);
 			}
 			variableToInsert->types = {};
 		}

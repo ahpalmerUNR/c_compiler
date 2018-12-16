@@ -92,6 +92,7 @@ void AssignmentNode::ast_to_3ac(FILE *fileout)
 	s1 =  rep_3ac_ticket(t,children[0]->returnTicket());
 	if(t == ID_TYPE_NODE){ 
 		t = children[0]->getidDataType();
+		// cout<<"ID_TYPE_NODE "<<t<<endl;
 		s1 =  rep_3ac_ticket(t,children[0]->returnTicket());
 	}
 	/*else
@@ -159,7 +160,7 @@ void AssignmentNode::ast_to_3ac(FILE *fileout)
 		//fprintf(fileout,"ASSIGN\t%s\t%s%i\n",s1.c_str(),typePrint1,Variable_counter++);
 	}
 	else
-		fprintf(fileout,"ASSIGN\t%s\t_\t%s\n",s2.c_str(),s1.c_str());
+		fprintf(fileout,"ASSIN\t%s\t_\t%s\n",s2.c_str(),s1.c_str());
 }
 
 int AssignmentNode::returnTicket()
@@ -184,19 +185,24 @@ void AssignmentNode::errorCheck()
 		//Actually have to get the data type from the symbol table
 		left = nodeDataType(children[0]->getDataType(pointless));
 		right = nodeDataType(children[1]->getDataType(pointless));
+		// cout<<"Left "<<left<<" Right "<<right<<endl;
 		if(left != ID_TYPE_NODE)
 			yyerror("Error: lvalue required as left operand of assignment");
 		
 		left = children[0]->getidDataType();
+		// cout<<"New Left "<<left<<endl;
 		if(right == ID_TYPE_NODE)
 		{
 			//Get rights actual type
 		  right = children[1]->getidDataType();
+		  // cout<<"New Right "<<right<<endl;
 		}
 		
 		if(right != left)
 		{
+			// cout<<"Casting Conversion "<<endl;
 			CastNode *tmp = new CastNode("Implicit_Cast_");
+			
 			tmp->setTypeSpecifier(left);
 			tmp->assignChild(0,children[1]);
 			assignChild(1,tmp);
@@ -204,8 +210,8 @@ void AssignmentNode::errorCheck()
 			//may produce duplicate warnings as data node so maybe not use it...
 			implicitCastWarning(left,right);
 		}
-		cout<<children[0]->returnTicket()<<endl;
-		cout<<ticketNumber<<endl;
+		// cout<<"Left Ticket "<<children[0]->returnTicket()<<endl;
+		// cout<<"Assignment Ticket "<<ticketNumber<<endl;
 		ticketNumber = children[0]->returnTicket();
 }
 

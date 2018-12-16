@@ -346,12 +346,23 @@ void DataNode::storeString(char *s)
 
 nodeDataType DataNode::getidDataType()
 {
+	// cout<<"Data Types of ID ";
+	// for(int i = 0; i < idDataTypes.size(); i++)
+	// {
+	// 	cout<<"Position "<<i<<" "<<idDataTypes[i]<<' '<<endl;
+	// }
+	// cout<<endl;
 	//cout << "here " << idDataTypes.size() << endl;
 	for(int i = 0; i < idDataTypes.size(); i++)
 	{
-		if(idDataTypes[i] == (FLOAT_TYPE_NODE || INT_TYPE_NODE || CHAR_TYPE_NODE || DOUBLE_TYPE_NODE))
+		// cout<<"Position "<<i<<" Value "<<idDataTypes[i]<<' '<<endl;
+		if(idDataTypes[i] == FLOAT_TYPE_NODE || idDataTypes[i] == INT_TYPE_NODE || idDataTypes[i] == CHAR_TYPE_NODE || idDataTypes[i] == DOUBLE_TYPE_NODE)
+		{
+			// cout<<"Found Type in getidDataType is "<<idDataTypes[i]<<endl;
 				return idDataTypes[i];
+		}
 	}
+	return dType;
 
 }
 void DataNode::setidDataTypes(vector<nodeDataType> types)
