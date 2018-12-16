@@ -73,16 +73,16 @@ void ArrayNode::setidDataTypes(vector<nodeDataType> types)
 		switch(idDataTypes[i])
 		{
 			case CHAR_TYPE_NODE:
-				byteSize = 4;
+				byteSize = CHAR_MIPS;
 				break;
 			case INT_TYPE_NODE:
-				byteSize = 4;
+				byteSize = INT_MIPS;
 				break;
 			case DOUBLE_TYPE_NODE:
-				byteSize = 8;
+				byteSize = DOUBLE_MIPS;
 				break;
 			case FLOAT_TYPE_NODE:
-				byteSize = 8;
+				byteSize = FLOAT_MIPS;
 				break;
 		}
 }

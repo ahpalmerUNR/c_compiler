@@ -5,7 +5,7 @@ int main(float a,int b)
 	
 	double k = 2;
 	
-	int j = 4;
+	float j = 4;
 	int p = k + 2 * j;
 	!!D
 

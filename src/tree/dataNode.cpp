@@ -317,21 +317,21 @@ void DataNode::storeChar(char c)
 	data.dchar = c;
 	dType = CHAR_TYPE_NODE;
 	isData = true;
-	byteSize = CHAR_MIPS;
+	// byteSize = CHAR_MIPS;
 }
 void DataNode::storeInt(int i)
 {
 	data.dint = i;
 	dType = INT_TYPE_NODE;
 	isData = true;
-	byteSize = INT_MIPS;
+	// byteSize = INT_MIPS;
 }
 void DataNode::storeDouble(double d)
 {
 	data.ddoub = d;
 	dType = DOUBLE_TYPE_NODE;
 	isData = true;
-	byteSize = DOUBLE_MIPS;
+	// byteSize = DOUBLE_MIPS;
 }
 void DataNode::storeString(char *s)
 {
@@ -341,7 +341,7 @@ void DataNode::storeString(char *s)
 
 	dType = STRING_TYPE_NODE;
 	isData = true;
-	byteSize = INT_MIPS;
+	// byteSize = INT_MIPS;
 }
 
 nodeDataType DataNode::getidDataType()
@@ -366,6 +366,27 @@ int DataNode::returnTicket()
 void DataNode::setTypeSpecifier(nodeDataType typeSpec)
 {
 	dType = typeSpec;
+	switch(dType)
+	{
+		case CHAR_TYPE_NODE:
+			byteSize = CHAR_MIPS;
+			break;
+		case INT_TYPE_NODE:
+			byteSize = INT_MIPS;
+			break;
+		case DOUBLE_TYPE_NODE:
+			byteSize = DOUBLE_MIPS;
+			break;
+		case STRING_TYPE_NODE:
+			byteSize = INT_MIPS;
+			break;
+		case FLOAT_TYPE_NODE:
+			byteSize = FLOAT_MIPS;
+			break;
+		default:
+			byteSize = 0;
+
+	}
 }
 void DataNode::setOperator(OperatorType operatorSpec)
 {

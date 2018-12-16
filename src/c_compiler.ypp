@@ -1860,7 +1860,7 @@ identifier
 		}
 		tmp->setTypeSpecifier(ID_TYPE_NODE);
 		tmp->assignLine(line,column-size,column,codeLine());
-		
+		tmp->setNoBytes();
 		$<tnode>$ = tmp;
 		outputReduction("identifier : ID_tok");}
 	;

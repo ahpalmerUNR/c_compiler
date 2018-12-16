@@ -60,9 +60,14 @@ void TypeNode::ast_to_3ac(FILE* fileout)
 	for(i = 0; i < types.size(); i++)
 	{
 		//cout << types[i] << endl;
-		if(types[i] == (FLOAT_TYPE_NODE || DOUBLE_TYPE_NODE))
+		if(types[i] ==  DOUBLE_TYPE_NODE)
 		{
 			byteSize = DOUBLE_MIPS;
+			break;
+		}
+		if(types[i] == FLOAT_TYPE_NODE)
+		{
+			byteSize = FLOAT_MIPS;
 			break;
 		}
 		if(types[i] == CHAR_TYPE_NODE)

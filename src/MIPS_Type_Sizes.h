@@ -7,7 +7,7 @@
 #endif
 
 #ifndef FLOAT_MIPS
-#define FLOAT_MIPS 4
+#define FLOAT_MIPS 8
 #endif
 
 #ifndef DOUBLE_MIPS

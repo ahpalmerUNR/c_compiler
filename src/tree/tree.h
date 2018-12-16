@@ -9,6 +9,7 @@
 #include "../symboltable.h"
 #include "../MIPS_Type_Sizes.h"
 
+
 using namespace std;
 
 extern SymbolTable astTable;
