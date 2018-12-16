@@ -552,7 +552,7 @@ init_declarator
 		$<tnode>$ = $<tnode>1;
 		outputReduction("init_declarator : declarator");}
 
-	| declarator EQUAL_tok {insert_lookup = 1;} initializer{
+	| declarator EQUAL_tok {insert_lookup = 1;} initializer {
 		AssignmentNode* tmpAssign = new AssignmentNode("scope_assignment_",2);
 		tmpAssign->setAssignType(EQUAL_ASSIGN);
 		tmpAssign->assignChild(0,$<tnode>1);
@@ -836,7 +836,7 @@ parameter_type_list
 parameter_list
 	: parameter_declaration {
 		EmptyNode* blank1 = new EmptyNode("empty_");
-		ParamListNode* tmp = new ParamListNode("parameter_type_list_",false);
+		ParamListNode* tmp = new ParamListNode("parameter_list_",false);
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,blank1);
 		$<tnode>$ = tmp;
@@ -1831,7 +1831,7 @@ identifier
 			if(insert_lookup == 0)
 			{
 				//cout << "am i here?" << endl;
-				tmp->storeString((char*)variableToInsert->name.c_str());
+				tmp->storeString((char*)yylval.lnode->name.c_str());
 				//variableToInsert->ticketNumber = tmp->returnTicket();
 			}
 			else
