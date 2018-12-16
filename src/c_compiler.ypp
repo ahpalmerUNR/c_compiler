@@ -1653,11 +1653,16 @@ postfix_expression
 			offset *= n->arraySizes[i];
 		}
 		tmp->setArrayOffset(offset);
+			cout << arraySizeOffset << "here" << endl;
 		if(arraySizeOffset == 0)
 			tmp->setFirst();
 		if(arraySizeOffset == n->arraySizes.size()-1)
+		{
 			tmp->setLast();
-		arraySizeOffset++;
+			arraySizeOffset = 0;
+		}
+		else
+			arraySizeOffset++;
 		tmp->setidDataTypes(type);
 		tmp->setTypeSpecifier(ID_TYPE_NODE);
 		if($<tnode>3->getDataType(name) != INT_TYPE_NODE)
