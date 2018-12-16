@@ -166,6 +166,27 @@ SymbolTable::SymbolTable(string n)
 	currentLevel = -1;
 	// Initialize the symbol table with a bst
 	pushEmptyBST();
+	// Add reserved functions
+	Node readIntNode;
+	readIntNode.name = "ReadInt";
+	readIntNode.isDefined = true;
+	readIntNode.types.push_back(INT_TYPE_NODE);
+	readIntNode.params.push_back({ INT_TYPE_NODE });
+	insert("ReadInt", readIntNode);
+
+	Node readCharNode;
+	readCharNode.name = "ReadChar";
+	readCharNode.isDefined = true;
+	readCharNode.types.push_back(CHAR_TYPE_NODE);
+	readCharNode.params.push_back({ CHAR_TYPE_NODE });
+	insert("ReadChar", readCharNode);
+
+	Node writeIntNode;
+	writeIntNode.name = "WriteInt";
+	writeIntNode.isDefined = true;
+	writeIntNode.types.push_back(INT_TYPE_NODE);
+	writeIntNode.params.push_back({ INT_TYPE_NODE });
+	insert("WriteInt", writeIntNode);
 }
 
 Node *SymbolTable::insert(string tokenKey, int lN, int cN, DataType t, int *errorcode)
