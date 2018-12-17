@@ -7,10 +7,11 @@
 int factorial(int n);
 
 int factorial(int m) {
+	m = 5;
 	if (m <= 1) {
 		return 1;
 	} else {
 		return m * factorial(m - 1);
 	}
-	// !!D
+	!!D
 }

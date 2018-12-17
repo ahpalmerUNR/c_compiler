@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-27 14:10:44
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-12-10 15:46:46
+* @Last Modified time: 2018-12-14 16:04:11
 */
 #include "tree.h"
 
@@ -70,6 +70,10 @@ void TreeNode::printNode()
 	{
 		cout<<forErrors[0].source[i].codeLine.c_str();
 	}
+}
+
+void TreeNode::setNoBytes(){
+	byteSize = 0;
 }
 
 void TreeNode::assignChild(int childIndex, TreeNode* child)

@@ -191,7 +191,7 @@ void DataNode::ast_to_3ac(FILE* fileout)
 {
 	if (currentCodeLine != forErrors[0].source[0].lineNum )
 	{
-		fprintf(fileout, "#%s",TreeNode::coldLine().c_str() );
+		fprintf(fileout, "# %s",TreeNode::coldLine().c_str() );
 		currentCodeLine = forErrors[0].source[0].lineNum;
 	}
 	char typePrint1[500] = "0";
@@ -317,21 +317,21 @@ void DataNode::storeChar(char c)
 	data.dchar = c;
 	dType = CHAR_TYPE_NODE;
 	isData = true;
-	byteSize = CHAR_MIPS;
+	// byteSize = CHAR_MIPS;
 }
 void DataNode::storeInt(int i)
 {
 	data.dint = i;
 	dType = INT_TYPE_NODE;
 	isData = true;
-	byteSize = INT_MIPS;
+	// byteSize = INT_MIPS;
 }
 void DataNode::storeDouble(double d)
 {
 	data.ddoub = d;
 	dType = DOUBLE_TYPE_NODE;
 	isData = true;
-	byteSize = DOUBLE_MIPS;
+	// byteSize = DOUBLE_MIPS;
 }
 void DataNode::storeString(char *s)
 {
@@ -341,17 +341,28 @@ void DataNode::storeString(char *s)
 
 	dType = STRING_TYPE_NODE;
 	isData = true;
-	byteSize = INT_MIPS;
+	// byteSize = INT_MIPS;
 }
 
 nodeDataType DataNode::getidDataType()
 {
+	// cout<<"Data Types of ID ";
+	// for(int i = 0; i < idDataTypes.size(); i++)
+	// {
+	// 	cout<<"Position "<<i<<" "<<idDataTypes[i]<<' '<<endl;
+	// }
+	// cout<<endl;
 	//cout << "here " << idDataTypes.size() << endl;
 	for(int i = 0; i < idDataTypes.size(); i++)
 	{
-		if(idDataTypes[i] == (FLOAT_TYPE_NODE || INT_TYPE_NODE || CHAR_TYPE_NODE || DOUBLE_TYPE_NODE))
+		// cout<<"Position "<<i<<" Value "<<idDataTypes[i]<<' '<<endl;
+		if(idDataTypes[i] == FLOAT_TYPE_NODE || idDataTypes[i] == INT_TYPE_NODE || idDataTypes[i] == CHAR_TYPE_NODE || idDataTypes[i] == DOUBLE_TYPE_NODE)
+		{
+			// cout<<"Found Type in getidDataType is "<<idDataTypes[i]<<endl;
 				return idDataTypes[i];
+		}
 	}
+	return dType;
 
 }
 void DataNode::setidDataTypes(vector<nodeDataType> types)
@@ -366,6 +377,27 @@ int DataNode::returnTicket()
 void DataNode::setTypeSpecifier(nodeDataType typeSpec)
 {
 	dType = typeSpec;
+	switch(dType)
+	{
+		case CHAR_TYPE_NODE:
+			byteSize = CHAR_MIPS;
+			break;
+		case INT_TYPE_NODE:
+			byteSize = INT_MIPS;
+			break;
+		case DOUBLE_TYPE_NODE:
+			byteSize = DOUBLE_MIPS;
+			break;
+		case STRING_TYPE_NODE:
+			byteSize = INT_MIPS;
+			break;
+		case FLOAT_TYPE_NODE:
+			byteSize = FLOAT_MIPS;
+			break;
+		default:
+			byteSize = 0;
+
+	}
 }
 void DataNode::setOperator(OperatorType operatorSpec)
 {

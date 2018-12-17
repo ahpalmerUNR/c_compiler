@@ -51,7 +51,7 @@ void TypeNode::ast_to_3ac(FILE* fileout)
 {
 	if (currentCodeLine != forErrors[0].source[0].lineNum )
 	{
-		fprintf(fileout, "#%s",TreeNode::coldLine().c_str() );
+		fprintf(fileout, "# %s",TreeNode::coldLine().c_str() );
 		currentCodeLine = forErrors[0].source[0].lineNum;
 	}
 	int i,tp;
@@ -60,9 +60,14 @@ void TypeNode::ast_to_3ac(FILE* fileout)
 	for(i = 0; i < types.size(); i++)
 	{
 		//cout << types[i] << endl;
-		if(types[i] == (FLOAT_TYPE_NODE || DOUBLE_TYPE_NODE))
+		if(types[i] ==  DOUBLE_TYPE_NODE)
 		{
 			byteSize = DOUBLE_MIPS;
+			break;
+		}
+		if(types[i] == FLOAT_TYPE_NODE)
+		{
+			byteSize = FLOAT_MIPS;
 			break;
 		}
 		if(types[i] == CHAR_TYPE_NODE)
@@ -80,7 +85,7 @@ void TypeNode::ast_to_3ac(FILE* fileout)
 	}
 	byteSize *= children[1]->getArrayOffset();
 	//cout << types[i] << endl;
-	fprintf(fileout,"ALLOC\t(%d)\t%s\n",byteSize,rep_3ac_ticket(types[i],children[1]->returnTicket()).c_str());
+	fprintf(fileout,"ALLOC\t(%d)\t_\t%s\n",byteSize,rep_3ac_ticket(types[i],children[1]->returnTicket()).c_str());
 
 	// children[1]->getDataType(temp);
 

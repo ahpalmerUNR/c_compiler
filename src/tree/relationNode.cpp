@@ -60,7 +60,7 @@ void RelationNode::ast_to_3ac(FILE *fileout)
 {
 	if (currentCodeLine != forErrors[0].source[0].lineNum )
 	{
-		fprintf(fileout, "#%s",TreeNode::coldLine().c_str() );
+		fprintf(fileout, "# %s",TreeNode::coldLine().c_str() );
 		currentCodeLine = forErrors[0].source[0].lineNum;
 	}
 	children[0]->ast_to_3ac(fileout);
