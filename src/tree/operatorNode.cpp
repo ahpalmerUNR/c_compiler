@@ -54,7 +54,7 @@ void OperatorNode::ast_to_3ac(FILE* fileout)
 {
 	if (currentCodeLine != forErrors[0].source[0].lineNum )
 	{
-		fprintf(fileout, "#%s",TreeNode::coldLine().c_str() );
+		fprintf(fileout, "# %s",TreeNode::coldLine().c_str() );
 		currentCodeLine = forErrors[0].source[0].lineNum;
 	}
 	children[0]->ast_to_3ac(fileout);
@@ -88,8 +88,8 @@ void OperatorNode::ast_to_3ac(FILE* fileout)
 		case INC_op:
 			snprintf(typePrint, 500,"INC");
 			//maybe since inc and dec store the value back 
-			s1 = s2;
-			ticketNumber = children[0]->returnTicket();
+			s2 = s1;
+			// ticketNumber = children[0]->returnTicket();
 			break;
 		case DEC_op:
 			snprintf(typePrint, 500,"DEC");

@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-31 11:49:36
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-12-10 16:53:46
+* @Last Modified time: 2018-12-16 22:54:19
 */
 #include "selectionNode.h"
 
@@ -48,7 +48,7 @@ void SelectionNode::ast_to_3ac(FILE* fileout)
 	char tmp[500];
 	if (currentCodeLine != forErrors[0].source[0].lineNum )
 	{
-		fprintf(fileout, "#%s",TreeNode::coldLine().c_str() );
+		fprintf(fileout, "# %s",TreeNode::coldLine().c_str() );
 		currentCodeLine = forErrors[0].source[0].lineNum;
 	}
 	char temp[500];

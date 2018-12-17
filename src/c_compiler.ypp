@@ -667,7 +667,7 @@ direct_declarator
 		if (isParam) {
 			if (parameterToInsert->name != "") {
 				parameterToInsert->types = variableToInsert->types;
-				//parameterToInsert->ticketNumber = $<tnode>1->returnTicket();
+				parameterToInsert->ticketNumber = $<tnode>1->returnTicket();
 				s.insert(parameterToInsert->name, *parameterToInsert);
 				parameterToInsert.reset(new Node());
 			}
@@ -855,24 +855,51 @@ parameter_declaration
 		parameterToInsert->types = variableToInsert->types;
 		paramTypesToBeUsed.push_back(parameterToInsert->types);
 		variableToInsert->types = {};
-
-		TreeNode* tmp = new TreeNode("parameter_declaration_",2);
+		
+		
+		TypeNode* tmp = new TypeNode("parameter_declaration",2);
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>2);
+		//cout << "Type node" << $<tnode>1->getArrayOffset() << " " << $<tnode>2->getArrayOffset() << endl;
+		char buffer[500];
+		vector<nodeDataType> types = tmp->getType();
+		tmp->parseTypes();
+		// Debugging: Get the types parsed
+		// for (int t : types) {
+		// 	cout << getDataTypeString(static_cast<nodeDataType>(t)) << " ";
+		// } cout << endl;
 		$<tnode>$ = tmp;
+		
+		//TreeNode* tmp = new TreeNode("parameter_declaration_",2);
+		//tmp->assignChild(0,$<tnode>1);
+		//tmp->assignChild(1,$<tnode>2);
+		//$<tnode>$ = tmp;
 		outputReduction("parameter_declaration : declaration_specifiers declarator");}
 	| declaration_specifiers {
 		parameterToInsert->types = variableToInsert->types;
 		paramTypesToBeUsed.push_back(parameterToInsert->types);
 		variableToInsert->types = {};
-		
-		$<tnode>$ = $<tnode>1;
+		TypeNode* tmp = new TypeNode("parameter_declaration",1);
+		tmp->assignChild(0,$<tnode>1);
+		$<tnode>$ = tmp;
 		outputReduction("parameter_declaration : declaration_specifiers");}
 	| declaration_specifiers abstract_declarator {
-		TreeNode* tmp = new TreeNode("parameter_declaration_",2);
+		TypeNode* tmp = new TypeNode("parameter_declaration",2);
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>2);
+		//cout << "Type node" << $<tnode>1->getArrayOffset() << " " << $<tnode>2->getArrayOffset() << endl;
+		char buffer[500];
+		vector<nodeDataType> types = tmp->getType();
+		tmp->parseTypes();
+		// Debugging: Get the types parsed
+		// for (int t : types) {
+		// 	cout << getDataTypeString(static_cast<nodeDataType>(t)) << " ";
+		// } cout << endl;
 		$<tnode>$ = tmp;
+		//TreeNode* tmp = new TreeNode("parameter_declaration_",2);
+		//tmp->assignChild(0,$<tnode>1);
+		//tmp->assignChild(1,$<tnode>2);
+		//$<tnode>$ = tmp;
 		outputReduction("parameter_declaration : declaration_specifiers abstract_declarator");}
 	;
 
@@ -1577,7 +1604,7 @@ unary_expression
 	: postfix_expression {
 		$<tnode>$ = $<tnode>1;
 		outputReduction("unary_expression : postfix_expression");}
-	| INC_OP_tok {} unary_expression {
+	| INC_OP_tok unary_expression {
 		OperatorNode* tmp = new OperatorNode("unary_expression_", INC_op, 1);
 		tmp->assignChild(0,$<tnode>2);
 		$<tnode>$ = tmp;
@@ -1948,8 +1975,8 @@ int main(int argc, char **argv)
 			{
 				fclose(parseFile);
 				printf("%s\n",argv[i+1]);
-				//outfile = fopen(argv[i+1],"w");
-				parseFile = fopen(argv[i+1],"w");
+				outfile = fopen(argv[i+1],"w");
+				//parseFile = fopen(argv[i+1],"w");
 
 			}
 			if(argv[i][0]=='-' && argv[i][1]=='t')
@@ -2034,17 +2061,18 @@ int main(int argc, char **argv)
 	genAST = true;
 	if(genAST)
 	{
-	AST.tree_to_gv("graphs/default.gv");
+		AST.tree_to_gv("graphs/default.gv");
 	}
 	if(gen3AC)
 	{
 		
-	AST.tree_to_3ac("build/3ac.txt");
+		AST.tree_to_3ac("build/3ac.txt");
 	}
 	if(genAssembly)
 	{
-		
+		system("python3 src/asmGen.py build/3ac.txt testCases/asmOutput/out.s");
 	}
+	system("python3 src/asmGen.py build/3ac.txt testCases/asmOutput/out.s");
 	//while((tok = yylex()))
 	//{
 	

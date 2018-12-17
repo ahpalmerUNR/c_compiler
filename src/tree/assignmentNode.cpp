@@ -80,7 +80,7 @@ void AssignmentNode::ast_to_3ac(FILE *fileout)
 	char assignPrint[500];
 	if (currentCodeLine != forErrors[0].source[0].lineNum )
 	{
-		fprintf(fileout, "#%s",TreeNode::coldLine().c_str() );
+		fprintf(fileout, "# %s",TreeNode::coldLine().c_str() );
 		currentCodeLine = forErrors[0].source[0].lineNum;
 	}
 
@@ -160,7 +160,7 @@ void AssignmentNode::ast_to_3ac(FILE *fileout)
 		//fprintf(fileout,"ASSIGN\t%s\t%s%i\n",s1.c_str(),typePrint1,Variable_counter++);
 	}
 	else
-		fprintf(fileout,"ASSIN\t%s\t_\t%s\n",s2.c_str(),s1.c_str());
+		fprintf(fileout,"ASSIGN\t%s\t_\t%s\n",s2.c_str(),s1.c_str());
 }
 
 int AssignmentNode::returnTicket()

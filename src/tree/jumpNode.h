@@ -21,6 +21,7 @@ public:
 protected:
 	int jumpCounter;
 	int ticketNumber;
+	int maybeTicket;
 	int jtype;
 	
 };
