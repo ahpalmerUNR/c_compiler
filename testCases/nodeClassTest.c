@@ -7,14 +7,18 @@ int main(float a,int b)
 	
 	float j = 4;
 	char p = k + 2 * j;
-	!!D
-	for (b = 0; b < 3; ++b)
-	{
-		break;
-	}
+	// !!D
+	// for (b = 0; b < 3; ++b)
+	// {
+	// 	break;
+	// }
 	
 
 	j = p + k;
+	{
+		// int k;
+		k = j;
+	}
 	// //!!D
 	// int i;
 	// // !!D

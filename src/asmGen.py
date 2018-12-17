@@ -2,13 +2,18 @@
 # @Author: ahpalmerUNR
 # @Date:   2018-12-16 22:22:02
 # @Last Modified by:   ahpalmerUNR
-# @Last Modified time: 2018-12-16 23:05:04
+# @Last Modified time: 2018-12-17 11:12:13
 import sys
 
 infile = ""
 outfile = ""
 
+currentBlock = 0
+
 commanddict = {}
+floatcommanddict = {}
+
+reginfotable={}#Start line, endline, where current found, istemp, memory location, block scope
 
 def populateCommands():
 	commanddict["#"] = "#%s"
@@ -45,6 +50,20 @@ def populateCommands():
 	commanddict["OR"] = ""
 	commanddict["XOR"] = ""
 	commanddict["AND"] = ""
+	
+	floatcommanddict["BREQ"] = ""
+	floatcommanddict["BRNE"] = ""
+	floatcommanddict["EQ"] = ""
+	floatcommanddict["LT"] = ""
+	floatcommanddict["LE"] = ""
+	floatcommanddict["LOAD"] = ""
+	floatcommanddict["STORE"] = ""
+	floatcommanddict["DIV"] = ""
+	floatcommanddict["ADD"] = ""
+	floatcommanddict["SUB"] = ""
+	floatcommanddict["MULT"] = ""
+	floatcommanddict["ASSIGN"] = ""
+	
 
 def castfunc(ticket1,ticket2):
 	pass
