@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-30 15:47:00
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-12-16 22:53:34
+* @Last Modified time: 2018-12-17 15:45:39
 */
 #include "labelNode.h"
 
@@ -56,7 +56,7 @@ void LabelNode::ast_to_3ac(FILE* fileout)
 	{
 		jumpCounter = ch1->lineNumber;
 	}
-	fprintf(fileout, "LABEL\tl%d\n",jumpCounter);
+	fprintf(fileout, "LABEL\tl%d\t_\t_\n",jumpCounter);
 	children[1]->ast_to_3ac(fileout);	
 }
 
