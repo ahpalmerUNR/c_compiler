@@ -12,7 +12,10 @@ int main(float a,int b)
 	// {
 	// 	break;
 	// }
-	
+	if (k == 2)
+	{
+		j = 3;
+	}
 
 	j = p + k;
 	{

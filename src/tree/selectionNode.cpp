@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-31 11:49:36
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-12-16 22:54:19
+* @Last Modified time: 2018-12-17 12:01:34
 */
 #include "selectionNode.h"
 
@@ -62,24 +62,24 @@ void SelectionNode::ast_to_3ac(FILE* fileout)
 		{
 			//no else
 			children[0]->ast_to_3ac(fileout);
-			fprintf(fileout, "BREQ\t%s\t(0)\tl%d\n", rep_3ac_ticket(children[0]->getDataType(tmp), children[0]->returnTicket()).c_str(),jticket1);
-			fprintf(fileout, "BR\t\t\tl%d\n", jticket2);
-			fprintf(fileout, "LABEL\tl%d\n",jticket1);
+			fprintf(fileout, "BREQ\t%s\t(1)\tl%d\n", rep_3ac_ticket(children[0]->getDataType(tmp), children[0]->returnTicket()).c_str(),jticket1);
+			fprintf(fileout, "BR\t_\t_\tl%d\n", jticket2);
+			fprintf(fileout, "LABEL\tl%d\t_\t_\n",jticket1);
 			children[1]->ast_to_3ac(fileout);
-			fprintf(fileout, "LABEL\tl%d\n", jticket2);
+			fprintf(fileout, "LABEL\tl%d\t_\t_\n", jticket2);
 		}
 		else
 		{
 			//else
 			children[0]->ast_to_3ac(fileout);
-			fprintf(fileout, "BREQ\t%s\t(0)\tl%d\n", rep_3ac_ticket(children[0]->getDataType(tmp), children[0]->returnTicket()).c_str(),jticket1);
-			fprintf(fileout, "BR\t\t\tl%d\n", jticket2);
-			fprintf(fileout, "LABEL\tl%d\n",jticket1);
+			fprintf(fileout, "BREQ\t%s\t(1)\tl%d\n", rep_3ac_ticket(children[0]->getDataType(tmp), children[0]->returnTicket()).c_str(),jticket1);
+			fprintf(fileout, "BR\t_\t_\tl%d\n", jticket2);
+			fprintf(fileout, "LABEL\tl%d\t_\t_\n",jticket1);
 			children[1]->ast_to_3ac(fileout);
-			fprintf(fileout, "BR\t\t\tl%d\n", jticket3);
-			fprintf(fileout, "LABEL\tl%d\n", jticket2);
+			fprintf(fileout, "BR\t_\t_\tl%d\n", jticket3);
+			fprintf(fileout, "LABEL\tl%d\t_\t_\n", jticket2);
 			children[2]->ast_to_3ac(fileout);
-			fprintf(fileout, "LABEL\tl%d\n", jticket3);
+			fprintf(fileout, "LABEL\tl%d\t_\t_\n", jticket3);
 		}
 	}
 }

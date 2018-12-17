@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-31 11:34:10
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-12-16 23:58:17
+* @Last Modified time: 2018-12-17 11:23:05
 */
 #include "jumpNode.h"
 
@@ -79,7 +79,7 @@ void JumpNode::ast_to_3ac(FILE* fileout)
 				printf("Warning: jump goto node does not have id node child.\n");
 			}
 
-			fprintf(fileout, "BR\tl%d\n", jumpCounter);
+			fprintf(fileout, "BR\t_\t_\tl%d\n", jumpCounter);
 			break;
 		case 1:
 			key = "continue";
@@ -93,7 +93,7 @@ void JumpNode::ast_to_3ac(FILE* fileout)
 				jumpCounter = ch1->lineNumber;
 			}
 
-			fprintf(fileout, "BR\tl%d\n", jumpCounter);
+			fprintf(fileout, "BR\t_\t_\tl%d\n", jumpCounter);
 			break;
 		case 2:
 			key = "break";
@@ -111,7 +111,7 @@ void JumpNode::ast_to_3ac(FILE* fileout)
 				else
 				{
 					jumpCounter = ch1->lineNumber;
-					fprintf(fileout, "BR\tl%d\n", jumpCounter);
+					fprintf(fileout, "BR\t_\t_\tl%d\n", jumpCounter);
 				}
 			}
 			break;

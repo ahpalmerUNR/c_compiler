@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-30 22:43:27
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-12-16 23:56:21
+* @Last Modified time: 2018-12-17 12:02:24
 */
 #include "iteration_statement.h"
 
@@ -50,22 +50,22 @@ void Iter_statement::ast_to_3ac(FILE* fileout)
 	}
 	if (dotype)
 	{
-		fprintf(fileout, "LABEL\tl%d\n", jumpCounterOne);
+		fprintf(fileout, "LABEL\tl%d\t_\t_\n", jumpCounterOne);
 		children[3]->ast_to_3ac(fileout);
 		children[1]->ast_to_3ac(fileout);
-		fprintf(fileout, "BREQ\t%s\t(0)\tl%d\n",rep_3ac_ticket(children[1]->getDataType(tmp), children[1]->returnTicket()).c_str(),jumpCounterOne);
-		fprintf(fileout, "LABEL\tl%d\n", jumpCounterTwo);
+		fprintf(fileout, "BREQ\t%s\t(1)\tl%d\n",rep_3ac_ticket(children[1]->getDataType(tmp), children[1]->returnTicket()).c_str(),jumpCounterOne);
+		fprintf(fileout, "LABEL\tl%d\t_\t_\n", jumpCounterTwo);
 		
 	}
 	else
 	{
 		children[0]->ast_to_3ac(fileout);
-		fprintf(fileout, "LABEL\tl%d\n",jumpCounterOne);
+		fprintf(fileout, "LABEL\tl%d\t_\t_\n",jumpCounterOne);
 		children[1]->ast_to_3ac(fileout);
-		fprintf(fileout, "BRNE\t%s\t(0)\tl%d\n", rep_3ac_ticket(children[1]->getDataType(tmp), children[1]->returnTicket()).c_str(),jumpCounterTwo);
+		fprintf(fileout, "BRNE\t%s\t(1)\tl%d\n", rep_3ac_ticket(children[1]->getDataType(tmp), children[1]->returnTicket()).c_str(),jumpCounterTwo);
 		children[3]->ast_to_3ac(fileout);
 		children[2]->ast_to_3ac(fileout);
-		fprintf(fileout, "BR\tl%d\n", jumpCounterOne);
-		fprintf(fileout, "LABEL\tl%d\n", jumpCounterTwo);
+		fprintf(fileout, "BR\t_\t_\tl%d\n", jumpCounterOne);
+		fprintf(fileout, "LABEL\tl%d\t_\t_\n", jumpCounterTwo);
 	}
 }
