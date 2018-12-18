@@ -1777,6 +1777,7 @@ postfix_expression
 		char buffer[500];
 		$<tnode>1->getDataType(buffer);
 		tmp->storeString(buffer);
+		tmp->setTypeSpecifier(ID_TYPE_NODE);
 		tmp->setNumberChildren(2);
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>3);
@@ -1800,8 +1801,7 @@ postfix_expression
 		Node *n;
 		int a;
 		n = s.searchAll(buffer,&a);
-		tmp->storeString(buffer);
-		tmp->setTypeSpecifier(ID_TYPE_NODE);
+		
 		if(n->params.size() != paramTypes.size())
 		{
 			yyerror(("Invalid number of arguments to function. Expects: " + to_string(n->params.size())).c_str());

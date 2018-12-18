@@ -2,7 +2,7 @@
 # @Author: ahpalmerUNR
 # @Date:   2018-12-16 22:22:02
 # @Last Modified by:   ahpalmerUNR
-# @Last Modified time: 2018-12-18 14:58:26
+# @Last Modified time: 2018-12-18 15:43:12
 import sys
 
 infile = ""
@@ -95,9 +95,9 @@ def populateCommands():
 
 def castfunc(ticket1,ticket2,fout):
 	if (ticket1[0]=='i' and ticket2[0]=='f') or (ticket1[0]=='c' and ticket2[0]=='f'):
-		fout.write("\tcvt.d.w\t%s\t%s\n"%(reginfotable[ticket2]['curloc'],reginfotable[ticket1]['curloc']))
+		fout.write("\tcvt.d.w\t%s,\t%s\n"%(reginfotable[ticket2]['curloc'],reginfotable[ticket1]['curloc']))
 	elif (ticket1[0]=='f' and ticket2[0]=='i') or (ticket1[0]=='f' and ticket2[0]=='c'):
-		fout.write("\tcvt.w.d\t%s\t%s\n"%(reginfotable[ticket2]['curloc'],reginfotable[ticket1]['curloc']))
+		fout.write("\tcvt.w.d\t%s,\t%s\n"%(reginfotable[ticket2]['curloc'],reginfotable[ticket1]['curloc']))
 	
 def allocfunc(ticket1,memoffset):
 	pass
@@ -307,12 +307,12 @@ def printreadwrite(fout):
 		for line in ffin:
 			fout.write(line);
 			
-	with open("src/asm-lib/WriteInt.asm",'r') as ffin:
+	with open("src/asm-lib/WriteFloat.asm",'r') as ffin:
 		for line in ffin:
 			fout.write(line);
 			
 			
-	with open("src/asm-lib/WriteInt.asm",'r') as ffin:
+	with open("src/asm-lib/WriteChar.asm",'r') as ffin:
 		for line in ffin:
 			fout.write(line);
 
@@ -361,7 +361,10 @@ def genAsm():
 					# 	getreg(spots[3])
 					fout.write(commanddict[spots[0]][0]%getouttup(commanddict[spots[0]][1],spots[1],spots[2],spots[3],procParamSize+procLocalSize,procLocalSize,incount,line))
 				if reginfotable[spots[3]]['istemp']==False:
-					fout.write(commanddict["STORE"][0]%getouttup(commanddict['STORE'][1],spots[1],spots[2],spots[3],procParamSize+procLocalSize,procLocalSize,incount,line))
+					if spots[3][0]=='f':
+						fout.write(floatcommanddict["STORE"][0]%getouttup(floatcommanddict['STORE'][1],spots[1],spots[2],spots[3],procParamSize+procLocalSize,procLocalSize,incount,line))
+					else:
+						fout.write(commanddict["STORE"][0]%getouttup(commanddict['STORE'][1],spots[1],spots[2],spots[3],procParamSize+procLocalSize,procLocalSize,incount,line))
 					
 			elif spots[0]=="ALLOC":
 				if reginfotable[spots[3]]['isparam']:
