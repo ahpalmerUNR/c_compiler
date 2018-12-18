@@ -2,7 +2,7 @@
 # @Author: ahpalmerUNR
 # @Date:   2018-12-16 22:22:02
 # @Last Modified by:   ahpalmerUNR
-# @Last Modified time: 2018-12-17 16:47:50
+# @Last Modified time: 2018-12-17 20:08:29
 import sys
 
 infile = ""
@@ -15,10 +15,14 @@ doublesize = 8
 
 currentBlock = 0
 
+procParamSize = 0
+procLocalSize = 0
+scopeParamLocal = []
+
 commanddict = {}
 floatcommanddict = {}
 
-reginfotable={}#Start line, endline, where current found, istemp, isparam, memory location, block scope, varsize
+reginfotable={}#Start line, endline, where current found, istemp, isparam, memory location,  varsize,block endline
 
 def populateCommands():
 	#0 is 3ac code line
@@ -89,7 +93,54 @@ def allocfunc(ticket1):
 def callfunc(argtup,fout):
 	pass
 
-def decode(inlist):
+def getLiteral(instring,outType):
+	instring = instring.strip("(").strip(")")
+	# print(instring)
+	if outType == 'i':
+		return int(instring)
+	elif outType == 'f':
+		return float(instring)
+	elif outType == 'c':
+		return ord(instring)
+
+def decode(inlist,linenum):
+	# i,f,c,l are ticket prefixes
+	global procParamSize, procLocalSize,scopeParamLocal
+	if inlist[0]=="PROCENTRY":
+		procParamSize = getLiteral(inlist[2],'i')
+		procLocalSize = getLiteral(inlist[3],'i')
+		# print(procParamSize,procLocalSize)
+		
+	elif inlist[0]=="ALLOC":
+		if procParamSize - getLiteral(inlist[1],'i') >= 0:
+			procParamSize = procParamSize - getLiteral(inlist[1],'i')
+			reginfotable[inlist[3]]={"startline":linenum, "isparam":True,"varsize":getLiteral(inlist[1],'i'),"istemp":False,"endline":linenum}
+		else:
+			procLocalSize = procLocalSize - getLiteral(inlist[1],'i')
+			reginfotable[inlist[3]]={"startline":linenum, "isparam":False,"varsize":getLiteral(inlist[1],'i'),"istemp":False,"endline":linenum}
+		scopeParamLocal.append(inlist[3])
+		
+	elif inlist[0]=="ENDPROC":
+		for x in scopeParamLocal:
+			reginfotable[x]["blockendline"] = linenum
+		scopeParamLocal = []
+			
+	else:
+		for x in inlist[1:]:
+			if x != 'ret' and x[0]!='(' and x[0]!='l' and x[0]!='_':
+				if x in reginfotable:
+					reginfotable[x]["endline"]=linenum
+				else:
+					# print(x[0],"firstchar_____________")
+					if x[0]=='i':
+						sizetmp = intsize
+					elif x[0]=='f':
+						sizetmp = floatsize
+					elif x[0]=='c':
+						sizetmp = charsize
+					reginfotable[x]={"startline":linenum, "isparam":False,"varsize":sizetmp,"istemp":True,"endline":linenum}
+					scopeParamLocal.append(inlist[3])
+	# print(inlist,linenum)
 	pass
 
 def registerLife():
@@ -98,13 +149,13 @@ def registerLife():
 	with open(infile,'r') as fin:
 		for count, line in enumerate(fin):
 			line = line.rstrip()
-			count = count+1
+			incount = count + 1
 			spots = line.split('\t')
 			if spots[0][0]=="#":
 				pass
 			else:
-				decode(spots)
-	pass
+				decode(spots,incount)
+	# print(reginfotable)
 	
 	
 def genAsm():
