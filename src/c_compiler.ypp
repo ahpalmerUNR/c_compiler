@@ -208,10 +208,12 @@ external_declaration
 	: function_definition {
 		s.popUntilGlobal();
 		$<tnode>$ = $<tnode>1;
+		insert_lookup=0;
 		outputReduction("external_declaration : function_definition");}
 	| declaration {
 		s.popUntilGlobal();
 		$<tnode>$ = $<tnode>1;
+		insert_lookup=0;
 		outputReduction("external_declaration : declaration");}
 	;
 

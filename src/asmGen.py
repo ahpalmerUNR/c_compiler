@@ -2,18 +2,23 @@
 # @Author: ahpalmerUNR
 # @Date:   2018-12-16 22:22:02
 # @Last Modified by:   ahpalmerUNR
-# @Last Modified time: 2018-12-17 15:36:36
+# @Last Modified time: 2018-12-17 16:47:50
 import sys
 
 infile = ""
 outfile = ""
+
+intsize = 4
+charsize = 4
+floatsize = 8
+doublesize = 8
 
 currentBlock = 0
 
 commanddict = {}
 floatcommanddict = {}
 
-reginfotable={}#Start line, endline, where current found, istemp, isparam, memory location, block scope
+reginfotable={}#Start line, endline, where current found, istemp, isparam, memory location, block scope, varsize
 
 def populateCommands():
 	#0 is 3ac code line
@@ -35,7 +40,7 @@ def populateCommands():
 	commanddict["LT"] = ("\tsge\t%s,\t%s,\t%s\t#%s\n\tnot\t%s\t%s\n",(3,1,2,0,3,3))
 	commanddict["LE"] = ("\tsle\t%s,\t%s,\t%s\t#%s\n",(3,1,2,0))
 	commanddict["PROCENTRY"] = ("%s:\t\t\t\t\t#%s\n\taddi\t$sp,\t$sp,\t-%s\n\tsw\t$ra,\t0($sp)\n",(1,0,8))
-	commanddict["ENDPROC"] = ("#%s\n",(0))
+	commanddict["ENDPROC"] = ("\tjr\t$ra\t\t\t#%s\n",(0))
 	commanddict["CALL"] = ("\tjal\t%s\t\t\t#%s\n",(1,0))
 	commanddict["REFOUT"] = ("#%s\n",(0))
 	commanddict["VALOUT"] = ("#%s\n",(0))
@@ -77,10 +82,35 @@ def populateCommands():
 
 def castfunc(ticket1,ticket2):
 	pass
+	
+def allocfunc(ticket1):
+	pass
+	
+def callfunc(argtup,fout):
+	pass
 
+def decode(inlist):
+	pass
 
 def registerLife():
 	#Ret is always $v0 for ints, chars, and addresses and $v0 upper $v1 lower on doubles
+	# registers = {"ret":"$v0",""}
+	with open(infile,'r') as fin:
+		for count, line in enumerate(fin):
+			line = line.rstrip()
+			count = count+1
+			spots = line.split('\t')
+			if spots[0][0]=="#":
+				pass
+			else:
+				decode(spots)
+	pass
+	
+	
+def genAsm():
+	#when using a param, it will add the size of local to the $sp and then get offset from table for the param, this will make it so that the function can unalocate the params at the end.
+	#
+	#the following is just to test output to mips
 	with open(outfile,'w') as fout:
 		fout.write("\t.data\n")
 		fout.write("Pi:\t .double\t3.1415926535897924\n")
@@ -92,10 +122,6 @@ def registerLife():
 		fout.write("\tc.eq.d\t1\t$f0,\t$f4\t#compare to find flag\n")
 		fout.write("\tbc1f\tmain\ntest:\n")
 	
-	
-def genAsm():
-	#when using a param, it will add the size of local to the $sp and then get offset from table for the param, this will make it so that the function can unalocate the params at the end.
-	pass
 
 
 

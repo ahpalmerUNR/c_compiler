@@ -185,12 +185,12 @@ void AssignmentNode::errorCheck()
 		//Actually have to get the data type from the symbol table
 		left = nodeDataType(children[0]->getDataType(pointless));
 		right = nodeDataType(children[1]->getDataType(pointless));
-		// cout<<"Left "<<left<<" Right "<<right<<endl;
+		cout<<"Left "<<left<<" Right "<<right<<endl;
 		if(left != ID_TYPE_NODE)
 			yyerror("Error: lvalue required as left operand of assignment");
 		
 		left = children[0]->getidDataType();
-		// cout<<"New Left "<<left<<endl;
+		cout<<"New Left "<<left<<endl;
 		if(right == ID_TYPE_NODE)
 		{
 			//Get rights actual type

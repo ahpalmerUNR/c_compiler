@@ -1,3 +1,9 @@
+int kb(int a){
+	;
+	a = 1;
+	return a;
+}
+
 int main(float a,int b)
 {
 

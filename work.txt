@@ -1,3 +1,27 @@
+current Errors:
+functions without decls can't get the first var used right.
+
+
+int kb(int a){
+	a = 1;
+	return a;
+}
+
+but this works
+
+int kb(int a){
+	;
+	a = 1;
+	return a;
+}
+
+
+
+
+
+
+
+
 ToDo:
 symbolTable function scope correctly
 symbolTable value assignment
