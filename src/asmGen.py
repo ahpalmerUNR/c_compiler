@@ -2,7 +2,7 @@
 # @Author: ahpalmerUNR
 # @Date:   2018-12-16 22:22:02
 # @Last Modified by:   ahpalmerUNR
-# @Last Modified time: 2018-12-18 01:16:24
+# @Last Modified time: 2018-12-17 17:03:54
 import sys
 
 infile = ""
@@ -226,6 +226,7 @@ def getLiteral(instring,outType):
 def decode(inlist,linenum):
 	# i,f,c,l are ticket prefixes
 	global procParamSize, procLocalSize,scopeParamLocal
+	sizetmp = 0
 	if inlist[0]=="PROCENTRY":
 		procParamSize = getLiteral(inlist[2],'i')
 		procLocalSize = getLiteral(inlist[3],'i')
@@ -238,7 +239,8 @@ def decode(inlist,linenum):
 		else:
 			procLocalSize = procLocalSize - getLiteral(inlist[1],'i')
 			reginfotable[inlist[3]]={"curloc":-1,"startline":linenum, "isparam":False,"varsize":getLiteral(inlist[1],'i'),"istemp":False,"endline":linenum}
-		scopeParamLocal.append(inlist[3])
+		if inlist[3]!='_':
+			scopeParamLocal.append(inlist[3])
 		
 	elif inlist[0]=="ENDPROC":
 		for x in scopeParamLocal:
@@ -259,7 +261,8 @@ def decode(inlist,linenum):
 					elif x[0]=='c':
 						sizetmp = charsize
 					reginfotable[x]={"curloc":-1,"startline":linenum, "isparam":False,"varsize":sizetmp,"istemp":True,"endline":linenum}
-					scopeParamLocal.append(inlist[3])
+					if inlist[3]!='_':
+						scopeParamLocal.append(inlist[3])
 	# print(inlist,linenum)
 	pass
 

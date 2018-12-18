@@ -38,11 +38,17 @@
 // 	// !!D
 // 	return 1.1;
 // }
+int blue(int k){
+	int j;
+	j = k;
+	return j + 1;
+}
 int main()
 {
 	int a = 1;
 	int b = 2;
 	int c;
 	c = a + b;
+	c = blue(a);
 	return c;
 }
