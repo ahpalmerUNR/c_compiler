@@ -1684,6 +1684,8 @@ postfix_expression
 		//cout << name << endl;
 		//cout << n->arraySizes.size() << endl;
 		int offset = 1;
+		if(arraySizeOffset == n->arraySizes.size())
+			yyerror(("Error invalid number of [] operators, Expects: " + to_string(n->arraySizes.size())).c_str());
 		for(int i = arraySizeOffset+1; i < n->arraySizes.size(); i++)
 		{
 			offset *= n->arraySizes[i];
@@ -1713,15 +1715,24 @@ postfix_expression
 			else
 				yyerror("Invalid operand to [] operator");
 		}
+		tmp->errorCheck();
 		$<tnode>$ = tmp;
 		outputReduction("postfix_expression : postfix_expression OPEN_BRACKET_tok expression CLOSE_BRACKET_tok");}
 	| postfix_expression OPEN_PAREN_tok CLOSE_PAREN_tok {
-		FunctionCallNode* tmp = new FunctionCallNode("postfix_expression_");
+		DataNode* tmp = new DataNode("postfix_expression_");
 		EmptyNode* blank1 = new EmptyNode("empty_");
 		tmp->assignLine(line,column-size,column,codeLine());
+		tmp->setNumberChildren(2);
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,blank1);
-		tmp->setTypeSpecifier($<tnode>1->getidDataType());
+		tmp->setOperator(PAREN_OP);
+		cout << "type" << $<tnode>1->getidDataType() << endl;
+		tmp->setTypeSpecifier(ID_TYPE_NODE);
+		vector<nodeDataType> type;
+		//cout << "hereE" <<  $<tnode>1->getidDataType() << endl;
+		type.push_back($<tnode>1->getidDataType());
+		tmp->setidDataTypes(type);
+		tmp->notData();
 		char buffer[500];
 		$<tnode>1->getDataType(buffer);
 		Node *n;
