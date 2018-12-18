@@ -44,7 +44,8 @@ void TreeNode::traverse_to_file(FILE* fileout)
 	
 	for (int i = 0; i < numberChildren; ++i)
 	{
-		// cout<<"TreeNode "<<TreeNodeName<<endl;
+
+		//cout<<"TreeNode "<<children[i]->TreeNodeName<<endl;
 		fprintf(fileout, "\t%s -> %s;\n", TreeNodeName.c_str(),children[i]->TreeNodeName.c_str());
 		children[i]->traverse_to_file(fileout);
 	}

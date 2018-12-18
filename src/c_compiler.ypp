@@ -19,6 +19,7 @@
 	#include "../src/tree/typeNode.h"
 	#include "../src/tree/declarationSpecNode.h"
 	#include "../src/tree/arrayNode.h"
+	#include "../src/tree/functionCallNode.h"
 
 
 	#define MAX_LINE_LENGTH 500
@@ -1715,30 +1716,42 @@ postfix_expression
 		$<tnode>$ = tmp;
 		outputReduction("postfix_expression : postfix_expression OPEN_BRACKET_tok expression CLOSE_BRACKET_tok");}
 	| postfix_expression OPEN_PAREN_tok CLOSE_PAREN_tok {
-		DataNode* tmp = new DataNode("postfix_expression_");
+		FunctionCallNode* tmp = new FunctionCallNode("postfix_expression_");
 		EmptyNode* blank1 = new EmptyNode("empty_");
 		tmp->assignLine(line,column-size,column,codeLine());
-		tmp->setNumberChildren(2);
-
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,blank1);
-		tmp->setTypeSpecifier(ID_TYPE_NODE);
-		tmp->setOperator(PAREN_OP);
-		vector<nodeDataType> type;
+		tmp->setTypeSpecifier($<tnode>1->getidDataType());
+		char buffer[500];
+		$<tnode>1->getDataType(buffer);
+		tmp->storeString(buffer);
+		//vector<nodeDataType> type;
 		//cout << "hereE" <<  $<tnode>1->getidDataType() << endl;
-		type.push_back($<tnode>1->getidDataType());
-		tmp->setidDataTypes(type);
-		tmp->notData();
+		//type.push_back($<tnode>1->getidDataType());
+		//tmp->setidDataTypes(type);
 		$<tnode>$ = tmp;
 		outputReduction("postfix_expression : postfix_expression OPEN_PAREN_tok CLOSE_PAREN_tok");}
 	| postfix_expression OPEN_PAREN_tok argument_expression_list CLOSE_PAREN_tok {
 		DataNode* tmp = new DataNode("postfix_expression_");
 		tmp->assignLine(line,column-size,column,codeLine());
+		char buffer[500];
+		$<tnode>1->getDataType(buffer);
+		tmp->storeString(buffer);
 		tmp->setNumberChildren(2);
 		tmp->assignChild(0,$<tnode>1);
 		tmp->assignChild(1,$<tnode>3);
 		tmp->setTypeSpecifier(ID_TYPE_NODE);
 		tmp->setOperator(PAREN_OP);
+		vector<nodeDataType> paramTypes;
+		paramTypes = $<tnode>3->getParamDataTypes();
+		vector<int> paramTickets;
+		paramTickets = $<tnode>3->getParamTickets();
+		//cout << "Here: " << paramTickets.size() << " " << paramTypes.size() << endl;
+		for(int i = 0; i < paramTypes.size(); i++)
+		{
+			tmp->addParamDataTypes(paramTypes[i]);
+			tmp->addParamTickets(paramTickets[i]);
+		}
 		vector<nodeDataType> type;
 		//cout << "hereE" <<  $<tnode>1->getidDataType() << endl;
 		type.push_back($<tnode>1->getidDataType());
@@ -1799,8 +1812,33 @@ argument_expression_list
 		tmp->setOperator(COMMA_OP);
 		tmp->notData();
 		tmp->setNumberChildren(2);
-
-
+		char b[500];
+		vector<int> pTickets;
+		vector<nodeDataType> pTypes;
+		pTickets = $<tnode>1->getParamTickets();
+		pTypes = $<tnode>1->getParamDataTypes();
+		for(int i = 0; i < pTickets.size(); i++)
+		{
+			tmp->addParamTickets(pTickets[i]);
+		}
+		for(int i = 0; i < pTypes.size(); i++)
+		{
+			tmp->addParamDataTypes(pTypes[i]);
+		}
+		pTickets = $<tnode>3->getParamTickets();
+		pTypes = $<tnode>3->getParamDataTypes();
+		for(int i = 0; i < pTickets.size(); i++)
+		{
+			tmp->addParamTickets(pTickets[i]);
+		}
+		for(int i = 0; i < pTypes.size(); i++)
+		{
+			tmp->addParamDataTypes(pTypes[i]);
+		}
+		/*tmp->addParamDataTypes($<tnode>1->getDataType(b));
+		tmp->addParamTickets($<tnode>1->returnTicket());
+		tmp->addParamDataTypes($<tnode>3->getDataType(b));
+		tmp->addParamTickets($<tnode>3->returnTicket());*/
 		tmp->assignChild(0, $<tnode>1);
 		tmp->assignChild(1, $<tnode>3);
 		//tmp->errorCheck();
@@ -1872,7 +1910,7 @@ identifier
 				//n->print();
 				if(n!=NULL)
 				{
-					//need to use same ticket counter as the symbol table entry rather than making a new ticket for each i = 5; etc after declaration
+					//need to use same ticket counter as the symbol table entry rather than making a new ticket for each i = 5; etc after declaration	
 					tmp->storeString((char*)yylval.lnode->name.c_str());
 					tmp->setidDataTypes(n->types);
 					cout << n->ticketNumber << endl;
@@ -2059,6 +2097,7 @@ int main(int argc, char **argv)
 	}
 	yyparse();
 	genAST = true;
+
 	if(genAST)
 	{
 		AST.tree_to_gv("graphs/default.gv");

@@ -1,16 +1,15 @@
-void q()
+int q()
 {
 
 }
 
 int main()
 {
-
-	double i[4][5][2];
-	double j;
-
-	i[1][2][3] = i[1][2][3] + 4;
-	q();
+	float j;
+	int k;
+	char c;
+	q(j, k, c);
+	q(1.0, 2, 3, 4.0, 5);
 	!!D
 }
 

@@ -1,13 +1,13 @@
-#ifndef ARRAY_NODE
-#define ARRAY_NODE
+#ifndef FunctionCall_NODE
+#define FunctionCall_NODE
 
 #include "tree.h"
 #include "castNode.h"
 //error: array subscript is not an integer
-class ArrayNode : public TreeNode {
+class FunctionCallNode : public TreeNode {
 public:	
-	ArrayNode(string nodeName);
-	~ArrayNode();
+	FunctionCallNode(string nodeName);
+	~FunctionCallNode();
 
 	void traverse_to_file(FILE*);
 	void ast_to_3ac(FILE*);
@@ -15,29 +15,22 @@ public:
 	int returnTicket();
 	void setTypeSpecifier(nodeDataType typeSpec);
 	nodeDataType getDataType(char * representation);//representation returned uses max buffer 500 characters.
-	void notData();
 	void errorCheck();
 	void implicitCastWarning(nodeDataType t1, nodeDataType t2);
 	void setidDataTypes(vector<nodeDataType>);
 	nodeDataType getidDataType();
-	void setArrayOffset(int i);
-	int getArrayOffset();
-	void setTicketNumber(int);
+	void setTicketNumber(int){};
 	int getTicketNumber();
-	void setFirst();
-	void setLast();
 	void storeString(char *string);
-	bool isArrayNode();
-	void setLHS();
+	void setParamTickets(vector<int> pT);
+	void setParamDataTypes(vector<nodeDataType> pT);
 protected:
 
 	//int ticketNumber;
 	nodeDataType dType;
-	vector<nodeDataType> idDataTypes;
-	int arrayOffset;
-	bool isFirst;
-	bool isLast;
-	char name[500];
+	vector<nodeDataType> paramDataTypes;
+	vector<int> paramTicketNumbers;
+	char funcName[500];
 };
 
 #endif
