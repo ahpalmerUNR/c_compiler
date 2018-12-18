@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-31 11:34:10
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-12-17 11:23:05
+* @Last Modified time: 2018-12-18 00:59:12
 */
 #include "jumpNode.h"
 
@@ -127,7 +127,7 @@ void JumpNode::ast_to_3ac(FILE* fileout)
 				// jumpCounter = ch1->lineNumber;
 			}
 
-			fprintf(fileout, "RETURN\n");
+			fprintf(fileout, "RETURN\t_\t_\t_\n");
 			break;
 		case 4:
 			key = "return";
@@ -152,7 +152,7 @@ void JumpNode::ast_to_3ac(FILE* fileout)
 			{
 				fprintf(fileout, "ASSIGN\t%s\t_\tret\n", rep_3ac_ticket(children[0]->getidDataType(),children[0]->returnTicket()).c_str());
 			}
-			fprintf(fileout, "RETURN\n");
+			fprintf(fileout, "RETURN\t_\t_\t_\n");
 			break;
 	}
 }

@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-11-05 15:44:49
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-12-17 00:15:05
+* @Last Modified time: 2018-12-18 00:58:18
 */
 #include "functionNode.h"
 
@@ -77,7 +77,7 @@ void FunctionNode::ast_to_3ac(FILE* fileout)
 	children[1]->ast_to_3ac(fileout);
 	children[2]->ast_to_3ac(fileout);
 	children[3]->ast_to_3ac(fileout);
-	fprintf(fileout, "ENDPROC\n");
+	fprintf(fileout, "ENDPROC\t_\t_\t_\n");
 	astTable.popBST();
 }
 
