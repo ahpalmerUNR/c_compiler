@@ -1724,7 +1724,14 @@ postfix_expression
 		tmp->setTypeSpecifier($<tnode>1->getidDataType());
 		char buffer[500];
 		$<tnode>1->getDataType(buffer);
+		Node *n;
+		int a;
+		n = s.searchAll(buffer,&a);
 		tmp->storeString(buffer);
+		if(n->params[1].size() != 0)
+		{
+			yyerror(("Invalid number of arguments to function. Expects: " + to_string(n->params[0].size())).c_str());
+		}
 		//vector<nodeDataType> type;
 		//cout << "hereE" <<  $<tnode>1->getidDataType() << endl;
 		//type.push_back($<tnode>1->getidDataType());
