@@ -38,17 +38,18 @@
 // 	// !!D
 // 	return 1.1;
 // }
-int blue(int k, int p, int g){
-	int j;
-	j = k+ p + g;
-	return j + 1;
-}
+// int blue(int k, int p, int g){
+// 	int j;
+// 	j = k+ p + g;
+// 	return j + 1;
+// }
 int main()
 {
 	int a = 1;
 	int b = 2;
 	int c;
 	c = a + b;
+	writeInt(c);
 	c = blue(a,b,c);
 	return c;
 }
