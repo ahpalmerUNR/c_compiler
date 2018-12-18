@@ -389,7 +389,7 @@ nodeDataType DataNode::getidDataType()
 	for(int i = 0; i < idDataTypes.size(); i++)
 	{
 		// cout<<"Position "<<i<<" Value "<<idDataTypes[i]<<' '<<endl;
-		if(idDataTypes[i] == FLOAT_TYPE_NODE || idDataTypes[i] == INT_TYPE_NODE || idDataTypes[i] == CHAR_TYPE_NODE || idDataTypes[i] == DOUBLE_TYPE_NODE)
+		if(idDataTypes[i] == FLOAT_TYPE_NODE || idDataTypes[i] == INT_TYPE_NODE || idDataTypes[i] == CHAR_TYPE_NODE || idDataTypes[i] == DOUBLE_TYPE_NODE || idDataTypes[i] == VOID_TYPE_NODE)
 		{
 			// cout<<"Found Type in getidDataType is "<<idDataTypes[i]<<endl;
 				return idDataTypes[i];

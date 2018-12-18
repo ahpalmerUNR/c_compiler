@@ -2,7 +2,7 @@
 # @Author: ahpalmerUNR
 # @Date:   2018-12-16 22:22:02
 # @Last Modified by:   ahpalmerUNR
-# @Last Modified time: 2018-12-18 14:39:20
+# @Last Modified time: 2018-12-18 14:58:26
 import sys
 
 infile = ""
@@ -288,6 +288,34 @@ def registerLife():
 	
 		fin.close()
 	# print(reginfotable)
+	# 
+def printreadwrite(fout):
+	with open("src/asm-lib/ReadInt.asm",'r') as ffin:
+		for line in ffin:
+			fout.write(line);
+			
+	with open("src/asm-lib/ReadFloat.asm",'r') as ffin:
+		for line in ffin:
+			fout.write(line);
+			
+	with open("src/asm-lib/ReadChar.asm",'r') as ffin:
+		for line in ffin:
+			fout.write(line);
+			
+			
+	with open("src/asm-lib/WriteInt.asm",'r') as ffin:
+		for line in ffin:
+			fout.write(line);
+			
+	with open("src/asm-lib/WriteInt.asm",'r') as ffin:
+		for line in ffin:
+			fout.write(line);
+			
+			
+	with open("src/asm-lib/WriteInt.asm",'r') as ffin:
+		for line in ffin:
+			fout.write(line);
+
 	
 	
 def genAsm():
@@ -387,6 +415,8 @@ def genAsm():
 			# 	pass
 			# else:
 			# 	decode(spots,incount)
+		printreadwrite(fout)
+		
 	fin.close()
 	
 	
@@ -400,4 +430,5 @@ if __name__ == '__main__':
 	populateCommands()
 	registerLife()
 	genAsm()
+	
 
