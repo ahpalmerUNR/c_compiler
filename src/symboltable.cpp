@@ -182,7 +182,7 @@ SymbolTable::SymbolTable(string n)
 	readFloatNode.name = "readFloat";
 	readFloatNode.isDefined = true;
 	readFloatNode.types.push_back(DOUBLE_TYPE_NODE);
-	insert("readChar", readFloatNode);
+	insert("readFloat", readFloatNode);
 
 	Node writeIntNode;
 	writeIntNode.name = "writeInt";
