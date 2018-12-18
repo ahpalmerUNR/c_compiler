@@ -138,7 +138,6 @@ void Node::output(FILE *stream)
 		{
 			fprintf(stream, "%d ", size);
 		}
-		fprintf(stream, ",");
 	}
 	fprintf(stream, "\n");
 }

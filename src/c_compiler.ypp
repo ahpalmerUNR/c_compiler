@@ -1728,9 +1728,9 @@ postfix_expression
 		int a;
 		n = s.searchAll(buffer,&a);
 		tmp->storeString(buffer);
-		if(n->params[1].size() != 0)
+		if(n->params.size() != 0)
 		{
-			yyerror(("Invalid number of arguments to function. Expects: " + to_string(n->params[0].size())).c_str());
+			yyerror(("Invalid number of arguments to function. Expects: " + to_string(n->params.size())).c_str());
 		}
 		//vector<nodeDataType> type;
 		//cout << "hereE" <<  $<tnode>1->getidDataType() << endl;
@@ -1764,6 +1764,14 @@ postfix_expression
 		type.push_back($<tnode>1->getidDataType());
 		tmp->setidDataTypes(type);
 		tmp->notData();
+		Node *n;
+		int a;
+		n = s.searchAll(buffer,&a);
+		tmp->storeString(buffer);
+		if(n->params.size() != paramTypes.size())
+		{
+			yyerror(("Invalid number of arguments to function. Expects: " + to_string(n->params.size())).c_str());
+		}
 		$<tnode>$ = tmp;
 		outputReduction("postfix_expression : postfix_expression OPEN_PAREN_tok argument_expression_list CLOSE_PAREN_tok");}
 	| postfix_expression PERIOD_tok identifier {
