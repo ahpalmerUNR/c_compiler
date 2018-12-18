@@ -195,12 +195,28 @@ To view the AST if graphviz is not installed you can use the website [http://www
 * Bubble Sort
 	* Loops (`for, do-while, while, if`)
 	* 1-D Arrays
+	* If statements
 
 * Matrix Multiplication
-	* Arrays
+	* Arrays (2D)
 
 * Recursive Factorial
 	* Functions
+	* If statements
+
+* Simple Assignments
+	* `a = b + c;`
+
+* Supported Types
+	* `int`
+	* `char`
+		* char's can't be '\n', use 10 instead
+	* `float`
+		* Maybe.
+
+* Invalid C Types won't generate.
+
+* Nested if statements
 
 ## Can't Do
 
@@ -216,3 +232,13 @@ To view the AST if graphviz is not installed you can use the website [http://www
 * Can't use expressions as parameters
 * Need spaces between operations
 * Postfix expressions
+* Some types:
+	* `short`
+	* `long`
+	* `string/char*`
+	* Valid C Types that aren't in the supported types list won't be supported
+* Pointers
+* Structs
+* Function parameter checking
+* `const, static, volatile, dynamic, auto` etc.
+* enums
