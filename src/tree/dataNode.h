@@ -40,6 +40,10 @@ public:
 	void setTicketNumber(int);
 	int getTicketNumber();
 	void setArraySizes(int size);
+	void addParamDataTypes(nodeDataType t);
+	void addParamTickets(int t);
+	vector<nodeDataType> getParamDataTypes();
+	vector<int> getParamTickets();
 protected:
 
 	//int ticketNumber;
@@ -52,6 +56,8 @@ protected:
 	vector<nodeDataType> idDataTypes;
 	int arrayOffset;
 	vector<int> arraySizes;
+	vector<int> paramTicketNumbers;
+	vector<nodeDataType> paramDataTypes;
 };
 
 #endif

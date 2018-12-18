@@ -103,12 +103,14 @@ public:
 	virtual void errorCheck(const char * str);
 	virtual void assignLine(int,int,int,string);
 	virtual bool isIDList(){return false;}
-	void setTicketNumber(int t){ticketNumber = t;}
+	virtual void setTicketNumber(int t){ticketNumber = t;}
 	int getTicketNumber(){return ticketNumber;}
 	bool isArrayNode(){return false;}
-	void setLHS(){};
+	void setLHS(){isLHS = true;};
 	string coldLine();
 	string rep_3ac_ticket(nodeDataType ndt, int ticket);
+	virtual vector<nodeDataType> getParamDataTypes(){};
+	virtual vector<int> getParamTickets(){};
 protected:
 	int TreeNodeNumber;
 	//type
@@ -121,6 +123,7 @@ protected:
 	int byteSize;
 	int arrayOffset;
 	int ticketNumber;
+	bool isLHS;
 };
 
 class Tree

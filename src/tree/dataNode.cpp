@@ -25,6 +25,8 @@ void DataNode::traverse_to_file(FILE* fileout)
 	char operatorPrint[500];
 	//cout << "here" << endl;
 	//cout << idDataTypes[0] << endl;
+	//cout << "data traverse start" << endl;
+	//cout << TreeNodeName << endl;
 	if (isData)
 	{
 		switch(dType)
@@ -43,6 +45,8 @@ void DataNode::traverse_to_file(FILE* fileout)
 				break;
 			case ID_TYPE_NODE:
 				snprintf(typePrint, 500,"ID: %s", data.dstr);
+			default:
+				snprintf(operatorPrint, 500,"ERROR type");
 				
 		}
 	}
@@ -116,6 +120,8 @@ void DataNode::traverse_to_file(FILE* fileout)
 			case TYPEDEF_TYPE_NODE:
 				snprintf(typePrint, 500,"typedef");
 				break;
+			default:
+				snprintf(operatorPrint, 500,"ERROR type");
 		}
 	}
 	else
@@ -154,6 +160,7 @@ void DataNode::traverse_to_file(FILE* fileout)
 			case COMMA_OP:
 				snprintf(operatorPrint, 500,"Left , Right");
 				snprintf(typePrint, 500," ");
+				//cout << "comma op" << endl;
 				break;
 			case QUESTION_OP:
 				snprintf(operatorPrint, 500,"Left ? Middle : Right");
@@ -178,7 +185,9 @@ void DataNode::traverse_to_file(FILE* fileout)
 				break;
 			case PAREN_OP:
 				snprintf(operatorPrint, 500,"Left(Right)");
-				break;					
+				break;
+			default:
+				snprintf(operatorPrint, 500,"ERROR Op");					
 		}
 	}
 	if(isOperatorNode)
@@ -186,6 +195,7 @@ void DataNode::traverse_to_file(FILE* fileout)
 	else
 		fprintf(fileout, "\t%s [label=\"%s\"]\n", TreeNodeName.c_str(),typePrint);
 	TreeNode::traverse_to_file(fileout);
+	//cout << "data traverse end" << endl;
 }
 void DataNode::ast_to_3ac(FILE* fileout)
 {
@@ -263,7 +273,8 @@ void DataNode::ast_to_3ac(FILE* fileout)
 				opString = "MOD\t" + s1 + "\t" + s2;
 				break;
 			case COMMA_OP:
-				opString = "COMMA\t" + s1 + "\t" + s2;
+				isBracket = true;
+				//opString = "COMMA\t" + s1 + "\t" + s2;
 				break;
 			case QUESTION_OP:
 				opString = "QUESTION\t" + s1 + "\t" + s2;
@@ -293,8 +304,16 @@ void DataNode::ast_to_3ac(FILE* fileout)
 				fprintf(fileout,"LOAD\t%s\t_\t%s\n",rep_3ac_ticket(t,Variable_counter++).c_str(),s3.c_str());				
 				break;
 			case PAREN_OP:
-				opString = "PAREN\t" + s1 + "\t" + s2;
-				break;					
+				isBracket = true;
+				fprintf(fileout,"ARGS\t(%d)\t_\t_\n",(int)paramTicketNumbers.size()-1);
+				for(int i = 1; i < paramTicketNumbers.size(); i++)
+				{
+					//cout << paramDataTypes.size() << " " << paramTicketNumbers.size() << endl;
+					fprintf(fileout,"VALOUT\t%s\t_\t_\n",rep_3ac_ticket(paramDataTypes[i], paramTicketNumbers[i]).c_str());	
+				}
+				fprintf(fileout,"CALL\t%s\t_\t_\n",data.dstr);	
+				break;
+
 		}
 		if(!isBracket)
 			fprintf(fileout,"%s\t%s\n",opString.c_str(),s3.c_str()); 
@@ -309,6 +328,11 @@ void DataNode::ast_to_3ac(FILE* fileout)
 				fprintf(fileout,"ASSIGN\t(%s)\t_\t%s\n",typePrint1,rep_3ac_ticket(dType,ticketNumber).c_str());
 			}
 		}
+		else if(oType = COMMA_OP)
+		{
+			children[0]->ast_to_3ac(fileout);
+			children[1]->ast_to_3ac(fileout);
+		}
 	}
 }
 
@@ -318,6 +342,8 @@ void DataNode::storeChar(char c)
 	dType = CHAR_TYPE_NODE;
 	isData = true;
 	// byteSize = CHAR_MIPS;
+	paramDataTypes.push_back(CHAR_TYPE_NODE);
+	paramTicketNumbers.push_back(ticketNumber);
 }
 void DataNode::storeInt(int i)
 {
@@ -325,6 +351,8 @@ void DataNode::storeInt(int i)
 	dType = INT_TYPE_NODE;
 	isData = true;
 	// byteSize = INT_MIPS;
+	paramDataTypes.push_back(INT_TYPE_NODE);
+	paramTicketNumbers.push_back(ticketNumber);
 }
 void DataNode::storeDouble(double d)
 {
@@ -332,6 +360,8 @@ void DataNode::storeDouble(double d)
 	dType = DOUBLE_TYPE_NODE;
 	isData = true;
 	// byteSize = DOUBLE_MIPS;
+	paramDataTypes.push_back(DOUBLE_TYPE_NODE);
+	paramTicketNumbers.push_back(ticketNumber);
 }
 void DataNode::storeString(char *s)
 {
@@ -341,6 +371,8 @@ void DataNode::storeString(char *s)
 
 	dType = STRING_TYPE_NODE;
 	isData = true;
+	paramDataTypes.push_back(STRING_TYPE_NODE);
+	paramTicketNumbers.push_back(ticketNumber);
 	// byteSize = INT_MIPS;
 }
 
@@ -397,6 +429,14 @@ void DataNode::setTypeSpecifier(nodeDataType typeSpec)
 		default:
 			byteSize = 0;
 
+	}
+	if(dType == ID_TYPE_NODE)
+	{	
+		//cout << "here" << ticketNumber << endl;
+		paramTicketNumbers.clear();
+		paramTicketNumbers.push_back(ticketNumber);
+		paramDataTypes.clear();
+		paramDataTypes.push_back(getidDataType());
 	}
 }
 void DataNode::setOperator(OperatorType operatorSpec)
@@ -558,3 +598,25 @@ void DataNode::setArraySizes(int size)
 {
 	arraySizes.push_back(size);
 }
+void DataNode::addParamDataTypes(nodeDataType t)
+{
+	paramDataTypes.push_back(t);
+}
+void DataNode::addParamTickets(int t)
+{
+	paramTicketNumbers.push_back(t);
+}
+vector<nodeDataType> DataNode::getParamDataTypes()
+{
+	return paramDataTypes;
+}
+vector<int> DataNode::getParamTickets()
+{
+	return paramTicketNumbers;
+}
+
+
+
+
+
+
