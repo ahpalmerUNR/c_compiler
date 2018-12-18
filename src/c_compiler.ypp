@@ -36,6 +36,12 @@
 	clock_t clock_time;
 	int currentCodeLine = 0;
 	int arraySizeOffset = 0;
+	int lex_debug_level=1;
+	int symbol_table_debug=1;
+	int yacc_debug_level=1;
+	int c_line_lex_debug_level;
+	int c_line_symbol_table_debug;
+	int c_line_yacc_debug_level;
 	/**
 	 * SymbolTable and variables to manipulate the insertion to symbol table
 	 */
@@ -1754,6 +1760,7 @@ postfix_expression
 		int a;
 		n = s.searchAll(buffer,&a);
 		tmp->storeString(buffer);
+		tmp->setTypeSpecifier(ID_TYPE_NODE);
 		if(n->params.size() != 0)
 		{
 			yyerror(("Invalid number of arguments to function. Expects: " + to_string(n->params.size())).c_str());
@@ -1794,6 +1801,7 @@ postfix_expression
 		int a;
 		n = s.searchAll(buffer,&a);
 		tmp->storeString(buffer);
+		tmp->setTypeSpecifier(ID_TYPE_NODE);
 		if(n->params.size() != paramTypes.size())
 		{
 			yyerror(("Invalid number of arguments to function. Expects: " + to_string(n->params.size())).c_str());
@@ -1954,7 +1962,7 @@ identifier
 					//need to use same ticket counter as the symbol table entry rather than making a new ticket for each i = 5; etc after declaration	
 					tmp->storeString((char*)yylval.lnode->name.c_str());
 					tmp->setidDataTypes(n->types);
-					cout << n->ticketNumber << endl;
+					//cout << n->ticketNumber << endl;
 					tmp->setTicketNumber(n->ticketNumber);
 					//cout << yylval.lnode->name << tmp->getidDataType() << endl;
 				}			
@@ -1974,12 +1982,7 @@ identifier
 %%
 
 #include <stdio.h>
-int lex_debug_level;
-int symbol_table_debug;
-int yacc_debug_level;
-int c_line_lex_debug_level;
-int c_line_symbol_table_debug;
-int c_line_yacc_debug_level;
+
 
 
 // logName = "compilerLog.txt";
@@ -2023,7 +2026,7 @@ int main(int argc, char **argv)
 	
 	scopeInits->assignChild(0,blank);
 	scopeInits->setNoBytes();
-	cout<<"Here"<<endl;
+	//cout<<"Here"<<endl;
 	cout.flush();
 	
 	outfile = fopen("testCases/out.s","w");

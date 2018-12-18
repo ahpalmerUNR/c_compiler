@@ -311,7 +311,8 @@ void DataNode::ast_to_3ac(FILE* fileout)
 					//cout << paramDataTypes.size() << " " << paramTicketNumbers.size() << endl;
 					fprintf(fileout,"VALOUT\t%s\t_\t_\n",rep_3ac_ticket(paramDataTypes[i], paramTicketNumbers[i]).c_str());	
 				}
-				fprintf(fileout,"CALL\t%s\t_\t_\n",data.dstr);	
+				fprintf(fileout,"CALL\t%s\t_\t_\n",data.dstr);
+				fprintf(fileout, "ASSIGN\tret\t_\t%s\n",rep_3ac_ticket(getidDataType(),ticketNumber).c_str() );	
 				break;
 
 		}
