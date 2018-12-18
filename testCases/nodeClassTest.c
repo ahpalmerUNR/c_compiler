@@ -52,3 +52,7 @@ int main()
 	c = blue(a,b,c);
 	return c;
 }
+
+// void readChar(float a){
+// 	return a;
+// }

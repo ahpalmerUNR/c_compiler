@@ -2,7 +2,7 @@
 # @Author: ahpalmerUNR
 # @Date:   2018-12-16 22:22:02
 # @Last Modified by:   ahpalmerUNR
-# @Last Modified time: 2018-12-18 10:44:10
+# @Last Modified time: 2018-12-18 14:39:20
 import sys
 
 infile = ""
@@ -84,8 +84,8 @@ def populateCommands():
 	floatcommanddict["EQ"] = ("\tc.eq.d\t%s,\t%s\t\t#%s\n\tbc1t\tlinup%s\n\tli.d\t%s,\t0.0\n\tb\tlindown%s\nlinup%s:\n\tli.d\t%s,\t1.0\nlindown%s:\n",(1,2,0,9,3,9,9,3,9))
 	floatcommanddict["LT"] = ("\tc.lt.d\t%s,\t%s\t\t#%s\n\tbc1t\tlinup%s\n\tli.d\t%s,\t0.0\n\tb\tlindown%s\nlinup%s:\n\tli.d\t%s,\t1.0\nlindown%s:\n",(1,2,0,9,3,9,9,3,9))
 	floatcommanddict["LE"] = ("\tc.le.d\t%s,\t%s\t\t#%s\n\tbc1t\tlinup%s\n\tli.d\t%s,\t0.0\n\tb\tlindown%s\nlinup%s:\n\tli.d\t%s,\t1.0\nlindown%s:\n",(1,2,0,9,3,9,9,3,9))
-	floatcommanddict["LOAD"] = ("\tl.d\t%s,\t%s($sp)\t\t#%s\n",(3,4,0))
-	floatcommanddict["STORE"] = ("\ts.d\t%s,\t%s($sp)\t\t#%s\n",(3,4,0))
+	floatcommanddict["LOAD"] = ("\tl.d\t%s,\t%s($sp)\t\t#%s\n",(3,6,0))
+	floatcommanddict["STORE"] = ("\ts.d\t%s,\t%s($sp)\t\t#%s\n",(3,6,0))
 	floatcommanddict["DIV"] = ("\tdiv.d\t%s,\t%s,\t%s\t#%s\n",(3,1,2,0))
 	floatcommanddict["ADD"] = ("\tadd.d\t%s,\t%s,\t%s\t#%s\n",(3,1,2,0))
 	floatcommanddict["SUB"] = ("\tsub.d\t%s,\t%s,\t%s\t#%s\n",(3,1,2,0))
@@ -109,7 +109,7 @@ def callfunc(argtup,fout):
 	for x in argtup:
 		sizetoask = sizetoask + reginfotable[x]['varsize']
 	
-	print(reginfotable[argtup[0]],"THIS IS THE ARGTUPLE")
+	# print(reginfotable[argtup[0]],"THIS IS THE ARGTUPLE")
 	fout.write("\taddi\t$sp,\t$sp,\t-%d\n"%(sizetoask))	
 	# iterate over param registers and save in stack 
 	for x in argtup:
@@ -287,7 +287,7 @@ def registerLife():
 				decode(spots,incount)
 	
 		fin.close()
-	print(reginfotable)
+	# print(reginfotable)
 	
 	
 def genAsm():
@@ -338,7 +338,10 @@ def genAsm():
 			elif spots[0]=="ALLOC":
 				if reginfotable[spots[3]]['isparam']:
 					reginfotable[spots[3]]['memloc']=argsum+procLocalSize
-					fout.write(commanddict["LOAD"][0]%getouttup(commanddict['LOAD'][1],spots[1],spots[2],spots[3],procParamSize+procLocalSize,procLocalSize,incount,line))
+					if spots[3][0]=='f':
+						fout.write(floatcommanddict["LOAD"][0]%getouttup(floatcommanddict['LOAD'][1],spots[1],spots[2],spots[3],procParamSize+procLocalSize,procLocalSize,incount,line))
+					else:
+						fout.write(commanddict["LOAD"][0]%getouttup(commanddict['LOAD'][1],spots[1],spots[2],spots[3],procParamSize+procLocalSize,procLocalSize,incount,line))
 					argsum = argsum + getLiteral(spots[1],'i')
 					if argsum == procParamSize:
 						argsum = 0
