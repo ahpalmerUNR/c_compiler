@@ -304,9 +304,9 @@ void DataNode::ast_to_3ac(FILE* fileout)
 				fprintf(fileout,"LOAD\t%s\t_\t%s\n",rep_3ac_ticket(t,Variable_counter++).c_str(),s3.c_str());				
 				break;
 			case PAREN_OP:
-				isBracket = true;
-				fprintf(fileout,"ARGS\t(%d)\t_\t_\n",(int)paramTicketNumbers.size()-1);
-				for(int i = 1; i < paramTicketNumbers.size(); i++)
+				isBracket = true; 
+				fprintf(fileout,"ARGS\t(%d)\t_\t_\n",(int)paramTicketNumbers.size()-2);
+				for(int i = 1; i < paramTicketNumbers.size()-1; i++)
 				{
 					//cout << paramDataTypes.size() << " " << paramTicketNumbers.size() << endl;
 					fprintf(fileout,"VALOUT\t%s\t_\t_\n",rep_3ac_ticket(paramDataTypes[i], paramTicketNumbers[i]).c_str());	
@@ -430,7 +430,7 @@ void DataNode::setTypeSpecifier(nodeDataType typeSpec)
 			byteSize = 0;
 
 	}
-	if(dType == ID_TYPE_NODE)
+	if(typeSpec == ID_TYPE_NODE)
 	{	
 		//cout << "here" << ticketNumber << endl;
 		paramTicketNumbers.clear();
