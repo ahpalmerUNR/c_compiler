@@ -167,25 +167,43 @@ SymbolTable::SymbolTable(string n)
 	pushEmptyBST();
 	// Add reserved functions
 	Node readIntNode;
-	readIntNode.name = "ReadInt";
+	readIntNode.name = "readInt";
 	readIntNode.isDefined = true;
 	readIntNode.types.push_back(INT_TYPE_NODE);
-	readIntNode.params.push_back({ INT_TYPE_NODE });
-	insert("ReadInt", readIntNode);
+	insert("readInt", readIntNode);
 
 	Node readCharNode;
-	readCharNode.name = "ReadChar";
+	readCharNode.name = "readChar";
 	readCharNode.isDefined = true;
 	readCharNode.types.push_back(CHAR_TYPE_NODE);
-	readCharNode.params.push_back({ CHAR_TYPE_NODE });
-	insert("ReadChar", readCharNode);
+	insert("readChar", readCharNode);
+
+	Node readFloatNode;
+	readFloatNode.name = "readFloat";
+	readFloatNode.isDefined = true;
+	readFloatNode.types.push_back(DOUBLE_TYPE_NODE);
+	insert("readChar", readFloatNode);
 
 	Node writeIntNode;
-	writeIntNode.name = "WriteInt";
+	writeIntNode.name = "writeInt";
 	writeIntNode.isDefined = true;
-	writeIntNode.types.push_back(INT_TYPE_NODE);
+	writeIntNode.types.push_back(VOID_TYPE_NODE);
 	writeIntNode.params.push_back({ INT_TYPE_NODE });
-	insert("WriteInt", writeIntNode);
+	insert("writeInt", writeIntNode);
+
+	Node writeCharNode;
+	writeCharNode.name = "writeChar";
+	writeCharNode.isDefined = true;
+	writeCharNode.types.push_back(VOID_TYPE_NODE);
+	writeCharNode.params.push_back({ CHAR_TYPE_NODE });
+	insert("writeChar", writeCharNode);
+
+	Node writeFloat;
+	writeFloat.name = "writeFloat";
+	writeFloat.isDefined = true;
+	writeFloat.types.push_back(VOID_TYPE_NODE);
+	writeFloat.params.push_back({ DOUBLE_TYPE_NODE });
+	insert("writeFloat", writeFloat);
 }
 
 Node *SymbolTable::insert(string tokenKey, int lN, int cN, DataType t, int *errorcode)
