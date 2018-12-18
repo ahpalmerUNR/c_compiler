@@ -2,7 +2,7 @@
 # @Author: ahpalmerUNR
 # @Date:   2018-12-16 22:22:02
 # @Last Modified by:   ahpalmerUNR
-# @Last Modified time: 2018-12-17 17:03:54
+# @Last Modified time: 2018-12-18 10:44:10
 import sys
 
 infile = ""
@@ -18,6 +18,7 @@ currentBlock = 0
 procParamSize = 0
 procLocalSize = 0
 scopeParamLocal = []
+inuseticks = []
 
 commanddict = {}
 floatcommanddict = {}
@@ -68,8 +69,8 @@ def populateCommands():
 	commanddict["ADD"] = ("\tadd\t%s,\t%s,\t%s\t#%s\n",(3,1,2,0))
 	commanddict["ALLOC"] = ("#%s\n",(0,))
 	commanddict["ASSIGN"] = ("\tmove\t%s,\t%s\t\t#%s\n",(3,1,0))
-	commanddict["LOAD"] = ("\tlw\t%s,\t%s($sp)\t\t#%s\n",(3,4,0))
-	commanddict["STORE"] = ("\tsw\t%s,\t%s($sp)\t\t#%s\n",(3,4,0))
+	commanddict["LOAD"] = ("\tlw\t%s,\t%s($sp)\t\t#%s\n",(3,6,0))
+	commanddict["STORE"] = ("\tsw\t%s,\t%s($sp)\t\t#%s\n",(3,6,0))
 	commanddict["CAST"] = ("#%s\n",(0,))
 	commanddict["RETURN"] = ("\tlw\t$ra,\t0($sp)\t\t#%s\n\taddi\t$sp,\t$sp,\t%s\n\tjr\t$ra\n",(0,7))
 	commanddict["LEFT"] = ("#%s\n",(0,))
@@ -107,7 +108,8 @@ def callfunc(argtup,fout):
 	# ask for space on stack equal to size of params
 	for x in argtup:
 		sizetoask = sizetoask + reginfotable[x]['varsize']
-		
+	
+	print(reginfotable[argtup[0]],"THIS IS THE ARGTUPLE")
 	fout.write("\taddi\t$sp,\t$sp,\t-%d\n"%(sizetoask))	
 	# iterate over param registers and save in stack 
 	for x in argtup:
@@ -115,7 +117,7 @@ def callfunc(argtup,fout):
 		cumulative = cumulative + reginfotable[x]['varsize']
 
 def getreg(ticket):
-	global regOrder,reginfotable
+	global regOrder,reginfotable,inuseticks
 	found = -1
 	for x in regOrder:
 		if x[0] == False:
@@ -123,18 +125,20 @@ def getreg(ticket):
 			x[0] = True
 			break
 	reginfotable[ticket]['curloc'] = found
+	inuseticks.append(ticket)
 
 def returnreg(ticket):
-	global regOrder, reginfotable
+	global regOrder, reginfotable,inuseticks
 	found = reginfotable[ticket]['curloc']
 	for x in regOrder:
 		if x[1] == found:
 			reginfotable[ticket]['curloc'] = -1
 			x[0] = False
 			break
+	inuseticks.remove(ticket)
 	
 def getfloatreg(ticket):
-	global floatregOrder,reginfotable
+	global floatregOrder,reginfotable,inuseticks
 	found = -1
 	for x in floatregOrder:
 		if x[0] == False:
@@ -142,15 +146,18 @@ def getfloatreg(ticket):
 			x[0] = True
 			break
 	reginfotable[ticket]['curloc'] = found
+	inuseticks.append(ticket)
 	
 def returnfloatreg(ticket):
-	global floatregOrder, reginfotable
+	global floatregOrder, reginfotable,inuseticks
 	found = reginfotable[ticket]['curloc']
 	for x in floatregOrder:
 		if x[1] == found:
 			reginfotable[ticket]['curloc'] = -1
 			x[0] = False
 			break	
+			
+	inuseticks.remove(ticket)
 			
 def getouttup(tuporder,ticket1,ticket2,ticket3,stacksize,localsize,linenum,lineprint):
 	#0 is 3ac code line
@@ -278,15 +285,16 @@ def registerLife():
 				pass
 			else:
 				decode(spots,incount)
-	# print(reginfotable)
+	
 		fin.close()
+	print(reginfotable)
 	
 	
 def genAsm():
 	#when using a param, it will add the size of local to the $sp and then get offset from table for the param, this will make it so that the function can unalocate the params at the end.
 	#
 	#regOrder is the order of importance for registers we will use for variables, when all are used, we save off to the stack 
-	global regOrder,floatregOrder,commanddict,floatcommanddict,procParamSize, procLocalSize,reginfotable
+	global regOrder,floatregOrder,commanddict,floatcommanddict,procParamSize, procLocalSize,reginfotable,inuseticks
 	
 	argsum = 0
 	callargs = []
@@ -317,17 +325,20 @@ def genAsm():
 					else:
 						fout.write('\tli\t%s,\t%s\t\t#%s\n'%(reginfotable[spots[3]]['curloc'],getLiteral(spots[1],spots[3][0]),line))
 				elif spots[1][0]=='f':
-					if reginfotable[spots[3]]['curloc']==-1:
-						getfloatreg(spots[3])
+					# if reginfotable[spots[3]]['curloc']==-1:
+					# 	getfloatreg(spots[3])
 					fout.write(floatcommanddict[spots[0]][0]%getouttup(floatcommanddict[spots[0]][1],spots[1],spots[2],spots[3],procParamSize+procLocalSize,procLocalSize,incount,line))
 				else:
-					if reginfotable[spots[3]]['curloc']==-1:
-						getreg(spots[3])
+					# if reginfotable[spots[3]]['curloc']==-1:
+					# 	getreg(spots[3])
 					fout.write(commanddict[spots[0]][0]%getouttup(commanddict[spots[0]][1],spots[1],spots[2],spots[3],procParamSize+procLocalSize,procLocalSize,incount,line))
+				if reginfotable[spots[3]]['istemp']==False:
+					fout.write(commanddict["STORE"][0]%getouttup(commanddict['STORE'][1],spots[1],spots[2],spots[3],procParamSize+procLocalSize,procLocalSize,incount,line))
 					
 			elif spots[0]=="ALLOC":
 				if reginfotable[spots[3]]['isparam']:
 					reginfotable[spots[3]]['memloc']=argsum+procLocalSize
+					fout.write(commanddict["LOAD"][0]%getouttup(commanddict['LOAD'][1],spots[1],spots[2],spots[3],procParamSize+procLocalSize,procLocalSize,incount,line))
 					argsum = argsum + getLiteral(spots[1],'i')
 					if argsum == procParamSize:
 						argsum = 0
@@ -358,6 +369,17 @@ def genAsm():
 					fout.write(floatcommanddict[spots[0]][0]%getouttup(floatcommanddict[spots[0]][1],spots[1],spots[2],spots[3],procParamSize+procLocalSize,procLocalSize,incount,line))
 				else:
 					fout.write(commanddict[spots[0]][0]%getouttup(commanddict[spots[0]][1],spots[1],spots[2],spots[3],procParamSize+procLocalSize,procLocalSize,incount,line))
+			for tick in inuseticks:
+				if reginfotable[tick]['endline']==incount and reginfotable[tick]['istemp']==True:
+					if tick[0]=='f':
+						returnfloatreg(tick)
+					else:
+						returnreg(tick)
+				elif reginfotable[tick]['blockendline']==incount and reginfotable[tick]['istemp']==False:
+					if tick[0]=='f':
+						returnfloatreg(tick)
+					else:
+						returnreg(tick)
 			# if spots[0][0]=="#":
 			# 	pass
 			# else:

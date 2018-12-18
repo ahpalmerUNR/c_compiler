@@ -38,9 +38,9 @@
 // 	// !!D
 // 	return 1.1;
 // }
-int blue(int k){
+int blue(int k, int p, int g){
 	int j;
-	j = k;
+	j = k+ p + g;
 	return j + 1;
 }
 int main()
@@ -49,6 +49,6 @@ int main()
 	int b = 2;
 	int c;
 	c = a + b;
-	c = blue(a);
+	c = blue(a,b,c);
 	return c;
 }
