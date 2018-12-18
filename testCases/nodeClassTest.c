@@ -45,6 +45,7 @@
 // }
 int main()
 {
+	// float a = 1.0;
 	int a = 1;
 	int b = 2;
 	int c;

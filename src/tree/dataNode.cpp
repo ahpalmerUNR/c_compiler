@@ -305,8 +305,8 @@ void DataNode::ast_to_3ac(FILE* fileout)
 				break;
 			case PAREN_OP:
 				isBracket = true; 
-				fprintf(fileout,"ARGS\t(%d)\t_\t_\n",(int)paramTicketNumbers.size()-2);
-				for(int i = 1; i < paramTicketNumbers.size()-1; i++)
+				fprintf(fileout,"ARGS\t(%d)\t_\t_\n",(int)paramTicketNumbers.size()-1);
+				for(int i = 1; i < paramTicketNumbers.size(); i++)
 				{
 					//cout << paramDataTypes.size() << " " << paramTicketNumbers.size() << endl;
 					fprintf(fileout,"VALOUT\t%s\t_\t_\n",rep_3ac_ticket(paramDataTypes[i], paramTicketNumbers[i]).c_str());	
