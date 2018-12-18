@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-27 14:10:44
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-12-14 16:04:11
+* @Last Modified time: 2018-12-18 15:00:30
 */
 #include "tree.h"
 
@@ -359,6 +359,9 @@ string TreeNode::rep_3ac_ticket(nodeDataType ndt, int ticket)
 			break;
 		case FLOAT_TYPE_NODE:
 			snprintf(typePrint, 500,"f");
+			break;
+		case VOID_TYPE_NODE:
+			snprintf(typePrint,500,"i");
 			break;
 		default:
 			snprintf(typePrint, 500, "Error probably with id %d",ndt);

@@ -2,7 +2,7 @@
 # @Author: ahpalmerUNR
 # @Date:   2018-12-16 22:22:02
 # @Last Modified by:   ahpalmerUNR
-# @Last Modified time: 2018-12-18 14:52:57
+# @Last Modified time: 2018-12-18 14:58:26
 import sys
 
 infile = ""
@@ -290,29 +290,29 @@ def registerLife():
 	# print(reginfotable)
 	# 
 def printreadwrite(fout):
-	with open("ReadInt.asm",'r') as ffin:
+	with open("src/asm-lib/ReadInt.asm",'r') as ffin:
 		for line in ffin:
 			fout.write(line);
 			
-	with open("ReadFloat.asm",'r') as ffin:
+	with open("src/asm-lib/ReadFloat.asm",'r') as ffin:
 		for line in ffin:
 			fout.write(line);
 			
-	with open("ReadChar.asm",'r') as ffin:
-		for line in ffin:
-			fout.write(line);
-			
-			
-	with open("WriteInt.asm",'r') as ffin:
-		for line in ffin:
-			fout.write(line);
-			
-	with open("WriteInt.asm",'r') as ffin:
+	with open("src/asm-lib/ReadChar.asm",'r') as ffin:
 		for line in ffin:
 			fout.write(line);
 			
 			
-	with open("WriteInt.asm",'r') as ffin:
+	with open("src/asm-lib/WriteInt.asm",'r') as ffin:
+		for line in ffin:
+			fout.write(line);
+			
+	with open("src/asm-lib/WriteInt.asm",'r') as ffin:
+		for line in ffin:
+			fout.write(line);
+			
+			
+	with open("src/asm-lib/WriteInt.asm",'r') as ffin:
 		for line in ffin:
 			fout.write(line);
 

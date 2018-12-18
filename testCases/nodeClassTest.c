@@ -50,7 +50,7 @@ int main()
 	int c;
 	c = a + b;
 	writeInt(c);
-	c = blue(a,b,c);
+	// c = blue(a,b,c);
 	return c;
 }
 
