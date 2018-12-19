@@ -70,9 +70,9 @@ int main()
 	b[1][1] = 2;
 	for (i = 0; i < 2; ++i)
 	{
-		for (j= 0; j < 2; ++j)
+		for (j = 0; j < 2; ++j)
 		{
-			writeInt(a[i][j]);			
+			//writeInt(a[i][j]);			
 			p = 32;
 			writeChar(p);
 		}
@@ -88,7 +88,7 @@ int main()
 	
 	for (i = 0; i < 2; ++i)
 	{
-		for (j= 0; j < 2; ++j)
+		for (j = 0; j < 2; ++j)
 		{
 			a[i][j] = a[i][j] + b[i][j];
 		}
@@ -96,9 +96,9 @@ int main()
 	
 	for (i = 0; i < 2; ++i)
 	{
-		for (j= 0; j < 2; ++j)
+		for (j = 0; j < 2; ++j)
 		{
-			writeInt(a[i][j]);			
+			//writeInt(a[i][j]);			
 			p = 32;
 			writeChar(p);
 		}

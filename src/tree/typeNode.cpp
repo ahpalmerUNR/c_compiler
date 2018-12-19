@@ -83,6 +83,7 @@ void TypeNode::ast_to_3ac(FILE* fileout)
 		}
 
 	}
+	cout << "byte size :" << byteSize << "array offset: "<< children[1]->getArrayOffset() << endl;
 	byteSize *= children[1]->getArrayOffset();
 	//cout << types[i] << endl;
 	fprintf(fileout,"ALLOC\t(%d)\t_\t%s\n",byteSize,rep_3ac_ticket(types[i],children[1]->returnTicket()).c_str());
