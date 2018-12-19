@@ -2,7 +2,7 @@
 # @Author: ahpalmerUNR
 # @Date:   2018-12-16 22:22:02
 # @Last Modified by:   ahpalmerUNR
-# @Last Modified time: 2018-12-18 23:33:37
+# @Last Modified time: 2018-12-18 23:39:23
 import sys
 
 infile = ""
@@ -73,7 +73,7 @@ def populateCommands():
 	commanddict["LOADI"] = ("\tlw\t%s,\t%s($sp)\t\t#%s\n",(3,6,0))
 	commanddict["STORE"] = ("\tsw\t%s,\t0(%s)\t\t#%s\n",(3,1,0))
 	commanddict["STOREI"] = ("\tsw\t%s,\t%s($sp)\t\t#%s\n",(3,6,0))
-	commanddict["CAST"] = ("#%s\n",(0,))
+	commanddict["CAST"] = ("\tmove\t%s,\t%s\t\t#%s\n",(3,1,0))
 	commanddict["RETURN"] = ("\tlw\t$ra,\t0($sp)\t\t#%s\n\taddi\t$sp,\t$sp,\t%s\n\tjr\t$ra\n",(0,7))
 	commanddict["LEFT"] = ("#%s\n",(0,))
 	commanddict["RIGHT"] = ("#%s\n",(0,))
