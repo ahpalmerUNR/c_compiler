@@ -2274,6 +2274,7 @@ TreeNode* createRelationNode(OperatorType opType, TreeNode *leftChild, TreeNode 
 		tmp->assignChild(0,leftChild);
 		tmp->assignChild(1,rightChild);
 		tmp->errorCheck();
+		tmp->setNoBytes();
 		return tmp;
 }
 void outputReduction(const char *production)
