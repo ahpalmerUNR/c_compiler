@@ -83,7 +83,7 @@ void TypeNode::ast_to_3ac(FILE* fileout)
 		}
 
 	}
-	byteSize *= children[1]->getArrayOffset();
+	byteSize = byteSize * children[1]->getArrayOffset();
 	//cout << types[i] << endl;
 	fprintf(fileout,"ALLOC\t(%d)\t_\t%s\n",byteSize,rep_3ac_ticket(types[i],children[1]->returnTicket()).c_str());
 
@@ -101,6 +101,33 @@ vector<nodeDataType> TypeNode::getType()
 {
 	char buffer[500];
 	types = children[0]->getTypes();
+	for(int i = 0; i < types.size(); i++)
+	{
+		//cout << types[i] << endl;
+		if(types[i] ==  DOUBLE_TYPE_NODE)
+		{
+			byteSize = DOUBLE_MIPS;
+			break;
+		}
+		if(types[i] == FLOAT_TYPE_NODE)
+		{
+			byteSize = FLOAT_MIPS;
+			break;
+		}
+		if(types[i] == CHAR_TYPE_NODE)
+		{
+			byteSize = CHAR_MIPS;
+			break;
+		}
+		if(types[i] == INT_TYPE_NODE)
+		{
+
+			byteSize = INT_MIPS;
+			break;
+		}
+
+	}
+	byteSize = byteSize * children[1]->getArrayOffset();
 	return types;
 }
 

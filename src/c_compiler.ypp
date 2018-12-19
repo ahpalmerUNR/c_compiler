@@ -714,6 +714,7 @@ direct_declarator
 		tmp->assignChild(1,$<tnode>3);
 		tmp->notData();
 		tmp->setOperator(BRACKET_OP);
+		tmp->setTicketNumber($<tnode>1->returnTicket());
 		char buffer[500];
 		$<tnode>3->getDataType(buffer);
 		//cout << atoi(buffer) << endl;
@@ -2273,6 +2274,7 @@ TreeNode* createRelationNode(OperatorType opType, TreeNode *leftChild, TreeNode 
 		tmp->assignChild(0,leftChild);
 		tmp->assignChild(1,rightChild);
 		tmp->errorCheck();
+		tmp->setNoBytes();
 		return tmp;
 }
 void outputReduction(const char *production)

@@ -432,6 +432,7 @@ void DataNode::setTypeSpecifier(nodeDataType typeSpec)
 			byteSize = 0;
 
 	}
+	
 	if(typeSpec == ID_TYPE_NODE)
 	{	
 		//cout << "here" << ticketNumber << endl;

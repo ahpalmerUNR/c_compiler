@@ -2,7 +2,7 @@
 # @Author: ahpalmerUNR
 # @Date:   2018-12-16 22:22:02
 # @Last Modified by:   ahpalmerUNR
-# @Last Modified time: 2018-12-18 17:02:48
+# @Last Modified time: 2018-12-18 19:02:36
 import sys
 
 infile = ""
@@ -69,8 +69,10 @@ def populateCommands():
 	commanddict["ADD"] = ("\tadd\t%s,\t%s,\t%s\t#%s\n",(3,1,2,0))
 	commanddict["ALLOC"] = ("#%s\n",(0,))
 	commanddict["ASSIGN"] = ("\tmove\t%s,\t%s\t\t#%s\n",(3,1,0))
-	commanddict["LOAD"] = ("\tlw\t%s,\t%s($sp)\t\t#%s\n",(3,6,0))
-	commanddict["STORE"] = ("\tsw\t%s,\t%s($sp)\t\t#%s\n",(3,6,0))
+	commanddict["LOAD"] = ("\tlw\t%s,\t0(%s)\t\t#%s\n",(3,1,0))
+	commanddict["LOADI"] = ("\tlw\t%s,\t%s($sp)\t\t#%s\n",(3,6,0))
+	commanddict["STORE"] = ("\tsw\t%s,\t0(%s)\t\t#%s\n",(3,1,0))
+	commanddict["STOREI"] = ("\tsw\t%s,\t%s($sp)\t\t#%s\n",(3,6,0))
 	commanddict["CAST"] = ("#%s\n",(0,))
 	commanddict["RETURN"] = ("\tlw\t$ra,\t0($sp)\t\t#%s\n\taddi\t$sp,\t$sp,\t%s\n\tjr\t$ra\n",(0,7))
 	commanddict["LEFT"] = ("#%s\n",(0,))
@@ -79,13 +81,16 @@ def populateCommands():
 	commanddict["XOR"] = ("#%s\n",(0,))
 	commanddict["AND"] = ("#%s\n",(0,))
 	
+	
 	floatcommanddict["BREQ"] = ("\tc.eq.d\t%s,\t%s\t\t#%s\n\tbc1t\t%s\n",(1,2,0,12))
 	floatcommanddict["BRNE"] = ("\tc.eq.d\t%s,\t%s\t\t#%s\n\tbc1f\t%s\n",(1,2,0,12))
 	floatcommanddict["EQ"] = ("\tc.eq.d\t%s,\t%s\t\t#%s\n\tbc1t\tlinup%s\n\tli.d\t%s,\t0.0\n\tb\tlindown%s\nlinup%s:\n\tli.d\t%s,\t1.0\nlindown%s:\n",(1,2,0,9,3,9,9,3,9))
 	floatcommanddict["LT"] = ("\tc.lt.d\t%s,\t%s\t\t#%s\n\tbc1t\tlinup%s\n\tli.d\t%s,\t0.0\n\tb\tlindown%s\nlinup%s:\n\tli.d\t%s,\t1.0\nlindown%s:\n",(1,2,0,9,3,9,9,3,9))
 	floatcommanddict["LE"] = ("\tc.le.d\t%s,\t%s\t\t#%s\n\tbc1t\tlinup%s\n\tli.d\t%s,\t0.0\n\tb\tlindown%s\nlinup%s:\n\tli.d\t%s,\t1.0\nlindown%s:\n",(1,2,0,9,3,9,9,3,9))
-	floatcommanddict["LOAD"] = ("\tl.d\t%s,\t%s($sp)\t\t#%s\n",(3,6,0))
-	floatcommanddict["STORE"] = ("\ts.d\t%s,\t%s($sp)\t\t#%s\n",(3,6,0))
+	floatcommanddict["LOAD"] = ("\tl.d\t%s,\t0(%s)\t\t#%s\n",(3,1,0))
+	floatcommanddict["LOADI"] = ("\tl.d\t%s,\t%s($sp)\t\t#%s\n",(3,6,0))
+	floatcommanddict["STORE"] = ("\ts.d\t%s,\t0(%s)\t\t#%s\n",(3,1,0))
+	floatcommanddict["STOREI"] = ("\ts.d\t%s,\t%s($sp)\t\t#%s\n",(3,6,0))
 	floatcommanddict["DIV"] = ("\tdiv.d\t%s,\t%s,\t%s\t#%s\n",(3,1,2,0))
 	floatcommanddict["ADD"] = ("\tadd.d\t%s,\t%s,\t%s\t#%s\n",(3,1,2,0))
 	floatcommanddict["SUB"] = ("\tsub.d\t%s,\t%s,\t%s\t#%s\n",(3,1,2,0))
@@ -200,6 +205,7 @@ def getouttup(tuporder,ticket1,ticket2,ticket3,stacksize,localsize,linenum,linep
 					getfloatreg(ticket3)
 			outorder.append(reginfotable[ticket3]['curloc'])
 		elif x == 4:
+			# print(lineprint)
 			outorder.append(str(reginfotable[ticket1]['memloc']))
 		elif x == 5:
 			outorder.append(str(reginfotable[ticket2]['memloc']))
@@ -370,9 +376,9 @@ def genAsm():
 				if reginfotable[spots[3]]['isparam']:
 					reginfotable[spots[3]]['memloc']=argsum+procLocalSize
 					if spots[3][0]=='f':
-						fout.write(floatcommanddict["LOAD"][0]%getouttup(floatcommanddict['LOAD'][1],spots[1],spots[2],spots[3],procParamSize+procLocalSize,procLocalSize,incount,line))
+						fout.write(floatcommanddict["LOADI"][0]%getouttup(floatcommanddict['LOADI'][1],spots[1],spots[2],spots[3],procParamSize+procLocalSize,procLocalSize,incount,line))
 					else:
-						fout.write(commanddict["LOAD"][0]%getouttup(commanddict['LOAD'][1],spots[1],spots[2],spots[3],procParamSize+procLocalSize,procLocalSize,incount,line))
+						fout.write(commanddict["LOADI"][0]%getouttup(commanddict['LOADI'][1],spots[1],spots[2],spots[3],procParamSize+procLocalSize,procLocalSize,incount,line))
 					argsum = argsum + getLiteral(spots[1],'i')
 					if argsum == procParamSize:
 						argsum = 0
@@ -400,9 +406,9 @@ def genAsm():
 				for x  in inuseticks:
 					if reginfotable[x]['istemp']==False:
 						if x[0]=='f':
-							fout.write(floatcommanddict["LOAD"][0]%getouttup(floatcommanddict['LOAD'][1],x,x,x,procParamSize+procLocalSize,procLocalSize,incount,line))
+							fout.write(floatcommanddict["LOADI"][0]%getouttup(floatcommanddict['LOADI'][1],x,x,x,procParamSize+procLocalSize,procLocalSize,incount,line))
 						else:
-							fout.write(commanddict["LOAD"][0]%getouttup(commanddict['LOAD'][1],x,x,x,procParamSize+procLocalSize,procLocalSize,incount,line))
+							fout.write(commanddict["LOADI"][0]%getouttup(commanddict['LOADI'][1],x,x,x,procParamSize+procLocalSize,procLocalSize,incount,line))
 			elif spots[0][0]=="#":
 				fout.write(commanddict["#"][0]%(line));
 			else:
