@@ -288,7 +288,7 @@ declaration
 		//cout << "Type node" << $<tnode>1->getArrayOffset() << " " << $<tnode>2->getArrayOffset() << endl;
 		char buffer[500];
 		vector<nodeDataType> types = tmp->getType();
-		tmp->parseTypes();
+		// tmp->parseTypes();
 		// Debugging: Get the types parsed
 		// for (int t : types) {
 		// 	cout << getDataTypeString(static_cast<nodeDataType>(t)) << " ";
@@ -872,7 +872,7 @@ parameter_declaration
 		//cout << "Type node" << $<tnode>1->getArrayOffset() << " " << $<tnode>2->getArrayOffset() << endl;
 		char buffer[500];
 		vector<nodeDataType> types = tmp->getType();
-		tmp->parseTypes();
+		// tmp->parseTypes();
 		// Debugging: Get the types parsed
 		// for (int t : types) {
 		// 	cout << getDataTypeString(static_cast<nodeDataType>(t)) << " ";
@@ -899,7 +899,7 @@ parameter_declaration
 		//cout << "Type node" << $<tnode>1->getArrayOffset() << " " << $<tnode>2->getArrayOffset() << endl;
 		char buffer[500];
 		vector<nodeDataType> types = tmp->getType();
-		tmp->parseTypes();
+		// tmp->parseTypes();
 		// Debugging: Get the types parsed
 		// for (int t : types) {
 		// 	cout << getDataTypeString(static_cast<nodeDataType>(t)) << " ";

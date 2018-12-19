@@ -49,6 +49,10 @@ void TypeNode::traverse_to_file(FILE* fileout)
  */
 void TypeNode::ast_to_3ac(FILE* fileout)
 {
+	vector<nodeDataType> typesToUse = parseTypes();
+	if (typesToUse.size() == 0) {
+		return;
+	}
 	if (currentCodeLine != forErrors[0].source[0].lineNum )
 	{
 		fprintf(fileout, "# %s",TreeNode::coldLine().c_str() );
@@ -57,35 +61,34 @@ void TypeNode::ast_to_3ac(FILE* fileout)
 	int i,tp;
 	char temp[500];
 	// For some reason its always a double unless its like a long int or something and if its long int then int isnt stored?
-	for(i = 0; i < types.size(); i++)
+	for(i = 0; i < typesToUse.size(); i++)
 	{
-		//cout << types[i] << endl;
-		if(types[i] ==  DOUBLE_TYPE_NODE)
+		//cout << typesToUse[i] << endl;
+		if(typesToUse[i] ==  DOUBLE_TYPE_NODE)
 		{
 			byteSize = DOUBLE_MIPS;
 			break;
 		}
-		if(types[i] == FLOAT_TYPE_NODE)
+		if(typesToUse[i] == FLOAT_TYPE_NODE)
 		{
 			byteSize = FLOAT_MIPS;
 			break;
 		}
-		if(types[i] == CHAR_TYPE_NODE)
+		if(typesToUse[i] == CHAR_TYPE_NODE)
 		{
 			byteSize = CHAR_MIPS;
 			break;
 		}
-		if(types[i] == INT_TYPE_NODE)
+		if(typesToUse[i] == INT_TYPE_NODE)
 		{
 
 			byteSize = INT_MIPS;
 			break;
 		}
-
 	}
 	byteSize *= children[1]->getArrayOffset();
-	//cout << types[i] << endl;
-	fprintf(fileout,"ALLOC\t(%d)\t_\t%s\n",byteSize,rep_3ac_ticket(types[i],children[1]->returnTicket()).c_str());
+	//cout << typesToUse[i] << endl;
+	fprintf(fileout,"ALLOC\t(%d)\t_\t%s\n",byteSize,rep_3ac_ticket(typesToUse[i],children[1]->returnTicket()).c_str());
 
 	// children[1]->getDataType(temp);
 
@@ -126,7 +129,7 @@ vector<nodeDataType> TypeNode::parseTypes()
 			case LONG_TYPE_NODE:
 				printf("%s:Line: %d Column: %d Warning: Longs not supported by machine (defaults to int)\n",file_name,line,column);
 				if (numShorts) {
-					yyerror("Invalid type");
+					TreeNode::errorCheck("Invalid type");
 					return {};
 				}
 				typesToUse.push_back(type);
@@ -135,7 +138,7 @@ vector<nodeDataType> TypeNode::parseTypes()
 			case SHORT_TYPE_NODE:
 				printf("%s:Line: %d Column: %d Warning: Shorts not supported by machine (defaults to int)\n",file_name,line,column);
 				if (numLongs) {
-					yyerror("Invalid type");
+					TreeNode::errorCheck("Invalid type");
 					return {};
 				}
 				typesToUse.push_back(type);
@@ -143,7 +146,7 @@ vector<nodeDataType> TypeNode::parseTypes()
 				break;
 			case DOUBLE_TYPE_NODE:
 				if (numShorts) {
-					yyerror("Invalid type");
+					TreeNode::errorCheck("Invalid type");
 					return {};
 				}
 				numPrimaryTypes++;
@@ -156,7 +159,7 @@ vector<nodeDataType> TypeNode::parseTypes()
 				break;
 			case CHAR_TYPE_NODE:
 				if (numLongs || numShorts) {
-					yyerror("Invalid type");
+					TreeNode::errorCheck("Invalid type");
 					return {};
 				}
 				isFloat = true;
@@ -165,7 +168,7 @@ vector<nodeDataType> TypeNode::parseTypes()
 				break;
 			case FLOAT_TYPE_NODE:
 				if (numLongs || numShorts) {
-					yyerror("Invalid type");
+					TreeNode::errorCheck("Invalid type");
 					return {};
 				}
 				isFloat = true;
@@ -175,21 +178,23 @@ vector<nodeDataType> TypeNode::parseTypes()
 			case SIGNED_TYPE_NODE:
 				isSigned++;
 				if (isUnsigned) {
-					yyerror("Invalid type");
+					TreeNode::errorCheck("Invalid type");
 					return {};
 				}
 				if (isSigned > 1) {
-					yyerror("Invalid type");
+					TreeNode::errorCheck("Invalid type");
+					return {};
 				}
 				break;
 			case UNSIGNED_TYPE_NODE:
 				isUnsigned++;
 				if (isSigned) {
-					yyerror("Invalid type");
+					TreeNode::errorCheck("Invalid type");
 					return {};
 				}
 				if (isUnsigned > 1) {
-					yyerror("Invalid type");
+					TreeNode::errorCheck("Invalid type");
+					return {};
 				}
 				break;
 		}
@@ -198,11 +203,11 @@ vector<nodeDataType> TypeNode::parseTypes()
 		if (isSigned || isUnsigned || numLongs || numShorts) {
 			typesToUse.push_back(INT_TYPE_NODE);
 		} else {
-			yyerror("No type set");
+			TreeNode::errorCheck("No types declared");
 			typesToUse = {};
 		}
 	} else if (numPrimaryTypes > 1) {
-		yyerror("Too many types declared");
+		TreeNode::errorCheck("Too many types declared");
 		typesToUse = {};
 	}
 	return typesToUse;
