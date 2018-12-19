@@ -44,9 +44,10 @@ void ArrayNode::ast_to_3ac(FILE* fileout)
 	{
 		fprintf(fileout,"ADDR\t%s\t_\t%s\n",rep_3ac_ticket(children[0]->getidDataType(),children[0]->returnTicket()).c_str(),rep_3ac_ticket(t,Variable_counter).c_str());
 	}
+	int temp = Variable_counter++;
 	fprintf(fileout, "ASSIGN\t(%d)\t_\t%s\n", realArrayOffset,rep_3ac_ticket(t,ticketNumber2).c_str());
-	fprintf(fileout,"MULT\t%s\t%s\t%s\n",s2.c_str(),rep_3ac_ticket(t,ticketNumber2).c_str(),s2.c_str() );
-	fprintf(fileout,"ADD\t%s\t%s\t%s\n",rep_3ac_ticket(t,Variable_counter).c_str(),s2.c_str(),rep_3ac_ticket(t,Variable_counter).c_str());
+	fprintf(fileout,"MULT\t%s\t%s\t%s\n",s2.c_str(),rep_3ac_ticket(t,ticketNumber2).c_str(),rep_3ac_ticket(t,temp+1).c_str());
+	fprintf(fileout,"ADD\t%s\t%s\t%s\n",rep_3ac_ticket(t,Variable_counter).c_str(),rep_3ac_ticket(t,temp).c_str(),rep_3ac_ticket(t,Variable_counter).c_str());
 	if(isLast && isLHS)
 	{
 		fprintf(fileout,"STORE\t%s\t_\t%s\n",rep_3ac_ticket(t,Variable_counter).c_str(),rep_3ac_ticket(t,ticketNumber).c_str());
