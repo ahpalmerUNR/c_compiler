@@ -4,6 +4,7 @@ int main()
   int n= 10 ;
   int c=1;
   int d=2;
+  char k = 20;
   int swap;
   
   array[0] = 10;
@@ -17,29 +18,38 @@ int main()
   array[8] = 125;
   array[9] = 0;
 
-  
-  for (c = 0; c < n; c += 1)
+  k = 32;
+  for (c = 0; c < n; c = c + 1)
   {
     d = array[c];
     writeInt(d);
+    writeChar(k);
   }
+  k=10;
+  writeChar(k);
  
-  // for (c = 0 ; c < n - 1; c += 1)
-  // {
-  //   for (d = 0 ; d < n - c - 1; d += 1)
-  //   {
-  //     if (array[d] > array[d+ 1])
-  //     {
-  //       swap       = array[d];
-  //       array[d]   = array[d+ 1];
-  //       array[d+ 1] = swap;
-  //     }
-  //   }
-  // }
-  for (c = 0; c < n; c += 1)
+  for (c = 0 ; c < n - 1; c = c + 1)
+  {
+    for (d = 0 ; d < n - c - 1; d = d + 1)
+    {
+      if (array[d] > array[d+ 1])
+      {
+        
+        swap       = array[d];
+        writeInt(swap);
+        array[d]   = array[d+ 1];
+        array[d+ 1] = swap;
+      }
+    }
+  }
+  k=10;
+   writeChar(k);
+  k=32;
+  for (c = 0; c < n; c = c + 1)
   {
     d = array[c];
     writeInt(d);
+    writeChar(k);
   }
  
   return 0;

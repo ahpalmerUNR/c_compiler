@@ -2,7 +2,7 @@
 # @Author: ahpalmerUNR
 # @Date:   2018-12-16 22:22:02
 # @Last Modified by:   ahpalmerUNR
-# @Last Modified time: 2018-12-18 22:07:21
+# @Last Modified time: 2018-12-18 23:02:54
 import sys
 
 infile = ""
@@ -293,6 +293,9 @@ def registerLife():
 				decode(spots,incount)
 	
 		fin.close()
+	# for a in reginfotable:
+	# 	if  reginfotable[a]["istemp"]==False:
+	# 		print(a)
 	# print(reginfotable)
 	# 
 def printreadwrite(fout):
@@ -420,7 +423,9 @@ def genAsm():
 					fout.write(floatcommanddict[spots[0]][0]%getouttup(floatcommanddict[spots[0]][1],spots[1],spots[2],spots[3],procParamSize+procLocalSize,procLocalSize,incount,line))
 				else:
 					fout.write(commanddict[spots[0]][0]%getouttup(commanddict[spots[0]][1],spots[1],spots[2],spots[3],procParamSize+procLocalSize,procLocalSize,incount,line))
-			for tick in inuseticks:
+			tppp = inuseticks[:]
+			for tick in tppp:
+				# print(tppp)
 				if reginfotable[tick]['endline']==incount and reginfotable[tick]['istemp']==True:
 					if tick[0]=='f':
 						returnfloatreg(tick)
