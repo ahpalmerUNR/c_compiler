@@ -6,9 +6,9 @@ int main()
   int d;
   int swap;
  
-  for (c = 0 ; c < n - 1; c++)
+  for (c = 0 ; c < n - 1; c += 1)
   {
-    for (d = 0 ; d < n - c - 1; d++)
+    for (d = 0 ; d < n - c - 1; d += 1)
     {
       if (array[d] > array[d+ 1])
       {
