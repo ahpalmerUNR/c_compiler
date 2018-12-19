@@ -59,7 +59,7 @@ int main()
 	int i;
 	int j;
 	char p;
-	a[0][0] = 1;
+	a[0][0] = 1 + 2;
 	a[0][1] = 1;
 	a[1][0] = 2;
 	a[1][1] = 2;
@@ -68,9 +68,9 @@ int main()
 	b[0][1] = 1;
 	b[1][0] = 2;
 	b[1][1] = 2;
-	for (i = 0; i < 2; ++i)
+	for (i = 0; i < 2; i += 1)
 	{
-		for (j = 0; j < 2; ++j)
+		for (j = 0; j < 2; j += 1)
 		{
 			//writeInt(a[i][j]);			
 			p = 32;
@@ -86,17 +86,17 @@ int main()
 	p = 10;
 	writeChar(p);
 	
-	for (i = 0; i < 2; ++i)
+	for (i = 0; i < 2; i += 1)
 	{
-		for (j = 0; j < 2; ++j)
+		for (j = 0; j < 2; j += 1)
 		{
 			a[i][j] = a[i][j] + b[i][j];
 		}
 	}
 	
-	for (i = 0; i < 2; ++i)
+	for (i = 0; i < 2; i += 1)
 	{
-		for (j = 0; j < 2; ++j)
+		for (j = 0; j < 2; j += 1)
 		{
 			//writeInt(a[i][j]);			
 			p = 32;
