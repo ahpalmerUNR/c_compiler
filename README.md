@@ -194,6 +194,7 @@ To view the AST if graphviz is not installed you can use the website [http://www
 
 * Bubble Sort
 	* Loops (`for, do-while, while, if`)
+	* 1-D Arrays
 
 * Matrix Multiplication
 	* Arrays
@@ -205,3 +206,13 @@ To view the AST if graphviz is not installed you can use the website [http://www
 
 * Array Initalization Lists (i.e. `int a[2] = {1,2};`)
 * Files without a new line at the end of the file
+* If you have a compound statement, put an empty statement to get out of insert mode i.e. 
+	```C
+	int fact(int k){
+		;
+		if (k == 1) { return 1; }
+	}
+	```
+* Can't use expressions as parameters
+* Need spaces between operations
+* Postfix expressions
