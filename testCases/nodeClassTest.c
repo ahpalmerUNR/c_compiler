@@ -46,13 +46,66 @@
 int main()
 {
 	// float a = 1.0;
-	int a = 1;
-	int b = 2;
-	int c;
-	c = a + b;
-	writeInt(c);
-	// c = blue(a,b,c);
-	return c;
+	// int a = 1;
+	// int b = 2;
+	// int c;
+	// c = a + b;
+	// writeInt(c);
+	// // c = blue(a,b,c);
+	// return c;
+	// 
+	int a[2][2];
+	int b[2][2];
+	int i;
+	int j;
+	char p;
+	a[0][0] = 1;
+	a[0][1] = 1;
+	a[1][0] = 2;
+	a[1][1] = 2;
+	
+	b[0][0] = 1;
+	b[0][1] = 1;
+	b[1][0] = 2;
+	b[1][1] = 2;
+	for (i = 0; i < 2; ++i)
+	{
+		for (j= 0; j < 2; ++j)
+		{
+			writeInt(a[i][j]);			
+			p = 32;
+			writeChar(p);
+		}
+		p = 10;
+		writeChar(p);
+	}
+	p = 10;
+	writeChar(p);
+	p = 10;
+	writeChar(p);
+	p = 10;
+	writeChar(p);
+	
+	for (i = 0; i < 2; ++i)
+	{
+		for (j= 0; j < 2; ++j)
+		{
+			a[i][j] = a[i][j] + b[i][j];
+		}
+	}
+	
+	for (i = 0; i < 2; ++i)
+	{
+		for (j= 0; j < 2; ++j)
+		{
+			writeInt(a[i][j]);			
+			p = 32;
+			writeChar(p);
+		}
+		p = 10;
+		writeChar(p);
+	}
+	return 1;
 }
 
 // void readChar(float a){

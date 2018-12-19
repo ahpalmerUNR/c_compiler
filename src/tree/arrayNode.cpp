@@ -5,6 +5,8 @@ ArrayNode::ArrayNode(string nodeName) : TreeNode(nodeName,2)
 
 	ticketNumber = Variable_counter;
 	++Variable_counter;
+	ticketNumber2 = Variable_counter;
+	++Variable_counter;
 	arrayOffset = 1;
 	isLHS = false;
 	isFirst = false;
@@ -42,7 +44,8 @@ void ArrayNode::ast_to_3ac(FILE* fileout)
 	{
 		fprintf(fileout,"ADDR\t%s\t_\t%s\n",rep_3ac_ticket(children[0]->getidDataType(),children[0]->returnTicket()).c_str(),rep_3ac_ticket(t,Variable_counter).c_str());
 	}
-	fprintf(fileout,"MULT\t%s\t(%d)\t%s\n",s2.c_str(),realArrayOffset,s2.c_str() );
+	fprintf(fileout, "ASSIGN\t(%d)\t_\t%s\n", realArrayOffset,rep_3ac_ticket(t,ticketNumber2).c_str());
+	fprintf(fileout,"MULT\t%s\t%s\t%s\n",s2.c_str(),rep_3ac_ticket(t,ticketNumber2).c_str(),s2.c_str() );
 	fprintf(fileout,"ADD\t%s\t%s\t%s\n",rep_3ac_ticket(t,Variable_counter).c_str(),s2.c_str(),rep_3ac_ticket(t,Variable_counter).c_str());
 	if(isLast && isLHS)
 	{

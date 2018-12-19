@@ -1712,7 +1712,7 @@ postfix_expression
 			offset *= n->arraySizes[i];
 		}
 		tmp->setArrayOffset(offset);
-			cout << arraySizeOffset << "here" << endl;
+			//cout << arraySizeOffset << "here" << endl;
 		if(arraySizeOffset == 0)
 			tmp->setFirst();
 		if(arraySizeOffset == n->arraySizes.size()-1)
@@ -1959,10 +1959,11 @@ identifier
 				//n->print();
 				if(n!=NULL)
 				{
-					n->print();
+					//n->print();
 					//need to use same ticket counter as the symbol table entry rather than making a new ticket for each i = 5; etc after declaration	
 					tmp->storeString((char*)yylval.lnode->name.c_str());
 					tmp->setidDataTypes(n->types);
+					
 					//cout << n->ticketNumber << endl;
 					tmp->setTicketNumber(n->ticketNumber);
 					//cout << yylval.lnode->name << tmp->getidDataType() << endl;
