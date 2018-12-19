@@ -56,6 +56,8 @@ int main()
 	// 
 	int a[2][2];
 	int b[2][2];
+	int c[2][2];
+	int n = 2;
 	int i;
 	int j;
 	char p;
@@ -69,9 +71,9 @@ int main()
 	b[0][1] = 1;
 	b[1][0] = 2;
 	b[1][1] = 2;
-	for (i = 0; i < 2; i += 1)
+	for (i = 0; i < n; i += 1)
 	{
-		for (j = 0; j < 2; j += 1)
+		for (j = 0; j < n; j += 1)
 		{
 			k = a[i][j];
 			writeInt(k);			
@@ -83,24 +85,41 @@ int main()
 	}
 	p = 10;
 	writeChar(p);
+	
+	for (i = 0; i < n; i += 1)
+	{
+		for (j = 0; j < n; j += 1)
+		{
+			k = b[i][j];
+			writeInt(k);			
+			p = 32;
+			writeChar(p);
+		}
+		p = 10;
+		writeChar(p);
+	}
 	p = 10;
 	writeChar(p);
 	p = 10;
 	writeChar(p);
 	
-	for (i = 0; i < 2; i += 1)
+	for (i = 0; i < n; i += 1)
 	{
-		for (j = 0; j < 2; j += 1)
+		for (j = 0; j < n; j += 1)
 		{
-			a[i][j] = a[i][j] + b[i][j];
+			c[i][j] = 0;
+			for (k = 0; k < n; k += 1)
+			{
+				c[i][j] = c[i][j] + a[i][k] * b[k][j];
+			}
 		}
 	}
 	
-	for (i = 0; i < 2; i += 1)
+	for (i = 0; i < n; i += 1)
 	{
-		for (j = 0; j < 2; j += 1)
+		for (j = 0; j < n; j += 1)
 		{
-			k = a[i][j];
+			k = c[i][j];
 			writeInt(k);			
 			p = 32;
 			writeChar(p);
