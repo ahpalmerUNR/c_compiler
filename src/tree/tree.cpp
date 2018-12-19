@@ -32,9 +32,11 @@ TreeNode::~TreeNode()
 bool TreeNode::checkChildZ()
 {
 	char tmp[500];
-	if(children[0]->getDataType(tmp)==EMPTY_TYPE_NODE)
-	{
-		return true;
+	if (numberChildren > 0) {
+		if(children[0]->getDataType(tmp)==EMPTY_TYPE_NODE)
+		{
+			return true;
+		}
 	}
 	return false;
 }

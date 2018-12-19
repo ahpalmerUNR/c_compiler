@@ -32,11 +32,11 @@ int main()
   {
     for (d = 0 ; d < n - c - 1; d = d + 1)
     {
-      if (array[d] > array[d+ 1])
+      if (array[d] >= array[d+ 1])
       {
         
         swap       = array[d];
-        writeInt(swap);
+        // writeInt(swap);
         array[d]   = array[d+ 1];
         array[d+ 1] = swap;
       }

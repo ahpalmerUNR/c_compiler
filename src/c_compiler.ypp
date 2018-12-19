@@ -7,6 +7,7 @@
 	#include "../src/tree/tree.h"
 	#include "../src/tree/labelNode.h"
 	#include "../src/tree/emptyNode.h"
+	#include "../src/tree/emptyIterNode.h"
 	#include "../src/tree/iteration_statement.h"
 	#include "../src/tree/dataNode.h"
 	#include "../src/tree/jumpNode.h"
@@ -1240,18 +1241,18 @@ selection_statement
 
 iteration_statement
 	: WHILE_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement {
-		EmptyNode* blank1 = new EmptyNode("empty_");
-		EmptyNode* blank2 = new EmptyNode("empty_");
+		EmptyIterNode* blank1 = new EmptyIterNode("empty_");
+		EmptyIterNode* blank2 = new EmptyIterNode("empty_");
 		Iter_statement* tmp = new Iter_statement("iteration_statement_",false);
-		tmp->assignChild(0,blank1);
-		tmp->assignChild(2,blank2);
+		tmp->assignChild(0, $<tnode>3);
+		tmp->assignChild(2, blank1);
 		tmp->assignChild(1,$<tnode>3);
 		tmp->assignChild(3,$<tnode>5);
 		$<tnode>$ = tmp;
 		outputReduction("iteration_statement : WHILE_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok statement");}
 	| DO_tok statement WHILE_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok SEMI_tok {
-		EmptyNode* blank1 = new EmptyNode("empty_");
-		EmptyNode* blank2 = new EmptyNode("empty_");
+		EmptyIterNode* blank1 = new EmptyIterNode("empty_");
+		EmptyIterNode* blank2 = new EmptyIterNode("empty_");
 		Iter_statement* tmp = new Iter_statement("iteration_statement_",true);
 		tmp->assignLine(line,column-size,column,codeLine());
 		tmp->assignChild(0,blank1);
@@ -1261,9 +1262,9 @@ iteration_statement
 		$<tnode>$ = tmp;
 		outputReduction("iteration_statement : DO_tok statement WHILE_tok OPEN_PAREN_tok expression CLOSE_PAREN_tok SEMI_tok");}
 	| FOR_tok OPEN_PAREN_tok SEMI_tok SEMI_tok CLOSE_PAREN_tok statement {
-		EmptyNode* blank1 =  new EmptyNode("empty_");
-		EmptyNode* blank2 =  new EmptyNode("empty_");
-		EmptyNode* blank3 = new EmptyNode("empty_");
+		EmptyIterNode* blank1 =  new EmptyIterNode("empty_");
+		EmptyIterNode* blank2 =  new EmptyIterNode("empty_");
+		EmptyIterNode* blank3 = new EmptyIterNode("empty_");
 		Iter_statement* tmp = new Iter_statement("iteration_statement_",false);
 		tmp->assignChild(0,blank1);
 		tmp->assignChild(2,blank2);
@@ -1272,8 +1273,8 @@ iteration_statement
 		$<tnode>$ = tmp;
 		outputReduction("iteration_statement : FOR_tok OPEN_PAREN_tok SEMI_tok SEMI_tok CLOSE_PAREN_tok statement");}
 	| FOR_tok OPEN_PAREN_tok SEMI_tok SEMI_tok expression CLOSE_PAREN_tok statement {
-		EmptyNode* blank1 = new EmptyNode("empty_");
-		EmptyNode* blank2 = new EmptyNode("empty_");
+		EmptyIterNode* blank1 = new EmptyIterNode("empty_");
+		EmptyIterNode* blank2 = new EmptyIterNode("empty_");
 		Iter_statement* tmp = new Iter_statement("iteration_statement_",false);
 		tmp->assignChild(0,blank1);
 		tmp->assignChild(1,blank2);
@@ -1282,8 +1283,8 @@ iteration_statement
 		$<tnode>$ = tmp;
 		outputReduction("iteration_statement : FOR_tok OPEN_PAREN_tok SEMI_tok SEMI_tok expression CLOSE_PAREN_tok statement");}
 	| FOR_tok OPEN_PAREN_tok SEMI_tok expression SEMI_tok CLOSE_PAREN_tok statement {
-		EmptyNode* blank1 = new EmptyNode("empty_");
-		EmptyNode* blank2 = new EmptyNode("empty_");
+		EmptyIterNode* blank1 = new EmptyIterNode("empty_");
+		EmptyIterNode* blank2 = new EmptyIterNode("empty_");
 		Iter_statement* tmp = new Iter_statement("iteration_statement_",false);
 		tmp->assignChild(0,blank1);
 		tmp->assignChild(2,blank2);
@@ -1292,7 +1293,7 @@ iteration_statement
 		$<tnode>$ = tmp;
 		outputReduction("iteration_statement : FOR_tok OPEN_PAREN_tok SEMI_tok expression SEMI_tok CLOSE_PAREN_tok statement");}
 	| FOR_tok OPEN_PAREN_tok SEMI_tok expression SEMI_tok expression CLOSE_PAREN_tok statement {
-		EmptyNode* blank1 =  new EmptyNode("empty_");
+		EmptyIterNode* blank1 =  new EmptyIterNode("empty_");
 		Iter_statement* tmp = new Iter_statement("iteration_statement_",false);
 		tmp->assignChild(0,blank1);
 		tmp->assignChild(1,$<tnode>4);
@@ -1301,8 +1302,8 @@ iteration_statement
 		$<tnode>$ = tmp;
 		outputReduction("iteration_statement : FOR_tok OPEN_PAREN_tok SEMI_tok expression SEMI_tok expression CLOSE_PAREN_tok statement");}
 	| FOR_tok OPEN_PAREN_tok expression SEMI_tok SEMI_tok CLOSE_PAREN_tok statement {
-		EmptyNode* blank1 = new EmptyNode("empty_");
-		EmptyNode* blank2 = new EmptyNode("empty_");
+		EmptyIterNode* blank1 = new EmptyIterNode("empty_");
+		EmptyIterNode* blank2 = new EmptyIterNode("empty_");
 		Iter_statement* tmp = new Iter_statement("iteration_statement_",false);
 		tmp->assignChild(1,blank1);
 		tmp->assignChild(2,blank2);
@@ -1311,7 +1312,7 @@ iteration_statement
 		$<tnode>$ = tmp;
 		outputReduction("iteration_statement : FOR_tok OPEN_PAREN_tok expression SEMI_tok SEMI_tok CLOSE_PAREN_tok statement");}
 	| FOR_tok OPEN_PAREN_tok expression SEMI_tok SEMI_tok expression CLOSE_PAREN_tok statement {
-		EmptyNode* blank1 =  new EmptyNode("empty_");
+		EmptyIterNode* blank1 =  new EmptyIterNode("empty_");
 		Iter_statement* tmp = new Iter_statement("iteration_statement_",false);
 		tmp->assignChild(1,blank1);
 		tmp->assignChild(0,$<tnode>3);
@@ -1320,7 +1321,7 @@ iteration_statement
 		$<tnode>$ = tmp;
 		outputReduction("iteration_statement : FOR_tok OPEN_PAREN_tok expression SEMI_tok SEMI_tok expression CLOSE_PAREN_tok statement");}
 	| FOR_tok OPEN_PAREN_tok expression SEMI_tok expression SEMI_tok CLOSE_PAREN_tok statement {
-		EmptyNode* blank1 = new EmptyNode("empty_");
+		EmptyIterNode* blank1 = new EmptyIterNode("empty_");
 		Iter_statement* tmp = new Iter_statement("iteration_statement_",false);
 		tmp->assignChild(2,blank1);
 		tmp->assignChild(0,$<tnode>3);

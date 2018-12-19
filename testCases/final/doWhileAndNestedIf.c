@@ -1,11 +1,17 @@
 int main() {
+	int i = 1;
+	int arr[2];
+	arr[0] = 1;
+	arr[1] = 2;
 	do {
-		if (1 < 3) {
-			if (4 != 5) {
-				char c = 'c';
+		if (arr[0] <= arr[1]) {
+			char a = 'a';
+			writeChar(a);
+			if (1 == 1) {
+				char c = 'h';
 				writeChar(c);
 			}
 		}
-	} while (1 != 1);
+	} while (i != 1);
 	return 0;
 }

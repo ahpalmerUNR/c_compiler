@@ -22,7 +22,7 @@ int factorial(int m) {
 
 int main()
 {
-	int a = 5;
+	int a = readInt();
 	a = factorial(a);
 	writeInt(a);
 	return a;

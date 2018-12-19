@@ -4,9 +4,9 @@ CPP=g++
 CFLAGS=-std=c99
 CPPFLAGS = -std=c++11
 LEX=flex
-OBJ= c_compiler.tab.hpp lex.yy.o symboltable.o tree.o  -ll
-BUILDOBJ= build/c_compiler.tab.hpp lex.yy.o symboltable.o tree.o -ll
-NODES= labelNode.o emptyNode.o iteration_statement.o dataNode.o jumpNode.o selectionNode.o operatorNode.o assignmentNode.o relationNode.o castNode.o functionNode.o typeNode.o declarationSpecNode.o arrayNode.o functionCallNode.o
+OBJ= c_compiler.tab.hpp lex.yy.o symboltable.o tree.o  -lfl
+BUILDOBJ= build/c_compiler.tab.hpp lex.yy.o symboltable.o tree.o -lfl
+NODES= labelNode.o emptyNode.o emptyIterNode.o iteration_statement.o dataNode.o jumpNode.o selectionNode.o operatorNode.o assignmentNode.o relationNode.o castNode.o functionNode.o typeNode.o declarationSpecNode.o arrayNode.o functionCallNode.o
 YACC=bison
 YFLAGS=-d -v -t
 
@@ -19,7 +19,7 @@ c_compiler.tab.hpp: symboltable.o tree.o $(NODES)
 	$(YACC) $(YFLAGS) --file-prefix=build/c_compiler src/c_compiler.ypp
 	
 lex.yy.o: flex_out symboltable.o
-	$(CPP) $(CPPFLAGS) -c build/lex.yy.c -ll
+	$(CPP) $(CPPFLAGS) -c build/lex.yy.c -lfl
 	
 flex_out: src/symboltable.h
 	$(LEX) --outfile=build/lex.yy.c src/c_compiler.lex src/symboltable.h
@@ -74,6 +74,9 @@ arrayNode.o: src/tree/arrayNode.cpp src/tree/arrayNode.h src/tree/tree.h
 
 functionCallNode.o: src/tree/arrayNode.cpp src/tree/functionCallNode.h src/tree/tree.h
 	$(CPP) $(CPPFLAGS) -c src/tree/functionCallNode.cpp
+
+emptyIterNode.o: src/tree/emptyIterNode.cpp src/tree/emptyIterNode.h src/tree/tree.h
+	$(CPP) $(CPPFLAGS) -c src/tree/emptyIterNode.cpp
 
 clean:
 	-rm -f build/lex.yy.* build/c_compiler.tab.* build/*.o build/*.s build/c_compiler build/c_compiler.output 
