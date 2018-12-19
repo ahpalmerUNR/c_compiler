@@ -2,7 +2,7 @@
 # @Author: ahpalmerUNR
 # @Date:   2018-12-16 22:22:02
 # @Last Modified by:   ahpalmerUNR
-# @Last Modified time: 2018-12-18 15:43:12
+# @Last Modified time: 2018-12-18 17:02:48
 import sys
 
 infile = ""
@@ -396,6 +396,13 @@ def genAsm():
 			elif spots[0]=="CALL":
 				callfunc(callargs,fout)
 				fout.write(commanddict[spots[0]][0]%getouttup(commanddict[spots[0]][1],spots[1],spots[2],spots[3],procParamSize+procLocalSize,procLocalSize,incount,line))
+				callargs = []
+				for x  in inuseticks:
+					if reginfotable[x]['istemp']==False:
+						if x[0]=='f':
+							fout.write(floatcommanddict["LOAD"][0]%getouttup(floatcommanddict['LOAD'][1],x,x,x,procParamSize+procLocalSize,procLocalSize,incount,line))
+						else:
+							fout.write(commanddict["LOAD"][0]%getouttup(commanddict['LOAD'][1],x,x,x,procParamSize+procLocalSize,procLocalSize,incount,line))
 			elif spots[0][0]=="#":
 				fout.write(commanddict["#"][0]%(line));
 			else:

@@ -5,10 +5,25 @@
  */
 
 int factorial(int m) {
-	if (m <= 1) {
+	int k;
+	//writeInt(m);
+	;
+	if ( m <= 1) {
 		return 1;
 	} else {
-		return m * factorial(m - 1);
+		k = m;
+		m = m - 1;
+		m = k * factorial(m);
+		//writeInt(m);
+		return m ;
 	}
-	!!D
+	// !!D
+}
+
+int main()
+{
+	int a = 5;
+	a = factorial(a);
+	writeInt(a);
+	return a;
 }

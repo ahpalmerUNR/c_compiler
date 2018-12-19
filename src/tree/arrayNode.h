@@ -36,6 +36,7 @@ protected:
 	vector<nodeDataType> idDataTypes;
 	int arrayOffset;
 	bool isFirst;
+	int ticketNumber2;
 	bool isLast;
 	char name[500];
 };
