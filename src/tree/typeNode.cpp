@@ -61,25 +61,25 @@ void TypeNode::ast_to_3ac(FILE* fileout)
 	int i,tp;
 	char temp[500];
 	// For some reason its always a double unless its like a long int or something and if its long int then int isnt stored?
-	for(i = 0; i < typesToUse.size(); i++)
+	for(i = 0; i < types.size(); i++)
 	{
-		//cout << typesToUse[i] << endl;
-		if(typesToUse[i] ==  DOUBLE_TYPE_NODE)
+		//cout << types[i] << endl;
+		if(types[i] ==  DOUBLE_TYPE_NODE)
 		{
 			byteSize = DOUBLE_MIPS;
 			break;
 		}
-		if(typesToUse[i] == FLOAT_TYPE_NODE)
+		if(types[i] == FLOAT_TYPE_NODE)
 		{
 			byteSize = FLOAT_MIPS;
 			break;
 		}
-		if(typesToUse[i] == CHAR_TYPE_NODE)
+		if(types[i] == CHAR_TYPE_NODE)
 		{
 			byteSize = CHAR_MIPS;
 			break;
 		}
-		if(typesToUse[i] == INT_TYPE_NODE)
+		if(types[i] == INT_TYPE_NODE || types[i] == SHORT_TYPE_NODE)
 		{
 
 			byteSize = INT_MIPS;
@@ -87,8 +87,8 @@ void TypeNode::ast_to_3ac(FILE* fileout)
 		}
 	}
 	byteSize *= children[1]->getArrayOffset();
-	//cout << typesToUse[i] << endl;
-	fprintf(fileout,"ALLOC\t(%d)\t_\t%s\n",byteSize,rep_3ac_ticket(typesToUse[i],children[1]->returnTicket()).c_str());
+	//cout << types[i] << endl;
+	fprintf(fileout,"ALLOC\t(%d)\t_\t%s\n",byteSize,rep_3ac_ticket(types[i],children[1]->returnTicket()).c_str());
 
 	// children[1]->getDataType(temp);
 
