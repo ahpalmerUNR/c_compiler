@@ -17,6 +17,7 @@ protected:
 	int jticket1;
 	int jticket2;
 	int jticket3;
+	int ticket;
 	bool isSwitch;
 	SymbolTable switchTable;
 	

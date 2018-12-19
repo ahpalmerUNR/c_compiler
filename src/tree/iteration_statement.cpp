@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-30 22:43:27
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-12-17 12:02:24
+* @Last Modified time: 2018-12-18 15:56:41
 */
 #include "iteration_statement.h"
 
@@ -12,6 +12,8 @@ Iter_statement::Iter_statement(string TreeNodeProductionName,bool doType):TreeNo
 	++Label_counter;
 	jumpCounterTwo = Label_counter;
 	++Label_counter;
+	ticket = Variable_counter;
+	++Variable_counter;
 	dotype = doType;
 }
 Iter_statement::~Iter_statement()
@@ -53,7 +55,8 @@ void Iter_statement::ast_to_3ac(FILE* fileout)
 		fprintf(fileout, "LABEL\tl%d\t_\t_\n", jumpCounterOne);
 		children[3]->ast_to_3ac(fileout);
 		children[1]->ast_to_3ac(fileout);
-		fprintf(fileout, "BREQ\t%s\t(1)\tl%d\n",rep_3ac_ticket(children[1]->getDataType(tmp), children[1]->returnTicket()).c_str(),jumpCounterOne);
+		fprintf(fileout, "ASSIGN\t(1)\t_\t%s\n", rep_3ac_ticket(children[1]->getDataType(tmp),ticket).c_str());
+		fprintf(fileout, "BREQ\t%s\t%s\tl%d\n",rep_3ac_ticket(children[1]->getDataType(tmp), children[1]->returnTicket()).c_str(),rep_3ac_ticket(children[1]->getDataType(tmp),ticket).c_str(),jumpCounterOne);
 		fprintf(fileout, "LABEL\tl%d\t_\t_\n", jumpCounterTwo);
 		
 	}
@@ -62,7 +65,8 @@ void Iter_statement::ast_to_3ac(FILE* fileout)
 		children[0]->ast_to_3ac(fileout);
 		fprintf(fileout, "LABEL\tl%d\t_\t_\n",jumpCounterOne);
 		children[1]->ast_to_3ac(fileout);
-		fprintf(fileout, "BRNE\t%s\t(1)\tl%d\n", rep_3ac_ticket(children[1]->getDataType(tmp), children[1]->returnTicket()).c_str(),jumpCounterTwo);
+		fprintf(fileout, "ASSIGN\t(1)\t_\t%s\n", rep_3ac_ticket(children[1]->getDataType(tmp),ticket).c_str());
+		fprintf(fileout, "BRNE\t%s\t%s\tl%d\n", rep_3ac_ticket(children[1]->getDataType(tmp), children[1]->returnTicket()).c_str(),rep_3ac_ticket(children[1]->getDataType(tmp),ticket).c_str(),jumpCounterTwo);
 		children[3]->ast_to_3ac(fileout);
 		children[2]->ast_to_3ac(fileout);
 		fprintf(fileout, "BR\t_\t_\tl%d\n", jumpCounterOne);
