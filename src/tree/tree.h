@@ -105,7 +105,7 @@ public:
 	virtual bool isIDList(){return false;}
 	virtual void setTicketNumber(int t){ticketNumber = t;}
 	int getTicketNumber(){return ticketNumber;}
-	bool isArrayNode(){return false;}
+	virtual bool isArrayNode(){return false;}
 	void setLHS(){isLHS = true;};
 	string coldLine();
 	string rep_3ac_ticket(nodeDataType ndt, int ticket);

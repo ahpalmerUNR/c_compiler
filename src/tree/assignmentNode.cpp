@@ -73,8 +73,7 @@ void AssignmentNode::traverse_to_file(FILE *fileout)
 }
 void AssignmentNode::ast_to_3ac(FILE *fileout)
 {
-	children[0]->ast_to_3ac(fileout);
-	children[1]->ast_to_3ac(fileout);
+
 	char typePrint1[500] = "0";
 	char typePrint2[500] = "0";
 	char assignPrint[500];
@@ -156,11 +155,28 @@ void AssignmentNode::ast_to_3ac(FILE *fileout)
 	}	
 	if(isOpAssign)
 	{
+		children[0]->ast_to_3ac(fileout);
+		children[1]->ast_to_3ac(fileout);
 		fprintf(fileout,"%s\t%s\n",assignString.c_str(),s1.c_str());
 		//fprintf(fileout,"ASSIGN\t%s\t%s%i\n",s1.c_str(),typePrint1,Variable_counter++);
 	}
 	else
-		fprintf(fileout,"ASSIGN\t%s\t_\t%s\n",s2.c_str(),s1.c_str());
+	{
+		if(children[0]->isArrayNode())
+		{
+			children[1]->ast_to_3ac(fileout);
+			//fprintf(fileout,"ASSIGN\t%s\t_\t%s\n",s2.c_str(),s1.c_str());
+			children[0]->setTicketNumber(children[1]->returnTicket());
+			children[0]->ast_to_3ac(fileout);
+		}
+		else
+		{
+			children[0]->ast_to_3ac(fileout);
+			children[1]->ast_to_3ac(fileout);
+			fprintf(fileout,"ASSIGN\t%s\t_\t%s\n",s2.c_str(),s1.c_str());
+		}
+
+	}
 }
 
 int AssignmentNode::returnTicket()
