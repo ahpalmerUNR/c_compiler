@@ -59,6 +59,7 @@ int main()
 	int i;
 	int j;
 	char p;
+	int k;
 	a[0][0] = 1 + 2;
 	a[0][1] = 1;
 	a[1][0] = 2;
@@ -72,7 +73,8 @@ int main()
 	{
 		for (j = 0; j < 2; j += 1)
 		{
-			//writeInt(a[i][j]);			
+			k = a[i][j];
+			writeInt(k);			
 			p = 32;
 			writeChar(p);
 		}
@@ -98,7 +100,8 @@ int main()
 	{
 		for (j = 0; j < 2; j += 1)
 		{
-			//writeInt(a[i][j]);			
+			k = a[i][j];
+			writeInt(k);			
 			p = 32;
 			writeChar(p);
 		}
