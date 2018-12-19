@@ -41,6 +41,7 @@ extern time_t time_time;
 extern clock_t clock_time;
 //struct tm * timeinfo;
 
+extern int yydebug;
 extern int* levels;
 
 extern bool isParam;
@@ -192,9 +193,9 @@ mult_line_comment	"/*"([^*]|\*+[^*/])*"*/"
 			
 "&"			{return(send_token("AMP_tok",AMP_tok));}
 			
-"<"			{return(send_token("GT_tok",GT_tok));}
+">"			{return(send_token("GT_tok",GT_tok));}
 			
-">"			{return(send_token("LT_tok",LT_tok));}
+"<"			{return(send_token("LT_tok",LT_tok));}
 			
 "%"			{return(send_token("PERCENT_tok",PERCENT_tok));}
 
@@ -558,6 +559,14 @@ void set_debug_level()
 	//printf("Debug %c set to %d\n",typebug,level);
 	if(typebug == 'Y')
 	{
+		if(level% 5==0)
+		{
+			yydebug=1;
+		}
+		else
+		{
+			yydebug=0;
+		}
 		if(level < c_line_yacc_debug_level)
 		{
 			yacc_debug_level = c_line_yacc_debug_level;
@@ -657,6 +666,7 @@ int id_token()
 	if(insert_lookup == 1)
 	{
 		pointsTo = s.searchAll(yytext,&scope);
+		//printf("Look Up, %s\n",yytext);
 		if(pointsTo == NULL)
 		{
 			yylval.lnode = pointsTo;
@@ -665,25 +675,29 @@ int id_token()
 		else if(pointsTo->ntype == ID)
 		{
 			yylval.lnode = pointsTo;
+			//pointsTo->print();
 			
 			return(send_token("ID_tok",ID_tok));
 		}
 		else if(pointsTo->ntype== FUNCTION)
 		{
 			yylval.lnode = pointsTo;
-			
+			//pointsTo->print();
 			return(send_token("ID_tok",ID_tok));
 		}
 		else if(pointsTo->ntype == ENUMERATION_CONSTANT)
 		{
 			yylval.lnode = pointsTo;
+			//pointsTo->print();
 			return(send_token("ENUMERATION_CONSTANT_tok",ENUMERATION_CONSTANT_tok));
 		}
 		else if(pointsTo->ntype == TYPEDEF_NAME) {
 			yylval.lnode = pointsTo;
+			//pointsTo->print();
 			return(send_token("TYPEDEF_NAME_tok",TYPEDEF_NAME_tok));
 		}
 	} else {
+		//printf("Insert, %s\n",yytext);
 		if (isParam) {
 			parameterToInsert->name = yytext;
 			parameterToInsert->lineNumber = line;

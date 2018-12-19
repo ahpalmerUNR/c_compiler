@@ -3,11 +3,11 @@
 #endif
 
 #ifndef CHAR_MIPS
-#define CHAR_MIPS 1
+#define CHAR_MIPS 4
 #endif
 
 #ifndef FLOAT_MIPS
-#define FLOAT_MIPS 4
+#define FLOAT_MIPS 8
 #endif
 
 #ifndef DOUBLE_MIPS

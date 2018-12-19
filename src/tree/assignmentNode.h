@@ -19,7 +19,7 @@ public:
 	void implicitCastWarning(nodeDataType t1, nodeDataType t2);
 protected:
 
-	int ticketNumber;
+	//int ticketNumber;
 	nodeDataType dType;
 	AssignType aType;
 };

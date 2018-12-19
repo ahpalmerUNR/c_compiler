@@ -9,6 +9,7 @@
 #include "../symboltable.h"
 #include "../MIPS_Type_Sizes.h"
 
+
 using namespace std;
 
 extern SymbolTable astTable;
@@ -22,8 +23,8 @@ extern char* file_name;
 extern int AST_node_counter;
 extern int Label_counter;
 extern int Variable_counter;
+extern int currentCodeLine;
 
-string rep_3ac_ticket(nodeDataType ndt, int ticket);
 
 enum OperatorType {
 	ADD_OP,
@@ -92,17 +93,24 @@ public:
 	//virtual int getDataType(char *){ return -1; }
 	virtual nodeDataType getidDataType(){};
 	virtual vector<nodeDataType> getTypes();
-	virtual void setidDataTypes(int types){};
+	virtual void setidDataTypes(vector<nodeDataType>){};
 	virtual int returnTicket(){}
 	virtual void setArrayOffset(int i){arrayOffset = i;}
 	virtual int getArrayOffset(){return arrayOffset;}
 	void printNode();
+	bool checkChildZ();
+	void setNoBytes();
 	virtual void errorCheck(const char * str);
 	virtual void assignLine(int,int,int,string);
 	virtual bool isIDList(){return false;}
-	void setTicketNumber(int){};
-	int getTicketNumber(){};
+	virtual void setTicketNumber(int t){ticketNumber = t;}
+	int getTicketNumber(){return ticketNumber;}
+	virtual bool isArrayNode(){return false;}
+	void setLHS(){isLHS = true;};
 	string coldLine();
+	string rep_3ac_ticket(nodeDataType ndt, int ticket);
+	virtual vector<nodeDataType> getParamDataTypes(){};
+	virtual vector<int> getParamTickets(){};
 protected:
 	int TreeNodeNumber;
 	//type
@@ -114,6 +122,8 @@ protected:
 	nodeDataType tType;
 	int byteSize;
 	int arrayOffset;
+	int ticketNumber;
+	bool isLHS;
 };
 
 class Tree

@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-27 14:10:44
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-30 00:07:52
+* @Last Modified time: 2018-12-18 21:33:03
 */
 #include "tree.h"
 
@@ -29,13 +29,25 @@ TreeNode::~TreeNode()
 {
 	
 }
+bool TreeNode::checkChildZ()
+{
+	char tmp[500];
+	if (numberChildren > 0) {
+		if(children[0]->getDataType(tmp)==EMPTY_TYPE_NODE)
+		{
+			return true;
+		}
+	}
+	return false;
+}
 
 void TreeNode::traverse_to_file(FILE* fileout)
 {
 	
 	for (int i = 0; i < numberChildren; ++i)
 	{
-		// cout<<"TreeNode "<<TreeNodeName<<endl;
+
+		//cout<<"TreeNode "<<children[i]->TreeNodeName<<endl;
 		fprintf(fileout, "\t%s -> %s;\n", TreeNodeName.c_str(),children[i]->TreeNodeName.c_str());
 		children[i]->traverse_to_file(fileout);
 	}
@@ -63,11 +75,16 @@ void TreeNode::printNode()
 	}
 }
 
+void TreeNode::setNoBytes(){
+	byteSize = 0;
+}
+
 void TreeNode::assignChild(int childIndex, TreeNode* child)
 {
 	int pullInd;
 	char temp[500];
 	children[childIndex] = child;
+	// cout<<byteSize<<" bytes "<<TreeNodeName<<" Child "<<child->TreeNodeName<<" bytes "<<child->byteSize<<endl;
 	byteSize = byteSize + child->byteSize;
 	
 	if (forErrors[0].lineStart ==-1)
@@ -329,7 +346,7 @@ void Tree::set_root(TreeNode* new_root)
 	root = new_root;
 }
 
-string rep_3ac_ticket(nodeDataType ndt, int ticket)
+string TreeNode::rep_3ac_ticket(nodeDataType ndt, int ticket)
 {
 	char typePrint[500];
 	switch(ndt)
@@ -346,8 +363,11 @@ string rep_3ac_ticket(nodeDataType ndt, int ticket)
 		case FLOAT_TYPE_NODE:
 			snprintf(typePrint, 500,"f");
 			break;
+		case VOID_TYPE_NODE:
+			snprintf(typePrint,500,"i");
+			break;
 		default:
-			snprintf(typePrint, 500, "Error probably with id");
+			snprintf(typePrint, 500, "Error probably with id %d",ndt);
 			break;
 		
 	}

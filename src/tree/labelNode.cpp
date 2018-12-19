@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-30 15:47:00
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-24 16:32:05
+* @Last Modified time: 2018-12-17 15:45:39
 */
 #include "labelNode.h"
 
@@ -28,6 +28,11 @@ void LabelNode::traverse_to_file(FILE* fileout)
 
 void LabelNode::ast_to_3ac(FILE* fileout)
 {
+	if (currentCodeLine != forErrors[0].source[0].lineNum )
+	{
+		fprintf(fileout, "# %s",TreeNode::coldLine().c_str() );
+		currentCodeLine = forErrors[0].source[0].lineNum;
+	}
 	//add child1.getDataType(repr) and jumpCounter to symbolTable.
 	char const_exprRepr[500];
 	int a = 0;
@@ -51,7 +56,7 @@ void LabelNode::ast_to_3ac(FILE* fileout)
 	{
 		jumpCounter = ch1->lineNumber;
 	}
-	fprintf(fileout, "LABEL\tl%d\n",jumpCounter);
+	fprintf(fileout, "LABEL\tl%d\t_\t_\n",jumpCounter);
 	children[1]->ast_to_3ac(fileout);	
 }
 

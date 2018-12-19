@@ -9,6 +9,10 @@ c_compiler for UNR Compilers CS 660. This program takes in a .c file and returns
 
 [Team Mate Contributions](#contributions)
 
+[Things We Can Do](#cando)
+
+[Things We Can't Do](#cantdo)
+
 ## Installation
 Installation is done through the terminal.
 
@@ -186,4 +190,55 @@ To view the AST if graphviz is not installed you can use the website [http://www
 
 	Solving various errors
 
-	
+## Can Do
+
+* Bubble Sort
+	* Loops (`for, do-while, while, if`)
+	* 1-D Arrays
+	* If statements
+
+* Matrix Multiplication
+	* Arrays (2D)
+
+* Recursive Factorial
+	* Functions
+	* If statements
+
+* Simple Assignments
+	* `a = b + c;`
+
+* Supported Types
+	* `int`
+	* `char`
+		* char's can't be '\n', use 10 instead
+	* `float`
+		* Maybe.
+
+* Invalid C Types won't generate.
+
+* Nested if statements
+
+## Can't Do
+
+* Array Initalization Lists (i.e. `int a[2] = {1,2};`)
+* Files without a new line at the end of the file
+* If you have a compound statement, put an empty statement to get out of insert mode i.e. 
+	```C
+	int fact(int k){
+		;
+		if (k == 1) { return 1; }
+	}
+	```
+* Can't use expressions as parameters
+* Need spaces between operations
+* Postfix expressions
+* Some types:
+	* `short`
+	* `long`
+	* `string/char*`
+	* Valid C Types that aren't in the supported types list won't be supported
+* Pointers
+* Structs
+* Function parameter checking
+* `const, static, volatile, dynamic, auto` etc.
+* enums

@@ -45,13 +45,18 @@ void CastNode::ast_to_3ac(FILE* fileout)
 {
 	children[0]->ast_to_3ac(fileout);
 	char typePrint[500] = "0";
-
-	string s1;
+	if (currentCodeLine != forErrors[0].source[0].lineNum )
+	{
+		fprintf(fileout, "# %s",TreeNode::coldLine().c_str() );
+		currentCodeLine = forErrors[0].source[0].lineNum;
+	}	string s1;
 	nodeDataType t = children[0]->getDataType(typePrint);
 	s1 = typePrint;
+	
 	if(t == ID_TYPE_NODE){ 
 		t = children[0]->getidDataType();
 		s1 =  rep_3ac_ticket(t,children[0]->returnTicket());
+		cout<<"T and S1 "<<t<<" "<<s1<<endl;
 	}
 	else
 	{
@@ -59,6 +64,8 @@ void CastNode::ast_to_3ac(FILE* fileout)
 				s1 =  rep_3ac_ticket(t,children[0]->returnTicket());
 		else
 				s1 = "(" + s1 + ")";
+		// Because assign
+		s1 =  rep_3ac_ticket(t,children[0]->returnTicket());
 	}
 
 	fprintf(fileout,"CAST\t%s\t_\t%s\n",s1.c_str(),rep_3ac_ticket(dType,ticketNumber).c_str());

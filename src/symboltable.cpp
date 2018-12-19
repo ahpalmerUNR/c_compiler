@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-09-28 12:11:57
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-30 00:21:37
+* @Last Modified time: 2018-12-03 14:44:27
 */
 #include "symboltable.h"
 #include <stdio.h>
@@ -85,12 +85,14 @@ Node::Node(const Node &n)
 void Node::print()
 {
 	cout << "line: " << lineNumber << " col: " << colNumber;
+	cout<<" ticketNumber: "<<ticketNumber;
 	cout << " types: ";
 	for (const nodeDataType type : types)
 	{
 		cout << getDataType(type) << " ";
 	}
 	cout << "(node) key: " << name;
+	
 	if (params.size())
 	{
 		cout << "Params: (";
@@ -109,7 +111,7 @@ void Node::print()
 
 void Node::output(FILE *stream)
 {
-	fprintf(stream, "Line: %d, Col: %d, Types: ", lineNumber, colNumber);
+	fprintf(stream, "Line: %d, Col: %d, Ticket Number:%d, Types: ", lineNumber, colNumber,ticketNumber);
 	for (const nodeDataType type : types)
 	{
 		fprintf(stream, "%s ", getDataType(type).c_str());
@@ -128,6 +130,14 @@ void Node::output(FILE *stream)
 			fprintf(stream, ", ");
 		}
 		fprintf(stream, ")");
+	}
+	if(arraySizes.size())
+	{
+		fprintf(stream, " Array Sizes: ");
+		for (const int size : arraySizes)
+		{
+			fprintf(stream, "%d ", size);
+		}
 	}
 	fprintf(stream, "\n");
 }
@@ -155,6 +165,45 @@ SymbolTable::SymbolTable(string n)
 	currentLevel = -1;
 	// Initialize the symbol table with a bst
 	pushEmptyBST();
+	// Add reserved functions
+	Node readIntNode;
+	readIntNode.name = "readInt";
+	readIntNode.isDefined = true;
+	readIntNode.types.push_back(INT_TYPE_NODE);
+	insert("readInt", readIntNode);
+
+	Node readCharNode;
+	readCharNode.name = "readChar";
+	readCharNode.isDefined = true;
+	readCharNode.types.push_back(CHAR_TYPE_NODE);
+	insert("readChar", readCharNode);
+
+	Node readFloatNode;
+	readFloatNode.name = "readFloat";
+	readFloatNode.isDefined = true;
+	readFloatNode.types.push_back(DOUBLE_TYPE_NODE);
+	insert("readFloat", readFloatNode);
+
+	Node writeIntNode;
+	writeIntNode.name = "writeInt";
+	writeIntNode.isDefined = true;
+	writeIntNode.types.push_back(VOID_TYPE_NODE);
+	writeIntNode.params.push_back({ INT_TYPE_NODE });
+	insert("writeInt", writeIntNode);
+
+	Node writeCharNode;
+	writeCharNode.name = "writeChar";
+	writeCharNode.isDefined = true;
+	writeCharNode.types.push_back(VOID_TYPE_NODE);
+	writeCharNode.params.push_back({ CHAR_TYPE_NODE });
+	insert("writeChar", writeCharNode);
+
+	Node writeFloat;
+	writeFloat.name = "writeFloat";
+	writeFloat.isDefined = true;
+	writeFloat.types.push_back(VOID_TYPE_NODE);
+	writeFloat.params.push_back({ DOUBLE_TYPE_NODE });
+	insert("writeFloat", writeFloat);
 }
 
 Node *SymbolTable::insert(string tokenKey, int lN, int cN, DataType t, int *errorcode)
@@ -349,6 +398,7 @@ void SymbolTable::writeToFile(FILE *stream)
 	fprintf(stream, "\n\n%s: SYMBOL TABLE ABOVE\n\n", name.c_str());
 	// stream<<"\n\nSYMBOL TABLE ABOVE"<<endl<<endl;
 	// stream.close();
+	fflush(stream);
 }
 
 void SymbolTable::printCurrentScope()

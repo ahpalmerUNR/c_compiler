@@ -2,13 +2,15 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-31 11:34:10
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-29 22:38:33
+* @Last Modified time: 2018-12-18 00:59:12
 */
 #include "jumpNode.h"
 
 JumpNode::JumpNode(string TreeNodeProductionName,int jumpType):TreeNode(TreeNodeProductionName,1)
 {
 	jumpCounter = Label_counter;
+	maybeTicket = Variable_counter;
+	++Variable_counter;
 	++Label_counter;
 	jtype = jumpType;
 }
@@ -47,7 +49,13 @@ void JumpNode::ast_to_3ac(FILE* fileout)
 	char const_exprRepr[500];
 	int a = 0;
 	int isID;
+	nodeDataType ttype;
 	Node* ch1;
+	if (currentCodeLine != forErrors[0].source[0].lineNum )
+	{
+		fprintf(fileout, "# %s",TreeNode::coldLine().c_str() );
+		currentCodeLine = forErrors[0].source[0].lineNum;
+	}
 	switch(jtype)
 	{
 		case 0:
@@ -71,7 +79,7 @@ void JumpNode::ast_to_3ac(FILE* fileout)
 				printf("Warning: jump goto node does not have id node child.\n");
 			}
 
-			fprintf(fileout, "BR\t\t\tl%d\n", jumpCounter);
+			fprintf(fileout, "BR\t_\t_\tl%d\n", jumpCounter);
 			break;
 		case 1:
 			key = "continue";
@@ -85,7 +93,7 @@ void JumpNode::ast_to_3ac(FILE* fileout)
 				jumpCounter = ch1->lineNumber;
 			}
 
-			fprintf(fileout, "BR\t\t\tl%d\n", jumpCounter);
+			fprintf(fileout, "BR\t_\t_\tl%d\n", jumpCounter);
 			break;
 		case 2:
 			key = "break";
@@ -103,7 +111,7 @@ void JumpNode::ast_to_3ac(FILE* fileout)
 				else
 				{
 					jumpCounter = ch1->lineNumber;
-					fprintf(fileout, "BR\t\t\tl%d\n", jumpCounter);
+					fprintf(fileout, "BR\t_\t_\tl%d\n", jumpCounter);
 				}
 			}
 			break;
@@ -119,7 +127,7 @@ void JumpNode::ast_to_3ac(FILE* fileout)
 				// jumpCounter = ch1->lineNumber;
 			}
 
-			fprintf(fileout, "RETURN\n");
+			fprintf(fileout, "RETURN\t_\t_\t_\n");
 			break;
 		case 4:
 			key = "return";
@@ -132,10 +140,19 @@ void JumpNode::ast_to_3ac(FILE* fileout)
 			{
 				// jumpCounter = ch1->colNumber;
 				ticketNumber = ch1->lineNumber;
+				ttype = nodeDataType(ch1->lineNumber);
 			}
 			children[0]->ast_to_3ac(fileout);
-			fprintf(fileout, "ADDR\t%s\t\t%s\n", rep_3ac_ticket(children[0]->getidDataType(),children[0]->returnTicket()).c_str(),rep_3ac_ticket(INT_TYPE_NODE,ticketNumber).c_str());
-			fprintf(fileout, "RETURN\n");
+			if (children[0]->getidDataType()!=ttype)
+			{
+				fprintf(fileout, "CAST\t%s\t_\t%s\n", rep_3ac_ticket(children[0]->getidDataType(),children[0]->returnTicket()).c_str(),rep_3ac_ticket(ttype,maybeTicket).c_str());
+				fprintf(fileout, "ASSIGN\t%s\t_\tret\n", rep_3ac_ticket(ttype,maybeTicket).c_str());
+			}
+			else
+			{
+				fprintf(fileout, "ASSIGN\t%s\t_\tret\n", rep_3ac_ticket(children[0]->getidDataType(),children[0]->returnTicket()).c_str());
+			}
+			fprintf(fileout, "RETURN\t_\t_\t_\n");
 			break;
 	}
 }

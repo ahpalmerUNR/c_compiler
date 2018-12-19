@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-11-05 15:44:49
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-30 08:20:40
+* @Last Modified time: 2018-12-18 00:58:18
 */
 #include "functionNode.h"
 
@@ -31,18 +31,53 @@ void FunctionNode::ast_to_3ac(FILE* fileout)
 {
 	
 	int tp=0;
+	nodeDataType retType = VOID_TYPE_NODE;
+	int retSize = 0;
+	
+	for(int i = 0; i < freturnType.size();i++)
+	{
+		if(freturnType[i] == FLOAT_TYPE_NODE || freturnType[i] == INT_TYPE_NODE || freturnType[i] == CHAR_TYPE_NODE || freturnType[i] == DOUBLE_TYPE_NODE)
+		{
+			
+				retType = freturnType[i];
+				break;
+		}
+	}
+	switch(retType)
+	{
+		case FLOAT_TYPE_NODE:
+			retSize = FLOAT_MIPS;
+			break;
+		case DOUBLE_TYPE_NODE:
+			retSize = DOUBLE_MIPS;
+			break;
+		case INT_TYPE_NODE:
+			retSize = INT_MIPS;
+			break;
+		case CHAR_TYPE_NODE:
+			retSize = CHAR_MIPS;
+			break;
+	}
+	
 	astTable.pushEmptyBST();
 	// cout<<"TreeNode "<<TreeNodeName<<endl;
 	// 	cout.flush();
-	astTable.insert("return",forErrors[0].lineStart,forErrors[0].colStart,INT_TYPE,&tp);
+	astTable.insert("return",int(retType),forErrors[0].colStart,INT_TYPE,&tp);
 	// astTable.insert("return",4,4,INT_TYPE,&tp);
 	
 	// astTable.writeToFile(out_log);
 	// fflush(out_log);
-	
+	if (currentCodeLine != forErrors[0].source[0].lineNum )
+	{
+		fprintf(fileout, "# %s",TreeNode::coldLine().c_str() );
+		currentCodeLine = forErrors[0].source[0].lineNum;
+	}
 	fprintf(fileout, "PROCENTRY\t%s\t(%d)\t(%d)\n",functName.c_str(),sizeOfParams,sizeOfLocals);
+	children[0]->ast_to_3ac(fileout);
+	children[1]->ast_to_3ac(fileout);
+	children[2]->ast_to_3ac(fileout);
 	children[3]->ast_to_3ac(fileout);
-	fprintf(fileout, "ENDPROC\n");
+	fprintf(fileout, "ENDPROC\t_\t_\t_\n");
 	astTable.popBST();
 }
 
@@ -159,7 +194,7 @@ void FunctionNode::errorCheck(const char * str)
 				}
 				else
 				{
-					sizeOfParams = children[1]->byteSize;
+					sizeOfParams = children[1]->children[1]->byteSize;
 				}
 				//Each decl in param-list must contain an identifier
 				//
@@ -180,7 +215,7 @@ void FunctionNode::errorCheck(const char * str)
 			}
 			else
 			{
-				sizeOfParams = children[1]->byteSize;
+				// sizeOfParams = children[1]->byteSize;
 			}
 		}
 		

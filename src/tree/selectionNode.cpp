@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-31 11:49:36
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-11-24 16:31:41
+* @Last Modified time: 2018-12-18 15:58:22
 */
 #include "selectionNode.h"
 
@@ -15,6 +15,8 @@ SelectionNode::SelectionNode(string TreeNodeProductionName,bool isaSwitch):TreeN
 	jticket3 = Label_counter;
 	++Label_counter;
 	isSwitch = isaSwitch;
+	ticket = Variable_counter;
+	++Variable_counter;
 }
 SelectionNode::~SelectionNode()
 {
@@ -45,6 +47,12 @@ void SelectionNode::traverse_to_file(FILE* fileout)
 }
 void SelectionNode::ast_to_3ac(FILE* fileout)
 {
+	char tmp[500];
+	if (currentCodeLine != forErrors[0].source[0].lineNum )
+	{
+		fprintf(fileout, "# %s",TreeNode::coldLine().c_str() );
+		currentCodeLine = forErrors[0].source[0].lineNum;
+	}
 	char temp[500];
 	if (isSwitch)
 	{
@@ -56,24 +64,28 @@ void SelectionNode::ast_to_3ac(FILE* fileout)
 		{
 			//no else
 			children[0]->ast_to_3ac(fileout);
-			fprintf(fileout, "BREQ\t%d\t(0)\tl%d\n", children[0]->returnTicket(),jticket1);
-			fprintf(fileout, "BR\t\t\tl%d\n", jticket2);
-			fprintf(fileout, "LABEL\tl%d\n",jticket1);
+			fprintf(fileout, "ASSIGN\t(1)\t_\t%s\n", rep_3ac_ticket(children[0]->getDataType(tmp),ticket).c_str());
+			fprintf(fileout, "BREQ\t%s\t%s\tl%d\n", rep_3ac_ticket(children[0]->getDataType(tmp), children[0]->returnTicket()).c_str(),rep_3ac_ticket(children[0]->getDataType(tmp),ticket).c_str(),jticket1);
+			fprintf(fileout, "BR\t_\t_\tl%d\n", jticket2);
+			fprintf(fileout, "LABEL\tl%d\t_\t_\n",jticket1);
 			children[1]->ast_to_3ac(fileout);
-			fprintf(fileout, "LABEL\tl%d\n", jticket2);
+			fprintf(fileout, "LABEL\tl%d\t_\t_\n", jticket2);
 		}
 		else
 		{
 			//else
 			children[0]->ast_to_3ac(fileout);
-			fprintf(fileout, "BREQ\t%d\t(0)\tl%d\n", children[0]->returnTicket(),jticket1);
-			fprintf(fileout, "BR\t\t\tl%d\n", jticket2);
-			fprintf(fileout, "LABEL\tl%d\n",jticket1);
+			// fprintf(fileout, "BREQ\t%s\t(1)\tl%d\n", rep_3ac_ticket(children[0]->getDataType(tmp), children[0]->returnTicket()).c_str(),jticket1);
+			fprintf(fileout, "ASSIGN\t(1)\t_\t%s\n", rep_3ac_ticket(children[0]->getDataType(tmp),ticket).c_str());
+			fprintf(fileout, "BREQ\t%s\t%s\tl%d\n", rep_3ac_ticket(children[0]->getDataType(tmp), children[0]->returnTicket()).c_str(),rep_3ac_ticket(children[0]->getDataType(tmp),ticket).c_str(),jticket1);
+
+			fprintf(fileout, "BR\t_\t_\tl%d\n", jticket2);
+			fprintf(fileout, "LABEL\tl%d\t_\t_\n",jticket1);
 			children[1]->ast_to_3ac(fileout);
-			fprintf(fileout, "BR\t\t\tl%d\n", jticket3);
-			fprintf(fileout, "LABEL\tl%d\n", jticket2);
+			fprintf(fileout, "BR\t_\t_\tl%d\n", jticket3);
+			fprintf(fileout, "LABEL\tl%d\t_\t_\n", jticket2);
 			children[2]->ast_to_3ac(fileout);
-			fprintf(fileout, "LABEL\tl%d\n", jticket3);
+			fprintf(fileout, "LABEL\tl%d\t_\t_\n", jticket3);
 		}
 	}
 }

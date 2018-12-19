@@ -73,41 +73,48 @@ void AssignmentNode::traverse_to_file(FILE *fileout)
 }
 void AssignmentNode::ast_to_3ac(FILE *fileout)
 {
-	children[0]->ast_to_3ac(fileout);
-	children[1]->ast_to_3ac(fileout);
+
 	char typePrint1[500] = "0";
 	char typePrint2[500] = "0";
 	char assignPrint[500];
+	if (currentCodeLine != forErrors[0].source[0].lineNum )
+	{
+		fprintf(fileout, "# %s",TreeNode::coldLine().c_str() );
+		currentCodeLine = forErrors[0].source[0].lineNum;
+	}
 
 	bool isOpAssign = true;
 	string assignString;
 	string s1,s2;
 	nodeDataType t = children[0]->getDataType(typePrint1);
-	s1 = typePrint1;
+	//s1 = typePrint1;
+	s1 =  rep_3ac_ticket(t,children[0]->returnTicket());
 	if(t == ID_TYPE_NODE){ 
 		t = children[0]->getidDataType();
+		// cout<<"ID_TYPE_NODE "<<t<<endl;
 		s1 =  rep_3ac_ticket(t,children[0]->returnTicket());
 	}
-	else
+	/*else
 	{
 		if(s1 == "0")
 				s1 =  rep_3ac_ticket(t,children[0]->returnTicket());
 		else
 				s1 = "(" + s1 + ")";
-	}		
+	}*/		
 	t = children[1]->getDataType(typePrint2);
-	s2 = typePrint2;
+	//s2 = typePrint2;
+	s2 =  rep_3ac_ticket(t,children[1]->returnTicket());
 	if(t == ID_TYPE_NODE){
 		t = children[1]->getidDataType();
 		s2 =  rep_3ac_ticket(t,children[1]->returnTicket());
 	}		
-	else
+	/*else
 	{
 		if(s2 == "0")
 				s2 =  rep_3ac_ticket(t,children[1]->returnTicket());
 		else
 				s2 = "(" + s2 + ")";
-	}	
+	}*/	
 
 
 	switch(aType)
@@ -148,11 +155,28 @@ void AssignmentNode::ast_to_3ac(FILE *fileout)
 	}	
 	if(isOpAssign)
 	{
-		fprintf(fileout,"%s\t%s\n",assignString.c_str(),s1.c_str());
-		//fprintf(fileout,"ASSIGN\t%s\t%s%i\n",s1.c_str(),typePrint1,Variable_counter++);
+		children[0]->ast_to_3ac(fileout);
+		children[1]->ast_to_3ac(fileout);
+		fprintf(fileout,"%s\t%s\n",assignString.c_str(),rep_3ac_ticket(t,Variable_counter).c_str());
+		fprintf(fileout,"ASSIGN\t%s\t_\t%s\n",rep_3ac_ticket(t,Variable_counter++).c_str(),s1.c_str());
 	}
 	else
-		fprintf(fileout,"ASSIGN\t%s\t_\t%s\n",s2.c_str(),s1.c_str());
+	{
+		if(children[0]->isArrayNode())
+		{
+			children[1]->ast_to_3ac(fileout);
+			//fprintf(fileout,"ASSIGN\t%s\t_\t%s\n",s2.c_str(),s1.c_str());
+			children[0]->setTicketNumber(children[1]->returnTicket());
+			children[0]->ast_to_3ac(fileout);
+		}
+		else
+		{
+			children[0]->ast_to_3ac(fileout);
+			children[1]->ast_to_3ac(fileout);
+			fprintf(fileout,"ASSIGN\t%s\t_\t%s\n",s2.c_str(),s1.c_str());
+		}
+
+	}
 }
 
 int AssignmentNode::returnTicket()
@@ -177,19 +201,25 @@ void AssignmentNode::errorCheck()
 		//Actually have to get the data type from the symbol table
 		left = nodeDataType(children[0]->getDataType(pointless));
 		right = nodeDataType(children[1]->getDataType(pointless));
+		// cout<<"Left "<<left<<" Right "<<right<<endl;
 		if(left != ID_TYPE_NODE)
 			yyerror("Error: lvalue required as left operand of assignment");
 		
 		left = children[0]->getidDataType();
+		// cout<<"New Left "<<left<<endl;
 		if(right == ID_TYPE_NODE)
 		{
 			//Get rights actual type
 		  right = children[1]->getidDataType();
+		  
+		  // cout<<"New Right "<<right<<endl;
 		}
 		
 		if(right != left)
 		{
+			// cout<<"Casting Conversion "<<endl;
 			CastNode *tmp = new CastNode("Implicit_Cast_");
+			
 			tmp->setTypeSpecifier(left);
 			tmp->assignChild(0,children[1]);
 			assignChild(1,tmp);
@@ -197,6 +227,9 @@ void AssignmentNode::errorCheck()
 			//may produce duplicate warnings as data node so maybe not use it...
 			implicitCastWarning(left,right);
 		}
+		// cout<<"Left Ticket "<<children[0]->returnTicket()<<endl;
+		// cout<<"Assignment Ticket "<<ticketNumber<<endl;
+		ticketNumber = children[0]->returnTicket();
 }
 
 void AssignmentNode::implicitCastWarning(nodeDataType t1, nodeDataType t2)

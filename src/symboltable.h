@@ -54,6 +54,7 @@ enum nodeDataType {
 	TYPEDEF_TYPE_NODE,
 	ID_TYPE_NODE,
 	EMPTY_TYPE_NODE,
+	EMPTY_ITER_TYPE_NODE,
 	TREE_TYPE_NODE,
 	DIRECT_DECL_TYPE_NODE
 };
@@ -82,6 +83,7 @@ struct Node {
 	
 	// isDefined Used to check if function is defined in namespace
 	bool isDefined = false;
+	vector<int> arraySizes;
 	// Vector containing the types of the node
 	vector<nodeDataType> types;
 	// Contains the params of node (if it is a function)

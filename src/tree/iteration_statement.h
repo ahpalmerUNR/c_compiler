@@ -15,6 +15,7 @@ protected:
 	int jumpCounterOne;
 	int jumpCounterTwo;
 	bool dotype;
+	int ticket;
 	
 };
 #endif
