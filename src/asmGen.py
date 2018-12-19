@@ -2,7 +2,7 @@
 # @Author: ahpalmerUNR
 # @Date:   2018-12-16 22:22:02
 # @Last Modified by:   ahpalmerUNR
-# @Last Modified time: 2018-12-18 23:02:54
+# @Last Modified time: 2018-12-18 23:17:06
 import sys
 
 infile = ""
@@ -50,7 +50,7 @@ def populateCommands():
 	commanddict["NE"] = ("\tsne\t%s,\t%s,\t%s\t#%s\n",(3,1,2,0))
 	commanddict["GT"] = ("\tsgt\t%s,\t%s,\t%s\t#%s\n",(3,2,1,0))
 	commanddict["GE"] = ("\tsge\t%s,\t%s,\t%s\t#%s\n",(3,1,2,0))
-	commanddict["LT"] = ("\tsge\t%s,\t%s,\t%s\t#%s\n\tnot\t%s\t%s\n",(3,2,1,0,3,3))
+	commanddict["LT"] = ("\tsge\t%s,\t%s,\t%s\t#%s\n\tnot\t%s\t%s\n",(3,1,2,0,3,3))
 	commanddict["LE"] = ("\tsle\t%s,\t%s,\t%s\t#%s\n",(3,1,2,0))
 	commanddict["PROCENTRY"] = ("%s:\t\t\t\t\t#%s\n\taddi\t$sp,\t$sp,\t-%s\n\tsw\t$ra,\t0($sp)\n",(10,0,8))
 	commanddict["ENDPROC"] = ("\tjr\t$ra\t\t\t#%s\n",(0,))
