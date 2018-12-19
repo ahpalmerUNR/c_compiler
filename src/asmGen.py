@@ -2,7 +2,7 @@
 # @Author: ahpalmerUNR
 # @Date:   2018-12-16 22:22:02
 # @Last Modified by:   ahpalmerUNR
-# @Last Modified time: 2018-12-18 20:33:36
+# @Last Modified time: 2018-12-18 21:38:50
 import sys
 
 infile = ""
@@ -371,6 +371,10 @@ def genAsm():
 						fout.write(floatcommanddict["STOREI"][0]%getouttup(floatcommanddict['STOREI'][1],spots[1],spots[2],spots[3],procParamSize+procLocalSize,procLocalSize,incount,line))
 					else:
 						fout.write(commanddict["STOREI"][0]%getouttup(commanddict['STOREI'][1],spots[1],spots[2],spots[3],procParamSize+procLocalSize,procLocalSize,incount,line))
+					if spots[3][0]=='f':
+						returnfloatreg(spots[3])
+					else:
+						returnreg(spots[3])
 					
 			elif spots[0]=="ALLOC":
 				if reginfotable[spots[3]]['isparam']:
