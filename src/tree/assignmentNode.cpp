@@ -157,8 +157,8 @@ void AssignmentNode::ast_to_3ac(FILE *fileout)
 	{
 		children[0]->ast_to_3ac(fileout);
 		children[1]->ast_to_3ac(fileout);
-		fprintf(fileout,"%s\t%s\n",assignString.c_str(),s1.c_str());
-		//fprintf(fileout,"ASSIGN\t%s\t%s%i\n",s1.c_str(),typePrint1,Variable_counter++);
+		fprintf(fileout,"%s\t%s\n",assignString.c_str(),rep_3ac_ticket(t,Variable_counter).c_str());
+		fprintf(fileout,"ASSIGN\t%s\t_\t%s\n",rep_3ac_ticket(t,Variable_counter++).c_str(),s1.c_str());
 	}
 	else
 	{
