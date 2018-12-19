@@ -45,7 +45,7 @@
 // }
 int main()
 {
-	// float a = 1.0;
+	float ft = 1.3;
 	// int a = 1;
 	// int b = 2;
 	// int c;
@@ -62,6 +62,11 @@ int main()
 	int j;
 	char p;
 	int k;
+	
+	writeFloat(ft);
+	p = 10;
+	writeChar(p);
+	
 	a[0][0] = 1 + 2;
 	a[0][1] = 1;
 	a[1][0] = 2;

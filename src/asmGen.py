@@ -2,7 +2,7 @@
 # @Author: ahpalmerUNR
 # @Date:   2018-12-16 22:22:02
 # @Last Modified by:   ahpalmerUNR
-# @Last Modified time: 2018-12-18 23:39:23
+# @Last Modified time: 2018-12-19 07:38:25
 import sys
 
 infile = ""
@@ -25,6 +25,7 @@ floatcommanddict = {}
 
 reginfotable={}#Start line, endline, where current found, istemp, isparam, memory location,  varsize,block endline
 reginfotable['ret']={"curloc":"$v0","startline":-1, "isparam":False,"varsize":intsize,"istemp":True,"endline":-1}
+reginfotable['tempor']={"curloc": -1,"startline":-1, "isparam":False,"varsize":floatsize,"istemp":True,"endline":-1}
 
 regOrder = [[False,'$t0'],[False,'$t1'],[False,'$t2'],[False,'$t3'],[False,'$t4'],[False,'$t5'],[False,'$t6'],[False,'$t7'],[False,'$t8'],[False,'$t9'],[False,'$s0'],[False,'$s1'],[False,'$s2'],[False,'$s3'],[False,'$s4'],[False,'$s5'],[False,'$s6'],[False,'$s7'],[False,'$a0'],[False,'$a1'],[False,'$a2'],[False,'$a3']]
 floatregOrder = [[False,'$f0'],[False,'$f2'],[False,'$f4'],[False,'$f6'],[False,'$f8'],[False,'$f10'],[False,'$f12'],[False,'$f14'],[False,'$f16'],[False,'$f18'],[False,'$fs0'],[False,'$f22'],[False,'$f24'],[False,'$f26'],[False,'$f28'],[False,'$f30']]
@@ -99,10 +100,18 @@ def populateCommands():
 
 
 def castfunc(ticket1,ticket2,fout):
-	if (ticket1[0]=='i' and ticket2[0]=='f') or (ticket1[0]=='c' and ticket2[0]=='f'):
-		fout.write("\tcvt.d.w\t%s,\t%s\n"%(reginfotable[ticket2]['curloc'],reginfotable[ticket1]['curloc']))
-	elif (ticket1[0]=='f' and ticket2[0]=='i') or (ticket1[0]=='f' and ticket2[0]=='c'):
-		fout.write("\tcvt.w.d\t%s,\t%s\n"%(reginfotable[ticket2]['curloc'],reginfotable[ticket1]['curloc']))
+	global reginfotable
+	
+	if ticket1[0]=='i' or ticket1[0]=='c':
+		getfloatreg('tempor')
+		fout.write("\tmfc1.d\t%s,\t%s\n"%(reginfotable[ticket1]['curloc'],reginfotable['tempor']['curloc']))
+		fout.write("\tcvt.d.w\t%s,\t%s\n"%(reginfotable[ticket2]['curloc'],reginfotable['tempor']['curloc']))
+		returnfloatreg('tempor')
+	else:
+		getfloatreg('tempor')
+		fout.write("\tcvt.w.d\t%s,\t%s\n"%(reginfotable["tempor"]['curloc'],reginfotable[ticket1]['curloc']))
+		fout.write("\tmtc1.d\t%s,\t%s\n"%(reginfotable[ticket2]['curloc'],reginfotable['tempor']['curloc']))
+		returnfloatreg('tempor')
 	
 def allocfunc(ticket1,memoffset):
 	pass
@@ -118,7 +127,10 @@ def callfunc(argtup,fout):
 	fout.write("\taddi\t$sp,\t$sp,\t-%d\n"%(sizetoask))	
 	# iterate over param registers and save in stack 
 	for x in argtup:
-		fout.write("\tsw\t%s,\t%s($sp)\t\t#%s\n"%(reginfotable[x]['curloc'],cumulative," "))
+		if x[0]=='f':
+			fout.write("\ts.d\t%s,\t%s($sp)\t\t#%s\n"%(reginfotable[x]['curloc'],cumulative," "))
+		else:
+			fout.write("\tsw\t%s,\t%s($sp)\t\t#%s\n"%(reginfotable[x]['curloc'],cumulative," "))
 		cumulative = cumulative + reginfotable[x]['varsize']
 
 def getreg(ticket):
@@ -348,8 +360,10 @@ def genAsm():
 						getreg(spots[3])
 					elif spots[3][0]=='f':
 						getfloatreg(spots[3])
-				fout.write(commanddict[spots[0]][0]%getouttup(commanddict[spots[0]][1],spots[1],spots[2],spots[3],procParamSize+procLocalSize,procLocalSize,incount,line))
-				castfunc(spots[1],spots[3],fout)
+				if spots[1][0]!='f' and spots[3][0]!='f':
+					fout.write(commanddict[spots[0]][0]%getouttup(commanddict[spots[0]][1],spots[1],spots[2],spots[3],procParamSize+procLocalSize,procLocalSize,incount,line))
+				else:
+					castfunc(spots[1],spots[3],fout)
 			elif spots[0]=="ASSIGN":
 				if spots[1][0]=='(':
 					if reginfotable[spots[3]]['curloc']==-1:

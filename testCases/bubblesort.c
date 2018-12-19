@@ -6,6 +6,13 @@ int main()
   int d=2;
   char k = 20;
   int swap;
+  char message[5];
+  
+  message[0] = 68;
+  message[1] = 79;
+  message[2] = 78;
+  message[3] = 69;
+  message[4] = 33;
   
   array[0] = 10;
   array[1] = 9;
@@ -39,6 +46,13 @@ int main()
         // writeInt(swap);
         array[d]   = array[d+ 1];
         array[d+ 1] = swap;
+      }
+      else{
+        for (swap = 0; swap < 5; swap += 1)
+        {
+          k = message[swap];
+          writeChar(k);
+        }
       }
     }
   }
