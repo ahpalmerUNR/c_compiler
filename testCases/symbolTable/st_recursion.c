@@ -5,6 +5,7 @@
  */
 
 int factorial(int m) {
+	// int m;
 	if (m <= 1) {
 		return 1;
 	} else {

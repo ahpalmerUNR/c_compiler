@@ -52,9 +52,11 @@ void CastNode::ast_to_3ac(FILE* fileout)
 	}	string s1;
 	nodeDataType t = children[0]->getDataType(typePrint);
 	s1 = typePrint;
+	
 	if(t == ID_TYPE_NODE){ 
 		t = children[0]->getidDataType();
 		s1 =  rep_3ac_ticket(t,children[0]->returnTicket());
+		cout<<"T and S1 "<<t<<" "<<s1<<endl;
 	}
 	else
 	{
