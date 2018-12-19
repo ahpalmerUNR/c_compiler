@@ -2,8 +2,8 @@ int main()
 {
   int array[10];
   int n= 10 ;
-  int c;
-  int d;
+  int c=1;
+  int d=2;
   int swap;
   
   array[0] = 10;
@@ -16,9 +16,7 @@ int main()
   array[7] = 1;
   array[8] = 125;
   array[9] = 0;
-  
-  d = array[0];
-  writeInt(d);
+
   
   for (c = 0; c < n; c += 1)
   {
