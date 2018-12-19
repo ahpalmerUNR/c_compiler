@@ -79,7 +79,7 @@ void TypeNode::ast_to_3ac(FILE* fileout)
 			byteSize = CHAR_MIPS;
 			break;
 		}
-		if(types[i] == INT_TYPE_NODE || types[i] == SHORT_TYPE_NODE)
+		if(types[i] == INT_TYPE_NODE)
 		{
 
 			byteSize = INT_MIPS;
