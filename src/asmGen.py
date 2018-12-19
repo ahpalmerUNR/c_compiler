@@ -2,7 +2,7 @@
 # @Author: ahpalmerUNR
 # @Date:   2018-12-16 22:22:02
 # @Last Modified by:   ahpalmerUNR
-# @Last Modified time: 2018-12-18 19:02:36
+# @Last Modified time: 2018-12-18 20:33:36
 import sys
 
 infile = ""
@@ -368,9 +368,9 @@ def genAsm():
 					fout.write(commanddict[spots[0]][0]%getouttup(commanddict[spots[0]][1],spots[1],spots[2],spots[3],procParamSize+procLocalSize,procLocalSize,incount,line))
 				if reginfotable[spots[3]]['istemp']==False:
 					if spots[3][0]=='f':
-						fout.write(floatcommanddict["STORE"][0]%getouttup(floatcommanddict['STORE'][1],spots[1],spots[2],spots[3],procParamSize+procLocalSize,procLocalSize,incount,line))
+						fout.write(floatcommanddict["STOREI"][0]%getouttup(floatcommanddict['STOREI'][1],spots[1],spots[2],spots[3],procParamSize+procLocalSize,procLocalSize,incount,line))
 					else:
-						fout.write(commanddict["STORE"][0]%getouttup(commanddict['STORE'][1],spots[1],spots[2],spots[3],procParamSize+procLocalSize,procLocalSize,incount,line))
+						fout.write(commanddict["STOREI"][0]%getouttup(commanddict['STOREI'][1],spots[1],spots[2],spots[3],procParamSize+procLocalSize,procLocalSize,incount,line))
 					
 			elif spots[0]=="ALLOC":
 				if reginfotable[spots[3]]['isparam']:

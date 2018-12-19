@@ -218,8 +218,6 @@ To view the AST if graphviz is not installed you can use the website [http://www
 
 * Nested if statements
 
-* 
-
 ## Can't Do
 
 * Array Initalization Lists (i.e. `int a[2] = {1,2};`)
@@ -242,3 +240,5 @@ To view the AST if graphviz is not installed you can use the website [http://www
 * Pointers
 * Structs
 * Function parameter checking
+* `const, static, volatile, dynamic, auto` etc.
+* enums
