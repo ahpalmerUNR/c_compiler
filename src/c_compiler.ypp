@@ -723,7 +723,7 @@ direct_declarator
 		tmp->setArrayOffset(atoi(buffer) * $<tnode>1->getArrayOffset());
 		//vector<int> sizes = $<tnode>3->getArraySizes;
 		//for(int i = 0; i < sizes.size(); i++)
-		cout << "Pushing back: " << atoi(buffer) << endl;
+		//cout << "Pushing back: " << atoi(buffer) << endl;
 		int a;
 		Node *n = s.searchAll(variableToInsert->name,&a);
 		if(n != NULL)

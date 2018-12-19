@@ -2,7 +2,7 @@
 # @Author: ahpalmerUNR
 # @Date:   2018-12-16 22:22:02
 # @Last Modified by:   ahpalmerUNR
-# @Last Modified time: 2018-12-18 20:33:36
+# @Last Modified time: 2018-12-18 22:07:21
 import sys
 
 infile = ""
@@ -48,9 +48,9 @@ def populateCommands():
 	commanddict["BR"] = ("\tb\t%s\t\t\t#%s\n",(12,0))
 	commanddict["EQ"] = ("\tseq\t%s,\t%s,\t%s\t#%s\n",(3,1,2,0))
 	commanddict["NE"] = ("\tsne\t%s,\t%s,\t%s\t#%s\n",(3,1,2,0))
-	commanddict["GT"] = ("\tsgt\t%s,\t%s,\t%s\t#%s\n",(3,1,2,0))
+	commanddict["GT"] = ("\tsgt\t%s,\t%s,\t%s\t#%s\n",(3,2,1,0))
 	commanddict["GE"] = ("\tsge\t%s,\t%s,\t%s\t#%s\n",(3,1,2,0))
-	commanddict["LT"] = ("\tsge\t%s,\t%s,\t%s\t#%s\n\tnot\t%s\t%s\n",(3,1,2,0,3,3))
+	commanddict["LT"] = ("\tsge\t%s,\t%s,\t%s\t#%s\n\tnot\t%s\t%s\n",(3,2,1,0,3,3))
 	commanddict["LE"] = ("\tsle\t%s,\t%s,\t%s\t#%s\n",(3,1,2,0))
 	commanddict["PROCENTRY"] = ("%s:\t\t\t\t\t#%s\n\taddi\t$sp,\t$sp,\t-%s\n\tsw\t$ra,\t0($sp)\n",(10,0,8))
 	commanddict["ENDPROC"] = ("\tjr\t$ra\t\t\t#%s\n",(0,))
@@ -371,6 +371,10 @@ def genAsm():
 						fout.write(floatcommanddict["STOREI"][0]%getouttup(floatcommanddict['STOREI'][1],spots[1],spots[2],spots[3],procParamSize+procLocalSize,procLocalSize,incount,line))
 					else:
 						fout.write(commanddict["STOREI"][0]%getouttup(commanddict['STOREI'][1],spots[1],spots[2],spots[3],procParamSize+procLocalSize,procLocalSize,incount,line))
+					# if spots[3][0]=='f':
+					# 	returnfloatreg(spots[3])
+					# else:
+					# 	returnreg(spots[3])
 					
 			elif spots[0]=="ALLOC":
 				if reginfotable[spots[3]]['isparam']:

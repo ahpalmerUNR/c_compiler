@@ -2,7 +2,7 @@
 * @Author: ahpalmerUNR
 * @Date:   2018-10-27 14:10:44
 * @Last Modified by:   ahpalmerUNR
-* @Last Modified time: 2018-12-18 18:03:23
+* @Last Modified time: 2018-12-18 21:33:03
 */
 #include "tree.h"
 
@@ -82,7 +82,7 @@ void TreeNode::assignChild(int childIndex, TreeNode* child)
 	int pullInd;
 	char temp[500];
 	children[childIndex] = child;
-	cout<<byteSize<<" bytes "<<TreeNodeName<<" Child "<<child->TreeNodeName<<" bytes "<<child->byteSize<<endl;
+	// cout<<byteSize<<" bytes "<<TreeNodeName<<" Child "<<child->TreeNodeName<<" bytes "<<child->byteSize<<endl;
 	byteSize = byteSize + child->byteSize;
 	
 	if (forErrors[0].lineStart ==-1)
