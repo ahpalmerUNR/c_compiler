@@ -193,9 +193,9 @@ mult_line_comment	"/*"([^*]|\*+[^*/])*"*/"
 			
 "&"			{return(send_token("AMP_tok",AMP_tok));}
 			
-"<"			{return(send_token("GT_tok",GT_tok));}
+">"			{return(send_token("GT_tok",GT_tok));}
 			
-">"			{return(send_token("LT_tok",LT_tok));}
+"<"			{return(send_token("LT_tok",LT_tok));}
 			
 "%"			{return(send_token("PERCENT_tok",PERCENT_tok));}
 
