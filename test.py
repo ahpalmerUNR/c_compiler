@@ -1,4 +1,1 @@
-import os
-import numpy as np
-
-delt = 0.0
+alter = 1
